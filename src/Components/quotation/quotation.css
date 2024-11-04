@@ -1,0 +1,347 @@
+.invnav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.converToPDf{
+    width: 153px;
+height: 40px;
+border-radius: 10px;
+background: #0B56E4 ;
+
+
+}
+.converToPDf span{
+font-family: Inter;
+color: #FFFFFF;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+text-align: left;
+
+
+}
+
+.invoform{
+    margin: 32px auto;
+    background-color: white;
+    max-width: 1000px;
+    border-radius: 10px;
+    border: 1px solid #E3E3E3;
+    box-shadow: 0px 4px 12px 0px #1A1A1A7A;
+padding: 60px 20px;
+display: flex;
+flex-direction: column;
+gap: 28px;
+}
+
+.inFirLeft{
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    width: 100%;
+    gap: 50px;
+}
+
+.kidLogo{
+    max-width: 150px;
+}
+
+.inLefS{
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    gap: 10px;
+}
+
+.singLef{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.singLef h3,p{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.004em;
+    text-align: left;
+    
+}
+
+.inLefT{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+} 
+.inLefT h4{
+    font-family: Inter;
+    color: #3C78E9;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    
+}
+.inLefT h5{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    
+}
+.inLefT .add{
+   max-width: 317px;
+   font-family: Inter;
+   font-size: 12px;
+   font-weight: 500;
+   line-height: 16px;
+   letter-spacing: 0.004em;
+   text-align: left;
+   
+}
+
+.inLefT .num{
+font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
+}
+.inLefT .email{
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.004em;
+    text-align: left;
+    
+}
+
+.inFirstSec{
+    display: flex;
+    justify-content: space-between;
+}
+
+.infirleTop{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+.infirleTop h2{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+
+
+.biLLnO{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(20px);
+}
+
+.inLefS2{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inLefS2 .in2lHead{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    
+}
+
+.inlef2Total{
+    max-width: 350px;
+}
+
+.inlef2Total p{
+    color: #2B2B2B;
+font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
+}
+
+.talbWraNAV{
+border-radius: 10px 10px 0px 0px;
+background-color: white;
+border: 1px solid #D8D8D8;
+height: 50px;
+padding: 14px 12px;
+transform: translateY(20px);
+
+}
+
+.tablecont{
+    border-radius: 10px 10px 0px 0px;
+border: 1px solid #D8D8D8;
+}
+
+.addingBorder{
+    border: 1px solid #D8D8D8  !important;
+
+}
+
+.talbWraNAV h2{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+color: #2B2B2B;    
+
+}
+
+.inThirdSec{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inThirLEFT{
+    max-width: 350px;
+    display: flex;
+    width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inThirLEFT .inThrPro{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.inThirLEFT .inThrPro h3,p{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    
+}
+
+.balanceFowrap{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.balanceCont{
+    width: 340px;
+height: 84px;
+border-radius: 8px ;
+background: #F5F9FF;
+border: 1px solid #0B56E4;
+display: flex;
+flex-direction: column;
+gap: 4px;
+padding: 12px;
+}
+.balanceCont h2{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    
+}
+.balanceCont p{
+    font-family: Inter;
+    color: #0B56E4;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: left;
+    
+}
+
+.inFivSec{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 651px;
+    width: 100%;
+}
+
+.inFivSec .ccHEad{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    color: #2B2B2B;
+    
+}
+.inFivSec .comAns{
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    color: #2B2B2B;
+    
+}
+
+.inSixSec{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.sixCont{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-top: 61px;
+}
+.sixCont p{
+    color: #2B2B2B;
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.0025em;
+
+}
+
+.singLine{
+    width: 168px;
+    border: 1px solid var(--Text-Default, #424242)
+}

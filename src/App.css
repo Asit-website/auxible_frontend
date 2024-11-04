@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "Bold Italic"; /*Can be any text*/
+  src: local("Glory-BoldItalic"),
+    url("./font/static/Glory-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Semi Bold Italic"; /*Can be any text*/
+  src: local("Gilroy-SemiBoldItalic"),
+    url("./font/static/Glory-SemiBoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Medium Bold Italic"; /*Can be any text*/
+  src: local("Glory-MediumItalic"),
+    url("./font/static/Glory-MediumItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: gilroy; /*Can be any text*/
+  src: local("Glory-Regular"),
+    url("./font/static/Glory-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Semi Bold"; /*Can be any text*/
+  src: local("Glory-SemiBold"),
+    url("./font/static/Glory-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bold"; /*Can be any text*/
+  src: local("Glory-Bold"),
+    url("./font/static/Glory-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "ExtraBold"; /*Can be any text*/
+  src: local("Glory-ExtraBold"),
+    url("./font/static/Glory-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Medium"; /*Can be any text*/
+  src: local("Glory-Medium"),
+    url("./font/static/Glory-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Medium Italic"; /*Can be any text*/
+  src: local("Glory-MediumItalic"),
+    url("./font/static/Glory-MediumItalic.ttf") format("truetype");
+}
+*{
+  font-family: gilroy;
+}

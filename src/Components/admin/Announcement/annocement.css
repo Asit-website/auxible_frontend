@@ -1,0 +1,388 @@
+
+.annDash{
+    display: flex;
+    background-color: #f0f6ff;
+    position: relative;
+    min-height: 100vh;
+}
+
+.notificaont{
+    display: flex;
+flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+.anNav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.anNavLeft{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.anNavLeft h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+}
+
+
+
+
+.plusImg{
+   display: flex;
+   align-items: center;
+   background-color: #0B56E4;
+   width: 127px;
+height: 40px;
+gap: 10px;
+border-radius: 10px;
+ justify-content: center;
+}
+
+.plusImg span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+
+.anMain{
+ background-color: white;
+ display: flex;
+ flex-direction: column;
+ margin-top: 20px;
+ padding: 10px 20px;
+ border-radius: 20px;
+ border-bottom: 1px solid #D8D8D8;
+}
+
+.anmainTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.anmainTop h3{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+.anmainTop .amtopsrch{
+   display: flex;
+   align-items: center;
+   width: 247px;
+height: 44px;
+gap: 8px;
+border-radius: 10px;
+background: #FFFFFF;
+border: 1px solid #D0D4DC;
+padding: 10px;
+justify-content: space-between;
+}
+
+.assettable th{
+    background-color: white !important;
+font-family: Inter;
+color: #2B2B2B;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+}
+
+.asetr td{
+font-family: Inter;
+color: #40444B;
+font-size: 12px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
+}
+
+.showdots{
+    position: absolute;
+    width: 161px;
+    height: 54px;
+    left: -130px;
+    padding: 8px 0px 8px 0px;
+    border-radius: 8px ;
+    background: #FFFFFF;
+    z-index: 100;
+    border: 1px solid #E3E3E3;
+    box-shadow: 0px 4px 12px 0px #1A1A1A33;
+    display: flex;
+    flex-direction: column;
+
+        
+}
+
+.showdots p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+}
+.showdots .delettspan{
+    font-family: Inter;
+    color: #DD3409;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+}
+.showdots .editSpan{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+    
+}
+
+.creanewAsseet{
+font-family: Inter;
+color: #1B2533;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+
+.anmainTop .anMLef{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+.anmainTop .anMLef select{
+    width: 70px;
+    height: 34px;
+    border-radius: 5px;
+    border: 0.75px;
+    border: 0.75px solid #CED4DA;
+    
+}
+.anmainTop .anMLef span{
+    font-family: inter !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+    
+}
+
+
+
+.openform{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 130px;
+    padding: 15px 30px;
+    border-radius: 20px;
+    gap: 15px;
+}
+.openform nav{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.openform nav h2{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+
+.fullLabel{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.fullLabel p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+    
+}
+.fullLabel input{
+  width: 100%;
+    height: 44px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #E8E9EB;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC !important;
+    
+}
+.fullLabel select{
+  width: 100%;
+    height: 44px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #E8E9EB;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC !important;
+    font-family: Inter !important;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+color: #1B2533;
+text-align: left;
+
+    
+}
+
+
+.allInputFileds{
+    display: flex;
+    flex-wrap: wrap;
+     gap: 20px 30px;
+}
+.allInputFileds label{
+   width: 45%;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+
+}
+.allInputFileds label p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+
+}
+
+.labwrapp{
+     display: flex;
+     gap: 130px;
+}
+.allInputFileds label input , select{
+    width: 354px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid #293240;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+}
+
+.anDesWrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    
+}
+.anDesWrap p{
+  
+    font-family: Gilroy-Medium;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;    
+}
+.anDesWrap textarea{
+  width: 100%;
+  height: 230px;
+  resize: none;
+  border-radius: 3px;
+    border: 1px solid #293240;
+    padding: 10px;
+
+}
+
+.createBtn{
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    justify-content: flex-start;
+}
+.createBtn .cancelBtn{
+    width:86px;
+    height: 37px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    border: 1px solid #B8BBC0;
+        font-family: Gilroy-SemiBold;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+color: #666D76;
+}
+.createBtn .creteBtn{
+    width: 76px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    align-items: center;   
+    background-color: #0B56E4;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}

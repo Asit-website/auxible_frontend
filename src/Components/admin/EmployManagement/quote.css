@@ -1,0 +1,1237 @@
+.qutaWrap{
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.qutaLeft{
+    max-width: 550px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.allempid{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.allwhitebg{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+}
+.qutaRight{
+    max-width: 670px;
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 30px;
+    background-color: white;
+}
+
+.sinproid{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.sinproid p{
+    font-family: Inter;
+    color: #101820;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    
+}
+
+.qutLTo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.qutLTo h2{
+    font-family: Inter;
+    color: #101820;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+.qutLTo button{
+    width: 90px;
+    height: 40px;
+    border-radius: 10px;
+background-color: #0B56E4;    
+}
+.qutLTo button span{  
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+
+.qtoform{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.qtoform label{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.qtoform label p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #1B2533;    
+border-bottom: 2px dotted #0B1015;
+padding-bottom: 10px; 
+}
+
+.comapnydetail{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.comdetail{
+color: #000000;
+font-family: Inter;
+font-size: 18px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+.qtoform label input{
+max-width: 250px; 
+width: 100%;
+height: 40px;  
+padding: 8px 16px ;
+border-radius: 5px ;
+border: 1px solid #B4C2D5;
+
+}
+
+.admorewrap{
+    display: flex;
+    flex-direction: column;
+gap: 24px;
+}
+ .admorCont{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+ .admorCont span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #1B2533;    
+}
+
+.image{
+    width: 198px;
+height: 86px;
+padding: 14px 26px ;
+background: #F7FAFF;
+display: flex;
+align-items: center;
+flex-direction: column;
+gap: 10px;
+
+}
+
+.quotablle{
+    max-width: 550px;
+    width: 100%;
+}
+
+.quotablle2{
+    width: 100%;
+}
+
+.theadqu{
+    background: #ECF2FF;
+
+}
+.theadqu th{
+    background: #ECF2FF  !important;
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 32px;
+color:black !important;
+}
+.theadqu2{
+    background: #0B56E3;
+
+}
+
+.theadqu2 th{
+    background: #0B56E3  !important;
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 32px;
+color: white !important;
+
+}
+
+.tabletr input{
+    width: 86px;
+height: 34px;
+border-radius: 5px ;
+border: 1px solid #6A6A6A;
+padding: 0px 10px;
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+text-align: left;
+color: #101820;
+}
+.tabletr2 td{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+color: #101820;    
+}
+.tabletr .inpu11{
+    width:140px;
+height: 34px;
+border-radius: 5px ;
+border: 1px solid #6A6A6A;
+}
+
+
+.qutaRightcont{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+
+}
+
+.qrTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.qrTop h3{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+color: #101820;    
+}
+
+.hdquot{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hdquot p{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    color: #101820;
+    
+}
+
+.hdquot img{
+    max-width: 128px;
+    width: 100%;
+    max-height: 30px;
+    height: 100%;
+}
+
+.cust{
+    font-family: Inter;
+font-size: 18px;
+font-weight: 500;
+line-height: 32px;
+text-align: left;
+color: #101820;
+}
+
+.gridView {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+}
+
+.gridView p {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 32px;
+color: #101820;    
+}
+
+.talbeLike{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 14px;
+}
+.talbeLike nav{
+    background: #0B56E3;
+width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 10px 24px;
+}
+.talbeLike nav p{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 32px;
+color: #FFFFFF;    
+}
+
+.tabledata{
+    width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 4px 20px;
+
+}
+
+.tabledata p{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 32px;
+color: #101820;  
+text-align: center;  
+}
+
+.services{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.services li{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+color: #101820;    
+}
+
+.userApp{
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+}
+.userApp h3{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 32px;
+    text-align: left;
+   color: #101820;    
+}
+
+.ulist li{
+    font-family: Inter;
+font-size: 18px;
+font-weight: 500;
+line-height: 32px;
+text-align: left;
+color: #101820;
+}
+
+.ollist li{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+color: #101820;    
+}
+.ollist span{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+    text-align: left;
+    
+}
+
+.rigthfot{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.rigthfotleft{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 270px;
+}
+
+.rigthfotleft .leftfist{
+    font-family: Inter;
+font-size: 18px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+}
+.rigthfotleft .seconle{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+color: #101820;    
+}
+.rigthfotleft .thirleft{
+    font-family: Inter;
+font-size: 15px;
+font-weight: 500;
+text-align: left;
+color: #101820;    
+max-width: 250px;
+
+}
+.rigthfotleft .thirleft span{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left;
+color: #101820;    
+
+}
+
+.rigthfotright{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+}
+.rigthfotright p{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+color: #101820;    
+}
+
+.prntBtn{
+    width: 100%;
+    display: flex;
+    margin: 20px 0px 0px -20px;
+    justify-content: flex-end;
+    
+}
+.prntBtn button{
+    width: 65px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+
+}
+.prntBtn button span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+
+/* for task management  */
+.tclwrap{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.tclwrap2{
+    position: relative;
+    display: flex;
+    gap: 20px;
+}
+.tclwrap nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tclwrap nav h2{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+.tclwrap nav .clibtns{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+}
+ .clibtns .newcli{
+    width: 137px;
+    height: 40px;
+     display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: #0B56E4;
+      
+    
+}
+ .clibtns .impcli{
+    width: 133px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+    border: 1px solid #0B56E4;
+        
+}
+ .clibtns .expoclient{
+    width: 133px;
+    height: 40px;
+    background: #E8E9EB;
+    border-radius: 8px ;
+    border: 1px solid #B8BBC0;
+        
+    
+}
+ .clibtns .backpro{
+    width: 70px;
+    height: 40px;
+    background: #E8E9EB;
+    border-radius: 8px ;
+    border: 1px solid #B8BBC0;
+        
+    
+}
+ .clibtns .expoclient span{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    
+}
+.pronaheading{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.pronaheading h2{
+   text-transform: uppercase;
+}
+ .clibtns .backpro span{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    
+}
+ .clibtns .impcli span{
+     font-family: Inter;
+     color: #0B56E4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;    
+}
+ .clibtns .newcli span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+ color: #FFFFFF;    
+}
+
+.allClients{
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.avatarclient{
+ font-family: Inter;
+ font-size: 24px;
+ font-weight: 600;
+ line-height: 32px;
+ color: #F3F3F4 !important;
+
+}
+
+.singleProject{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 373px;
+    padding: 10px 16px ;
+    background: #FFFFFF;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    position: relative ;
+}
+
+.singleclient2{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 275px;
+    padding: 12px 30px ;
+    background: #FFFFFF;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    position: relative ;
+}
+.singleclient2 .navdiv{
+   display: flex;
+   justify-content: flex-end;
+   width: 100%;
+}
+.singleclient2 h3{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 32px;
+color: #1B2533;    
+}
+.singleclient2 p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+ color: #666D76;    
+}
+
+.showIndexcont{
+    position: absolute;
+    z-index: 1000;
+     display: flex;
+     flex-direction: column;
+     gap: 13px;
+      left: 60px;
+      top: 20px;
+    width: 161px;
+height: 148px;
+padding: 8px ;
+border-radius: 8px ;
+background: #FFFFFF;
+border: 1px solid #E3E3E3;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+
+}
+.showIndexcont2{
+    position: absolute;
+    z-index: 1000;
+     display: flex;
+     flex-direction: column;
+     gap: 13px;
+      right: 30px;
+      top: 20px;
+    width: 201px;
+height: 240px;
+padding: 8px ;
+border-radius: 8px ;
+background: #FFFFFF;
+border: 1px solid #E3E3E3;
+box-shadow: 0px 4px 12px 0px #1A1A1A33;
+
+}
+
+.singlinpro{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+}
+.singlinpro span{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    
+}
+.singlinpro .delspan{
+   color: #DD3409;
+    
+}
+
+.addCliWrap{
+    background: #40404066;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 3000;
+    width: 100%;
+    min-height: 130vh;
+    padding: 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addClieCont{
+    width: 599px;
+padding: 24px ;
+height: 700px;
+ display: flex;
+ flex-direction: column;
+gap: 16px;
+border-radius: 18px ;
+background-color: white;
+
+}
+
+.noteInput{
+    border: 1px solid #D0D4DC;
+    border-radius: 10px;
+    width: 100%;
+    height: 48px;
+    padding: 8px 16px;
+    outline: none;
+}
+
+.fitheight{
+    height: fit-content !important;
+}
+
+.addClieCont3{
+    width: 599px;
+    padding: 24px ;
+    height: 464px;
+     display: flex;
+     flex-direction: column;
+    gap: 16px;
+    border-radius: 18px ;
+    background-color: white;
+}
+
+.addheight{
+    min-height: 652px  !important;
+    height: fit-content;
+}
+
+.addClieCont nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.addClieCont3 nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.addClieCont nav p{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+.addClieCont3 nav p{
+     font-family: Inter;
+     color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+.addClieCont label{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    
+}
+.addClieCont label select{
+    width: 100%;
+    height: 48px;
+    padding: 8px 16px ;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+        
+    
+}
+.addClieCont label textarea{
+    width: 100%;
+    height: 64px;
+     resize: none;
+    padding: 8px 16px ;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+       outline:none ;  
+    
+}
+.addClieCont form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+}
+
+.addClieCont label p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    
+}
+
+.addClieCont label input{
+   width: 100%;
+height: 48px;
+padding: 8px 16px ;
+border-radius: 10px;
+background: #FFFFFF;
+border: 1px solid #D0D4DC;
+    
+}
+
+.addClieCont .citstateCont{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.addClieCont .btnsss{
+   
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin: 20px 0px;
+}
+.addClieCont .btnsss .saveclient{
+    width: 119px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    
+}
+.addClieCont .btnsss .saveclient span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+ color: #FFFFFF;    
+    
+}
+.addClieCont .btnsss .cancel{
+    width: 86px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #B8BBC0;    
+    
+}
+.addClieCont .btnsss .cancel span{
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+color: #666D76;
+    
+}
+
+.selectOption{
+    width: 338px;
+height: 42px;
+ display: flex;
+ align-items: center;
+
+}
+
+.singelPr{
+    width: fit-content;
+    height: 100%;
+    padding: 10px 16px ;
+    background: #FFFFFF;
+    border: 1px solid #E8E9EB;    
+}
+.singelPr span{
+color: #777777;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+    
+}
+
+.addBorder{
+    border-radius: 0px 8px 8px 0px;
+}
+
+.addlefborder{
+    border-radius: 8px 0px 0px 8px;
+}
+
+.adddbg{
+    background: #3C78E9;
+    border: 1px solid #0B56E4;
+}
+.adddbg span{
+color: #FFFFFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+    
+}
+
+.projnav{
+     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.projnav .leftnav{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.projnav .leftnav p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 32px;
+ color: #1B2533;    
+}
+
+.statusdue{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 100%;
+}
+ .stapro{
+    width: 68px;
+    height: 28px;
+    border-radius: 27px ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+ .stapro span{
+    font-family: Inter;
+    color: #121212;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.004em;
+    
+}
+
+.finibg{
+    background-color: #30D158;
+}
+
+.OnHoldbg{
+    background-color: #B7B7B7;
+}
+
+.Ongoingbg{
+    background-color: #F7A539;
+}
+
+.duedate{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+
+}
+
+.duedate span{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+
+}
+
+.prodlefriwrap{
+    width: 100%;
+height: 96px;
+padding: 24px 24px;
+border-radius: 12px ;
+background: var(--Green-Green-40, #DEF8E4);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.leftprodetail{
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+.leftprodetail label{
+    display: flex;
+    flex-direction: column;
+    gap:6px ;
+}
+.leftprodetail label .filn{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #666D76;    
+}
+.leftprodetail label .proand{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    color: #1B2533;
+}
+
+.righprodetail{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.righprodetail div{
+    width: 32px;
+    height: 32px;
+    background: var(--General-General-White, #FFFFFF);
+border-radius: 50%;    
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.propara{
+text-align: left;
+max-width: 340px;
+width: 100%;
+}
+.propara p{
+
+    font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 16.8px;
+letter-spacing: 0.0015em;
+width: 100%;
+ color: #666D76;
+ }
+
+.protasjwon{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.mem{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+     
+}
+.mem p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+color: #1B2533;    
+}
+.proteast{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 16.8px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+}
+
+.uploadClient{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.uploadClient .topUpclien{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.uploadClient .topUpclien span{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+ color: #2B2B2B;    
+}
+
+.chosefilesec{
+    width: 100%;
+height: 184px;
+padding: 40px 0px ;
+border-radius: 12px ;
+background: #F8F9FB;
+border: 1px solid #8FB1F3;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 10px;
+
+}
+.chosefilesec p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: center;
+color: #666D76;    
+}
+.chosefilesec button {
+    width: 164px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    
+}
+.chosefilesec button  span{
+font-family: Inter;
+color: white;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.005em;
+
+}
+
+.uplbtns{
+     display: flex;
+     align-items: center;
+     gap: 16px;
+     margin-top: 32px;
+}
+.uplbtns .up{
+    width: 87px;
+    height: 40px;
+    border-radius: 10px;
+    background: #0B56E4;
+    
+}
+.uplbtns .up span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    color: white;
+    
+}
+.uplbtns .clos{
+    width: 76px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #B8BBC0;
+    border-radius: 10px;
+    
+}
+.uplbtns .clos span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #666D76;    
+}
+
+/* for propsal  */
+.promtopde{
+display: flex;
+flex-direction: column;
+gap:  20px;
+align-items: flex-end;
+width: 100%;
+}
+.promtopde label{
+display: flex;
+flex-direction: column;
+gap:  5px;
+align-items: flex-end;
+}
+.promtopde label h4{ 
+font-family: inter;
+ font-weight: 600;
+ font-size: 20px;
+}
+.promtopde label p{ 
+font-family: inter;
+ font-weight: 500;
+ font-size: 16px;
+}

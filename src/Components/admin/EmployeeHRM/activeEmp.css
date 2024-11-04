@@ -1,0 +1,128 @@
+.laveEmplyWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    padding: 30px 0px;
+}
+
+.singl_EmplyL {
+    width: 262px;
+    /* height: 340px; */
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0px;
+    gap: 15px;
+}
+
+.singl_EmplyL .inactBtn {
+    background-color: #6FD943;
+    width: 90px;
+    height: 30px;
+    border-radius: 3px;
+}
+
+.singl_EmplyL .inactBtn span {
+    font-family: inter !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.singl_EmplyL .singEmp_profileL {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.singl_EmplyL .singEmp_profileL h2 {
+    font-family: inter;
+    font-size: 16px;
+    font-weight: 400;
+    /* line-height: 44px; */
+    letter-spacing: 0px;
+    text-align: left;
+    color: #060606;
+}
+
+.singl_EmplyL .singEmp_profileL p {
+    font-family: inter !important;
+    font-size: 14px;
+    font-weight: 400;
+    /* line-height: 44px; */
+    letter-spacing: 0px;
+    text-align: left;
+    color: #293240;
+}
+
+.singl_EmplyL .empEmail_phnL {
+    /* max-width: 215px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #F8F9FD;
+    padding: 10px 16px 10px 16px;
+    border-radius: 3px;
+    gap: 10px;
+}
+
+.singl_EmplyL .empEmail_phnL p {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: inter !important;
+}
+
+.singl_EmplyL .empEmail_phnL span {
+    font-family: inter !important;
+}
+
+.singl_EmplyL .empDep_joinL {
+    /* max-width: 215px; */
+    width: 100%;
+    left: 20px;
+    padding: 10px 13px 10px 13px;
+    border-radius: 3px;
+    gap: 10px;
+    background-color: #F8F9FD;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.singl_EmplyL .empDep_joinL p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.singl_EmplyL .empDep_joinL p span {
+    font-family: inter !important;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #293240;
+}
+
+.singl_EmplyL .empDep_joinL p .sns {
+
+    font-family: Gilroy-Medium;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #293240;
+}

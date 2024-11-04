@@ -1,0 +1,745 @@
+.firstD {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dFirLef {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addpages{
+    gap: 20px;
+}
+
+.dFirLef h2 {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+
+}
+
+
+.adflex{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+.adflex h3{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: left;
+}
+
+.dFirLef p {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    color: #666D76;
+}
+
+.refreBtn {
+    width: 136px;
+    height: 40px;
+    padding: 10px 24px 10px 24px;
+    gap: 10px;
+    border-radius: 10px;
+    background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+    border: 1px solid #0B56E4;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px 0px 0px 0px;
+    font-family: Inter;
+    color: #0B56E4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+
+
+}
+
+.hrmDasTxtFir {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+.hrmDasTxtFir2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.hrmDasTxtFir2 h2{
+    font-family: Inter;
+    color: #101820;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+
+}
+.hrmDasTxtFir2 button{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #0B56E4;
+ height: 40px;
+ width: 143px;
+ justify-content: center;
+ border-radius: 8px;
+}
+.hrmDasTxtFir2 button span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.carding {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+
+}
+
+
+/* for play of leave request hrms admin  */
+.showPlay {
+    display: flex;
+
+}
+
+.hidenPlay {
+    display: none;
+
+}
+
+
+.hrmDasTxtFir .hrmHed {
+    font-family: inter !important;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #060606;
+}
+
+.hrmDasTxtFir .hrDsPa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hrmDasTxtFir .hrFirDs {
+    font-family: inter !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1567FF;
+}
+
+.hrmDasTxtFir .hrFirDs .html {
+    font-family: Gilroy-Regular;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #293240;
+}
+
+.attend-ctiveWrap {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.hrmActLeft {
+    max-width: 663px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.hrLefFir {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sinActDat {
+    cursor: pointer;
+    width: 100%;
+    height: 129px;
+    padding: 24px 20px 24px 20px;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1px 0px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+
+}
+/* .lolo{
+    font-size: 11px !important;
+} */
+.viewOnwWRAP {
+    position: relative;
+
+}
+
+.viewOne {
+    position: absolute;
+    top: 40px;
+    min-width: 161px;
+    height: 148px;
+    border: 1px solid #E3E3E3;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 12px 0px #1A1A1A33;
+    padding: 8px 0px 8px 0px;
+    gap: 10px;
+    border-radius: 8px 0px 0px 0px;
+    z-index: 20;
+    border: 1px 0px 0px 0px;
+    background-color: white;
+    right: 30px;
+}
+
+.emPaginate{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0px 0px 0px;
+}
+
+.prepaginate{
+    width: 100px;
+    height: 40px;
+    padding: 3px 1px 3px 6px;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #D8D8D8;    
+    background-color: #FFFFFF;
+    color: #2B2B2B;
+font-family: Inter;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: center;
+
+}
+
+.pagenum{
+    color: #2B2B2B;
+font-family: Inter;
+font-size: 12px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.004em;
+text-align: left;
+
+}
+
+.subView {
+    display: flex;
+    gap: 4px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+
+.subView p {
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+
+}
+.serrup th,
+.serrup td{
+    font-family: inter !important; 
+}
+.deel {
+    color: #DD3409 !important;
+}
+
+.headind {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 5px 0px;
+
+}
+.headind img{
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.headind span {
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+
+}
+
+.colorChange1 {
+    background: #DEF2EB;
+    border: 1px solid #B7DFD5;
+}
+
+.colorChange2 {
+    background: #FCEFEC !important;
+    border: 1px solid #F4C0B3 !important;
+}
+
+.colorChange3 {
+    background: #FFF5D7;
+    border: 1px solid #FCDCB2;
+}
+
+.colorChange4 {
+    background: #D7E5FF;
+    border: 1px solid #B3CBF7;
+}
+
+.sinActDat img {
+    max-width: 42px;
+    max-height: 42px;
+    border-radius: 8px;
+
+}
+
+.titWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.hrmActLeft .firImg {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.titWrap h3 {
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    color: #1B2533;
+
+}
+
+.hrmActLeft .titWrap .t2 {
+    font-family: Gilroy-Medium;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #060606;
+}
+
+.hrmlRNu {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: right;
+    color: #293240;
+}
+
+.attend-ctiveWrap .hrmActRight {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.attend-ctiveWrap .markAttWrap {
+    background-color: white;
+    /* width: 435px; */
+    width: 100%;
+    height: 441px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px 0px;
+
+}
+
+.prasj{
+     font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    color: #293240;
+}
+
+.attend-ctiveWrap .markAttWrap .markAtt {
+    display: flex;
+    padding: 0px 20px;
+    /* justify-content: space-between; */
+    align-items: center;
+
+}
+
+.attend-ctiveWrap .markAttWrap .markAtt p {
+    font-family: inter !important;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1B2533;
+    margin-left: 10px;
+}
+
+.attend-ctiveWrap .myOficeWrap {
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+}
+
+.attend-ctiveWrap .myOficeWrap .myOfText {
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #293240;
+
+}
+
+.attend-ctiveWrap .oficTime {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 350px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.attend-ctiveWrap .ofSin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.attend-ctiveWrap .ofSin .day {
+    font-family: inter !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #293240;
+
+}
+
+.attend-ctiveWrap .oficTime .singlTime {
+    box-shadow: 2px 5px 15px 0px #0000001A;
+    background-color: #F8F9FD;
+    width: 90px;
+    height: 90px;
+    top: 373px;
+    left: 996px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    /* margin: 0 auto; */
+    justify-content: center;
+
+}
+
+.attend-ctiveWrap .oficTime .singlTime p {
+    /* font-family: Gilroy-Bold; */
+    font-family: inter !important;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 44px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #293240;
+
+
+}
+
+.attend-ctiveWrap .clockINOUTBtn {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.attend-ctiveWrap .clockIN {
+    width: 134px;
+    height: 48px;
+    top: 523px;
+    left: 1058px;
+    padding: 12px, 30px, 12px, 30px;
+    border-radius: 6px;
+    gap: 10px;
+    /* background-color: #6FD943; */
+    background-color: #189877;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.attend-ctiveWrap .clockIN span {
+    font-family: inter !important;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: white;
+}
+
+.attend-ctiveWrap .clockOUT {
+    width: 134px;
+    height: 48px;
+    top: 523px;
+    left: 1058px;
+    padding: 12px, 30px, 12px, 30px;
+    border-radius: 6px;
+    gap: 10px;
+    background-color: #E9002A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.attend-ctiveWrap .clockOUT span {
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: white;
+    font-family: inter !important;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.timeSheetWrap {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.timeSheetWrap .tScONT {
+    width: 435px;
+    height: 64px;
+    top: 614px;
+    left: 955px;
+    border-radius: 5px, 5px, 0px, 0px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+
+}
+
+.timeSheetWrap .time {
+    font-family: Gilroy-Medium;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #060606;
+
+
+}
+
+.timeSheetWrap .caleMagnify {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 10px;
+    align-items: center;
+
+}
+
+.taskTitl {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.004em;
+    text-align: left;
+    color: #2B2B2B;
+    
+    background-color: white;
+    border-left: none;
+    border-right: none;
+    white-space: nowrap !important;
+}
+
+.holiHead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.holiHead span {
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+
+}
+
+
+.textALLtITL {
+    background-color: #F8F9FD;
+}
+
+.textALLtITL th {
+   font-size: 12px;
+}
+
+.hrLefThi {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.singleannoucs{
+    cursor: pointer;
+}
+
+
+/* this is notification css  */
+.notifySidwrap{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.notifySidwrap .notifcont{
+    max-width: 455px;
+     width: 100%;
+    height: 950px;
+     position: fixed;
+     top: 80px;
+  padding: 12px;
+  overflow-y: scroll;
+     background: #FFFFFF;
+    border: 1px solid #E8E9EB;   
+    z-index: 200; 
+     display: flex;
+     flex-direction: column;
+     gap: 13px;
+     animation: slideIn 0.5s forwards; /* Apply the animation */
+
+    
+}
+
+@keyframes slideIn {
+    from {
+      right: -100%; /* Start position off-screen */
+    }
+    to {
+      right: 0; /* End position on-screen */
+    }
+  }
+
+
+  .nonotify{
+    display: flex;
+     min-height: calc(100vh - 100px);
+    align-items: center;
+    justify-content: center;
+  }
+
+.notifcont nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.notifcont nav h2{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+
+.allnotiftcont{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.singlnotify h2{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+}

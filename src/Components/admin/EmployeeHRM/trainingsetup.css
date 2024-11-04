@@ -1,0 +1,13 @@
+
+.traininginput{
+    justify-content: start;
+}
+.awardpopup{
+    gap:14px;
+}
+.traininginput label{
+    width: 100%;
+}
+.traininginput label input{
+    width: 100%;
+}

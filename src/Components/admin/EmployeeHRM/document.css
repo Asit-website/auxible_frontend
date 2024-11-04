@@ -1,0 +1,18 @@
+
+.Document-file{
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+}
+.Document-file input{
+    width:105px !important; 
+    height: auto !important;
+    border: none !important;
+}
+.document-label{
+    justify-content:flex-start !important;
+}
+
+.documentpopup{
+    max-width: 575px !important;
+}

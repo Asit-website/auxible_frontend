@@ -1,0 +1,614 @@
+{
+    "sections": [
+        {
+            "title": "Market Sentiment",
+            "id": "MKT_SENTIMENT",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "sentiment": "POSITIVE",
+                "column_headers": [
+                    {
+                        "title": "Returns"
+                    },
+                    {
+                        "title": "Volume"
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "Daily"
+                    },
+                    {
+                        "title": "Weekly"
+                    },
+                    {
+                        "title": "Monthly"
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "12.91",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "7.43",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "40.60",
+                            "suffix": "%"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "25,08,887"
+                        },
+                        {
+                            "value": "2,15,59,227"
+                        },
+                        {
+                            "value": "11,08,43,781"
+                        }
+                    ]
+                ],
+                "representation_type": "DATA",
+                "intersection_title": "Timeline"
+            }
+        },
+        {
+            "title": "Performance",
+            "id": "PERFORMANCE",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "sentiment": "POSITIVE",
+                "description": "*Avg of index constituents",
+                "column_headers": [
+                    {
+                        "title": "GICRE"
+                    },
+                    {
+                        "title": "Index"
+                    },
+                    {
+                        "title": "Peer Avg."
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "Daily"
+                    },
+                    {
+                        "title": "Weekly"
+                    },
+                    {
+                        "title": "Monthly"
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "12.91",
+                            "suffix": "%",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "7.43",
+                            "suffix": "%",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "40.60",
+                            "suffix": "%",
+                            "has_trophy": true
+                        }
+                    ],
+                    [
+                        {
+                            "value": "0.65",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "1.24",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "2.23",
+                            "suffix": "%"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "4.03",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "0.72",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "12.66",
+                            "suffix": "%"
+                        }
+                    ]
+                ],
+                "representation_type": "DATA_CHART",
+                "intersection_title": "Timeline"
+            }
+        },
+        {
+            "title": "Fundamentals",
+            "id": "FUNDAMENTALS",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "sentiment": "NEGATIVE",
+                "description": "*Avg of index constituents",
+                "column_headers": [
+                    {
+                        "title": "GICRE"
+                    },
+                    {
+                        "title": "Index"
+                    },
+                    {
+                        "title": "Peer Avg."
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "PE"
+                    },
+                    {
+                        "title": "PB"
+                    },
+                    {
+                        "title": "EV/EBIDTA"
+                    },
+                    {
+                        "title": "ROE"
+                    },
+                    {
+                        "title": "ROCE"
+                    },
+                    {
+                        "title": "Div. Yield"
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "9.17"
+                        },
+                        {
+                            "value": "0.73"
+                        },
+                        {
+                            "value": "5.75"
+                        },
+                        {
+                            "value": "8.33"
+                        },
+                        {
+                            "value": "14.25"
+                        },
+                        {
+                            "value": "1.20",
+                            "has_trophy": true
+                        }
+                    ],
+                    [
+                        {
+                            "value": "36.20"
+                        },
+                        {
+                            "value": "6.77",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "17.25"
+                        },
+                        {
+                            "value": "17.89",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "19.69",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "1.20"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "53.96",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "5.39"
+                        },
+                        {
+                            "value": "55.40",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "9.84"
+                        },
+                        {
+                            "value": "10.39"
+                        },
+                        {
+                            "value": "0.34"
+                        }
+                    ]
+                ],
+                "universal_narration_title": "Understanding Fundamentals",
+                "universal_narrations": [
+                    {
+                        "title": "PB",
+                        "description": "Price to book ratio is the company’s current share price relative to its book value per share"
+                    },
+                    {
+                        "title": "EV/EBIDTA",
+                        "description": "It is a ratio that compares a company’s enterprise value(EV) to its earnings before interest, taxes, depreciation, and amortization(EBIDTA)"
+                    },
+                    {
+                        "title": "PE",
+                        "description": "Price to earnings ratio is the company’s current share price relative to its earnings per share"
+                    },
+                    {
+                        "title": "ROE",
+                        "description": "Return on equity(ROE) is the measure of a company’s net income divided by it’s shareholders’ equity"
+                    },
+                    {
+                        "title": "ROCE",
+                        "description": "Return on capital employed(ROCE) is the measure of the company’s earnings relative to the capital employed"
+                    }
+                ],
+                "representation_type": "DATA_CHART",
+                "intersection_title": "Timeline"
+            }
+        },
+        {
+            "title": "Key Metrics",
+            "id": "KEY_METRICS",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "sentiment": "NEUTRAL",
+                "column_headers": [
+                    {
+                        "title": "FY '21-22"
+                    },
+                    {
+                        "title": "FY '20-21"
+                    },
+                    {
+                        "title": "FY '19-20"
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "Sales Growth"
+                    },
+                    {
+                        "title": "Profit Growth"
+                    },
+                    {
+                        "title": "ROE",
+                        "narration": {
+                            "title": "ROE",
+                            "description": "Return on equity(ROE) is the measure of a company’s net income divided by it’s shareholders’ equity"
+                        }
+                    },
+                    {
+                        "title": "ROCE",
+                        "narration": {
+                            "title": "ROCE",
+                            "description": "Return on capital employed(ROCE) is the measure of the company’s earnings relative to the capital employed"
+                        }
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "-1.25",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "12.13",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "8.33",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "14.25",
+                            "has_trophy": true
+                        }
+                    ],
+                    [
+                        {
+                            "value": "-9.77",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "901.46",
+                            "suffix": "%",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "8.14"
+                        },
+                        {
+                            "value": "13.33"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "16.56",
+                            "suffix": "%",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "-111.45",
+                            "suffix": "%"
+                        },
+                        {
+                            "value": "-1.17"
+                        },
+                        {
+                            "value": "-1.54"
+                        }
+                    ]
+                ],
+                "is_chart_representation_transposed": true,
+                "representation_type": "DATA_CHART",
+                "intersection_title": "Metrics"
+            }
+        },
+        {
+            "title": "Shareholding Pattern",
+            "id": "SHP",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "column_headers": [
+                    {
+                        "title": "Pct"
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "Promoters"
+                    },
+                    {
+                        "title": "FII"
+                    },
+                    {
+                        "title": "DII"
+                    },
+                    {
+                        "title": "Public"
+                    },
+                    {
+                        "title": "Others"
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "85.78"
+                        },
+                        {
+                            "value": "0.45"
+                        },
+                        {
+                            "value": "10.90"
+                        },
+                        {
+                            "value": "2.87"
+                        },
+                        {
+                            "value": "0.00"
+                        }
+                    ]
+                ],
+                "representation_type": "PIE_CHART"
+            }
+        },
+        {
+            "title": "Profit & Loss",
+            "id": "PNL",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "sentiment": "POSITIVE",
+                "description": "All values are in crores",
+                "column_headers": [
+                    {
+                        "title": "FY '21-22"
+                    },
+                    {
+                        "title": "FY '20-21"
+                    },
+                    {
+                        "title": "FY '19-20"
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "Sales"
+                    },
+                    {
+                        "title": "Expenditure"
+                    },
+                    {
+                        "title": "EBITDA",
+                        "narration": {
+                            "title": "EBITDA",
+                            "description": "Earnings before Interest, taxes, depreciation and amortization is a measure of the gross earnings of the company before adjusting for expenses"
+                        }
+                    },
+                    {
+                        "title": "PAT",
+                        "narration": {
+                            "title": "PAT",
+                            "description": "Profit after Tax(PAT) is the net profit of a business after the taxes are deducted"
+                        }
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "0",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "0",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "0",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "2,196.01",
+                            "has_trophy": true
+                        }
+                    ],
+                    [
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "1,956.01"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "-272.77"
+                        }
+                    ]
+                ],
+                "representation_type": "DATA_CHART",
+                "intersection_title": "Metrics"
+            }
+        },
+        {
+            "title": "Peer Comparison",
+            "id": "PEER",
+            "show_empty_data_ui": false,
+            "section_data": {
+                "sentiment": "NEGATIVE",
+                "description": "All values are in crores",
+                "column_headers": [
+                    {
+                        "title": "GICRE"
+                    },
+                    {
+                        "title": "RECLTD"
+                    },
+                    {
+                        "title": "JUBLFOOD"
+                    }
+                ],
+                "row_headers": [
+                    {
+                        "title": "Sales"
+                    },
+                    {
+                        "title": "Expenditure"
+                    },
+                    {
+                        "title": "EBITDA",
+                        "narration": {
+                            "title": "EBITDA",
+                            "description": "Earnings before Interest, taxes, depreciation and amortization is a measure of the gross earnings of the company before adjusting for expenses"
+                        }
+                    },
+                    {
+                        "title": "PAT",
+                        "narration": {
+                            "title": "PAT",
+                            "description": "Profit after Tax(PAT) is the net profit of a business after the taxes are deducted"
+                        }
+                    }
+                ],
+                "column_row_values": [
+                    [
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "0",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "0"
+                        },
+                        {
+                            "value": "2,196.01"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "39,213.55",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "4,791.05"
+                        },
+                        {
+                            "value": "34,506.56",
+                            "has_trophy": true
+                        },
+                        {
+                            "value": "10,046.71",
+                            "has_trophy": true
+                        }
+                    ],
+                    [
+                        {
+                            "value": "4,363.61"
+                        },
+                        {
+                            "value": "3,256.92"
+                        },
+                        {
+                            "value": "1,147.70"
+                        },
+                        {
+                            "value": "433.01"
+                        }
+                    ]
+                ],
+                "representation_type": "DATA_CHART",
+                "intersection_title": "Metrics"
+            }
+        }
+    ],
+    "symbol": "GICRE",
+    "name": "General Insurance Corporation of India",
+    "ltp": 435.1,
+    "change": {
+        "value": 49.75,
+        "percentage": 12.91,
+        "type": "POSITIVE"
+    },
+    "image_url": "https://storage.googleapis.com/stocks_logo/stocks/GICRE.png",
+    "has_option": false
+}

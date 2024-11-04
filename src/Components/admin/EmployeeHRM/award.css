@@ -1,0 +1,74 @@
+
+
+.adminmain{
+    background-color: white;
+    height: 50vh;
+}
+
+.awardtm{
+    height: 100vh;
+}
+.awardpopup{
+    max-width: 800px;
+    width: 100%;
+    min-height:600px;
+    max-height:800px;
+    height: 100%;
+    display: flex;
+    z-index: 400;
+    padding: 20px;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+    border-radius: 20px;
+    overflow-y: scroll !important;
+}
+
+.awardpopup label input {
+    border: 1px solid #ced4da;
+    width: 360px;
+    height: 50px;
+    border-radius: 5px;
+    opacity: 0.2px;
+    padding: 0px 20px;
+}
+.award-popup-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 12px 0px;
+}
+.award-popup-textarea label{
+ width: 100%;
+}
+.award-popup-label textarea{
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.Award-popup-btn .awd-cancel{
+    width:100px;
+    height:50px;
+    background-color: #f8f9fa;
+    border: 0px solid #ced4da;
+}
+.Award-popup-btn button{
+    font-size: 18px;
+    font-weight:500;
+}
+.Award-popup-btn .awd-cancel:hover{
+    background-color: #d0e2f5;
+    transition: .5s;
+}
+.Award-popup-btn .awd-create {
+    width:100px;
+    height:50px;
+    font-size: 18px;
+    font-weight:500;
+}
+.Award-popup-btn .awd-create:hover{
+    background-color: #1153cf;
+    transition: .5s;
+}

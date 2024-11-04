@@ -1,0 +1,14 @@
+.permiCont{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.applyBtn{
+    background-color: black;
+    color: white;
+    font: 500;
+    width: 100px;
+    
+}

@@ -1,0 +1,136 @@
+.docHead{
+font-family: Inter;
+color: #101820;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+
+}
+
+.docuwrap{
+    display: flex;
+    flex-direction: column;
+   gap: 16px; 
+}
+
+.docuSec{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    border: 1px 0px 0px 0px;
+    background-color: white;
+    padding: 12px;
+}
+.docuSec .doSubFir{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+
+}
+.docuSec .doSubFir span{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+}
+.docuSec .doSubSs span{
+    font-family: Inter;
+    color: #2B2B2B;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+    
+}
+
+.doSubThi{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 100px 26px 0px;
+
+}
+.doSubThi .dothiff{
+    display: flex;
+    flex-direction: column;
+  gap: 20px;
+
+}
+.doSubThi .dothiff label{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.doSubThi .dothiff label p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: right;
+    
+}
+.doSubThi .dothiff label input{
+ outline: none;
+ border: none;
+
+}
+.doSubThi .dothiff label input::placeholder{
+  color: #0B56E4;
+font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+}
+
+
+.docuThird{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    border: 1px 0px 0px 0px;
+    background-color: white;
+}
+.docuThird h3{
+ padding: 12px 12px 0px 12px;
+font-family: Inter;
+color: #1B2533;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+
+.joindatewrap{
+    display: flex;
+    max-width: 415px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #D0D4DC;
+    border-radius: 10px;
+    padding:  4px 10px;
+    
+}
+
+.joindatewrap input{
+    max-width: 80%;
+    background-color: transparent;
+}

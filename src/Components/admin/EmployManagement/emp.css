@@ -1,0 +1,260 @@
+.adFri{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.adFri h2{
+    color: #101820;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+}
+
+.adFrRIH{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+}
+.adFrRIH .calce{
+    width: 102px;
+    height:  40px;
+    padding: 10px 24px 10px 24px;
+    gap: 10px;
+    border: 1px 0px 0px 0px;
+    border-radius: 10px;
+    background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+    border: 1px solid #0B56E4;
+    
+
+}
+.adFrRIH .calce span{
+    font-family: Inter;
+    color: #0B56E4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+    
+}
+.adFrRIH .register{
+    width: Hug 132px;
+    height: 40px;
+    padding: 10px 16px 10px 12px;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: #0B56E4;
+    
+
+}
+.adFrRIH .register span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+color: white;    
+}
+
+.leadForm{
+    max-width:  1168pxpx;
+    width: 100%;
+    margin-top: 20px;
+    /* height:  1071px; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+
+.leadInFir{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    margin-top: 40px;
+    border: 1px 0px 0px 0px;
+    background-color: white;
+    padding: 12px;
+}
+.leadInFir2{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border: 1px solid #E8E9EB;
+    border-radius: 12px;
+    border: 1px 0px 0px 0px;
+    background-color: white;
+    padding: 12px;
+}
+
+.sinInfir{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+.currEmp{
+    font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color: #0B56E4;
+}
+.nom{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+color: #0F141C;    
+}
+
+.foruFormWrap{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.haedd{
+font-family: Inter;
+color: #101820;
+font-size: 16px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+
+}
+
+.infoForm{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.emFriFormwrap{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.adFirstForm{
+    background-color: white;
+    width: 572px;
+height: 536px;
+border: 1px solid #E8E9EB;
+padding: 24px;
+gap: 24px;
+border-radius: 18px ;
+border: 1px 0px 0px 0px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+
+}
+.adFirstForm h2{
+    font-family: Inter;
+    color: #101820;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+
+}
+
+
+.twoInputWrap{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+}
+
+.halfLabel{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 250px;
+    width: 100%;
+}
+.halfLabel p{
+font-family: Inter;
+color: #1B2533;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0.0025em;
+text-align: left;
+
+}
+.halfLabel input{
+  width: 100%;
+    height: 44px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #D0D4DC;
+        background: #FFFFFF;
+
+
+}
+.halfLabel select{
+  width: 100%;
+    height: 44px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #D0D4DC;  
+      background: #FFFFFF;
+
+    
+
+}
+
+.halwrap{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.checWrap{
+    display: flex;
+    align-items: center;
+    gap: 42px;
+}
+.checWrap .checkLabel{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.checWrap .checkLabel input{
+   color: #969BA1;
+    border: 1px solid #969BA1;
+}
+.checWrap .checkLabel span{
+color: #1B2533;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+}

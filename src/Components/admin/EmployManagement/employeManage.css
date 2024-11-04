@@ -1,0 +1,230 @@
+.employId span{
+    width: 114px;
+    height: 37px;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #008ECC;
+
+}
+
+.creteEmpWrap{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: white;
+
+}
+
+.hrDSPAwRAP{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inObPerAd{
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.joLetNOC{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.joLetNOC select{
+   height: 40px;
+   border-radius: 5px;
+   border: 0.5px solid #E6E6E6;
+   padding: 10px 15px;
+
+}
+
+.inObPerAd img{
+   cursor: pointer;
+}
+
+.PDwRAP{
+    display: flex;
+    flex-direction: column;
+ padding: 20px 40px;
+
+ background-color: white;
+ border-radius: 5px;
+ gap: 10px;
+}
+.PDwRAP h2{
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #060606;    
+}
+.persDetaWrap{
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+    gap: 20px;
+}
+.persDetaWrap .singPD{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+
+}
+.persDetaWrap .singPD p{
+    font-family: Gilroy-Medium;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+
+}
+.persDetaWrap .singPD span{
+    font-family: Gilroy-Regular;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+color: #293240;    
+
+}
+
+.hrmsFri{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+
+}
+
+.hrmsFri h2{
+    font-family: Inter;
+    color: #101820;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    
+
+}
+
+.hrFRi{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    
+}
+.hrFRi button{
+    /* width: 163px; */
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 10px 16px 10px 12px;
+    gap: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0B56E4;
+    
+    
+}
+.hrFRi button span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+ color: white;    
+}
+
+.fiterWrap{
+    width: 100%;
+height: 48px;
+border-radius: 10px;
+background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
+margin-top: 20px;
+display: flex;
+align-items: center;
+padding: 0px 12px;
+ gap: 20px;
+}
+
+.fiterWrap h3{
+    font-family: inter !important;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+color: #2B2B2B;    
+
+}
+.fiterWrap .line{
+  height: 100%;
+  width: 1px;
+  background-color: #B3CBF7;
+}
+.fiterWrap select{
+ background-color: transparent;
+ border: none;
+ outline: none;
+ width: 150px;
+ font-size: 14px;
+ font-family: inter !important;
+ font-weight: 400 !important;
+ color: #0F141C !important;
+}
+
+.EllWrap{
+
+    border-bottom: 1px solid #E8E9EB;
+   height: 44px;
+    
+}
+.allEtOL{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 16px;
+
+    
+}
+.allEtOL .hhj{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    
+
+}
+
+.deletwrP{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.deletwrP span{
+    font-family: Inter;
+    color: #DD3409;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+    text-align: left;
+    
+
+}
