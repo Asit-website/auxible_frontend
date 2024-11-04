@@ -1212,7 +1212,7 @@ body {
 }
 
 .logo img {
-  max-width: 105px;
+  max-width: 160px;
   width: 100%;
 }
 
@@ -3005,12 +3005,32 @@ abbr:where([title]) {
 }
 
 .updateUser {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
-  /* display: block; */
-  /* margin: auto; */
-  /* overflow-x: scroll; */
-  /* height: 600px; */
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+
+.makethisfelxd{
+  display: flex;
+gap: 20px;
+}
+
+.sabeupdabtn{
+  width: 150px;
+  /* margin: 0 auto; */
+  height: 40px;
+  border-radius: 5px;
+  background-color: #0B56E4;
+  color: white;
+  font-weight: 600;
+}
+.makethisgrid{
+  display: grid;
+  grid-template-columns: repeat(2 , 1fr);
+  gap: 20px;
 }
 
 .updateUser::-webkit-scrollbar {
@@ -3029,6 +3049,7 @@ abbr:where([title]) {
   border-radius: 5px;
   padding: 10px;
   font-family: inter !important;
+  width: 100%;
 }
 
 .silo {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import EmployeeNavbar from "../Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../Sidebar/EmployeeSidebar";
 import { useMain } from "../../../hooks/useMain";
-import { useNavigate } from "react-router-dom";
 import uploadFile from "../../images/upload-file.png";
 import toast from "react-hot-toast";
 
@@ -24,6 +23,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg  , uploadOwnDocs} = useMain();
   const [value, setValue] = useState(user);
 
+
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
@@ -43,7 +43,20 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   const [pic , setPic] = useState("");
 
   const handleChange = async(e) => {
- const {name } = e.target;
+ const {name  , value} = e.target;
+
+ if (name === "pan" && value.length > 10) {
+  return; 
+}
+ if (name === "adhar" && value.length > 12) {
+  return; 
+}
+ if (name === "currentPin" && value.length > 6) {
+  return; 
+}
+
+
+
 
  if (name === "image") {
   setValue({ ...value, [e.target.name]: e.target.files[0] });
@@ -184,7 +197,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
   },[user])
 
-  
+
   useEffect(() => {
     let user1 = JSON.parse(localStorage.getItem("hrms_user"));
     setValue(user1);
@@ -206,10 +219,20 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
             pop1={pop1}
             setPop1={setPop1}
           />
+
           <div className="em">
             <div className="">
-              <form className="updateUser" onSubmit={handleSubmit}>
-                <div className="mb-6">
+              <form className="updateUser" onSubmit={(e)=>{
+                if(user?.updateProfile){
+                  
+                  handleSubmit(e)
+                }else{
+                  toast.error("Not Allowed");
+                }
+              }}>
+              <div className="makethisgrid">
+
+                <div className="">
                   <label htmlFor="fullName" className="block mb-1 ">
                     Full Name
                   </label>
@@ -219,11 +242,10 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={() => null}
                     value={value.fullName}
                     id="fullName"
-                    className=" block w-full"
-                  // required
+                    className=" block"
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="email" className="block mb-1 ">
                     Company Email
                   </label>
@@ -233,11 +255,11 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={() => null}
                     value={value.email}
                     id="email"
-                    className=" block w-full"
+                    className=" block"
                   // required
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="mobile" className="block mb-1">
                     Mobile Number
                   </label>
@@ -247,35 +269,35 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     onChange={handleChange}
                     value={value.mobile}
                     id="mobile"
-                    className=" block w-full"
+                    className=" block "
                   // required
                   />
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="gender" className="block mb-1 ">
                     Gender
                   </label>
-                  <select className="w-full" name="gender" id="gender" onChange={() => null} value={value?.gender}>
+                  <select className="" name="gender" id="gender" onChange={() => null} value={value?.gender}>
                      <option>Male</option>
                      <option>Female</option>
                   </select>
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="DOB" className="block mb-1 ">
                     DOB
                   </label>
-                 <input type="date" name="dob"    onChange={handleChange} value={value?.dob}   className=" block w-full"/>
+                 <input type="date" name="dob"    onChange={handleChange} value={value?.dob}   className=" block "/>
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="image" className="block mb-1">
                     Image
                   </label>
 
                   <input
-                    className="block w-full"
+                    className="block "
                     name="image"
                     onChange={handleChange}
                     id="file_input"
@@ -301,27 +323,28 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     }
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="email1" className="block mb-1">
                     Personal Gmail
                   </label>
                   <input
-                    className="block w-full"
+                    className="block "
                     name="email1"
                     value={value.email1}
                     onChange={handleChange}
                     id="email1"
+                    required
                     type="email"
                   // required
                   />
                 </div>
                 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="gmail" className="block mb-1">
                     Company Gmail
                   </label>
                   <input
-                    className="block w-full"
+                    className="block "
                     name="gmail"
                     value={value.gmail}
                     onChange={handleChange}
@@ -330,12 +353,13 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   // 
                   />
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="department" className="block mb-1">
                     Department
                   </label>
                   <select
-                    className="block w-full"
+                    className="block "
                     onChange={() => null}
                     name="department"
                     value={value?.department}
@@ -348,12 +372,13 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     }
                   </select>
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="designation" className="block mb-1">
                     Designation
                   </label>
                   <select
-                    className=" block w-full"
+                    className=" block "
                     onChange={() => null}
                     name="designation"
                     value={value.designation}
@@ -371,7 +396,8 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     }
                   </select>
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="date" className="block mb-1">
                     JoiningDate
                   </label>
@@ -380,72 +406,75 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     type="date"
                     name="joiningDate"
                     value={value.joiningDate}
-                    className="block w-full"
+                    className="block "
                     id="date"
                   />
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="date" className="block mb-1">
                     PAN No.
                   </label>
                   <input
                     type="text"
                     id="pan"
-                    className=" w-full block"
-                    // required
+                    className="  block"
                     name="pan"
                     value={value.pan}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="adhar" className="block mb-1">
                     Aadhaar No.
                   </label>
                   <input
                     type="text"
                     id="adhar"
-                    className=" block w-full"
+                    className=" block "
                     // required
                     name="adhar"
                     value={value.adhar}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="father" className="block mb-1">
                     Father Name
                   </label>
                   <input
                     type="text"
                     id="father"
-                    className=" block  w-full"
+                    className=" block  "
                     // required
                     name="father"
                     value={value.father}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+
+                <div className="">
                   <label htmlFor="currentAddress" className="block mb-1">
                     Current Residence Address
                   </label>
                   <input
                     type="text"
                     id="currentAddress"
-                    className="block  w-full"
+                    className="block  "
                     // required
                     name="currentAddress"
                     value={value.currentAddress}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="currentState" className="block mb-1">
                     Current state
                   </label>
                   {/* <select
-                    className="rounded-lg  w-full"
+                    className="rounded-lg  "
                     name="currentState"
                     id="currentState"
                     value={value.currentState}
@@ -457,7 +486,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   <input
                     type="text"
                     id="currentState"
-                    className="rounded-lg  w-full"
+                    className="rounded-lg  "
                     // required
                     name="currentState"
                     value={value.currentState}
@@ -465,40 +494,40 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="currentCity" className="block mb-1">
                     Current city
                   </label>
                   <input
                     type="text"
                     id="currentCity"
-                    className="rounded-lg  w-full"
+                    className="rounded-lg  "
                     // required
                     name="currentCity"
                     value={value.currentCity}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="currentPin" className="block mb-1">
                     Area Pincode
                   </label>
                   <input
                     type="text"
                     id="currentPin"
-                    className="block  w-full"
+                    className="block  "
                     // required
                     name="currentPin"
                     value={value.currentPin}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="perState" className="block mb-1">
                     Permanent state
                   </label>
                   <select
-                    className=" block  w-full"
+                    className=" block  "
                     name="perState"
                     value={value.perState}
                     id="perState"
@@ -543,40 +572,40 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>Puducherry (UT)</option>
                   </select>
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="perCity" className="block mb-1">
                     Permanent city
                   </label>
                   <input
                     type="text"
                     id="perCity"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="perCity"
                     value={value.perCity}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="perPin" className="block mb-1">
                     Permanent Area Pincode
                   </label>
                   <input
                     type="text"
                     id="perPin"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="perPin"
                     value={value.perPin}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="Martial" className="block mb-1">
                     Marital status
                   </label>
                   <select
-                    className="rounded-lg w-full"
+                    className="rounded-lg "
                     name="Martial"
                     id="Martial"
                     value={value.Martial}
@@ -587,12 +616,12 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>UnMarried</option>
                   </select>
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="nationality" className="block mb-1">
                     Nationality
                   </label>
                   <select
-                    className="block  w-full"
+                    className="block  "
                     name="nationality"
                     id="nationality"
                     value={value.nationality}
@@ -602,54 +631,54 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>Indian</option>
                   </select>
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="Mother" className="block mb-1">
                     Mother name
                   </label>
                   <input
                     type="text"
                     id="Mother"
-                    className=" block w-full"
+                    className=" block "
                     // required
                     name="Mother"
                     value={value.Mother}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="qualification" className="block mb-1">
                     Qualification
                   </label>
                   <input
                     type="text"
                     id="qualification"
-                    className=" block w-full"
+                    className=" block "
                     // required
                     name="qualification"
                     value={value.qualification}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="specialization" className="block mb-1">
                     Specialization
                   </label>
                   <input
                     type="text"
                     id="qualification"
-                    className=" block w-full"
+                    className=" block "
                     // required
                     name="specialization"
                     value={value.specialization}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="qualificationType" className="block mb-1">
                     Qualification Type
                   </label>
                   <select
-                    className="rounded-lg  w-full"
+                    className="rounded-lg  "
                     name="qualificationType"
                     id="qualificationType"
                     value={value.qualificationType}
@@ -669,7 +698,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     <option>Others</option>
                   </select>
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="yearPass" className="block mb-1">
                     Year of passing •
                   </label>
@@ -677,184 +706,171 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                    <input  name="yearPass"
                     id="yearPass"
                     value={value.yearPass}
-                    onChange={handleChange} className="w-full rounded-lg" type="date" />
+                    onChange={handleChange} className=" rounded-lg" type="date" />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="university" className="block mb-1">
                     University/Board •
                   </label>
                   <input
                     type="text"
                     id="university"
-                    className=" block w-full"
+                    className=" block "
                     // required
                     name="university"
                     value={value.university}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="college" className="block mb-1">
                     College/School •
                   </label>
                   <input
                     type="text"
                     id="college"
-                    className=" block w-full"
+                    className=" block "
                     // required
                     name="college"
                     value={value.college}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="percentage" className="block mb-1">
                     Grade/CCPA/Percentage
                   </label>
                   <input
                     type="text"
                     id="percentage"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="percentage"
                     value={value.percentage}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="previousCompany" className="block mb-1">
                     Previous Company •
                   </label>
                   <input
                     type="text"
                     id="previousCompany"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="previousCompany"
                     value={value.previousCompany}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="previousDesignation" className="block mb-1">
                     Previous Designation •
                   </label>
                   <input
                     type="text"
                     id="previousDesignation"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="previousDesignation"
                     value={value.previousDesignation}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="toDate" className="block mb-1">
                     To date •
                   </label>
                   <input
                     type="date"
                     id="toDate"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="toDate"
                     value={value.toDate}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="fromDate" className="block mb-1">
                     From date*
                   </label>
                   <input
                     type="date"
                     id="fromDate"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="fromDate"
                     value={value.fromDate}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="numberOfMonth" className="block mb-1">
                     Number of months *
                   </label>
                   <input
                     type="text"
                     id="numberOfMonth"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="numberOfMonth"
                     value={value.numberOfMonth}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="Jobdescription" className="block mb-1">
                     Job description
                   </label>
                   <input
                     type="text"
                     id="Jobdescription"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="Jobdescription"
                     value={value.Jobdescription}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
-                  <label htmlFor="SalaryPay" className="block mb-1">
-                    Salary Pay Mode
-                  </label>
-                  <input
-                    type="text"
-                    id="SalaryPay"
-                    className="block w-full"
-                    // required
-                    name="SalaryPay"
-                    value={value.SalaryPay}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-6">
+               
+                <div className="">
                   <label htmlFor="SalaryBankName" className="block mb-1">
                     Salary Bank Name
                   </label>
                   <input
                     type="text"
                     id="SalaryBankName"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="SalaryBankName"
                     value={value.SalaryBankName}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="BeneficiaryName" className="block mb-1">
                     Beneficiary Name
                   </label>
                   <input
                     type="text"
                     id="BeneficiaryName"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="BeneficiaryName"
                     value={value.BeneficiaryName}
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="BankIfsc" className="block mb-1">
                     Bank IFSC Code
                   </label>
                   <input
                     type="text"
                     id="BankIfsc"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="BankIfsc"
                     value={value.BankIfsc}
@@ -862,14 +878,14 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   />
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="AccountNumber" className="block mb-1">
                     Account Number
                   </label>
                   <input
                     type="text"
                     id="AccountNumber"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="AccountNumber"
                     value={value.AccountNumber}
@@ -877,14 +893,14 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   />
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="confirmAccount" className="block mb-1">
                     Confirm Account Number
                   </label>
                   <input
                     type="text"
                     id="confirmAccount"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="confirmAccount"
                     value={value.confirmAccount}
@@ -892,14 +908,14 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                   />
                 </div>
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="Branch" className="block mb-1">
                     Bank Branch
                   </label>
                   <input
                     type="text"
                     id="Branch"
-                    className="block w-full"
+                    className="block "
                     // required
                     name="Branch"
                     value={value.Branch}
@@ -908,6 +924,12 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                 </div>
 
                 {/* this is document upload start  */}
+             
+                  
+                </div>
+
+ <div className="makethisfelxd">
+
                 <div className="basic-information2 mb-4 mt-7">
                       <div className="basics">
                         <h3>Documents </h3>
@@ -917,10 +939,10 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                       <div className="form2-class">
 
-                        <div className="w-full sfgh mt-6">
+                        <div className=" sfgh mt-6">
                           {/* this is first doc row  */}
 
-                          <div className="flex w-full">
+                          <div className="flex ">
                             {/* fist   */}
                             <div className="thiddrapgsingl">
                               <h4>Aadhar Card</h4>
@@ -931,7 +953,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   name="adharCard"
                                   type="file"
                                   onChange={handleFileChange}
@@ -950,7 +972,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   type="file"
                                   name="pancard"
                                   onChange={handleFileChange}
@@ -961,7 +983,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                           {/* this is second doc row  */}
 
-                          <div className="flex w-full mt-6">
+                          <div className="flex  mt-6">
                             {/* frist   */}
                             <div className="thiddrapgsingl">
                               <h4>10th Certificate</h4>
@@ -972,7 +994,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   type="file"
                                   name="tenCert"
                                   onChange={handleFileChange}
@@ -992,14 +1014,14 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <input
                                   name="twevelCert"
                                   onChange={handleFileChange}
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   type="file"
                                 />
                               </div>
                             </div>
                           </div>
 
-                          <div className="flex w-full mt-6">
+                          <div className="flex  mt-6">
                             {/* frist   */}
 
                             <div className="thiddrapgsingl">
@@ -1010,7 +1032,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   type="file"
                                   name="cancelCheque"
                                   onChange={handleFileChange}
@@ -1031,7 +1053,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                   <input
                                     name="LastOrganization"
                                     onChange={handleFileChange}
-                                    className="filesjila w-full"
+                                    className="filesjila "
                                     type="file"
                                   />
                                 </div>
@@ -1045,7 +1067,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 Last Organization Docs
                               </h1>
 
-                              <div className="flex w-full mt-6">
+                              <div className="flex  mt-6">
                                 {/* first   */}
 
                                 <div className="thiddrapgsingl">
@@ -1058,7 +1080,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                     <p>Click to upload</p>
 
                                     <input
-                                      className="filesjila w-full"
+                                      className="filesjila "
                                       type="file"
                                       name="RelievingLetter"
                                       onChange={handleFileChange}
@@ -1079,7 +1101,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                                     <input
                                       name="OfferLetter"
-                                      className="filesjila w-full"
+                                      className="filesjila "
                                       type="file"
                                       onChange={handleFileChange}
                                     />
@@ -1087,7 +1109,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 </div>
                               </div>
 
-                              <div className="flex w-full mt-6">
+                              <div className="flex  mt-6">
                                 {/* first   */}
 
                                 <div className="thiddrapgsingl">
@@ -1099,7 +1121,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                     <p>Click to upload</p>
 
                                     <input
-                                      className="filesjila w-full"
+                                      className="filesjila "
                                       type="file"
                                       name="ExperienceLetter"
                                       onChange={handleFileChange}
@@ -1119,7 +1141,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
                                     <input
                                       name="prevOrgOffer"
-                                      className="filesjila w-full"
+                                      className="filesjila "
                                       type="file"
                                       onChange={handleFileChange}
                                     />
@@ -1129,7 +1151,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                             </>
                           )}
 
-                <div className="flex w-full ">
+                <div className="flex  ">
                            
                             <div className="thiddrapgsingl mt-4">
                               <h4>ITR(Income Tax Return)</h4>
@@ -1140,7 +1162,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   name="ITR"
                                   type="file"
                                   onChange={handleFileChange}
@@ -1157,7 +1179,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  className="filesjila "
                                   name="ITR2"
                                   type="file"
                                   onChange={handleFileChange}
@@ -1169,11 +1191,11 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
 
 
                         </div>
+                        
                       </div>
                     </div>
-                {/* this is document upload end  */}
 
-                <div className="mb-6">
+                <div className="">
                   <label htmlFor="Branch" className="block mb-1">
                     Documents
                   </label>
@@ -1189,10 +1211,12 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
                     }
                   </div>
                 </div>
+                </div>
+
 
                 <button
                   type="submit"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className=" sabeupdabtn"
                 >
                   Save
                 </button>
@@ -1200,6 +1224,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
               </form>
             </div>
           </div>
+
         </div>
       </div>
     </>

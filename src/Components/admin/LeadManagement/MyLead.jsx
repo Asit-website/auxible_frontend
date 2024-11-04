@@ -244,6 +244,9 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
 
   }, [searchText])
 
+
+  console.log("currentItems " , currentItems);
+
   return (
     <>
       <div className="employee-dash h-full">

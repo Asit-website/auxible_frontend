@@ -84,33 +84,23 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
         for (let i = 0; i < data?.length; i++) {
 
           const {
-            City,
             CompanyName,
             Email,
+            LeadStatus , 
             FirstName,
-            LastName,
-            LinkedInURL,
-            Mobile,
-            Phone,
-            State , 
-            Title ,
+            LastName ,
             Website
           } = data[i];
   
       
         const ans = await createExcelLead({
-              LeadOwner: hrms_user?._id,
-              City,
-              CompanyName,
-              Email,
-              FirstName,
-              LastName,
-              LinkedInURL,
-              Mobile,
-              Phone,
-              State , 
-              Title ,
-              Website
+          LeadOwner: hrms_user?._id,
+          CompanyName,
+          Email,
+          Website , 
+          LeadStatus , 
+          FirstName,
+          LastName ,
             });
   
           }
