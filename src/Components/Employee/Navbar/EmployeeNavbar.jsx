@@ -262,7 +262,7 @@ useEffect(()=>{
   return (
     <>
       <div className="Employee-nav w-full">
-        <div className="logo ">
+        <div className="logo">
           <img src={auxi} alt="auxi" />
         </div>
         <NavLink to="/employeeDash">
