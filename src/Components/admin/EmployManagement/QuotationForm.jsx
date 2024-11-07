@@ -56,12 +56,8 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
   const [content, setContent] = useState(data);
 
-  const {
-    role,
-    hrmsSetupEditPermission,
-    hrmsSetupDeletePermission,
-    hrmsSetupCreatePermission,
-  } = hrms_user;
+
+  const { role, } = hrms_user;
 
   const fileInputRef = useRef(null);
 

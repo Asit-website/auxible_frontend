@@ -32,7 +32,6 @@ const LeaveManItem = [
 
 ]
 
-
 const trainingItems = [
   {
     title: "Training list",
@@ -76,10 +75,7 @@ const payrols2 = [
     title:"My Projects",
     link:"/employeeDash/HRM/myProjects"
   },
-  // {
-  //   title:"My Tasks",
-  //   link:"/employeeDash/HRM/myProjectTask"
-  // },
+
  
 ]
 
@@ -124,10 +120,12 @@ const hrAdminItems = [
 
 const EmployeeSidebar = () => {
 
-  let user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
 
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission, role } = user;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission, hrAdminSetupPermission, trainingSetupPermission , permissionPagePermission } = hrms_permission;
+
+  console.log("permissionPagePermission " ,permissionPagePermission);
 
   const [openPayroll, setOpenPayroll] = useState(false);
 
@@ -138,19 +136,15 @@ const EmployeeSidebar = () => {
 
   const [hrItem,setHrItem] = useState(0);
 
-
-
   const [openLeaveMan, setOpenLeaveMan] = useState(false);
   const [openPerform, setOpenPerform] = useState(false);
   const [openPayroll2,setOpenPayroll2] = useState(false);
-
 
   const [leveItem, setLeveItem] = useState(0);
 
   const [performanceItem, setPerformanceItem] = useState(0);
 
   const [openHr,setOpenHr] = useState(false);
-
 
   const navigate = useNavigate();
 
@@ -217,7 +211,6 @@ const EmployeeSidebar = () => {
               leadPermission &&
 
               <NavLink to="/employeeDash/leadDash"><div className={`${window.location.pathname === "/employeeDash/leadDash" || window.location.pathname === "/employeeDash/myLead" || window.location.pathname === "/employeeDash/editLead" || window.location.pathname === "/employeeDash/createLead" || window.location.pathname === "/employeeDash/importLead/:id" || window.location.pathname === "/employeeDash/createQuotation" || window.location.pathname === "/employeeDash/editQuotation" ? "hh" : ""} setWrap`}>
-                {/* <p>Setting</p> */}
                 <div className="systSset">
                   <img src={`${window.location.pathname === "/employeeDash/leadDash" || window.location.pathname === "/employeeDash/myLead" || window.location.pathname === "/employeeDash/editLead" || window.location.pathname === "/employeeDash/createLead" || window.location.pathname === "/employeeDash/importLead/:id" || window.location.pathname === "/employeeDash/createQuotation" || window.location.pathname === "/employeeDash/editQuotation" ? leaderboard1 : leaderboard}`} alt="" />
                   <span className={`${window.location.pathname === "/employeeDash/leadDash" || window.location.pathname === "/employeeDash/myLead" || window.location.pathname === "/employeeDash/editLead" || window.location.pathname === "/employeeDash/createLead" || window.location.pathname === "/employeeDash/importLead/:id" || window.location.pathname === "/employeeDash/createQuotation" || window.location.pathname === "/employeeDash/editQuotation" ? "fan" : ""}`}>Lead Management</span>
@@ -225,6 +218,21 @@ const EmployeeSidebar = () => {
               </div></NavLink>
 
             }
+
+
+{
+              permissionPagePermission &&
+
+              <NavLink to="/employeeDash/Permission"><div className={`${window.location.pathname === "/employeeDash/Permission" || window.location.pathname === "/employeeDash/myLead" || window.location.pathname === "/employeeDash/editLead" || window.location.pathname === "/employeeDash/createLead" || window.location.pathname === "/employeeDash/importLead/:id" || window.location.pathname === "/employeeDash/createQuotation" || window.location.pathname === "/employeeDash/editQuotation" ? "hh" : ""} setWrap`}>
+                <div className="systSset">
+                  <img src={`${window.location.pathname === "/employeeDash/Permission" || window.location.pathname === "/employeeDash/myLead" || window.location.pathname === "/employeeDash/editLead" || window.location.pathname === "/employeeDash/createLead" || window.location.pathname === "/employeeDash/importLead/:id" || window.location.pathname === "/employeeDash/createQuotation" || window.location.pathname === "/employeeDash/editQuotation" ? leaderboard1 : leaderboard}`} alt="" />
+                  <span className={`${window.location.pathname === "/employeeDash/Permission" || window.location.pathname === "/employeeDash/myLead" || window.location.pathname === "/employeeDash/editLead" || window.location.pathname === "/employeeDash/createLead" || window.location.pathname === "/employeeDash/importLead/:id" || window.location.pathname === "/employeeDash/createQuotation" || window.location.pathname === "/employeeDash/editQuotation" ? "fan" : ""}`}>Permission</span>
+                </div>
+              </div></NavLink>
+
+            }
+
+            
             {
               payrollPermission &&
               <>

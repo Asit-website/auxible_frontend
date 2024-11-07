@@ -5,7 +5,7 @@ import path from '../images/path.png';
 import { useNavigate } from 'react-router-dom';
 import { useMain } from '../../hooks/useMain';
 import buttons from "../images/Buttons.png"
-import auxi from '../images/auxi.png'
+
 const ForgetPassword = () => {
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const ForgetPassword = () => {
 
         <div className="login-page2">
 
-          <img src={auxi} className='kushImg' alt="" />
+          <img src={kushel} className='kushImg' alt="" />
 
 
           <h2>Forgotten your password?</h2>

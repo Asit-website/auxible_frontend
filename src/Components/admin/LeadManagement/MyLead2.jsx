@@ -36,10 +36,11 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
   const [allLead, setAllLead] = useState([]);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
 
-  const { leadEditPermission, leadDeletePermission, leadCreatePermission  } = hrms_user;
-
+  const { leadEditPermission, leadDeletePermission, leadCreatePermission  } = hrms_permission;
+   
   const fetchLead = async () => {
     const ans = await getLead("", "", "", "");
     setAllLead(ans?.data);

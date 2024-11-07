@@ -3,7 +3,7 @@ import kushel from "../images/kushel.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMain } from "../../hooks/useMain";
 import frame from "../images/Frame.png"
-import auxi from "../images/auxi.png";
+
 
 const Auth = (props) => {
   const { login, setUser } = useMain();
@@ -50,17 +50,17 @@ const Auth = (props) => {
     e.preventDefault();
 
     let ans = await login(value);
+    console.log("ans " ,ans?.PermissionRole);
 
     if (ans.success) {
       setUser(ans.user);
       localStorage.setItem("hrms_user", JSON.stringify(ans?.user));
+      localStorage.setItem("hrms_permission", JSON.stringify(ans?.user?.PermissionRole || {}));
       localStorage.setItem(
         "hrms_token",
         JSON.stringify({
           token: ans.token,
           role: ans.role
-          // rememberMe: document.getElementById('remember').checked,
-          // expiry: new Date().getTime() + 24 * 60 * 60 * 1000
         })
       );
 
@@ -92,7 +92,7 @@ const Auth = (props) => {
 <div className="login_new_div">
 
 
- <img className="kushel-logo2" src={auxi} alt="" />
+ <img className="kushel-logo2" src={kushel} alt="" />
 
 
                 <div className="singWrap">

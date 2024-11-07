@@ -58,8 +58,11 @@ const EmployeeManagement = ({
   };
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-   const {role , employeeManageEditPermission , employeeManageActivatePermission} = hrms_user;
+
+   const {role } = hrms_user;
+   const {  employeeManageEditPermission , employeeManageActivatePermission} = hrms_permission;
 
   const [allData , setAllData] = useState([]);
 

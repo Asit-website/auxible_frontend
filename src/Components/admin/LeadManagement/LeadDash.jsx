@@ -13,7 +13,6 @@ import delete4 from "../../images/delete.png";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 
 
-
 const LeadDash = ({ setAlert, pop, setPop }) => {
   const {
     user,
@@ -290,7 +289,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                     <h1>{totalCloseLead}</h1>
                   </div>
                 </div>
-                <div className="lead_dash_box sing1111">
+               {/*  <div className="lead_dash_box sing1111">
                   <div className="lead_contents">
                     <svg
                       width="42"
@@ -334,6 +333,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                     <h1>120</h1>
                   </div>
                 </div>
+                */}
                 <div className="lead_dash_box sing11111">
                   <div className="lead_contents">
                     <svg

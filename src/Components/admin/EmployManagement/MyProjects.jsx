@@ -28,8 +28,11 @@ const MyProjects = ({ setAlert, pop, setPop }) => {
 
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-  const { role , projectCreatePermission  , showAllProjectPermission} = hrms_user;
+
+  const { role} = hrms_user;
+  const { projectCreatePermission  , showAllProjectPermission} = hrms_permission;
 
   const [addClientPop, setAddClientPop] = useState(false);
 

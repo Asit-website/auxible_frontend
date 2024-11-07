@@ -277,7 +277,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                     <h1>{totalCloseLead}</h1>
                   </div>
                 </div>
-                <div className="lead_dash_box sing1111">
+                {/* <div className="lead_dash_box sing1111">
                   <div className="lead_contents">
                     <svg
                       width="42"
@@ -320,7 +320,7 @@ const LeadDash2 = ({ setAlert, pop, setPop }) => {
                     <h3>My Calls Today</h3>
                     <h1>120</h1>
                   </div>
-                </div>
+                </div> */}
                 <div className="lead_dash_box sing11111">
                   <div className="lead_contents">
                     <svg

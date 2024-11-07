@@ -623,7 +623,15 @@ body {
 .thebuttn {
   display: flex !important;
   justify-content: flex-start !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
+.lonj td{
+  height: 100% !important;
 }
 
 .ref1 {
@@ -1095,7 +1103,7 @@ body {
 }
 
 .emm {
-  margin-top: 50px !important;
+  margin-top: 80px !important;
 }
 
 .taskans11 {
@@ -5201,8 +5209,9 @@ input::-webkit-inner-spin-button {
   border: 1px solid #E8E9EB;
   box-shadow: 0px 8px 32px -2px #1B25330F;
   padding: 15px 0px;
+  margin-top: 20px ;
   min-height: 250px;
-  max-height: 250px;
+  /* max-height: 250px; */
   overflow-y: scroll;
   border-radius: 10px;
 }
@@ -5234,10 +5243,11 @@ input::-webkit-inner-spin-button {
   margin-left: 15px;
   overflow-y: scroll;
   min-height: 250px;
-  max-height: 250px;
+  /* max-height: 250px; */
   box-shadow: 0px 8px 32px -2px #1B25330F;
   border-radius: 15px;
   padding: 15px 0px;
+  margin-top: 20px;
 }
 
 .my_open {
@@ -5974,7 +5984,6 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* gap: 3px; */
   gap: 10px;
 }
 .noteLabel p {
@@ -6857,4 +6866,138 @@ text-align: left;
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px 10px;
+}
+.same_bar{
+  position: fixed;
+  top: 50px;
+  z-index: 10000;
+  display: none;
+  background-color: white;
+  padding: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media only screen and (min-width:1000px){
+  .oppl{
+    display: block !important;
+  }
+}
+@media only screen and (max-width:1000px){
+  .same_bar{
+    display: block !important;
+  }
+  .attend-ctiveWrap{
+    flex-direction: column-reverse;
+  }
+  .hrLefThi{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .hrmActLeft{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .attend-ctiveWrap .hrmActRight{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media only screen and (max-width:900px){
+  .hrLefFir {
+    flex-wrap: wrap !important;
+  }
+  .holiHead{
+    padding: 0px 20px;
+  }
+  .lead_dash_card{
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .sing111{
+    margin-left: 0px;
+  }
+  .sing11111{
+    margin-left: 0px;
+  }
+  .my_things{
+    flex-direction: column;
+    margin-top: 0px;
+  }
+  .table22{
+    margin-left: 0px;
+  }
+  
+}
+
+@media only screen and (max-width:680px){
+  .leadThings{
+    flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+   gap: 15px;
+  }
+  .leads_btn{
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .lead_btn{
+    margin-left: 0px;
+  }
+  .lead_content1 h2{
+    text-align: center;
+  }
+  .lead_content1 p{
+    text-align: center;
+  }
+  .em{
+    padding: 32px 20px;
+  }
+  .fiterWrap{
+    flex-wrap: wrap !important;
+    height: auto !important;
+    justify-content: center;
+    align-items: center !important;
+  }
+}
+@media only screen and (max-width:450px){
+  .fiterWrap{
+    flex-direction: column !important;
+  }
+  .fiterWrap h3{
+    margin-top: 15px;
+  }
+  .hrmsFri h2{
+    font-size: 20px !important;
+    line-height: 28px !important;
+  }
+}
+@media only screen and (max-width:400px){
+  .time_emp_desh_flex{
+    gap: 15px;
+  }
+  .attend-ctiveWrap .markAttWrap{
+    height: auto !important;
+  }
+  .attend-ctiveWrap .oficTime .singlTime{
+    width: 55px !important;
+    height: 55px !important;
+  }
+  .attend-ctiveWrap .oficTime .singlTime p{
+    font-size: 20px !important;
+  }
+  .clockINOUTBtn svg{
+      display: none !important;
+  }
+  .sixth-logo p{
+    font-size: 12px;
+  }
+  .dFirLef h2{
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .sixth-logo .bottom{
+    display: none;
+  }
+  
 }

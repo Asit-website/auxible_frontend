@@ -39,8 +39,11 @@ const ProjectDetails2 = ({ setAlert, pop, setPop }) => {
   const data = location?.state;
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-  const { role, showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission ,  } = hrms_user;
+
+  const { role,  } = hrms_user;
+  const {  showTasksDetailPermission , showAllProjectPermission , addTaskPermission ,  deleteTaskPermission , editTaskPermission ,  } = hrms_permission;
 
   const [formdata, setFormdata] = useState({
     Title: "",

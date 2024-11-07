@@ -7,7 +7,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
-// const baseUrl = "http://localhost:5000";t
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
@@ -16,7 +16,7 @@ const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
-// const baseUrl = "https://hr-backend-ncrd.onrender.com"
+// const baseUrl = "https://hr-backend-ncrd.onrender.com";
 
 
 const MainState = (props) => {
@@ -164,10 +164,10 @@ const MainState = (props) => {
       return data;
    };
 
-   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType }) => {
+   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType ,PermissionRole ,  }) => {
 
 
-      const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, employeeType }, true);
+      const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, employeeType , PermissionRole }, true);
 
       const id = data?.data?._id;
 
@@ -360,6 +360,7 @@ const MainState = (props) => {
    const updateHoliday = async ({ _id, holidayName, holidayDate }) => {
       console.log(_id, holidayName, holidayDate);
       const data = await put(`${baseUrl}/holiday/updateHoliday/${_id}`, { holidayName, holidayDate }, true);
+      console.log(data);
       return data;
    };
 
@@ -1432,7 +1433,8 @@ const MainState = (props) => {
          ZipCode,
          Country,
          DescriptionInfo,
-         image
+         image , 
+         date
       }) => {
 
       let data;
@@ -1472,7 +1474,8 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
-            image: imageUrl?.data
+            image: imageUrl?.data , 
+            date
          }, true);
 
       }
@@ -1504,6 +1507,7 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
+            date
 
          }, true);
       }
@@ -1550,7 +1554,8 @@ const MainState = (props) => {
 
 
    const updateLead = async (
-      { LeadOwner,
+      {
+          LeadOwner,
          Company,
          FirstName,
          LastName,
@@ -1575,7 +1580,10 @@ const MainState = (props) => {
          State,
          ZipCode,
          Country,
-         DescriptionInfo, id , image }
+         DescriptionInfo, id , image , 
+         date
+      
+      }
 
    ) => {
 
@@ -1615,6 +1623,7 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
+            date
 
          }, true);
 
@@ -1649,6 +1658,7 @@ const MainState = (props) => {
             ZipCode,
             Country,
             DescriptionInfo,
+            date
 
          }, true);
 
@@ -2105,15 +2115,28 @@ const MainState = (props) => {
       return data;
    };
 
-   const ProvidePermission = async ({ Designation , userId ,Service , SubPermission}) => {
-      const data = await post(`${baseUrl}/permission/providePermission`, { Designation , userId ,Service  , SubPermission}, true);
+   const ProvidePermission = async ({ name ,Service }) => {
+      const data = await post(`${baseUrl}/permission/providePermission`, { name ,Service }, true);
       return data;
    };
+   const UpdatePermission = async ({ name ,Service , roleId }) => {
+      const data = await post(`${baseUrl}/permission/updatePermission`, { name ,Service , roleId }, true);
+      return data;
+   };
+   const DeleteRoleApi = async ( roleId ) => {
+      const data = await post(`${baseUrl}/permission/DeleteRoleApi`, { roleId }, true);
+      return data;
+   };
+   const AllRolesapi = async () => {
+      const data = await post(`${baseUrl}/permission/fetchallRole` , {}, true);
+      return data;
+   };
+
    const ProvideRemovePermission = async ({ Designation , userId ,Service , SubPermission}) => {
       const data = await post(`${baseUrl}/permission/ProvideRemovePermission`, { Designation , userId ,Service  , SubPermission}, true);
       return data;
    };
-   const RemovePermission = async ({  }) => {
+   const RemovePermission = async ({ }) => {
       const data = await post(`${baseUrl}/permission/removePermission`, {  }, true);
       return data;
    };
@@ -2289,6 +2312,11 @@ const MainState = (props) => {
       const data = await get(`${baseUrl}/user/getThisMonthLeave/${userId}`, true);
       return data;
    };
+   const fetchUserOwnDetailApi = async (userId) => {
+
+      const data = await post(`${baseUrl}/user/getUserOwndetail/${userId}`, {},  true);
+      return data;
+   };
    const getTodayBirthday = async () => {
       
       const data = await get(`${baseUrl}/task/getBirthDayUser`, true);
@@ -2325,7 +2353,7 @@ const MainState = (props) => {
          login,deleteQuotationapi ,timerHandlerapi , saveLORLetterapi ,saveLetter1Api ,  fetchMonthlyLeave ,  deleteExpenseApi , getExpenseApi ,  CreateExpense ,saveRelivingLetterapi ,getTodayBirthday ,  changeTaskStatusApi ,getAllProjectUserTaskApi2  , getProjectTask,getAllProjectAllTaskApi , getAllProjectUserTaskApi ,  CreateProjectTask ,  taskCreateApi,FetchFollowApi ,getQuotationApi ,    ProvidePermission , RemovePermission ,   GetOpenLeadsApi ,   getLeadById,CreateNoteApi  , updateNoteApi,DeleteNoteApi ,  getUserByDesignation, UpdateLeadStatus, UpdateLeadSource, AllLeadSource, meetCreateApi, AllLeadStatus, taskEditApi, meetEditApi,GetNoteApi ,  deleteTaskapi, deleteMeetapi, getTaskApi, getMeetApi, employeeLogin, employeeResetPassword, hrLogin, createHr, getHrs, deleteHr, createEmployee, getEmployees, getUsers, getActiveUsers, getActiveUsersCount, postLeadStatus, postLeadSource2, getAdminEmployees, postActivity,editTaskapi ,deleteProject ,   postActivityHr, getActivitiesByUser, getStatisticsByUser, postLeave, updateLeave, getUserLeaves, getUserLeaveById, deleteLeave, getTotalLeaves, postTotalLeaves, verifyEmployee, verifyHr, verifyAdmin, setUser, buildAPI, user,disableClientapi ,  getProjects, postProject, getHolidays, postHoliday, updateProject, getProjectsByEmployee, getTasks, postTask, updateTask, deleteTask, setFlag, flag, changePassword, updateProfile, deleteHoliday, updateHoliday, deleteTaskProject, getChats, createNewChat, postMessage, deleteChat,getClientapi ,  adminLogin, getChat, getChatByUser, setUserTotalLeaveApi ,  setChatUser, chatUser, getEmployeesByEmployee, topDash, postAnnouncement, updateAnnouncement, getAnnouncements, getAnnouncementDates, deleteAnnouncement, getAttendance, getAttendanceByUser, createEmployee1, updateAdminProfile,   createProjectapi , getAllProjectApi , editProjectapi
  ,          changePassword1, verify, updateUser, forgetPassword, forgetPassword1, forgetPassword2, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesingation, postDesignation, updateDesignation, deleteDesignation, getAllActivities, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType,
          createIndicator, getIndicator, deleteIndicator, getDesignations, updateIndicator, getAppraisal, createAppraisal, allEmployee, deleteApprisal, updateApprisal, createAssets, getAssets, deleteAssets, updateAssets, deleteUser, createTracks, getTracks, deleteTracks, updateTracks, editComApi, loanDeleteHandler,
-         editAllowance, commisionDelteHandler, createLoan, editLoanApi,
+         editAllowance, commisionDelteHandler, createLoan, editLoanApi,UpdatePermission , 
          getTotalLeavesCount, uploadDocuments, createAnnouncement, deleteAnnouncement, updateAnnouncements, fetchAnnoucement, deleteAnnouncements, getEmp, allEmployeebyDep, notificationGet,
          acceptLeave, rejectLeave, leaveTypeApi , 
          ProvideRemovePermission , postQuotationFormApi ,updatePropsalFormApi ,  postProposalFormApi ,  createClientapi , 
@@ -2369,6 +2397,7 @@ const MainState = (props) => {
          getLead,
          getLead2,
          allowDeleteHandler,
+         fetchUserOwnDetailApi , 
          deleteLeads, updateLead,
          uploadToCloudinaryImg,
          postQuotation,
@@ -2396,6 +2425,7 @@ const MainState = (props) => {
          deleteIndustry,
          updateIndustry,
          getLeadByUser,
+         DeleteRoleApi , 
          getLeadStat,
          postLeadStat,
          updateLeadStat,
@@ -2407,7 +2437,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
+         savenoteatt ,AllRolesapi ,  deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
       }}> 
          {props.children}
       </MainContext.Provider>

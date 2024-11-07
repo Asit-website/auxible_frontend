@@ -5,7 +5,7 @@ import path from '../images/path.png';
 import { useMain } from '../../hooks/useMain';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import auxi from '../images/auxi.png'
+
 const ForgetPassword2 = ({ setAlert }) => {
   const { forgetPassword2 } = useMain();
 
@@ -48,7 +48,7 @@ const ForgetPassword2 = ({ setAlert }) => {
 
         <div className="login-page2">
 
-                    <img className="kushImg" src={auxi} alt="auxi" />
+                    <img className="kushImg" src={kushel} alt="" />
 
           <h2>Create new password</h2>
 

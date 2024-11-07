@@ -48,7 +48,8 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
          State :"",
          ZipCode :"",
          Country:"" ,
-         DescriptionInfo:""
+         DescriptionInfo:"" , 
+         date:""
      });
 
      const navigate = useNavigate();
@@ -108,7 +109,8 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                  State :"",
                  ZipCode :"",
                  Country:"" ,
-                 DescriptionInfo:""
+                 DescriptionInfo:"" , 
+                 date:""
             })
           }
 
@@ -382,6 +384,18 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
                                         </div>
 
                                     </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Date</label>
+                                            <input value={formdata.date} name="date" onChange={changeHandler}  type="date" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                         
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>

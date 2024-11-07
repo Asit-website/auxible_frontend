@@ -32,19 +32,58 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   }, []);
 
 
-  const handleChange = async (e) => {
-    if (e.target.name === "image") {
-      setValue({ ...value, [e.target.name]: e.target.files[0] });
-      let image = e.target.files[0];
-      const ans = await uploadToCloudinaryImg({ image });
-      if (ans.status) {
-        setUploadedProfile(ans?.data);
-      }
-    } else {
-      setValue({ ...value, [e.target.name]: e.target.value });
-    }
-  };
+  // const handleChange = async (e) => {
+  //   if (e.target.name === "image") {
+  //     setValue({ ...value, [e.target.name]: e.target.files[0] });
+  //     let image = e.target.files[0];
+  //     const ans = await uploadToCloudinaryImg({ image });
+  //     if (ans.status) {
+  //       setUploadedProfile(ans?.data);
+  //     }
+  //   } else {
+  //     setValue({ ...value, [e.target.name]: e.target.value });
+  //   }
+  // };
 
+
+  const handleChange = async(e) => {
+    const {name  , value} = e.target;
+   
+    if (name === "pan" && value.length > 10) {
+     return; 
+   }
+    if (name === "adhar" && value.length > 12) {
+     return; 
+   }
+    if (name === "currentPin" && value.length > 6) {
+     return; 
+   }
+   if(name === "perPin" && value.length > 6){
+     return
+   }
+   if(name === "mobile" && value.length > 10){
+     return
+   }
+   if(name === "pan" && value.length > 10){
+     return
+   }
+   
+   
+   
+   
+    if (name === "image") {
+     setValue({ ...value, [e.target.name]: e.target.files[0] });
+     let image = e.target.files[0];
+     const ans = await uploadToCloudinaryImg({image});
+     if(ans.status){
+       setUploadedProfile(ans?.data);
+      }
+   } else {
+     setValue({ ...value, [e.target.name]: e.target.value });
+   }
+   
+   
+     };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ans = await updateProfile(value);

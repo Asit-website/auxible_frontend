@@ -89,8 +89,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
   const [open, setOpen] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-    const {role ,leadSystemSettingEditPermission , leadSystemSettingDeletePermission , leadSystemSettingCreatePermission} = hrms_user;
+
+    const {role} = hrms_user;
+    const { leadSystemSettingEditPermission , leadSystemSettingDeletePermission , leadSystemSettingCreatePermission} = hrms_permission;
 
 
   const [popup, setPopup] = useState(false);

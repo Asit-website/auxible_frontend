@@ -12,6 +12,8 @@ import redcancel from "../../images/redcancel.png"
 import notifyy from "../../images/notifyy.png"
 import auxi from '../../images/auxi.png'
 
+
+
 var tc;
 var tc2;
 
@@ -262,8 +264,8 @@ useEffect(()=>{
   return (
     <>
       <div className="Employee-nav w-full">
-        <div className="logo">
-          <img src={auxi} alt="auxi" />
+        <div className="logo ">
+          <img src={auxi} alt="" />
         </div>
         <NavLink to="/employeeDash">
         <div className="second-logo flex items-center">

@@ -170,7 +170,6 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
   // this is for filter per day one 
   useEffect(() => {
 
-
     let FiltData;
 
     const today = new Date();
@@ -223,9 +222,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
 
   }, [Filter1]);
 
-
   const [searchText, setSrchText] = useState("");
-
 
   useEffect(() => {
 
@@ -245,8 +242,6 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
   }, [searchText])
 
 
-  console.log("currentItems " , currentItems);
-
   return (
     <>
       <div className="employee-dash h-full">
@@ -256,6 +251,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
           <AdminNavbar user={user} setAlert={setAlert} />
 
           <div className="em">
+
             <div className="leadThings">
               <div className="lead_content1">
                 <h2>Lead Management</h2>
@@ -465,8 +461,6 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                 </div> */}
               </div>
 
-
-
               <div className="leaftlead2">
                 <span>Sort by</span>
 
@@ -487,6 +481,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
             </div>
 
             <div>
+
               <div className="test_filter">
                 <select
                   onChange={(e) => setFilter1(e.target.value)}
@@ -510,6 +505,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                 </div>
                 <div className="relative overflow-x-auto lonj">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr className="thol saka">
                         <th scope="col" className="px-3 py-3">
@@ -575,9 +571,9 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                               </div>
                             </td>
 
-                            <td className="thebuttn">
+                            <td  className="thebuttn px-3 py-3">
 
-                              <div className="testok">
+
                                 <svg
                                   className="cursor-pointer"
                                   onClick={() =>
@@ -632,7 +628,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                                     fill="#DE3730"
                                   />
                                 </svg>
-                              </div>
+
                             </td>
                           </tr>
                         );
@@ -686,7 +682,9 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                   </div>
                 </div>
               </div>
+
             </div>
+
           </div>
         </div>
       </div>

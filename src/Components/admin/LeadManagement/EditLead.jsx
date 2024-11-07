@@ -23,6 +23,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
 
     const item = location?.state;
 
+  console.log("item " , item);
 
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -57,7 +58,8 @@ const EditLead = ({ setAlert, pop, setPop }) => {
         State: "",
         ZipCode: "",
         Country: "",
-        DescriptionInfo: ""
+        DescriptionInfo: "" , 
+        date:""
     });
 
     const navigate = useNavigate();
@@ -99,6 +101,33 @@ const EditLead = ({ setAlert, pop, setPop }) => {
 
     }
 
+  
+
+    const [allLeadStatus , setAllLeadStatus] = useState([]);
+    const [allLeadSource , setAllLeadSource] = useState([]);
+    const [allleadStat,setAllLeadStat] = useState([]);
+
+    const fetchStatus = async()=>{
+        const ans = await AllLeadStatus();
+         setAllLeadStatus(ans?.data);
+    }
+
+    const fetchSource = async()=>{
+        const ans = await AllLeadSource();
+        setAllLeadSource(ans?.data);
+    }
+
+    const fetchStat = async () =>{
+        const ans = await getLeadStat();
+        setAllLeadStat(ans?.data);
+    }
+
+    useEffect(()=>{
+        fetchStatus();
+        fetchSource();
+        fetchStat();
+    },[])
+
     useEffect(() => {
         getOwner();
         setFormdata({
@@ -128,34 +157,12 @@ const EditLead = ({ setAlert, pop, setPop }) => {
             State: item?.State,
             ZipCode: item?.ZipCode,
             Country: item?.Country,
-            DescriptionInfo: item?.DescriptionInfo
+            DescriptionInfo: item?.DescriptionInfo,
+            date: item?.date
         })
-    }, [])
+    }, [item])
 
-    const [allLeadStatus , setAllLeadStatus] = useState([]);
-    const [allLeadSource , setAllLeadSource] = useState([]);
-    const [allleadStat,setAllLeadStat] = useState([]);
-
-    const fetchStatus = async()=>{
-        const ans = await AllLeadStatus();
-         setAllLeadStatus(ans?.data);
-    }
-
-    const fetchSource = async()=>{
-        const ans = await AllLeadSource();
-        setAllLeadSource(ans?.data);
-    }
-
-    const fetchStat = async () =>{
-        const ans = await getLeadStat();
-        setAllLeadStat(ans?.data);
-    }
-
-    useEffect(()=>{
-        fetchStatus();
-        fetchSource();
-        fetchStat();
-    },[])
+    console.log("formdata " ,formdata);
 
     return (
         <>
@@ -379,6 +386,17 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                                         <div className="lead_inp1">
                                             <label htmlFor="">Twitter</label>
                                             <input value={formdata.Twitter} name="Twitter" onChange={changeHandler} type="text" />
+                                        </div>
+
+                                    </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Date</label>
+                                            <input value={formdata.date} name="date" onChange={changeHandler}  type="date" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                         
                                         </div>
 
                                     </div>

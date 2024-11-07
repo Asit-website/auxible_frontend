@@ -148,12 +148,12 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [payrollItem,setPayrollItem] = useState(0);
 
-  let user = JSON.parse(localStorage.getItem("hrms_user"));
-
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
   const { role } = hrms_user;
+
+  let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
    
-  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission , hrAdminSetupPermission , trainingSetupPermission } = user;
+  const { leadPermission, hrmsSetUpPermission, payrollPermission, leadSystemPermission, attendencePermission, assetsPermission, documentPermission, leaveManagePermission, performancePermission, employeeManagePermission , hrAdminSetupPermission , trainingSetupPermission } = hrms_permission;
 
   const [performanceItem,setPerformanceItem] = useState(0);
 
@@ -162,6 +162,8 @@ const AdminSidebar = ({ pop, setPop }) => {
   const [leveItem,setLeveItem] = useState(0);
 
   const [hrItem,setHrItem] = useState(0);
+
+  const [start,setStart] = useState(false);
 
   const navigate = useNavigate();
 
@@ -177,10 +179,14 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openHr,setOpenHr] = useState(false);
 
+  const stylepoo = {
+     display:start ? "block" : "none"
+  }
+
 
   return (
     <>
-      <button
+      {/* <button
         data-drawer-target="sidebar-multi-level-sidebar"
         data-drawer-toggle="sidebar-multi-level-sidebar"
         aria-controls="sidebar-multi-level-sidebar"
@@ -201,16 +207,22 @@ const AdminSidebar = ({ pop, setPop }) => {
             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
           ></path>
         </svg>
-      </button>
+      </button> */}
 
+      <i onClick={()=> setStart(!start)} class="fa-solid fa-bars same_bar"></i>
+      {/* -translate-x-full sm:translate-x-0 */}
+
+   
 
 {
   role === "ADMIN" && 
 
       <aside
+        style={stylepoo}
         id="sidebar-multi-level-sidebar"
-        className="fixed top-0 olo left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 sidebars"
+        className="fixed top-0 olo left-0 z-40 w-64 h-screen transition-transform oppl  sidebars"
         aria-label="Sidebar"
+
       >
     
         <div className="h-full olo1 px-3 py-4 overflow-y-auto sidebars sidebars1">
@@ -1075,8 +1087,8 @@ const AdminSidebar = ({ pop, setPop }) => {
             </aside>
       
             }
-
-      <div className="p-0 sm:ml-64"></div>
+      
+      <div style={stylepoo}  className="p-0 sm:ml-64 oppl"></div>
 
       {pop && <Managment setPop={setPop} />}
 

@@ -36,8 +36,11 @@ const LeaveRequest = ({
   const [data, setData] = useState([]);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-  const {role , leaveReqestEditPermission , leaveReqestActionPermission} = hrms_user;
+
+  const {role } = hrms_user;
+  const {  leaveReqestEditPermission } = hrms_permission;
 
 
   const [accept,setAccept] = useState("reject",user);

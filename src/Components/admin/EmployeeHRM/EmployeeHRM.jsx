@@ -51,6 +51,7 @@ const EmployeeHRM = ({
   const {
     user,
     getUsers,
+    fetchUserOwnDetailApi , 
     getActiveUsersCount,
     postActivity,
     getTotalLeavesCount,
@@ -67,6 +68,11 @@ const EmployeeHRM = ({
     allEmployee , 
     LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense
   } = useMain();
+
+
+
+ 
+
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
 
@@ -86,7 +92,8 @@ const EmployeeHRM = ({
   const [totalLeave, setTotalLeave] = useState(0);
   const [totalHalfDay, setTotalHalfDay] = useState(0);
 
-  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
+  let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
 
   const [todayTask, setTodayTask] = useState("");
 
@@ -96,10 +103,26 @@ const EmployeeHRM = ({
     leaveRequestPermission,
     employeeOnLeavePermission,
     totalEmployeePermission,
-    createExpensePermission
-  } = hrms_user;
+    
+  } = hrms_permission;
 
   const { role } = hrms_user;
+
+  const fetchUserOwnDetailHandler = async()=>{
+    const ans = await fetchUserOwnDetailApi(hrms_user?._id);
+    if(ans?.status){
+      localStorage.setItem("hrms_user", JSON.stringify(ans?.data));
+      localStorage.setItem("hrms_permission", JSON.stringify(ans?.data?.PermissionRole || {}));
+    }
+ }
+
+  useEffect(()=>{
+
+   if(hrms_user){
+      fetchUserOwnDetailHandler();
+   }
+
+  },[])
 
   const [formdata, setFormdata] = useState({
     employeeName: "",
@@ -1593,7 +1616,7 @@ const EmployeeHRM = ({
                         </button>
 
                       {
-                       ( hrms_user?.userAllowCrtPermission || hrms_user?.role === "ADMIN") && 
+                       ( hrms_permission?.userAllowCrtPermission || hrms_user?.role === "ADMIN") && 
                         <button
                         data-modal-target="authentication-modal"
                         data-modal-toggle="authentication-modal"
@@ -1608,7 +1631,7 @@ const EmployeeHRM = ({
                       }
 
 {
-  (hrms_user?.createExpensePermission || hrms_user?.role === "ADMIN") && 
+  (hrms_permission?.createExpensePermission || hrms_user?.role === "ADMIN") && 
 
 <button
                         data-modal-target="authentication-modal"
@@ -1626,7 +1649,7 @@ const EmployeeHRM = ({
 }
 
 {
-    (hrms_user?.showExpensePermission || hrms_user?.role === "ADMIN") && 
+    (hrms_permission?.showExpensePermission || hrms_user?.role === "ADMIN") && 
 
                       <button
                         data-modal-target="authentication-modal"

@@ -1041,6 +1041,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     saveRelivingLetterapi,
     saveExperienceLetterapi,  
     saveLORLetterApi , 
+    saveLetter1Api , 
     saveOfferInterLetterapi
   } = useMain();
 
@@ -1051,7 +1052,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const [allEmp, setAllEmp] = useState([]);
   const [SelectEmpId, setSelectEmpId] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(4);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const allEmplget = async () => {
     const ans = await allEmployee();
@@ -1074,8 +1075,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   const [content5, setContent5] = useState(data5);
   const [content6, setContent6] = useState(data6);
 
-
-  console.log("content6 ",content6);
 
   const saveDocumentApi = async () => {
     if (SelectEmpId === "" || SelectEmpId === "Select") {
@@ -1159,6 +1158,23 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastid);
   };
 
+  const saveLetter2 = async () => {
+    if (SelectEmpId === "" || SelectEmpId === "Select") {
+      toast.error("Please select the user");
+      return;
+    }
+    const toastid = toast.loading("Loading...");
+    const ans = await saveLetter1Api({
+      id: SelectEmpId,
+      content: content6,
+    });
+
+    if (ans?.status) {
+      toast.success("Successfuly Saved");
+    }
+    toast.dismiss(toastid);
+  };
+
   const [replaceData , setReplaceData] = useState({
     name:"[NAME]", 
     address:"[ADDRESS]", 
@@ -1233,8 +1249,6 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     sentence:"" , 
     username:""
   })
-
-
 
   const handleNameChange = (e) => {
     const {name , value} = e.target;
@@ -2224,7 +2238,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                     </div>
 
                     <button
-                      onClick={() => saveLORLetter()}
+                      onClick={() => saveLetter2()}
                       className="doSaveBtn"
                     >
                       <span>Save</span>

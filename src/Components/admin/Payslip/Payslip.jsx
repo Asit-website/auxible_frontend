@@ -18,8 +18,11 @@ const Payslip = ({ pop,  setPop}) => {
     const { user, getUserSlip, togglePayslip, buildAPI , setUserTotalLeaveApi } = useMain();
 
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+    let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-    const { role, paySlipActionPermission  } = hrms_user;
+    const { role  } = hrms_user;
+    const {  paySlipActionPermission  } = hrms_permission;
+
 
     const [loading, setLoading] = useState(false);
 

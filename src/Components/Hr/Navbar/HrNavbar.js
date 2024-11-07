@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import kushel1 from "../../images/kushel1.png";
+import kushel1 from "../../images/auxi.png";
 import notification from "../../images/notifications.png"
 import chatbot from "../../images/chat_bubble_outline.png"
 import lok from "../../images/lok.png";
@@ -9,7 +9,7 @@ import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
 import { useMain } from '../../../hooks/useMain'
 
-import auxi from '../../images/auxi.png'
+
 
 const HrNavbar = ({ setAlert}) => {
   
@@ -82,7 +82,7 @@ useEffect(()=>{
         <div className="logo-namewrap">
 
           <div className="logo ">
-            <img src={auxi} alt="auxi" />
+            <img src={kushel1} alt="" />
           </div>
 
           <NavLink to="/adminDash">

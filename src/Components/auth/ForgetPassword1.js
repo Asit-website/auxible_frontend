@@ -4,7 +4,7 @@ import kushel from "../images/kushel.png";
 import path from '../images/path.png';
 import { useNavigate } from 'react-router-dom';
 import { useMain } from '../../hooks/useMain';
-import auxi from '../images/auxi.png'
+
 const ForgetPassword1 = () => {
   const navigate = useNavigate();
   const { forgetPassword1 } = useMain();
@@ -37,7 +37,7 @@ const ForgetPassword1 = () => {
         {/* </div> */}
 
         <div className="login-page2">
-                    <img className="kushImg" src={auxi} alt="" />
+                    <img className="kushImg" src={kushel} alt="" />
 
           <h2>Forgot Password</h2>
           <p className="mt-4">
