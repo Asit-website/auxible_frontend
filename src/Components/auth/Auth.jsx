@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import kushel from "../images/kushel.png";
+import kushel from "../images/auxi.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMain } from "../../hooks/useMain";
 import frame from "../images/Frame.png"

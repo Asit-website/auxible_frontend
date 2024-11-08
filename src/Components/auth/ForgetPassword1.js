@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import photo from "../images/Photo.png";
-import kushel from "../images/kushel.png";
+import kushel from "../images/auxi.png";
 import path from '../images/path.png';
 import { useNavigate } from 'react-router-dom';
 import { useMain } from '../../hooks/useMain';
