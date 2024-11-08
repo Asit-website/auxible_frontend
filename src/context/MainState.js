@@ -12,7 +12,7 @@ import { useState } from 'react';
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
-const baseUrl = "https://hmsbackend.kusheldigi.com";
+const baseUrl = "https://hrbackend.auxibleindia.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
