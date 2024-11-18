@@ -3,15 +3,13 @@ import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
 import bell from "../../images/bell.png";
 import OutsideClickHandler from "react-outside-click-handler";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import LogoutPop from "../Popup/LogoutPop";
 import { useMain } from "../../../hooks/useMain";
-import kushel1 from "../../images/kushel1.png";
+import kushel1 from "../../images/auxi.png";
 import redcancel from "../../images/redcancel.png"
 import notifyy from "../../images/notifyy.png"
-import auxi from '../../images/auxi.png'
-
 
 
 var tc;
@@ -99,7 +97,6 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
       }
     }
   };
-
 
   const punchBtn = async (type, flag = -1) => {
     if (!isLoggedOut) {
@@ -237,6 +234,8 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   else if (hours >= 17 && hours <= 24) greet = "Evening";
 
   const [allNotication , setAllNotification] = useState([]);
+  const [currLoad , setCurrLoad] = useState(1);
+  const [actNotify , setActNotify] = useState([]);
 
   const [shownotify , setShownotify] = useState(false);
   
@@ -251,21 +250,26 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
      }
 }
 
-const deleteNotify = async(id)=>{
-  const ans = await deleteNotification(id);
-  fetchNotification();
-}
 
 useEffect(()=>{
   fetchNotification();
+  setCurrLoad(1);
 },[])
 
+
+useEffect(()=>{
+
+   let num = currLoad*10;
+  const nNotify = allNotication.slice(0 , num);
+  setActNotify(nNotify);
+
+},[allNotication , currLoad])
 
   return (
     <>
       <div className="Employee-nav w-full">
         <div className="logo ">
-          <img src={auxi} alt="" />
+          <img src={kushel1} alt="" />
         </div>
         <NavLink to="/employeeDash">
         <div className="second-logo flex items-center">
@@ -339,11 +343,16 @@ useEffect(()=>{
 
          {
 
- allNotication?.length > 0 ?
+allNotication?.length > 0 ?
 
-           allNotication?.map((item , index)=>(
+             <div className="allnotifywrap">
+
+{
+
+           actNotify?.map((item , index)=>(
 
              <>
+
              <div key={index} className="singlnotify">
                <h2>{item?.title}</h2>
 
@@ -358,6 +367,14 @@ useEffect(()=>{
              </>
 
            ))
+
+          }
+
+          <button  onClick={() => setCurrLoad(currLoad + 1)}
+ className="lodmorebtns"><span>Load More...</span></button>
+
+           </div>
+
 
            :
             <div className="nonotify">

@@ -6,7 +6,7 @@ import calling from "../../images/calling.png";
 import earth from "../../images/earth.png";
 import pdf from "../../images/pdf.png";
 import chakka from "../../images/chakka.png";
-import kushel1 from "../../images/auxi.png";
+import kushel1 from "../../images/kushel1.png";
 import Managment from "../../admin/Management/Managment";
 import { NavLink, useNavigate } from "react-router-dom";
 import dashboard from "../../images/dashboard.png";

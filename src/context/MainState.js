@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -12,12 +12,11 @@ import { useState } from 'react';
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
-const baseUrl = "https://hrbackend.auxibleindia.com";
+// const baseUrl = "https://hrbackend.auxibleindia.com/";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
 // const baseUrl = "https://hr-backend-ncrd.onrender.com";
-
 
 const MainState = (props) => {
    const [user, setUser] = useState({});
@@ -164,7 +163,7 @@ const MainState = (props) => {
       return data;
    };
 
-   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType ,PermissionRole ,  }) => {
+   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType ,PermissionRole }) => {
 
 
       const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, employeeType , PermissionRole }, true);
@@ -1703,9 +1702,32 @@ const MainState = (props) => {
       return data;
    };
 
+   const closeLead = async (id) => {
 
+      const data = await post(`${baseUrl}/admin/closeLead/${id}`, {  }, true);
+      return data;
+   }
+   const closeLeadApiFetch=async() =>{
+      const data = await post(`${baseUrl}/admin/getAllCloseLead`, {  }, true);
+      return data;
+   }
+   const closeLeadApiFetch2=async() =>{
 
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+      const data = await post(`${baseUrl}/admin/getAllCloseLead2`, { id:hrms_user?._id }, true);
+      return data;
+   }
+   const getTodayLead=async() =>{
+      const data = await post(`${baseUrl}/admin/getTodayLead`, {  }, true);
+      return data;
+   }
+   const getTodayLead2=async() =>{
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+      const data = await post(`${baseUrl}/admin/getTodayLead2`, { id: hrms_user?._id  }, true);
+      return data;
+   }
    const updateLeadStatus = async (id, LeadStatus) => {
 
       const data = await post(`${baseUrl}/lead/updateLeadStatus/${id}`, { LeadStatus }, true);
@@ -2437,7 +2459,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         savenoteatt ,AllRolesapi ,  deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi
+         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2
       }}> 
          {props.children}
       </MainContext.Provider>

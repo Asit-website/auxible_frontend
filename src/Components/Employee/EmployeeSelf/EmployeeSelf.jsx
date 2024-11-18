@@ -77,7 +77,6 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
    }
 
-
    useEffect(()=>{
       if(user1?.offerLetterPermission){
          setIsChecked(true);
@@ -183,92 +182,92 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <div className="allFristDe3tail">
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Address :</p>
                            <span>{user1?.currentAddress}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Mobile :</p>
                            <span>{user1?.mobile}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Personal ID :</p>
                            <span>{user1?.email1}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Gender :</p>
                            <span>{user1?.gender}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Pan Number :</p>
                            <span>{user1?.pan}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Adhar Number :</p>
                            <span>{user1?.adhar}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Father Name :</p>
                            <span>{user1?.father}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Current  Address :</p>
                            <span>{user1?.currentAddress}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Current State :</p>
                            <span>{user1?.currentState}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Current City :</p>
                            <span>{user1?.currentCity}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Area Pincode :</p>
                            <span>{user1?.currentPin}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Permanent Address :</p>
                            <span>{user1?.residence}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Permanent State :</p>
                            <span>{user1?.perState}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Permanent City :</p>
                            <span>{user1?.perCity}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Permanent Pin :</p>
                            <span>{user1?.perPin}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Marital status :</p>
                            <span>{user1?.Martial}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Nationality :</p>
                            <span>{user1?.nationality}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Mother name :</p>
                            <span>{user1?.Mother}</span>
                         </div>
@@ -328,31 +327,31 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <div className="allFristDe3tail">
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Salary Pay Mode</p>
                            <span>{user1?.SalaryPay}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Account No :</p>
                            <span>{user1?.AccountNumber}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p> Bank Name :</p>
                            <span>{user1?.SalaryBankName}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Beneficiary Name :</p>
                            <span>{user1?.BeneficiaryName}</span>
                         </div>
 
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Branch Ifsc Code :</p>
                            <span>{user1?.BankIfsc}</span>
                         </div>
-                        <div className="singfirst">
+                        <div className="singfirst1">
                            <p>Bank Branch Name :</p>
                            <span>{user1?.Branch}</span>
                         </div>
@@ -373,23 +372,23 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                      <div className="allFristDe3tail">
 
-                        <div className="singfirst">
-                           <p>This Month Leave</p>
+                        <div className="singfirst2">
+                           <p>This Month Leave:</p>
                            <span>{thisMonthLeave?thisMonthLeave:0}</span>
                         </div>
 
-                        <div className="singfirst">
-                           <p>Total Leave taken</p>
+                        <div className="singfirst2">
+                           <p>Total Leave taken:</p>
                            <span>{user1?.totalLeaves}</span>
                         </div>
 
-                        <div className="singfirst">
-                           <p>This Month Paid Leave Remaining</p>
+                        <div className="singfirst2">
+                           <p>This Month Paid Leave Remaining:</p>
                            <span>{2-parseInt(thisMonthLeave) >=0 ? 2-parseInt(thisMonthLeave) : 0}</span>
                         </div>
 
-                        <div className="singfirst">
-                           <p>Year paid leave remaining</p>
+                        <div className="singfirst2">
+                           <p>Year paid leave remaining:</p>
                            <span>{12-parseInt(user1?.totalLeaves) >=0 ? 12-parseInt(user1?.totalLeaves) : 0}</span>
                         </div>
 

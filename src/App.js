@@ -105,7 +105,7 @@ import HalfRequest from "./Components/admin/EmployeeHRM/HalfRequest.jsx";
 import AcceptPage from "./Components/AcceptPage.jsx";
 import PermissionData from "./Components/admin/Permission/PermissionData.js";
 import { useMain } from "./hooks/useMain.js";
-
+import ScrollTop from "./Components/utils/ScrollTop.jsx";
 var tc;
 
 const ROLES = {
@@ -164,7 +164,7 @@ function App() {
               closeAlert={closeAlert}
             />
           ) : null}
-
+          <ScrollTop/>
           <Routes>
             <Route path="/" element={<Home setAlert={setAlert} />} />
             <Route path="/login" element={<Auth setAlert={setAlert} />} />
@@ -384,6 +384,7 @@ function App() {
             </Route>
 
           </Routes>
+         
 
         </BrowserRouter>
       </MainState>

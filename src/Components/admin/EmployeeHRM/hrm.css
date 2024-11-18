@@ -185,9 +185,8 @@
 }
 
 .hrmActLeft {
-    max-width: 663px;
+    max-width: 100%;
     width: 100%;
-
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -222,11 +221,13 @@
 
 }
 
+
 .viewOne {
     position: absolute;
     top: 40px;
     min-width: 161px;
-    height: 148px;
+    /* height: 148px; */
+    height: fit-content;
     border: 1px solid #E3E3E3;
     display: flex;
     flex-direction: column;
@@ -238,6 +239,9 @@
     border: 1px 0px 0px 0px;
     background-color: white;
     right: 30px;
+}
+.incfornsizze{
+    font-size: 24px;
 }
 
 .emPaginate{
@@ -251,7 +255,7 @@
 .prepaginate{
     width: 100px;
     height: 40px;
-    padding: 3px 1px 3px 6px;
+    /* padding: 3px 1px 3px 6px; */
     gap: 10px;
     border-radius: 10px;
     border: 1px solid #D8D8D8;    
@@ -633,7 +637,24 @@ text-align: left;
     gap: 10px;
 }
 
+.holiHead4{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 10px 20px;
+}
+
 .holiHead span {
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+
+}
+.holiHead4 span {
     font-family: Inter;
     color: #1B2533;
     font-size: 16px;
@@ -653,6 +674,64 @@ text-align: left;
    font-size: 12px;
 }
 
+.trtextalltr td{
+    font-size: 12px  !important;
+}
+
+.leavePopupwrap2{
+position: fixed;
+ top: 0;
+ left: 0;
+ bottom: 0;
+ right: 0;
+ background-color: rgba(0, 0, 0, 0.4);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.leavepopconta2{
+    max-width: 700px;
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.leavepopconta2 label{
+    display: flex;
+    gap: 10px;
+}
+.leavepopconta2 label h4{
+    font-family: Inter;
+    color: #060606;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+}
+.leavepopconta2 label p{
+    font-family: Inter;
+    color: #0B56E4;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+}
+
+
+.leavepopconta2 nav{
+    display: flex;
+    width: 100%;
+ justify-content: flex-end;
+}
 .hrLefThi {
     background-color: #FFFFFF;
     border-radius: 10px;
@@ -682,7 +761,7 @@ text-align: left;
     height: 950px;
      position: fixed;
      top: 80px;
-  padding: 12px;
+  padding: 0px 12px 12px 12px;
   overflow-y: scroll;
      background: #FFFFFF;
     border: 1px solid #E8E9EB;   
@@ -716,6 +795,11 @@ text-align: left;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    padding: 10px 0px;
+
 }
 .notifcont nav h2{
     font-family: Inter;

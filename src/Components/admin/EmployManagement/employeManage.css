@@ -226,5 +226,28 @@ color: #2B2B2B;
     letter-spacing: 0.0025em;
     text-align: left;
     
+ 
+}
+
+.employetypeselect{
+    width: 180px !important;
+}
+
+
+.putthehovebtn{
+    transition: all 0.3s;
+}
+.putthehovebtn:hover{
+    background-color: #2B2B2B;
+    color: white;
+}
+
+.emsearchi{
+    border: 1px solid #D0D4DC;
+    width: 200px;
+    padding: 0px 10px;
+height: 38px;
+border-radius: 10px;
+
 
 }

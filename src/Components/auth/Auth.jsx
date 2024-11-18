@@ -69,7 +69,7 @@ const Auth = (props) => {
       if (ans.user.role === "HR") {
         navigate("/hrDash");
       } else if (ans.user.role === "EMPLOYEE") {
-        navigate("/employeeDash/update");
+        navigate("/employeeDash");
       } else {
         navigate("/adminDash/HRM");
       }

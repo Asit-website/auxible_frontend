@@ -8,11 +8,13 @@ import bxs from "../../images/bxs.svg";
 import { NavLink } from "react-router-dom";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
 const LeadFile = ({ setAlert, pop, setPop }) => {
+  const navigate = useNavigate();
   const { user, allEmployee, createExcelLead } = useMain();
 
   const [users, setUsers] = useState([]);
+   const [selectedFiles , setSelectedFiles] = useState("");
 
   //   this is for excel sheet
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -44,7 +46,9 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
 
     let selectedFile = e.target.files[0];
 
+
     if (selectedFile) {
+      setSelectedFiles(selectedFile);
       if (selectedFile && fileTypes.includes(selectedFile.type)) {
         setTypeError(null);
         let reader = new FileReader();
@@ -52,6 +56,7 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
         reader.onload = (e) => {
           setExcelFile(e.target.result);
         };
+        toast.success("Successfuly Browse..");
         console.log("slect file", selectedFile);
       } else {
         setTypeError("please seelect only file type");
@@ -59,12 +64,15 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
       }
     } else {
       console.log("please select the file");
+      setSelectedFiles("");
     }
   };
 
   // onsubmit event
   const handleFileSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(excelData);
 
     if (excelFile !== null) {
       const workbook = XLSX.read(excelFile, { type: "buffer" });
@@ -111,6 +119,9 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
       }
 
       toast.success("Successfuly uploaded");
+      navigate("/adminDash/myLead");
+
+     
 
       toast.dismiss(toastId);
     }
@@ -126,6 +137,7 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
           <AdminNavbar user={user} setAlert={setAlert} />
 
           <div className="em">
+
             <div className="importB">
               <h2>Import Leads</h2>
               <NavLink to="/adminDash/myLead">
@@ -136,24 +148,32 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
             </div>
 
             <div className="import_vhasa">
+
               <div className="form_filel">
                 <img src={bxs} alt="bxs" />
                 <h3>From File</h3>
               </div>
 
               <div className="selis">
+
                 <h3 className="srop">
                   Drag and drop your file here. <br />
                   -  or  -
                 </h3>
+
                 <div className="selis_inp">
+
                   <div className="opd mt-4">
                     <div className="browse">
                       <h3>Browse Local Files</h3>
                     </div>
                     <input type="file" onChange={handleFile} required />
                   </div>
+                   
+                  {selectedFiles && <p className="text-center">{selectedFiles.name}</p>} 
+
                 </div>
+
                 <div className="download_gfg">
                   <h2>
                     Download sample file
@@ -166,8 +186,10 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
                 <button onClick={handleFileSubmit} className="uplaodin">
                   <span>Upload</span>
                 </button>
+
               </div>
             </div>
+
           </div>
         </div>
       </div>

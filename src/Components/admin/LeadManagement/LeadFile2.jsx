@@ -8,9 +8,14 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LeadFile2 = ({ setAlert, pop, setPop }) => {
+  const navigate = useNavigate();
     const { user, allEmployee, createExcelLead } = useMain();
+
+    const [selectedFiles , setSelectedFiles] = useState("");
+
 
     const [users, setUsers] = useState([]);
   
@@ -44,6 +49,8 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
       let selectedFile = e.target.files[0];
   
       if (selectedFile) {
+        setSelectedFiles(selectedFile);
+
         if (selectedFile && fileTypes.includes(selectedFile.type)) {
           setTypeError(null);
           let reader = new FileReader();
@@ -51,6 +58,7 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
           reader.onload = (e) => {
             setExcelFile(e.target.result);
           };
+          toast.success("Successfuly Browse..");
         } else {
           setTypeError("please seelect only file type");
           setExcelFile(null);
@@ -107,6 +115,7 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
         
   
         toast.success("Successfuly uploaded");
+        navigate("/adminDash/myLead");
   
         toast.dismiss(toastId);
       }
@@ -143,6 +152,8 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <input type="file"  onChange={handleFile} required />
                                     </div>
+                                    {selectedFiles && <p className="text-center">{selectedFiles.name}</p>} 
+
                                 </div>
                                 <div className="download_gfg">
                                     <h2>Download sample file

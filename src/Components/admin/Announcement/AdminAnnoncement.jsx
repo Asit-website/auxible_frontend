@@ -10,6 +10,8 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
+
 
 const AdminProfile = ({ pop, setPop, setAlert }) => {
   const {
@@ -54,6 +56,8 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
   };
 
   const [allAnnoucement, setAllAnouce] = useState([]);
+  const [announcementList,setAnnouncementList] = useState([]);
+  const [AnnoucSearch,setAnnounceSearch] = useState([]);
 
   const getAnnoucement = async () => {
     const ans = await fetchAnnoucement();
@@ -89,12 +93,12 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
       }
 
       getAnnoucement();
-
       setOpenForm(false);
-      toast.dismiss(toastId);
     } catch (error) {
       console.log(error);
     }
+    toast.dismiss(toastId);
+
   };
 
   const getData1 = async () => {
@@ -163,7 +167,35 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
+  const [leavePopup , setLeavePopup] = useState(false);
+
   const { role } = hrms_user;
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  let itemsPerPage = 10;
+
+  const totalPages = Math?.ceil(allAnnoucement?.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  const endIndex = Math.min(startIndex + itemsPerPage, allAnnoucement?.length);
+
+  const currentItems = allAnnoucement?.slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", 
+    });
+  };
+
 
   return (
     <>
@@ -181,7 +213,9 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
           <div className="em">
+
             <div className="anNav">
+
               {/* left sie */}
               <div className="anNavLeft">
                 <h2>Manage Announcement</h2>
@@ -191,22 +225,15 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
               </div>
 
               {/* right side  */}
-              <div onClick={() => setOpenForm(true)} className="plusImg">
-                <img src={annPlus} alt="" />
+              <div onClick={() => setOpenForm(true)} className="plusImg6">
+                <img src={annPlus} alt="" />  <span>ADD</span>
               </div>
             </div>
 
             <main className="anMain">
               {/* top */}
               <div className="anmainTop">
-                {/* left side */}
-                <div className="anMLef">
-                  <select name="" id="">
-                    <option value="10">10</option>
-                  </select>
-
-                  <span>entries per page</span>
-                </div>
+               
 
                 {/* right side  */}
                 <div className="anMaRi">
@@ -218,32 +245,32 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black tranking">
                   <thead class="text-xs text-black uppercase  dark:text-black">
                     <tr>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         TITLE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         START DATE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         END DATE
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         DESCRIPTION
                       </th>
-                      <th scope="col" class="px-6 py-3">
+                      <th scope="col" class="px-3 py-3">
                         ACTION
                       </th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {allAnnoucement.map((item, index) => (
-                      <tr key={index} class="bg-white">
-                        <td class="px-6 py-4">{item.title}</td>
-                        <td class="px-6 py-4">{item.startDate}</td>
-                        <td class="px-6 py-4">{item.endDate}</td>
-                        <td class="px-6 py-4">{item.description}</td>
-                        <td class="px-6 py-4">
+                    {currentItems.map((item, index) => (
+                      <tr onClick={()=>setLeavePopup(item)} key={index} class="bg-white cursor-pointer">
+                        <td class="px-3 py-4">{item.title?.slice(0, 30)}...</td>
+                        <td class="px-3 py-4">{item.startDate}</td>
+                        <td class="px-3 py-4">{item.endDate}</td>
+                        <td class="px-3 py-4">{item.description?.slice(0,50)}...</td>
+                        <td class="px-3 py-4">
                           <div className="flex items-center sk">
                             <i
                               onClick={() => {
@@ -267,7 +294,72 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </table>
               </div>
             </main>
+
+            <div className="emPaginate">
+              <button
+                className={`prepaginate ${currentPage !== 1 && "putthehovebtn"
+                  }`}
+                onClick={() => {
+                  handlePageChange(currentPage - 1);
+                  scrollToTop();
+                }}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <span className="pagenum">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"
+                  } `}
+                onClick={() => {
+                  handlePageChange(currentPage + 1);
+                  scrollToTop();
+                }}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+
+
+
           </div>
+
+
+          {
+            leavePopup && 
+            <div className="leavePopupwrap2">
+                <div className="leavepopconta2">
+
+                  <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={()=>setLeavePopup(false)} /></nav>
+ 
+                <label htmlFor="">
+                  <h4>Title: </h4>
+                  <p>{leavePopup?.title}</p>
+                </label>
+
+              
+                <label htmlFor="">
+                  <h4>From: </h4>
+                  <p>{leavePopup?.startDate}</p>
+                </label>
+                <label htmlFor="">
+                  <h4>To: </h4>
+                  <p>{leavePopup?.endDate}</p>
+                </label>
+
+                <label htmlFor="">
+                  <h4>Description: </h4>
+                  <p>{leavePopup?.description}</p>
+                </label>
+
+                   
+                </div>
+            </div>
+          }
+
         </div>
 
         {/* form  */}

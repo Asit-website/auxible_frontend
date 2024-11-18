@@ -66,13 +66,12 @@ gap: 18px;
 
 .singfirst{
     display: flex;
-    gap: 32px;
-    align-items: center;
+    grid-template-columns: repeat(2,1fr);
 
 }
+
 .adwwith{
-     /* background-color: red; */
-     width: 200px;
+     width: 220px;
      justify-content: space-between;
 
 }
@@ -83,20 +82,65 @@ gap: 18px;
     font-weight: 400;
     line-height: 20px;
     letter-spacing: 0.0025em;
-    text-align: right;
-    
-
+width: 140px;
+    text-align: left;
 }
 .singfirst span{
     font-family: Inter;
     color: #1B2533;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.005em;
     text-align: left;
-    
+}
+.singfirst1{
+    display: flex;
+    grid-template-columns: repeat(2,1fr);
 
+}
+.singfirst1 p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+width: 160px;
+    text-align: left;
+}
+.singfirst1 span{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
+}
+.singfirst2{
+    display: flex;
+    grid-template-columns: repeat(2,1fr);
+
+}
+.singfirst2 p{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0025em;
+width: 240px;
+    text-align: left;
+}
+.singfirst2 span{
+    font-family: Inter;
+    color: #1B2533;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    text-align: left;
 }
 
 .allFristDe3tail2{

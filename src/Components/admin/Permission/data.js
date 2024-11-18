@@ -36,7 +36,7 @@
     {id:"hrmsSetupDeletePermission" , title:"HRMS setup delete" } , 
     {id:"hrAdminSetupPermission" , title:"HR Admin Setup" } , 
     {id:"trainingSetupPermission" , title:"Training Setup"},
-
+    //  {id:"hrManagementPermission",title:"HR Management Setup"},
   ]
   
   export const otherPerms = [

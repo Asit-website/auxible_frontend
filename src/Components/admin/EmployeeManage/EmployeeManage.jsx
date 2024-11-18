@@ -4,11 +4,14 @@ import AdminSidebar from "../Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uploadFile from "../../images/upload-file.png";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useFetcher, useNavigate, useParams } from "react-router-dom";
 import HrSidebar from "../../Hr/Sidebar/HrSidebar";
 import HrNavbar from "../../Hr/Navbar/HrNavbar";
 import toast from "react-hot-toast";
 import bxUser from "../../images/bx-user-pin.png";
+import { ImCross } from "react-icons/im";
+import * as EmailValidator from "email-validator";
+import validator from 'validator';
 
 const item = [
   {
@@ -31,14 +34,15 @@ const EmployeeManage = ({
   isHr = false,
 }) => {
   const { id } = useParams();
-    const [currEmp, setCurrEmp] = useState(0);
+
+  const [currEmp, setCurrEmp] = useState(0);
 
   const navigate = useNavigate();
 
   const {
     user,
     createEmployee1,
-    AllRolesapi , 
+    AllRolesapi,
     getUsers,
     updateUser,
     getBranchs,
@@ -46,6 +50,7 @@ const EmployeeManage = ({
     getDesignations,
     uploadDocuments,
     allEmployee,
+    uploadToCloudinaryImg
   } = useMain();
 
   const [employee, setEmployee] = useState([]);
@@ -59,6 +64,8 @@ const EmployeeManage = ({
     getEmployee();
   }, []);
 
+  
+
   const [value1, setValue1] = useState({
     status: false,
     fullName: "",
@@ -68,9 +75,18 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
-    PermissionRole:"" , 
-    employeeCode:""
+    PermissionRole: ""
   });
+
+  const [emailisValid, setIsemailValid] = useState(null);
+  const [emailisValid1, setIsemailValid1] = useState(null);
+
+  const handleValidation = () => {
+    const valid = EmailValidator.validate(value1.email);
+    setIsemailValid(valid);
+};
+
+
 
   const [value2, setValue2] = useState({
     status: false,
@@ -80,6 +96,11 @@ const EmployeeManage = ({
     gender: "",
     dob: "",
   });
+
+  const handleValidation1 = () => {
+    const valid = EmailValidator.validate(value2.email1);
+    setIsemailValid1(valid);
+  };
 
   const [value3, setValue3] = useState({
     status: false,
@@ -130,13 +151,13 @@ const EmployeeManage = ({
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
-  const [PermRole , setPermRole] = useState([]); 
+  const [PermRole, setPermRole] = useState([]);
 
-  const fetchAllRoles = async()=>{
+  const fetchAllRoles = async () => {
     const ans = await AllRolesapi();
     setPermRole(ans?.data);
- }
- 
+  }
+
   useEffect(() => {
     let form1 = localStorage.getItem("form1");
     if (form1) {
@@ -169,7 +190,7 @@ const EmployeeManage = ({
     if (id) {
       getUser();
     }
-  }, [id , PermRole]);
+  }, [id, PermRole]);
 
   useEffect(() => {
     getData();
@@ -204,7 +225,7 @@ const EmployeeManage = ({
         perm = foundRole._id;
       }
     }
-    
+
     setValue1({
       status: false,
       fullName: ans.data.fullName,
@@ -214,8 +235,7 @@ const EmployeeManage = ({
       designation: ans.data.designation,
       joiningDate: ans.data.joiningDate,
       password: "",
-      PermissionRole: perm , 
-      employeeCode: ans.data.employeeCode
+      PermissionRole: perm
     });
     setValue2({
       status: false,
@@ -273,13 +293,34 @@ const EmployeeManage = ({
   const handleChange = (e, type) => {
     if (type === "form1") {
       setValue1({ ...value1, [e.target.name]: e.target.value });
-    } else if (type === "form2") {
+
+    }
+    else if (type === "form2") {
+      if (e.target.name === "mobile" && e.target.value.length > 10) {
+        return
+      }
       setValue2({ ...value2, [e.target.name]: e.target.value });
-    } else if (type === "form3") {
+
+    }
+    else if (type === "form3") {
+      if (e.target.name === "pan" && e.target.value.length > 10) {
+        return
+      }
+      if (e.target.name === "adhar" && e.target.value.length > 12) {
+        return
+      }
+      if (e.target.name === "currentPin" && e.target.value.length > 6) {
+        return
+      }
+      if (e.target.name === "perPin" && e.target.value.length > 6) {
+        return
+      }
       setValue3({ ...value3, [e.target.name]: e.target.value });
-    } else if (type === "form4") {
+    }
+    else if (type === "form4") {
       setValue4({ ...value4, [e.target.name]: e.target.value });
-    } else if (type === "form5") {
+    }
+    else if (type === "form5") {
       setValue5({ ...value5, [e.target.name]: e.target.value });
     }
   };
@@ -287,26 +328,40 @@ const EmployeeManage = ({
   const [documents, setDocuments] = useState({
     adharCard: "",
     pancard: "",
-    tenCert:"",
-    twevelCert:"",
+    tenCert: "",
+    twevelCert: "",
     cancelCheque: "",
     LastOrganization: "",
-    RelievingLetter:"",
-    OfferLetter:"",
-    ExperienceLetter:"",
+    RelievingLetter: "",
+    OfferLetter: "",
+    ExperienceLetter: "",
 
 
   });
 
-  const handleFileChange = (event) => {
+  const [previewImages, setPreviewImages] = useState({})
+
+  const handleFileChange = async (event, name) => {
     const file = event.target.files[0];
-    const { name } = event.target;
     if (file) {
       setDocuments((prevDocuments) => ({
         ...prevDocuments,
         [name]: file,
       }));
     }
+
+    // upload to cludinary for preview 
+    const toastId = toast.loading("Wait...");
+    const ans = await uploadToCloudinaryImg({ image: file });
+
+    if (ans?.status) {
+      toast.success("Successfuly");
+      setPreviewImages((prev) => ({
+        ...prev,
+        [name]: ans?.data
+      }))
+    }
+    toast.dismiss(toastId);
   };
 
   const handleSubmit = async (e, type) => {
@@ -314,8 +369,19 @@ const EmployeeManage = ({
 
     const toastId = toast.loading("Loading...");
 
+   
+        if (emailisValid === false && value1?.email !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Gmail")
+        }
+
+        if (emailisValid1 === false && value2?.email1 !== "") {
+          toast.dismiss(toastId);
+          return toast.error("Please Enter Correct Gmail")
+      }
+
     if (!id) {
-      const {   
+      const {
         adharCard,
         pancard,
         tenCert,
@@ -375,8 +441,9 @@ const EmployeeManage = ({
           ...value4,
           ...value5,
           formData,
-          employeeType:item[currEmp].title
+          employeeType: item[currEmp].title
         });
+
       } else {
         const ans = await createEmployee1({
           ...value1,
@@ -384,8 +451,9 @@ const EmployeeManage = ({
           ...value3,
           ...value4,
           ...value5,
-          employeeType:item[currEmp].title
+          employeeType: item[currEmp].title
         });
+
       }
 
       localStorage.removeItem("form1");
@@ -403,8 +471,7 @@ const EmployeeManage = ({
         reportingManager: "",
         designation: "",
         joiningDate: "",
-        PermissionRole:"" , 
-        employeeCode:""
+        PermissionRole: ""
       });
       setValue2({
         status: false,
@@ -459,9 +526,7 @@ const EmployeeManage = ({
       });
 
       toast.success("Successfuly created");
-    }
-    
-    else {
+    } else {
       const {
         adharCard,
         pancard,
@@ -472,7 +537,7 @@ const EmployeeManage = ({
         RelievingLetter,
         OfferLetter,
         ExperienceLetter,
-      
+
       } = documents;
 
       const formData = new FormData();
@@ -502,7 +567,8 @@ const EmployeeManage = ({
       }
 
       if (
-        adharCard  !== "" ||
+
+        adharCard !== "" ||
         pancard !== "" ||
         tenCert !== "" ||
         twevelCert !== "" ||
@@ -510,8 +576,9 @@ const EmployeeManage = ({
         LastOrganization !== "" ||
         RelievingLetter !== "" ||
         OfferLetter !== "" ||
-        ExperienceLetter !== "" 
+        ExperienceLetter !== ""
       ) {
+
         const ans = await uploadDocuments(id, formData);
         if (ans?.success) {
           toast.success("Successfuly updated the documents");
@@ -530,12 +597,12 @@ const EmployeeManage = ({
     }
 
     toast.dismiss(toastId);
-
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchAllRoles();
-  },[])
+  }, [])
+
 
   return (
     <>
@@ -563,17 +630,17 @@ const EmployeeManage = ({
 
               {/* right side  */}
               <div className="adFrRIH">
-              <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
+                <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
                   <span>Cancel</span>
                 </button></NavLink>
-                <button className="register">
+                {/* <button className="register">
                   <span>Register New</span>
-                </button>
+                </button> */}
               </div>
             </section>
 
             <div className="flex-col">
-              
+
               {/* first sec */}
               <div className="leadInFir">
                 {item.map((e, index) => (
@@ -595,17 +662,19 @@ const EmployeeManage = ({
                 onSubmit={(f) => {
                   handleSubmit(f, "submit");
                 }}
+                className="empmanagform"
               >
-                <div className="admin-main admin-main1">
+                <div className="admin-mainnew ">
 
                   <div className="admin-form">
+
                     <div className="admin-form1">
                       <h2 className="admfperh2">Personal Detail</h2>
 
                       <div className="form-section">
                         <div>
                           <div className="flex flex-col emmanformwrap1">
-                            
+
                             <label>
                               <p>Full Name</p>
                               <input
@@ -664,7 +733,9 @@ const EmployeeManage = ({
                               <input
                                 onChange={(e) => {
                                   handleChange(e, "form1");
+                                  handleValidation(e.target.value)
                                 }}
+                                className={`${(emailisValid === false && value1.email !== "") && "emailvalidinput"}`}
                                 type="email"
                                 // name="gmail"
                                 name="email"
@@ -672,21 +743,6 @@ const EmployeeManage = ({
                                 value={value1?.email}
                                 // placeholder="Company Gmail"
                                 placeholder="Company Email Address"
-                                disabled={value1.status}
-                              />
-                            </label>
-
-                            <label htmlFor="">
-                              <p>Employee Code</p>
-
-                              <input
-                                onChange={(e) => {
-                                  handleChange(e, "form1");
-                                }}
-                                type="text"
-                                name="employeeCode"
-                                value={value1?.employeeCode}
-                                placeholder="Employee Code"
                                 disabled={value1.status}
                               />
                             </label>
@@ -773,63 +829,65 @@ const EmployeeManage = ({
                                 value={value1?.joiningDate}
                                 disabled={value1.status}
                               />
-                            </label>                             
-                              
-                                <label
-                                  for="email1"
-                                  className="block mb-0  font-medium"
-                                >
+                            </label>
 
-                                 <p> Personal Email Address</p>
-                                 <input
-                                  type="email"
-                                  id="email1"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="email1"
-                                  value={value2?.email1}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
-                                </label>
-                               
-                               
-                                <label
-                                  for="gender"
-                                  className="block mb-0  font-medium "
-                                >
-                                 <p> Gender</p>
-                                 <select
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  name="gender"
-                                  value={value2?.gender}
-                                  disabled={value2.status}
-                                  className="w-full rouneded-lg"
-                                >
-                                  <option>gender</option>
-                                  <option>Male</option>
-                                  <option>Female</option>
-                                  onChange=
-                                  {(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                </select>
-                                </label>
-                              
-                              
+                            <label
+                              for="email1"
+                              className="block mb-0  font-medium"
+                            >
+
+                              <p> Personal Email Address</p>
+                              <input
+                                type="email"
+                                id="email1"
+                                // rounded-lg  w-full
+                                className={`${(emailisValid1 === false && value2.email1 !== "") && "emailvalidinput"} rounded-lg  w-full`}
+                                
+                                // required
+                                name="email1"
+                                value={value2?.email1}
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                  handleValidation1(e.target.value)
+                                }}
+                                disabled={value2.status}
+                              />
+                            </label>
+
+
+                            <label
+                              for="gender"
+                              className="block mb-0  font-medium "
+                            >
+                              <p> Gender</p>
+                              <select
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                name="gender"
+                                value={value2?.gender}
+                                disabled={value2.status}
+                                className="w-full rouneded-lg"
+                              >
+                                <option>gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                onChange=
+                                {(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                disabled={value2.status}
+                              </select>
+                            </label>
+
+
 
                           </div>
                         </div>
                       </div>
                     </div>
 
-                   
-                    <div className="basic-information mt-7">
+                    <div className="basic-information">
                       <div className="basics">
                         <h3>Address Detail</h3>
                       </div>
@@ -837,7 +895,8 @@ const EmployeeManage = ({
 
                       <div className="form2-class">
                         <div className="w-full mt-2 form2wrap">
-                          <div className="flex w-full">
+
+                          <div className="makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
                                 for="pan"
@@ -901,29 +960,26 @@ const EmployeeManage = ({
                               />
                             </div>
                           </div>
-
-                        
-
                           <div className="flex w-full">
                             <div className="mb-6 w-full try">
                               <label
                                 for="currentAddress"
                                 className="block mb-0  font-medium "
                               >
-                               Mobile Number*
+                                Mobile Number*
                               </label>
                               <input
-                                  type="number"
-                                  id="mobile"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="mobile"
-                                  value={value2?.mobile}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
-                                />
+                                type="number"
+                                id="mobile"
+                                className="rounded-lg  w-full"
+                                // required
+                                name="mobile"
+                                value={value2?.mobile}
+                                onChange={(e) => {
+                                  handleChange(e, "form2");
+                                }}
+                                disabled={value2.status}
+                              />
                             </div>
                           </div>
                           <div className="flex w-full">
@@ -948,8 +1004,7 @@ const EmployeeManage = ({
                               />
                             </div>
                           </div>
-
-                          <div className="flex w-full">
+                          <div className="flex w-full makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
                                 for="currentState"
@@ -1023,23 +1078,7 @@ const EmployeeManage = ({
                                   Permanent Residence Address{" "}
                                 </label>
                                 <div className="flex items-center">
-                                  {/* <input
-                                      id="link-checkbox"
-                                      type="checkbox"
-                                      value=""
-                                      className="w-4 checkta  rounded mt-3 "
-                                    /> */}
-                                  {/* <label
-                                      for="link-checkbox"
-                                      className="ml-2 text-sm font-medium  text-gray-900 dark:text-gray-300"
-                                    >
-                                      Set as present{" "}
-                                      <a
-                                        href="#"
-                                        className="text-blue-600 dark:text-blue-500 hover:underline"
-                                      ></a>
-                                      .
-                                    </label> */}
+
                                 </div>
                               </div>
                               <input
@@ -1056,112 +1095,111 @@ const EmployeeManage = ({
                             </div>
                           </div>
 
-                          <div className="flex flex-col addedGgap w-full">
-                            <div className="mb-6 w-full lesswidth try">
-                              <label
-                                for="perState"
-                                className="block mb-0  font-medium "
-                              >
-                                Permanent state
-                              </label>
-                              <select
-                                className="rounded-lg  w-full"
-                                name="perState"
-                                value={value3?.perState}
-                                id="perState"
-                                onChange={(e) => {
-                                  handleChange(e, "form3");
-                                }}
-                                disabled={value3.status}
-                              >
-                                <option>Permanent State</option>
-                                <option>Andhra Pradesh</option>
-                                <option>Arunachal Pradesh</option>
-                                <option>Assam</option>
-                                <option>Bihar</option>
-                                <option>Chhattisgarh</option>
-                                <option>Goa</option>
-                                <option>Gujarat</option>
-                                <option>Haryana</option>
-                                <option>Himachal Pradesh</option>
-                                <option>Jharkhand</option>
-                                <option>Karnataka</option>
-                                <option>Kerala</option>
-                                <option>Maharashtra</option>
-                                <option>Madhya Pradesh</option>
-                                <option>Manipur</option>
-                                <option>Meghalaya</option>
-                                <option>Mizoram</option>
-                                <option>Nagaland</option>
-                                <option>Odisha</option>
-                                <option>Punjab</option>
-                                <option>Rajasthan</option>
-                                <option>Sikkim</option>
-                                <option>Tamil Nadu</option>
-                                <option>Tripura</option>
-                                <option>Telangana</option>
-                                <option>Uttar Pradesh</option>
-                                <option>Uttarakhand</option>
-                                <option>West Bengal</option>
-                                <option>Andaman & Nicobar (UT)</option>
-                                <option>Chandigarh (UT)</option>
-                                <option>
-                                  Dadra & Nagar Haveli and Daman & Diu (UT)
-                                </option>
-                                <option>
-                                  Delhi [National Capital Territory (NCT)]
-                                </option>
-                                <option>Jammu & Kashmir (UT)</option>
-                                <option>Ladakh (UT)</option>
-                                <option>Lakshadweep (UT)</option>
-                                <option>Puducherry (UT)</option>
-                              </select>
-                            </div>
-
-                            <div className="mb-6 w-full try">
-                              <label
-                                for="perCity"
-                                className="block mb-0  font-medium"
-                              >
-                                Permanent city
-                              </label>
-                              <input
-                                type="text"
-                                id="perCity"
-                                className="rounded-lg  w-full"
-                                // required
-                                name="perCity"
-                                value={value3?.perCity}
-                                onChange={(e) => {
-                                  handleChange(e, "form3");
-                                }}
-                                disabled={value3.status}
-                              />
-                            </div>
-
-                            <div className="mb-6 w-full try">
-                              <label
-                                for="perPin"
-                                className="block mb-0 font-medium"
-                              >
-                                Permanent Area Pincode
-                              </label>
-                              <input
-                                type="text"
-                                id="perPin"
-                                className="rounded-lg  w-full"
-                                // required
-                                name="perPin"
-                                value={value3?.perPin}
-                                onChange={(e) => {
-                                  handleChange(e, "form3");
-                                }}
-                                disabled={value3.status}
-                              />
-                            </div>
+                          <div className="mb-6 try">
+                            <label
+                              for="currentAddress"
+                              className="block mb-0  font-medium "
+                            >
+                              Permanent state
+                            </label>
+                            <select
+                              className="rounded-lg  w-full"
+                              name="perState"
+                              value={value3?.perState}
+                              id="perState"
+                              onChange={(e) => {
+                                handleChange(e, "form3");
+                              }}
+                              disabled={value3.status}
+                            >
+                              <option>Permanent State</option>
+                              <option>Andhra Pradesh</option>
+                              <option>Arunachal Pradesh</option>
+                              <option>Assam</option>
+                              <option>Bihar</option>
+                              <option>Chhattisgarh</option>
+                              <option>Goa</option>
+                              <option>Gujarat</option>
+                              <option>Haryana</option>
+                              <option>Himachal Pradesh</option>
+                              <option>Jharkhand</option>
+                              <option>Karnataka</option>
+                              <option>Kerala</option>
+                              <option>Maharashtra</option>
+                              <option>Madhya Pradesh</option>
+                              <option>Manipur</option>
+                              <option>Meghalaya</option>
+                              <option>Mizoram</option>
+                              <option>Nagaland</option>
+                              <option>Odisha</option>
+                              <option>Punjab</option>
+                              <option>Rajasthan</option>
+                              <option>Sikkim</option>
+                              <option>Tamil Nadu</option>
+                              <option>Tripura</option>
+                              <option>Telangana</option>
+                              <option>Uttar Pradesh</option>
+                              <option>Uttarakhand</option>
+                              <option>West Bengal</option>
+                              <option>Andaman & Nicobar (UT)</option>
+                              <option>Chandigarh (UT)</option>
+                              <option>
+                                Dadra & Nagar Haveli and Daman & Diu (UT)
+                              </option>
+                              <option>
+                                Delhi [National Capital Territory (NCT)]
+                              </option>
+                              <option>Jammu & Kashmir (UT)</option>
+                              <option>Ladakh (UT)</option>
+                              <option>Lakshadweep (UT)</option>
+                              <option>Puducherry (UT)</option>
+                            </select>
                           </div>
 
-                          <div className="flex w-full">
+                          <div className="mb-6 try">
+                            <label
+                              for="perCity"
+                              className="block mb-0  font-medium"
+                            >
+                              Permanent city
+                            </label>
+                            <input
+                              type="text"
+                              id="perCity"
+                              className="rounded-lg  w-full"
+                              // required
+                              name="perCity"
+                              value={value3?.perCity}
+                              onChange={(e) => {
+                                handleChange(e, "form3");
+                              }}
+                              disabled={value3.status}
+                            />
+                          </div>
+
+                          <div className="mb-6 try">
+                            <label
+                              for="perPin"
+                              className="block mb-0 font-medium"
+                            >
+                              Permanent Area Pincode
+                            </label>
+                            <input
+                              type="text"
+                              id="perPin"
+                              className="rounded-lg  w-full"
+                              // required
+                              name="perPin"
+                              value={value3?.perPin}
+                              onChange={(e) => {
+                                handleChange(e, "form3");
+                              }}
+                              disabled={value3.status}
+                            />
+                          </div>
+
+
+                          <div className="flex w-full makethisflex1">
                             <div className="mb-6 w-full try">
                               <label
                                 for="Martial"
@@ -1230,510 +1268,398 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
-                    {/* 
-                      <div className="basic-information mt-7">
-                        <div className="basics">
-                          <h3>Professional Information</h3>
-                          <img src={lower} alt="lower" />
-                        </div>
-                        <hr className="upper" />
-                        <div className="form2-class">
-                          <div className="w-full mt-2">
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="qualification"
-                                  className="block mb-0  font-medium "
-                                >
-                                  Qualification
-                                </label>
-                                <input
-                                  type="text"
-                                  id="qualification"
-                                  className="w-full rounded-lg"
-                                  // required
-                                  name="qualification"
-                                  value={value4?.qualification}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="specialization"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Specialization
-                                </label>
-                                <input
-                                  type="text"
-                                  id="specialization"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="specialization"
-                                  value={value4?.specialization}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="qualificationType"
-                                  className="block mb-0 font-medium"
-                                >
-                                  Qualification Type
-                                </label>
-                                <select
-                                  className="rounded-lg  w-full"
-                                  name="qualificationType"
-                                  id="qualificationType"
-                                  value={value4?.qualificationType}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                >
-                                  <option>Qualification Type</option>
-                                  <option>M.sc</option>
-                                  <option>B.sc</option>
-                                  <option>10th</option>
-                                  <option>12th</option>
-                                  <option>BBA</option>
-                                  <option>BCA</option>
-                                  <option>B.tech</option>
-                                  <option>M.tech</option>
-                                  <option>MBA</option>
-                                  <option>BCom</option>
-                                  <option>Others</option>
-                                </select>
-                              </div>
-                            </div>
 
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="yearPass"
-                                  className="block mb-0 font-medium"
-                                >
-                                  Year of passing •
-                                </label>
-                               
-                                <input type="date" className="w-full"  name="yearPass"
-                                  id="yearPass"
-                                  value={value4?.yearPass}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status} />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="university"
-                                  className="block mb-0  font-medium"
-                                >
-                                  University/Board •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="university"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="university"
-                                  value={value4?.university}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-
-
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="college"
-                                  className="block mb-0  font-medium"
-                                >
-                                  College/School •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="college"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="college"
-                                  value={value4?.college}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="percentage"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Grade/CCPA/Percentage
-                                </label>
-                                <input
-                                  type="text"
-                                  id="percentage"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="percentage"
-                                  value={value4?.percentage}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="previousCompany"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Previous Company •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="previousCompany"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="previousCompany"
-                                  value={value4?.previousCompany}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="previousDesignation"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Previous Designation •
-                                </label>
-                                <input
-                                  type="text"
-                                  id="previousDesignation"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="previousDesignation"
-                                  value={value4?.previousDesignation}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="toDate"
-                                  className="block mb-0  font-medium"
-                                >
-                                  To date •
-                                </label>
-                                <input
-                                  type="date"
-                                  id="toDate"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="toDate"
-                                  value={value4?.toDate}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="fromDate"
-                                  className="block mb-0  font-medium"
-                                >
-                                  From date*
-                                </label>
-                                <input
-                                  type="date"
-                                  id="fromDate"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="fromDate"
-                                  value={value4?.fromDate}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="numberOfMonth"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Number of months *
-                                </label>
-                                <input
-                                  type="text"
-                                  id="numberOfMonth"
-                                  className="rounded-lg  w-full"
-                                  // required
-                                  name="numberOfMonth"
-                                  value={value4?.numberOfMonth}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex w-full">
-                              <div className="mb-6 w-full try">
-                                <label
-                                  for="Jobdescription"
-                                  className="block mb-0  font-medium"
-                                >
-                                  Job description
-                                </label>
-                                <input
-                                  type="text"
-                                  id="Jobdescription"
-                                  className="rounded-lg  w-full Jobdescription"
-                                  // required
-                                  name="Jobdescription"
-                                  value={value4?.Jobdescription}
-                                  onChange={(e) => {
-                                    handleChange(e, "form4");
-                                  }}
-                                  disabled={value4.status}
-                                />
-                              </div>
-                            </div>
-                           
-                          </div>
-                        </div>
-                      </div> */}
-
-                    {/* </div> */}
                   </div>
 
                   <div className="admin-form">
                     {/* this is doc side  */}
-                    <div className="basic-information mt-7">
+
+                    <div className="admin-form1">
+
                       <div className="basics">
                         <h3>Documents</h3>
                       </div>
 
                       <hr className="upper" />
 
-                      <div className="form2-class">
-                        <div className="w-full sfgh mt-6">
-                          {/* this is first doc row  */}
+                      <div className="w-full alldocwwrap">
+                        {/* this is first doc row  */}
 
-                          <div className="flex w-full">
-                            {/* fist   */}
-                            <div className="thiddrapgsingl">
-                              <h4>Aadhar Card</h4>
+                        <div className="wrap1">
+                          {/* fist   */}
+                          <div className="thiddrapgsingl">
+                            <h4>Aadhar Card </h4>
 
-                              <div className="drag-area try">
-                                <img src={uploadFile} alt="" />
+                            <div className="drag-area">
+                              <img src={uploadFile} alt="" />
 
-                                <p>Click to upload</p>
+                              <p>Click to upload</p>
 
-                                <input
-                                  className="filesjila w-full"
-                                  name="adharCard"
-                                  type="file"
-                                  onChange={handleFileChange}
-                                />
-                              </div>
+                              <input
+                                className="filesjila"
+                                name="adharCard"
+                                type="file"
+                                onChange={(e) => handleFileChange(e, "adharCard")}
+                              />
                             </div>
 
-                            {/* second */}
+                            {
+                              previewImages?.adharCard &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages.adharCard;
+                                    return updatedPreviewImages
+                                  });
 
-                            <div className="thiddrapgsingl">
-                              <h4>PAN Card</h4>
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    adharCard: ""
+                                  }))
 
-                              <div className="drag-area try">
-                                <img src={uploadFile} alt="" />
 
-                                <p>Click to upload</p>
-
-                                <input
-                                  className="filesjila w-full"
-                                  type="file"
-                                  name="pancard"
-                                  onChange={handleFileChange}
-                                />
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.adharCard} alt="" />
                               </div>
-                            </div>
+                            }
+
                           </div>
 
-                          {/* this is second doc row  */}
+                          {/* second */}
 
-                          <div className="flex w-full mt-6">
-                            {/* frist   */}
-                            <div className="thiddrapgsingl">
-                              <h4>10th Certificate</h4>
+                          <div className="thiddrapgsingl">
+                            <h4>PAN Card</h4>
 
-                              <div className="drag-area try">
-                                <img src={uploadFile} alt="" />
+                            <div className="drag-area try">
+                              <img src={uploadFile} alt="" />
 
-                                <p>Click to upload</p>
+                              <p>Click to upload</p>
 
-                                <input
-                                  className="filesjila w-full"
-                                  type="file"
-                                  name="tenCert"
-                                  onChange={handleFileChange}
-                                />
-                              </div>
+                              <input
+                                className="filesjila"
+                                type="file"
+                                name="pancard"
+                                onChange={(e) => handleFileChange(e, "pancard")}
+                              />
                             </div>
 
-                            {/* second  */}
-                            <div className="thiddrapgsingl">
-                              <h4>12th Certificate</h4>
+                            {
+                              previewImages?.pancard &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.pancard;
+                                    return updatedPreviewImages
+                                  });
 
-                              <div className="drag-area try">
-                                <img src={uploadFile} alt="" />
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    pancard: ""
+                                  }))
 
-                                <p>Click to upload</p>
 
-                                <input
-                                  name="twevelCert"
-                                  onChange={handleFileChange}
-                                  className="filesjila w-full"
-                                  type="file"
-                                />
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.pancard} alt="" />
                               </div>
-                            </div>
+                            }
+
                           </div>
 
-                          <div className="flex w-full mt-6">
-                            {/* frist   */}
+                        </div>
 
+                        {/* this is second doc row  */}
+
+                        <div className="wrap1">
+                          {/* frist   */}
+                          <div className="thiddrapgsingl">
+                            <h4>10th Certificate</h4>
+
+                            <div className="drag-area ">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                className="filesjila w-full"
+                                type="file"
+                                name="tenCert"
+                                onChange={(e) => handleFileChange(e, "tenCert")}
+                              />
+                            </div>
+                            {
+                              previewImages?.tenCert &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.tenCert;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    tenCert: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.tenCert} alt="" />
+                              </div>
+                            }
+                          </div>
+
+                          {/* second  */}
+                          <div className="thiddrapgsingl">
+                            <h4>12th Certificate</h4>
+
+                            <div className="drag-area">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                name="twevelCert"
+                                onChange={(e) => handleFileChange(e, "twevelCert")}
+                                className="filesjila"
+                                type="file"
+                              />
+                            </div>
+                            {
+                              previewImages?.twevelCert &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.twevelCert;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    twevelCert: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.twevelCert} alt="" />
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+                        <div className="wrap1">
+                          {/* frist   */}
+
+                          <div className="thiddrapgsingl">
+                            <h4>Cancelled Cheque</h4>
+                            <div className="drag-area ">
+                              <img src={uploadFile} alt="" />
+
+                              <p>Click to upload</p>
+
+                              <input
+                                className="filesjila"
+                                type="file"
+                                name="cancelCheque"
+                                onChange={(e) => handleFileChange(e, "cancelCheque")}
+                              />
+                            </div>
+                            {
+                              previewImages?.cancelCheque &&
+                              <div className="previewiamges">
+                                <nav> <ImCross onClick={() => {
+                                  setPreviewImages((prev) => {
+                                    const updatedPreviewImages = { ...prev };
+                                    delete updatedPreviewImages?.cancelCheque;
+                                    return updatedPreviewImages
+                                  });
+
+                                  setDocuments((prev) => ({
+                                    ...prev,
+                                    cancelCheque: ""
+                                  }))
+
+
+                                }} className="cursor-pointer" /> </nav>
+                                <img src={previewImages?.cancelCheque} alt="" />
+                              </div>
+                            }
+                          </div>
+
+                          {currEmp === 0 && (
                             <div className="thiddrapgsingl">
-                              <h4>Cancelled Cheque</h4>
-                              <div className="drag-area try">
+                              <h4>Last Organization</h4>
+
+
+                              <div className="drag-area ">
                                 <img src={uploadFile} alt="" />
 
                                 <p>Click to upload</p>
 
                                 <input
-                                  className="filesjila w-full"
+                                  name="LastOrganization"
+                                  onChange={(e) => handleFileChange(e, "LastOrganization")}
+                                  className="filesjila"
                                   type="file"
-                                  name="cancelCheque"
-                                  onChange={handleFileChange}
                                 />
                               </div>
-                            </div>
+                              {
+                                previewImages?.LastOrganization &&
+                                <div className="previewiamges">
+                                  <nav> <ImCross onClick={() => {
+                                    setPreviewImages((prev) => {
+                                      const updatedPreviewImages = { ...prev };
+                                      delete updatedPreviewImages?.LastOrganization;
+                                      return updatedPreviewImages
+                                    });
 
-                            {currEmp === 0 && (
+                                    setDocuments((prev) => ({
+                                      ...prev,
+                                      LastOrganization: ""
+                                    }))
+
+
+                                  }} className="cursor-pointer" /> </nav>
+                                  <img src={previewImages?.LastOrganization} alt="" />
+                                </div>
+                              }
+                            </div>
+                          )}
+                        </div>
+
+                        {currEmp === 0 && (
+                          <>
+                            <h1 className="lstOrgText">
+                              Last Organization Docs
+                            </h1>
+
+                            <div className="wrap1">
+                              {/* first   */}
+
                               <div className="thiddrapgsingl">
-                                <h4>Last Organization</h4>
+                                <h4>Relieving Letter</h4>
 
-      
+
                                 <div className="drag-area try">
                                   <img src={uploadFile} alt="" />
 
                                   <p>Click to upload</p>
 
                                   <input
-                                    name="LastOrganization"
-                                    onChange={handleFileChange}
-                                    className="filesjila w-full"
+                                    className="filesjila "
                                     type="file"
+                                    name="RelievingLetter"
+                                    onChange={(e) => handleFileChange(e, "RelievingLetter")}
                                   />
                                 </div>
-                              </div>
-                            )}
-                          </div>
+                                {
+                                  previewImages?.RelievingLetter &&
+                                  <div className="previewiamges">
+                                    <nav> <ImCross onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = { ...prev };
+                                        delete updatedPreviewImages?.RelievingLetter;
+                                        return updatedPreviewImages
+                                      });
 
-                          {currEmp === 0 && (
-                            <>
-                              <h1 className="lstOrgText">
-                                Last Organization Docs
-                              </h1>
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        RelievingLetter: ""
+                                      }))
 
-                              <div className="flex w-full mt-6">
-                                {/* first   */}
 
-                                <div className="thiddrapgsingl">
-                                  <h4>Relieving Letter</h4>
-
-       
-                                  <div className="drag-area try">
-                                    <img src={uploadFile} alt="" />
-
-                                    <p>Click to upload</p>
-
-                                    <input
-                                      className="filesjila w-full"
-                                      type="file"
-                                      name="RelievingLetter"
-                                      onChange={handleFileChange}
-                                    />
+                                    }} className="cursor-pointer" /> </nav>
+                                    <img src={previewImages?.RelievingLetter} alt="" />
                                   </div>
-                                </div>
-
-                                {/* second  */}
-
-                                <div className="thiddrapgsingl">
-                                  <h4>Offer letter</h4>
-
-        
-                                  <div className="drag-area try">
-                                    <img src={uploadFile} alt="" />
-
-                                    <p>Click to upload</p>
-
-                                    <input
-                                      name="OfferLetter"
-                                      className="filesjila w-full"
-                                      type="file"
-                                      onChange={handleFileChange}
-                                    />
-                                  </div>
-                                </div>
+                                }
                               </div>
 
-                              <div className="flex w-full mt-6">
-                                {/* first   */}
+                              {/* second  */}
 
-                                <div className="thiddrapgsingl">
-                                  <h4>Experience letter</h4>
+                              <div className="thiddrapgsingl">
+                                <h4>Offer letter</h4>
 
-                                  <div className="drag-area try">
-                                    <img src={uploadFile} alt="" />
 
-                                    <p>Click to upload</p>
+                                <div className="drag-area try">
+                                  <img src={uploadFile} alt="" />
 
-                                    <input
-                                      className="filesjila w-full"
-                                      type="file"
-                                      name="ExperienceLetter"
-                                      onChange={handleFileChange}
-                                    />
-                                  </div>
+                                  <p>Click to upload</p>
+
+                                  <input
+                                    name="OfferLetter"
+                                    className="filesjila"
+                                    type="file"
+                                    onChange={(e) => handleFileChange(e, "OfferLetter")}
+                                  />
                                 </div>
+                                {
+                                  previewImages?.OfferLetter &&
+                                  <div className="previewiamges">
+                                    <nav> <ImCross onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = { ...prev };
+                                        delete updatedPreviewImages?.OfferLetter;
+                                        return updatedPreviewImages
+                                      });
 
-                                {/* second  */}
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        OfferLetter: ""
+                                      }))
 
-                                <div className="thiddrapgsingl">
+
+                                    }} className="cursor-pointer" /> </nav>
+                                    <img src={previewImages?.OfferLetter} alt="" />
+                                  </div>
+                                }
+                              </div>
+                            </div>
+
+                            <div className="wrap1">
+                              {/* first   */}
+
+                              <div className="thiddrapgsingl">
+                                <h4>Experience letter</h4>
+
+                                <div className="drag-area try">
+                                  <img src={uploadFile} alt="" />
+
+                                  <p>Click to upload</p>
+
+                                  <input
+                                    className="filesjila"
+                                    type="file"
+                                    name="ExperienceLetter"
+                                    onChange={(e) => handleFileChange(e, "ExperienceLetter")}
+                                  />
+                                </div>
+                                {
+                                  previewImages?.ExperienceLetter &&
+                                  <div className="previewiamges">
+                                    <nav> <ImCross onClick={() => {
+                                      setPreviewImages((prev) => {
+                                        const updatedPreviewImages = { ...prev };
+                                        delete updatedPreviewImages?.ExperienceLetter;
+                                        return updatedPreviewImages
+                                      });
+
+                                      setDocuments((prev) => ({
+                                        ...prev,
+                                        ExperienceLetter: ""
+                                      }))
+
+
+                                    }} className="cursor-pointer" /> </nav>
+                                    <img src={previewImages?.ExperienceLetter} alt="" />
+                                  </div>
+                                }
+                              </div>
+
+                              {/* second  */}
+
+                              {/* <div className="thiddrapgsingl">
                                   <h4>Offer letter</h4>
 
                                   <div className="drag-area try">
@@ -1748,16 +1674,17 @@ const EmployeeManage = ({
                                       onChange={handleFileChange}
                                     />
                                   </div>
-                                </div>
-                              </div>
-                            </>
-                          )}
-                        </div>
+                                </div> */}
+                            </div>
+                          </>
+                        )}
+
                       </div>
+
                     </div>
 
                     {/* this is backend acc side  */}
-                    <div className="basic-information addedinfowidth mt-7">
+                    <div className="basic-information">
                       <div className="basics">
                         <h3>Bank Account Information</h3>
                       </div>
@@ -1918,6 +1845,7 @@ const EmployeeManage = ({
                         </div>
                       </div>
                     </div>
+
                   </div>
 
                   {/* this is button  */}
@@ -1925,7 +1853,7 @@ const EmployeeManage = ({
                   <div className=" flex items-center justify-center mt-5">
                     <button
                       type="submit"
-                      className="text-white outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-semibold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      className="emregistbtn ctext-white outline-none bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-semibold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     >
                       Register
                     </button>

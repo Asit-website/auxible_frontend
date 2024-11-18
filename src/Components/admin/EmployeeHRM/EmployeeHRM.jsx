@@ -110,6 +110,7 @@ const EmployeeHRM = ({
 
   const fetchUserOwnDetailHandler = async()=>{
     const ans = await fetchUserOwnDetailApi(hrms_user?._id);
+    console.log("ans " ,ans);
     if(ans?.status){
       localStorage.setItem("hrms_user", JSON.stringify(ans?.data));
       localStorage.setItem("hrms_permission", JSON.stringify(ans?.data?.PermissionRole || {}));
@@ -122,7 +123,7 @@ const EmployeeHRM = ({
       fetchUserOwnDetailHandler();
    }
 
-  },[])
+  },[hrms_user])
 
   const [formdata, setFormdata] = useState({
     employeeName: "",
@@ -924,12 +925,7 @@ const EmployeeHRM = ({
                                     END DATE
                                   </th>
 
-                                  <th
-                                    scope="col"
-                                    className="px-3 py-3 taskTitl"
-                                  >
-                                    DESCRIPTION
-                                  </th>
+                                 
                                 </tr>
                               </thead>
                               <tbody>
@@ -951,9 +947,7 @@ const EmployeeHRM = ({
                                       <td className="px-3 py-4 taskAns lolo taskans11">
                                         {val?.endDate}
                                       </td>
-                                      <td className="px-3 py-4 taskAns taskans11">
-                                        {val?.description}
-                                      </td>
+                                    
                                     </tr>
                                   );
                                 })}
@@ -1166,21 +1160,22 @@ const EmployeeHRM = ({
                           href="#"
                           className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow"
                         >
-                          <div className="timeLogWrap">
+                          {/* <div className="timeLogWrap">
                             <img src={timeLog} alt="" />
-                            <h5 className="mb-3 text-xl  text-gray-900 dark:text-white">
-                              {" "}
-                              Time Log{" "}
-                            </h5>
+                          </div> */}
+
+                          <div className="timelogscont">
+                             <img src={timeLog} alt="" />
+                              <span>Time Log</span>
                           </div>
 
                           <hr />
 
-                          <h5 className="todayText">Today</h5>
+                          <h5 className="todayText addpading">Today</h5>
 
                           <hr />
 
-                          <div className="time_emp_desh_flex">
+                          <div className="time_emp_desh_flex addpading">
                             <div className="time_emp_desh">
                               <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 -">{`${Math.floor(
                                 clock / 3600
@@ -1220,7 +1215,7 @@ const EmployeeHRM = ({
                               <p>Break</p>
                             </div>
 
-                            <div className="time_emp_desh">
+                            <div className="time_emp_desh ">
                               <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 ">{`${Math.floor(
                                 (32400 - clock) / 3600
                               )
@@ -1236,14 +1231,14 @@ const EmployeeHRM = ({
 
                           <hr />
 
-                          <h5 className="thisMonText">This month</h5>
+                          <h5 className="thisMonText addpading">This month</h5>
 
                           <hr />
 
-                          <div className="time_emp_desh_flex2">
+                          <div className="time_emp_desh_flex2 addpading">
                             <img src={clock2} alt="" />
 
-                            <div className="time_emp_desh">
+                            <div className="time_emp_desh addpading mt-3">
                               <h6 className="timeEmptext">168 hrs</h6>
                             </div>
                           </div>
@@ -1254,8 +1249,7 @@ const EmployeeHRM = ({
 
                       <NavLink to="/adminDash/HRM/holiday">
                         <div className="hrLefThi">
-                          <h2 className="holiHead">
-                            {" "}
+                          <h2 className="holiHead4">
                             <img src={holi} alt="" /> <span>Holiday Lists</span>
                           </h2>
 
@@ -1493,21 +1487,19 @@ const EmployeeHRM = ({
                             href="#"
                             className="block serad max-w-2xl p-5 bg-white border timeWrap border-gray-200 rounded-lg shadow    "
                           >
-                            <div className="timeLogWrap">
-                              <img src={timeLog} alt="" />
-                              <h5 className="mb-3 text-xl  text-gray-900 dark:text-white">
-                                {" "}
-                                Time Log{" "}
-                              </h5>
-                            </div>
+                           
+                       <div className="timelogscont">
+                             <img src={timeLog} alt="" />
+                              <span>Time Log</span>
+                          </div>
 
                             <hr />
 
-                            <h5 className="todayText">Today</h5>
+                            <h5 className="todayText addpading">Today</h5>
 
                             <hr />
 
-                            <div className="time_emp_desh_flex">
+                            <div className="time_emp_desh_flex addpading">
                               <div className="time_emp_desh">
                                 <h5 className="mb-1 mt-3 text-xl  tracking-tight text-gray-900 -">{`${Math.floor(
                                   clock / 3600
@@ -1563,14 +1555,14 @@ const EmployeeHRM = ({
 
                             <hr />
 
-                            <h5 className="thisMonText">This month</h5>
+                            <h5 className="thisMonText addpading">This month</h5>
 
                             <hr />
 
                             <div className="time_emp_desh_flex2">
                               <img src={clock2} alt="" />
 
-                              <div className="time_emp_desh">
+                              <div className="time_emp_desh addpading mt-3">
                                 <h6 className="timeEmptext">168 hrs</h6>
                               </div>
                             </div>
@@ -1776,9 +1768,7 @@ const EmployeeHRM = ({
                                 END DATE
                               </th>
 
-                              <th scope="col" className="px-6 py-3 taskTitl">
-                                DESCRIPTION
-                              </th>
+                            
                             </tr>
                           </thead>
 
@@ -1802,9 +1792,9 @@ const EmployeeHRM = ({
                                   <td className="px-3 py-4 taskAns lolo taskans11">
                                     {val?.endDate}
                                   </td>
-                                  <td className="px-3 py-4 taskAns taskans11">
+                                  {/* <td className="px-3 py-4 taskAns taskans11">
                                     {val?.description}
-                                  </td>
+                                  </td> */}
                                 </tr>
                               );
                             })}

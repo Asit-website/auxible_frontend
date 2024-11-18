@@ -230,12 +230,12 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                   >
                     <img src={pluss} /> <span>Add Project</span>
                   </button>
-                  <button className="impcli">
+                  {/* <button className="impcli">
                     <span>Import Project</span>
                   </button>
                   <button className="expoclient">
                     <span>Export Project</span>
-                  </button>
+                  </button> */}
                 </div>
               </nav>
 
@@ -299,7 +299,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                           client.Status === "OnHold" && "OnHoldbg"
                         }`}
                       >
-                        <span>{client.Status}</span>
+                        <span className={`${client?.Status === "onHold" || "onHoldbg"}`}>{client.Status}</span>
                       </div>
 
                       <p className="duedate">
@@ -328,12 +328,12 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                     {showIndex === index && (
                       <div className="showIndexcont2">
-                        <div className="singlinpro">
+                        {/* <div className="singlinpro">
                           <img src={invidd} alt="" />
                           <span>Invite Employee</span>
                         </div>
 
-                        <hr />
+                        <hr /> */}
 
                         <div
                           onClick={() => {
@@ -348,19 +348,19 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
 
                         <hr />
 
-                        <div className="singlinpro">
+                        {/* <div className="singlinpro">
                           <img src={share} alt="" />
                           <span>Share to Clients</span>
                         </div>
 
-                        <hr />
+                        <hr /> */}
 
-                        <div className="singlinpro">
+                        {/* <div className="singlinpro">
                           <img src={bxcopy} alt="" />
                           <span>Duplicate</span>
                         </div>
 
-                        <hr />
+                        <hr /> */}
 
                         <div
                           onClick={() => deleteApi(client?._id)}

@@ -39,7 +39,7 @@ const MarkAttendance = ({
     allEmployee,
     getAllActivities2,
     postAttendence,
-    updateAttendance , 
+    updateAttendance,
     deleteAttendence
   } = useMain();
   const [data, setData] = useState([]);
@@ -50,7 +50,7 @@ const MarkAttendance = ({
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const {role} = hrms_user;
+  const { role } = hrms_user;
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -125,6 +125,7 @@ const MarkAttendance = ({
   };
 
   var [selectedOption, setSelectedOption] = useState("daily");
+
   const [date, setDate] = useState("");
   const [month, setMonth] = useState("");
   const [userId, setuserId] = useState("");
@@ -246,7 +247,7 @@ const MarkAttendance = ({
 
   const [showImportPop, setShowImportPop] = useState(false);
 
-  const [makeChange , setMakeChange] = useState(true);
+  const [makeChange, setMakeChange] = useState(true);
 
   const [srchText, setSrchText] = useState("");
 
@@ -268,13 +269,13 @@ const MarkAttendance = ({
         );
       }
     }
-  }, [srchText , makeChange]);
+  }, [srchText, makeChange]);
 
   useEffect(() => {
     if (selectedOption !== "monthly") {
       getData();
     }
-  }, [selectedOption , makeChange]);
+  }, [selectedOption, makeChange]);
 
   // Excel sheet
   const [excelFile, setExcelFile] = useState(null);
@@ -335,9 +336,9 @@ const MarkAttendance = ({
       for (let i = 0; i < data?.length; i++) {
         const { Break, date, clockIn, clockOut, Employee } = data[i];
 
-  const excelDateObj = new Date((date - 25569) * 86400000); // Subtract base date (Dec 30, 1899)
+        const excelDateObj = new Date((date - 25569) * 86400000); // Subtract base date (Dec 30, 1899)
 
-  const formattedDate = format(excelDateObj, 'MM/dd/yyyy');
+        const formattedDate = format(excelDateObj, 'MM/dd/yyyy');
 
 
         const convertExcelTime = (excelTime) => {
@@ -353,15 +354,15 @@ const MarkAttendance = ({
         const formattedClockOut = convertExcelTime(clockOut);
 
 
-      // Parse Break value to hours, minutes, and seconds
-      const breakSeconds = parseInt(Break * 86400, 10); // Convert to seconds
-      const breakHours = Math.floor(breakSeconds / 3600);
-      const breakMinutes = Math.floor((breakSeconds % 3600) / 60);
-      const breakSecondsRemainder = breakSeconds % 60;
+        // Parse Break value to hours, minutes, and seconds
+        const breakSeconds = parseInt(Break * 86400, 10); // Convert to seconds
+        const breakHours = Math.floor(breakSeconds / 3600);
+        const breakMinutes = Math.floor((breakSeconds % 3600) / 60);
+        const breakSecondsRemainder = breakSeconds % 60;
 
-      // Format Break time as string
-      const formattedBreak = `${breakHours}:${breakMinutes}:${breakSecondsRemainder}`;
-  
+        // Format Break time as string
+        const formattedBreak = `${breakHours}:${breakMinutes}:${breakSecondsRemainder}`;
+
         const filterdata = users.filter(
           (item) => item?.fullName.toLowerCase() === Employee.toLowerCase()
         );
@@ -377,8 +378,8 @@ const MarkAttendance = ({
             clockInDate: formattedDate,
           });
 
-          
-        toast.success("Successfuly uploaded");
+
+          toast.success("Successfuly uploaded");
 
         }
       }
@@ -392,34 +393,34 @@ const MarkAttendance = ({
 
   const [editForm, setEditform] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     handleSubmit();
-  },[makeChange])
+  }, [makeChange])
 
-  const updateHandler = async()=>{
-   let toastId =  toast.loading("Loading...");
-     try{
+  const updateHandler = async () => {
+    let toastId = toast.loading("Loading...");
+    try {
 
-       const ans = await updateAttendance(editForm?._id , editForm?.Date , editForm?.clockIn , editForm?.clockOut ,editForm?.breakTime);
+      const ans = await updateAttendance(editForm?._id, editForm?.Date, editForm?.clockIn, editForm?.clockOut, editForm?.breakTime);
 
-       if(ans?.status){
+      if (ans?.status) {
         toast.success("Successfuly updated");
         setEditform(null);
         setOptionEdit(null);
         getData();
-        setMakeChange((prev)=>!prev);
+        setMakeChange((prev) => !prev);
 
-       }
-       else {
+      }
+      else {
         toast.error("Something went wrong , please try again later");
-       }
+      }
 
-     }catch(error){
+    } catch (error) {
       console.log(error);
-       toast.error("Someting went wrong, please try again");
-     }
- 
-     toast.dismiss(toastId);
+      toast.error("Someting went wrong, please try again");
+    }
+
+    toast.dismiss(toastId);
 
   }
 
@@ -438,29 +439,29 @@ const MarkAttendance = ({
     }));
   };
 
-  const deleteHandler = async(id)=>{
+  const deleteHandler = async (id) => {
     const ans = await deleteAttendence(id);
-     if(ans?.status){
+    if (ans?.status) {
       toast.success("Successffuly deleted");
-       setMakeChange((prev)=>!prev);
-     }
-     else {
+      setMakeChange((prev) => !prev);
+    }
+    else {
       toast.error("Something went wrong , please try again");
-     }
+    }
   }
 
   return (
     <>
       <h1>Hello Dinesh</h1>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : 
-  role=== "EMPLOYEE" ?
-  <EmployeeSidebar pop={pop} setPop={setPop} />
-   :
-<AdminSidebar pop={pop} setPop={setPop} />
+        {isHr ? <HrSidebar /> :
+          role === "EMPLOYEE" ?
+            <EmployeeSidebar pop={pop} setPop={setPop} />
+            :
+            <AdminSidebar pop={pop} setPop={setPop} />
 
-        
-      }
+
+        }
         <div className="tm relative">
           {isHr ? (
             <HrNavbar
@@ -470,12 +471,12 @@ const MarkAttendance = ({
               setPop1={setPop1}
             />
           ) : (
-            
-              role === "EMPLOYEE" ?
-               <EmployeeNavbar />:
-  
-            <AdminNavbar user={user} setAlert={setAlert} />
-            
+
+            role === "EMPLOYEE" ?
+              <EmployeeNavbar /> :
+
+              <AdminNavbar user={user} setAlert={setAlert} />
+
           )}
 
           <div className="em ">
@@ -500,9 +501,8 @@ const MarkAttendance = ({
                       selectedOption = "daily";
                       handleOptionChange();
                     }}
-                    className={`${
-                      selectedOption === "daily" ? "mselected" : "notSelected"
-                    }`}
+                    className={`${selectedOption === "daily" ? "mselected" : "notSelected"
+                      }`}
                   >
                     <span>Daily Report</span>
                   </button>
@@ -513,9 +513,8 @@ const MarkAttendance = ({
                       selectedOption = "monthly";
                       handleOptionChange();
                     }}
-                    className={`${
-                      selectedOption === "monthly" ? "mselected" : "notSelected"
-                    }`}
+                    className={`${selectedOption === "monthly" ? "mselected" : "notSelected"
+                      }`}
                   >
                     <span>Monthly Report</span>
                   </button>
@@ -556,7 +555,7 @@ const MarkAttendance = ({
                         })}
                       </select>
 
-                    
+
 
                       <div>
                         <img
@@ -582,7 +581,7 @@ const MarkAttendance = ({
                         />
                       </div>
 
-                     
+
 
                       <select
                         className="markAttSelect"
@@ -734,8 +733,7 @@ const MarkAttendance = ({
                         <img src={bxsearch} alt="" />
                       </div>
 
-                      {/* <button className="exprtbtn"><span>Export</span></button> */}
-                      {selectedOption !== "monthly" && (
+                      {(selectedOption === "daily" && date === "" ) && (
                         <ReactHTMLTableToExcel
                           id="test-table-xls-button"
                           className="download-table-xls-button exprtbtn"
@@ -746,7 +744,7 @@ const MarkAttendance = ({
                         />
                       )}
 
-                      {selectedOption === "daily" && date !== "" && (
+                      {(selectedOption === "daily" && date !== "") && (
                         <ReactHTMLTableToExcel
                           id="test-table-xls-button"
                           className="download-table-xls-button exprtbtn"
@@ -768,7 +766,7 @@ const MarkAttendance = ({
                         />
                       )}
 
-                      {selectedOption === "all" && (
+{selectedOption === "all" && (
                         <ReactHTMLTableToExcel
                           id="test-table-xls-button"
                           className="download-table-xls-button exprtbtn"
@@ -777,7 +775,7 @@ const MarkAttendance = ({
                           sheet="tablexls"
                           buttonText="Export"
                         />
-                      )}
+                      )} 
                     </div>
                   </div>
                 </div>
@@ -792,7 +790,7 @@ const MarkAttendance = ({
                       <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3 currentText">
-                            Employee Name 
+                            Employee Name
                           </th>
                           <th scope="col" className="px-6 py-3 currentText">
                             Department
@@ -845,22 +843,28 @@ const MarkAttendance = ({
                               {item?.breakTime ? item?.breakTime : "No break"}
                             </td>
 
-                          
-                            <td
-                                onClick={() => {
-                                  if (optionedit === index) {
-                                    setOptionEdit(null);
-                                  } else {
-                                    setOptionEdit(index);
-                                  }
-                                }}
-                                className="px-6 py-4 relative cursor-pointer"
-                              >
-                                <img src={moreVert} alt="" />
 
-                                {optionedit === index && (
+                            <td
+                              // onClick={() => {
+                              //   if (optionedit === index) {
+                              //     setOptionEdit(null);
+                              //   } else {
+                              //     setOptionEdit(index);
+                              //   }
+                              // }}
+                              className="px-6 py-4 relative cursor-pointer"
+                            >
+                              {/* <img src={moreVert} alt="" /> */}
+
+                              <svg onClick={() => {
+                                setEditform(item);
+                              }} className="cursor-pointer" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                              </svg>
+
+                              {/* {optionedit === index && (
                                   <div className="attaedipop">
-                                    {/* sing */}
+
                                     <div
                                       onClick={() => {
                                         setEditform(item);
@@ -870,13 +874,10 @@ const MarkAttendance = ({
                                       <img src={edit} alt="" />
                                       <p>Edit</p>
                                     </div>
-                                    {/* <div className="attposin">
-                                      <img src={delete4} alt="" />
-                                      <p onClick={()=>deleteHandler(item?._id)}>Delete</p>
-                                    </div> */}
+                                   
                                   </div>
-                                )}
-                              </td>
+                                )} */}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -953,35 +954,18 @@ const MarkAttendance = ({
                               </td>
 
                               <td
-                                onClick={() => {
-                                  if (optionedit === index) {
-                                    setOptionEdit(null);
-                                  } else {
-                                    setOptionEdit(index);
-                                  }
-                                }}
+
                                 className="px-6 py-4 relative cursor-pointer"
                               >
-                                <img src={moreVert} alt="" />
+                                {/* <img src={moreVert} alt="" /> */}
 
-                                {optionedit === index && (
-                                  <div className="attaedipop">
-                                    {/* sing */}
-                                    <div
-                                      onClick={() => {
-                                        setEditform(item);
-                                      }}
-                                      className="attposin"
-                                    >
-                                      <img src={edit} alt="" />
-                                      <p>Edit</p>
-                                    </div>
-                                    {/* <div className="attposin">
-                                      <img src={delete4} alt="" />
-                                      <p onClick={()=>deleteHandler(item?._id)}>Delete</p>
-                                    </div> */}
-                                  </div>
-                                )}
+                                <svg onClick={() => {
+                                  setEditform(item);
+                                }} className="cursor-pointer" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                                </svg>
+
+
                               </td>
                             </tr>
                           ))}
@@ -1077,38 +1061,41 @@ const MarkAttendance = ({
                               {item?.breakTime ? item?.breakTime : "No break"}
                             </td>
 
-                            
-                            <td
-                                onClick={() => {
-                                  if (optionedit === index) {
-                                    setOptionEdit(null);
-                                  } else {
-                                    setOptionEdit(index);
-                                  }
-                                }}
-                                className="px-6 py-4 relative cursor-pointer"
-                              >
-                                <img src={moreVert} alt="" />
 
-                                {optionedit === index && (
-                                  <div className="attaedipop">
-                                    {/* sing */}
-                                    <div
-                                      onClick={() => {
-                                        setEditform(item);
-                                      }}
-                                      className="attposin"
-                                    >
-                                      <img src={edit} alt="" />
-                                      <p>Edit</p>
-                                    </div>
-                                    {/* <div className="attposin">
-                                      <img src={delete4} alt="" />
-                                      <p onClick={()=>deleteHandler(item?._id)}>Delete</p>
-                                    </div> */}
+                            <td
+                              // onClick={() => {
+                              //   if (optionedit === index) {
+                              //     setOptionEdit(null);
+                              //   } else {
+                              //     setOptionEdit(index);
+                              //   }
+                              // }}
+                              className="px-6 py-4 relative cursor-pointer"
+                            >
+                              {/* <img src={moreVert} alt="" /> */}
+
+                              <svg onClick={() => {
+                                setEditform(item);
+                              }} className="cursor-pointer" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                              </svg>
+
+                              {/* {optionedit === index && (
+                                <div className="attaedipop">
+                                 
+                                  <div
+                                    onClick={() => {
+                                      setEditform(item);
+                                    }}
+                                    className="attposin"
+                                  >
+                                    <img src={edit} alt="" />
+                                    <p>Edit</p>
                                   </div>
-                                )}
-                              </td>
+                                 
+                                </div>
+                              )} */}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -1209,7 +1196,7 @@ const MarkAttendance = ({
                   </div>
                 )}
 
-              
+
               </main>
             </div>
 
@@ -1258,26 +1245,26 @@ const MarkAttendance = ({
           {typeError && <div>{typeError}</div>}
 
           {
-            editForm !== null && 
-          
-
-           <div className="editFromwrap">
+            editForm !== null &&
 
 
-             <div className="editfromcont">
+            <div className="editFromwrap">
 
-               <nav >
-                <h2>Edit Attendance</h2>
-                <img onClick={()=>setEditform(null)} src={cutt} alt="" />
-               </nav>
 
-               <hr />
+              <div className="editfromcont">
+
+                <nav >
+                  <h2>Edit Attendance</h2>
+                  <img onClick={() => setEditform(null)} src={cutt} alt="" />
+                </nav>
+
+                <hr />
 
                 <div className="editSindiv">
 
                   <label htmlFor="">
                     <p>Employee</p>
-                    <input value={editForm?.user?.fullName}  type="text"  />
+                    <input value={editForm?.user?.fullName} type="text" />
                   </label>
 
                   <label htmlFor="">
@@ -1292,45 +1279,45 @@ const MarkAttendance = ({
 
                   <label htmlFor="">
                     <p>Check In</p>
-                    <input onChange={(e)=>setEditform((prev)=>({
-                      ...prev , 
+                    <input onChange={(e) => setEditform((prev) => ({
+                      ...prev,
                       clockIn: e.target.value
-                    }))} value={editForm?.clockIn} type="text"  />
+                    }))} value={editForm?.clockIn} type="text" />
                   </label>
 
                   <label htmlFor="">
                     <p>Check Out</p>
-                    <input onChange={(e)=>setEditform((prev)=>({
-                      ...prev , 
+                    <input onChange={(e) => setEditform((prev) => ({
+                      ...prev,
                       clockOut: e.target.value
-                    }))} value={editForm?.clockOut} type="text"  />
+                    }))} value={editForm?.clockOut} type="text" />
                   </label>
 
                 </div>
 
 
- <div className="editSindiv">
+                <div className="editSindiv">
 
 
-                <label >
+                  <label >
                     <p>Break</p>
-                    <input onChange={(e)=>setEditform((prev)=>({
-                      ...prev , 
+                    <input onChange={(e) => setEditform((prev) => ({
+                      ...prev,
                       breakTime: e.target.value
-                    }))} value={editForm?.breakTime} type="text"  />
+                    }))} value={editForm?.breakTime} type="text" />
                   </label>
 
-                  </div>
+                </div>
 
 
-                 <div className="formupdacan">
+                <div className="formupdacan">
                   <button onClick={updateHandler} className="upda"><span>Update</span></button>
-                  <button onClick={()=>setEditform(null)} className="canc"><span>Cancel</span></button>
-                 </div>
+                  <button onClick={() => setEditform(null)} className="canc"><span>Cancel</span></button>
+                </div>
 
-             </div>
+              </div>
 
-           </div>
+            </div>
 
 
           }

@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
+
 
 const LeaveRequest = ({
   pop1,
@@ -81,12 +83,9 @@ const LeaveRequest = ({
     }))
   }
 
-   const deleteLeaveRequest = async(leaveId)=>{
-    let ans = await deleteLeave(leaveId);
-       getData();
-   }
-
    const [showPlay , setShowPlay] = useState(-1);
+
+   const [leavePopup , setLeavePopup] = useState(false);
 
    const submitHandler = async()=>{
     const toastId = toast.loading("Loading...");
@@ -217,35 +216,36 @@ const LeaveRequest = ({
               <main className="leaveReqWrap">
                 <div className="relative overflow-x-auto">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs uppercase textALLtITL ">
+
+                    <thead className="text-xs textALLtITL ">
                       <tr className="gfg">
                        
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3 ">
                           EMPLOYEE
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3 ">
                           LEAVE TYPES
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3">
                           APPLIED ON
                         </th>
                       
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3">
                           START DATE
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3 ">
                           END DATE
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3">
                           TOTAL DAYS
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3">
                           LEAVE REASON
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3">
                           STATUS
                         </th>
-                        <th scope="col" className="px-3 py-3 uppercase">
+                        <th scope="col" className="px-2 py-3 ">
                           ACTIONS
                         </th>
                       </tr>
@@ -254,24 +254,24 @@ const LeaveRequest = ({
                     <tbody>
                       {data?.map((e,index)=>{
                         return (
-                          <tr key={index} className="bg-white gfg border-b">
+                          <tr  onClick={()=>setLeavePopup(e)} key={index} className="bg-white trtextalltr cursor-pointer gfg border-b">
                          
-                          <td className="px-3 py-3 taskAns">  {e?.user?.fullName}</td>
-                          <td className="px-3 py-3 taskAns">{e?.leaveType}</td>
-                          <td className="px-3 py-3 taskAns">{formatDate(e?.appliedOn)}</td>
-                          <td className="px-3 py-3 taskAns">  {e?.from}</td>
-                          <td className="px-3 py-3 taskAns"> {e?.to} </td>
-                          <td className="px-3 py-3 taskAns"> {(e?.days) - 1 + 2} </td>
+                          <td className="px-2 py-3">  {e?.user?.fullName}</td>
+                          <td className="px-2 py-3">{e?.leaveType}</td>
+                          <td className="px-2 py-3">{formatDate(e?.appliedOn)}</td>
+                          <td className="px-2 py-3">  {e?.from}</td>
+                          <td className="px-2 py-3"> {e?.to} </td>
+                          <td className="px-2 py-3"> {(e?.days) - 1 + 2} </td>
                           
-                          <td className="px-3 py-3 taskAns">{e?.reason}</td>
+                          <td className="px-2 py-3">{e?.reason?.slice(1,34)}...</td>
   
-                          <td className="px-3 py-3 taskAns">
+                          <td className="px-2 py-3">
                             <div className="ACTIVITYsss">{
                               e?.status === "" ?"Pending":e?.status
                             }</div>
                           </td>
 
-                          <td className="px-3 py-3  flex items-center hiii_gap">
+                          <td className="px-2 py-3  flex items-center hiii_gap">
                             
                             {
                               (leaveReqestEditPermission || role === "ADMIN") && 
@@ -421,12 +421,46 @@ const LeaveRequest = ({
 
                      
                     </tbody>
+
+
                   </table>
                 </div>
               </main>
 
             </div>
           </div>
+
+          {
+            leavePopup && 
+            <div className="leavePopupwrap2">
+                <div className="leavepopconta2">
+
+                  <nav><RxCross2 fontSize={24} className="cursor-pointer" onClick={()=>setLeavePopup(false)} /></nav>
+ 
+                <label htmlFor="">
+                  <h4>FullName: </h4>
+                  <p>{leavePopup?.user?.fullName}</p>
+                </label>
+
+              
+                <label htmlFor="">
+                  <h4>From: </h4>
+                  <p>{leavePopup?.from}</p>
+                </label>
+                <label htmlFor="">
+                  <h4>To: </h4>
+                  <p>{leavePopup?.to}</p>
+                </label>
+
+                <label htmlFor="">
+                  <h4>Reason: </h4>
+                  <p>{leavePopup?.reason}</p>
+                </label>
+
+                   
+                </div>
+            </div>
+          }
 
      
      {/* this is edit form of leave rqeuest  */}

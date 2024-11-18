@@ -2,15 +2,22 @@ import React, { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import uint from '../../images/uing.png';
-import { useNavigate,NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import upload from '../../images/upload.svg';
 import OutsideClickHandler from "react-outside-click-handler";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
+import * as EmailValidator from "email-validator";
+import validator from 'validator';
+import { FaUpload } from "react-icons/fa6";
+import usit from '../../images/usit.png';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, createLead, getEmployees ,  AllLeadSource , AllLeadStatus,getLeadStat  } = useMain();
+    const { user, createLead, getEmployees, AllLeadSource, AllLeadStatus, getLeadStat, uploadToCloudinaryImg } = useMain();
     const [pop1, setPop1] = useState(false);
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -47,12 +54,58 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         State: "",
         ZipCode: "",
         Country: "",
-        DescriptionInfo: ""
+        DescriptionInfo: "", 
+        date:""
     });
+
+    const [emailisValid, setIsemailValid] = useState(null);
+    const [emailisValid1, setIsemailValid1] = useState(null);
+
+    const handleValidation = () => {
+        const valid = EmailValidator.validate(formdata.Email);
+        setIsemailValid(valid);
+    };
+
+    const handleValidation1 = () => {
+        const valid = EmailValidator.validate(formdata.SecondaryEmail);
+        setIsemailValid1(valid);
+    }
+
+    const [isUrlValid, setIsUrlValid] = useState(null);
+    const [isUrlValid1, setIsUrlValid1] = useState(null);
+    const [isUrlValid2, setIsUrlValid2] = useState(null);
+
+    const handleInputUrlChange = (value) => {
+        if (validator.isURL(value)) {
+            setIsUrlValid(true);
+        } else {
+            setIsUrlValid(false);
+        }
+    };
+
+    const handleInputUrlChange1 = (value) => {
+        if (validator.isURL(value)) {
+            setIsUrlValid1(true);
+        } else {
+            setIsUrlValid1(false);
+        }
+    };
+
+    const handleInputUrlChange2 = (value) => {
+        if (validator.isURL(value)) {
+            setIsUrlValid2(true);
+        } else {
+            setIsUrlValid2(false);
+        }
+    };
+
 
     const navigate = useNavigate();
 
-    const handleImageChange = (event) => {
+    const [leadUpldProf, setLeadUpLdPro] = useState("");
+
+
+    const handleImageChange = async (event) => {
         const imageFile = event.target.files[0];
 
         if (!imageFile || !imageFile.type.match('image/*')) {
@@ -63,10 +116,23 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
             ...prev,
             image: imageFile
         }))
+
+        const resp = await uploadToCloudinaryImg({ image: imageFile });
+        console.log(resp)
+        setLeadUpLdPro(resp?.data);
+
     };
 
     const changeHandler = async (e) => {
         const { name, value } = e.target;
+
+        if (name === "Phone" && value.length > 10) {
+            return
+        }
+
+        if (name === "Mobile" && value.length > 10) {
+            return
+        }
 
         setFormdata((prev) => ({
             ...prev,
@@ -76,6 +142,27 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
     const submitHandler = async () => {
         const toastId = toast.loading("Loading...");
+        if (emailisValid === false && formdata.Email !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Email")
+        }
+        if (emailisValid1 === false && formdata.SecondaryEmail !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Gmail")
+        }
+        if (isUrlValid === false && formdata.Website !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Website Link")
+        }
+        if (isUrlValid1 === false && formdata.SkypeID !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Linkedin Url")
+        }
+
+        if (isUrlValid2 === false && formdata.Twitter !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Twitter Url")
+        }
         const ans = await createLead({ ...formdata });
         if (ans?.status) {
             navigate("/employeeDash/myLead")
@@ -105,7 +192,8 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                 State: "",
                 ZipCode: "",
                 Country: "",
-                DescriptionInfo: ""
+                DescriptionInfo: "" , 
+                date:""
             })
 
             toast.success("Successfuly submit");
@@ -124,31 +212,31 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         getOwner();
     }, [])
 
-    const [allLeadStatus , setAllLeadStatus] = useState([]);
-    const [allLeadSource , setAllLeadSource] = useState([]);
-    const [allleadStat,setAllLeadStat] = useState([]);
+    const [allLeadStatus, setAllLeadStatus] = useState([]);
+    const [allLeadSource, setAllLeadSource] = useState([]);
+    const [allleadStat, setAllLeadStat] = useState([]);
 
 
-    const fetchStatus = async()=>{
+    const fetchStatus = async () => {
         const ans = await AllLeadStatus();
-         setAllLeadStatus(ans?.data);
+        setAllLeadStatus(ans?.data);
     }
 
-    const fetchSource = async()=>{
+    const fetchSource = async () => {
         const ans = await AllLeadSource();
         setAllLeadSource(ans?.data);
     }
 
-    const fetchStat = async()=>{
+    const fetchStat = async () => {
         const ans = await getLeadStat();
         setAllLeadStat(ans?.data);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchStatus();
         fetchSource();
         fetchStat();
-    },[])
+    }, [])
 
     return (
         <>
@@ -159,16 +247,44 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                     <EmployeeNavbar user={user} setAlert={setAlert} />
 
                     <div className="em">
-                        <div className="ghj">
-                            <h2 className="semik">Create Lead</h2>
-                            <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
+
+                        {/* <div className="ghj">
+
+
+                            <div className="makethifles">
+                                <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
+                                <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+
+                            </div>
+
+                        </div> */}
+
+<div className="ghj makeitsticky">
+                            <div className="makethifles">
+                                <NavLink to="/adminDash/myLead"><button>Back</button></NavLink>
+
+                                <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+
+                            </div>
+
                         </div>
 
-                        <form action="">
-                            <div onClick={() => setPop1(!pop1)} data-modal-target="default-modal"
-                                data-modal-toggle="default-modal" className="uint mt-5">
-                                <img src={uint} alt="unit" />
+                        <form action="" className="test_formis">
+                            <div data-modal-target="default-modal"
+                                data-modal-toggle="default-modal" className="uploadprowrap">
+                                <div className="imagewrapleac">
+
+                                    {
+                                        leadUpldProf ? <img src={leadUpldProf} alt="" className="leadUpldProf" /> :
+                                            // <FaUpload className="FaUploadfds" onClick={() => setPop1(!pop1)} />
+                                            <img src={usit} alt="usit" />
+                                    }
+
+                                </div>
+                                <p onClick={() => setPop1(!pop1)} className="cursor-pointer"> {formdata.image ? "Change Image" : "Upload Image"} </p>
+
                             </div>
+
                             <>
 
                                 {/* Main modal */}
@@ -193,7 +309,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                                     <h3 className="text-xl sini  font-semibold text-gray-900 dark:text-white">
                                                         Select Image
                                                     </h3>
-                                                   
+
                                                 </div>
                                                 {/* Modal body */}
                                                 <div className="selct_div">
@@ -241,18 +357,24 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                     </div>
 
                                     <div className="lead_inp">
-                                        <div className="lead_inp1 lead_inp11">
-                                            <label htmlFor="">First Name *</label>
-                                            <select required style={{ width: "91px !important" }} className="selr" name="" id="">
-                                                <option>None</option>
-                                                <option>Mr</option>
-                                                <option>Mrs</option>
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label style={{ visibility: "hidden" }} htmlFor="">Company</label>
-                                            <input value={formdata.FirstName} name="FirstName" onChange={changeHandler} type="text" />
-                                        </div>
+                                    <div className="lead_inp1 makeitflexcol">
+
+<div className="lead_inp11">
+    <label htmlFor="">First Name *</label>
+    <select required className="selr" name="" id="">
+        <option>None</option>
+        <option>Mr</option>
+        <option>Mrs</option>
+    </select>
+</div>
+
+<div className=" exceptionwidht">
+    <label style={{ visibility: "hidden" }} htmlFor="">hidden</label>
+    <input value={formdata.FirstName} name="FirstName" onChange={changeHandler} type="text" />
+</div>
+
+</div>
+
                                         <div className="lead_inp1">
                                             <label htmlFor="">Last Name</label>
                                             <input value={formdata.LastName} name="LastName" onChange={changeHandler} type="text" />
@@ -266,14 +388,35 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Email *</label>
-                                            <input required value={formdata.Email} name="Email" onChange={changeHandler} type="email" />
+                                            <input required value={formdata.Email} name="Email"
+                                                onChange={(e) => {
+                                                    changeHandler(e);
+                                                    handleValidation(e.target.value);
+                                                }}
+                                                type="email" className={`${(emailisValid === false && formdata.Email !== "") && "emailvalidinput"}`} />
                                         </div>
                                     </div>
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Phone *</label>
-                                            <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" />
+                                            {/* <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" /> */}
+                                            <PhoneInput
+                                            
+                                            inputClass="hjj"
+                                            country={'in'}
+                                            id="Phone"
+                                            value={formdata?.Phone}
+                                            name="Phone"
+                                            placeholder="Enter your phone"
+
+                                            onChange={Phone => changeHandler({ target: { value: Phone, name: 'Phone' } })}
+
+                                            inputProps={{
+                                                required: true,
+                                            }}
+                                            countryCodeEditable={false}
+                                        />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Fax</label>
@@ -288,27 +431,14 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Website</label>
-                                            <input value={formdata.Website} name="Website" onChange={changeHandler} type="text" />
+                                            <input value={formdata.Website} name="Website" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange(e.target.value);
+                                            }} type="text" className={`${(isUrlValid === false && formdata.Website !== "") && "emailvalidinput"}`} />
                                         </div>
                                     </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Lead Source</label>
-                                            <select name="LeadSource" onChange={changeHandler} id="">
-                                                <option >Select lead source</option>
-                                                {
-                                                    allLeadSource?.map((item ,index)=>(
-                                                        <option key={index} value={item?.name}>{item?.name}</option>
-                                                    ))
-                                                }
-                                            </select>
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">No. of Employees</label>
-                                            <input value={formdata.NoOfEmployee} name="NoOfEmployee" onChange={changeHandler} type="number" />
-                                        </div>
-                                    </div>
+                     
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
@@ -317,7 +447,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                                 <option disabled>Select Industry</option>
                                                 <option value="Other">Other</option>
                                                 {
-                                                    allLeadStatus?.map((item ,index)=>(
+                                                    allLeadStatus?.map((item, index) => (
                                                         <option key={index} value={item?.name}>{item?.name}</option>
                                                     ))
                                                 }
@@ -329,16 +459,12 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                             <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
                                                 <option >Select Status</option>
                                                 {
-                                                    allleadStat?.map((val,index)=>{
+                                                    allleadStat?.map((val, index) => {
                                                         return (
                                                             <option key={index} value={val?.name}>{val?.name}</option>
                                                         )
                                                     })
                                                 }
-                                                {/* < option value="Cold">Cold</option>
-                                                <option value="Warm">Warm</option>
-                                                <option value="Follow-up">Follow-up</option>
-                                                <option value="Hot">Hot</option> */}
 
                                             </select>
                                         </div>
@@ -347,7 +473,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Annual Revenue </label>
-                                            <input  value={formdata.AnnualRevenue} name="AnnualRevenue" onChange={changeHandler} placeholder="$" type="number" />
+                                            <input value={formdata.AnnualRevenue} name="AnnualRevenue" onChange={changeHandler} placeholder="$" type="number" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Rating</label>
@@ -369,21 +495,52 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">LinkedIn URL</label>
-                                            <input value={formdata?.SkypeID} name="SkypeID" type="text" onChange={changeHandler} />
+                                            <input className={`${(isUrlValid1 === false && formdata.SkypeID !== "") && "emailvalidinput"}`} value={formdata?.SkypeID} name="SkypeID" type="text" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange1(e.target.value);
+                                            }} />
                                         </div>
                                     </div>
 
                                     <div className="lead_inp">
                                         <div className="lead_inp1">
                                             <label htmlFor="">Secondary Email</label>
-                                            <input value={formdata.SecondaryEmail} name="SecondaryEmail" onChange={changeHandler} type="email" />
+                                            <input className={`${(emailisValid1 === false && formdata.SecondaryEmail !== "") && "emailvalidinput"}`} value={formdata.SecondaryEmail} name="SecondaryEmail" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleValidation1(e.target.value);
+                                            }} type="email" />
                                         </div>
                                         <div className="lead_inp1">
                                             <label htmlFor="">Twitter</label>
-                                            <input value={formdata.Twitter} name="Twitter" onChange={changeHandler} type="text" />
+                                            <input className={`${(isUrlValid2 === false && formdata.Twitter !== "") && "emailvalidinput"}`} value={formdata.Twitter} name="Twitter" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange2(e.target.value);
+                                            }} type="text" />
                                         </div>
 
                                     </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Date</label>
+                                            <input value={formdata.date} name="date" onChange={changeHandler} type="date" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Lead Source</label>
+                                            <select name="LeadSource" onChange={changeHandler} id="">
+                                                <option>Select lead source</option>
+                                                {
+                                                    allLeadSource?.map((item, index) => (
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+
                                 </div>
 
                             </div>
@@ -442,12 +599,10 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                 </div>
                             </div>
 
-                            <div>
-                                <button type="button" onClick={submitHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
 
-                            </div>
 
                         </form>
+
                     </div>
                 </div>
             </div>

@@ -41,7 +41,27 @@ color: #101820;
    display: flex;
    align-items: center;
    background-color: #0B56E4;
-   width: 127px;
+   width: 65px;
+height: 40px;
+gap: 10px;
+border-radius: 10px;
+ justify-content: center;
+}
+.plusImg6{
+   display: flex;
+   align-items: center;
+   background-color: #0B56E4;
+   width: 100px;
+height: 40px;
+gap: 10px;
+border-radius: 10px;
+ justify-content: center;
+}
+.plusImg55{
+   display: flex;
+   align-items: center;
+   background-color: #0B56E4;
+   width: 120px;
 height: 40px;
 gap: 10px;
 border-radius: 10px;
@@ -49,6 +69,23 @@ border-radius: 10px;
 }
 
 .plusImg span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+
+.plusImg6 span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+.plusImg55 span{
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
@@ -182,7 +219,7 @@ text-align: left;
    gap: 10px;
 }
 .anmainTop .anMLef select{
-    width: 70px;
+    width: 80px;
     height: 34px;
     border-radius: 5px;
     border: 0.75px;
@@ -373,6 +410,22 @@ color: #666D76;
 }
 .createBtn .creteBtn{
     width: 76px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    align-items: center;   
+    background-color: #0B56E4;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+color: #FFFFFF;    
+}
+
+.creteBtn22{
+    width: 100px;
     height: 37px;
     display: flex;
     justify-content: center;

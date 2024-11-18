@@ -264,9 +264,9 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
                   >
                     <span>Import Client</span>
                   </button>
-                  <button className="expoclient">
+                  {/* <button className="expoclient">
                     <span>Export Client</span>
-                  </button>
+                  </button> */}
                 </div>
               </nav>
 
@@ -516,7 +516,9 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
               <button onClick={()=>handleFileSubmit()} className="up">
                 <span>Upload</span>
               </button>
-              <button className="clos">
+              <button onClick={() => {
+                  setShowImport(false);
+                }} className="clos">
                 <span>Close</span>
               </button>
             </div>

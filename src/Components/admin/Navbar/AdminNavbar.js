@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import kushel1 from "../../images/kushel1.png";
+import kushel1 from "../../images/auxi.png";
 import notification from "../../images/notifications.png"
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
@@ -7,7 +7,6 @@ import { NavLink } from "react-router-dom";
 import { useMain } from '../../../hooks/useMain'
 import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
-import auxi from '../../images/auxi.png'
 
 
 const AdminNavbar = ({ setAlert}) => {
@@ -19,6 +18,8 @@ const AdminNavbar = ({ setAlert}) => {
    const [user , setUser] = useState({});
 
   const [allNotication , setAllNotification] = useState([]);
+  const [currLoad , setCurrLoad] = useState(1);
+  const [actNotify , setActNotify] = useState([]);
 
   const [shownotify , setShownotify] = useState(false);
 
@@ -74,7 +75,19 @@ const AdminNavbar = ({ setAlert}) => {
 
 useEffect(()=>{
   fetchNotification();
+  setCurrLoad(1);
 },[])
+
+
+
+useEffect(()=>{
+
+  let num = currLoad*10;
+ const nNotify = allNotication.slice(0 , num);
+ setActNotify(nNotify);
+
+},[allNotication , currLoad])
+
 
   return (
     <>
@@ -85,7 +98,7 @@ useEffect(()=>{
         <div className="logo-namewrap">
 
           <div className="logo ">
-            <img src={auxi} alt="" />
+            <img src={kushel1} alt="" />
           </div>
 
           <NavLink to="/adminDash">
@@ -162,7 +175,13 @@ useEffect(()=>{
 
           allNotication.length > 0 ?
 
-           allNotication?.map((item , index)=>(
+
+          <div className="allnotiftwrap">
+
+{
+
+
+          actNotify?.map((item , index)=>(
 
              <>
              <div key={index} className="singlnotify">
@@ -179,6 +198,15 @@ useEffect(()=>{
              </>
 
            ))
+
+          }
+
+           
+          <button  onClick={() => setCurrLoad(currLoad + 1)}
+          className="lodmorebtns"><span>Load More...</span></button>
+         
+                    </div>
+
 
            
            :

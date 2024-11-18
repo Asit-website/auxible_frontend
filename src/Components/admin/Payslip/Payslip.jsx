@@ -12,17 +12,20 @@ import kdslogo from "../../images/kdslogo.png"
 import { useReactToPrint } from 'react-to-print'
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import payslip1 from "../../images/payslip1.png"
+import payslip2 from "../../images/payslip2.png"
+import { MdDelete } from "react-icons/md";
 
-const Payslip = ({ pop,  setPop}) => { 
-    
-    const { user, getUserSlip, togglePayslip, buildAPI , setUserTotalLeaveApi } = useMain();
+
+const Payslip = ({ pop, setPop }) => {
+
+    const { user, getUserSlip, togglePayslip, buildAPI, setUserTotalLeaveApi } = useMain();
 
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
     let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-    const { role  } = hrms_user;
-    const {  paySlipActionPermission  } = hrms_permission;
-
+    const { role } = hrms_user;
+    const { paySlipActionPermission } = hrms_permission;
 
     const [loading, setLoading] = useState(false);
 
@@ -55,7 +58,7 @@ const Payslip = ({ pop,  setPop}) => {
 
     const [popdata, setPopData] = useState(null);
 
-    const [totaldata , setTotaldata] = useState([]);;
+    const [totaldata, setTotaldata] = useState([]);;
 
     const fetchUserSlip = async (showLoading = true) => {
         if (showLoading) {
@@ -134,49 +137,47 @@ const Payslip = ({ pop,  setPop}) => {
 
     })
 
-    const deductionData = ()=>{
-          if(parseInt(popdata?.totalLeaves) > 2){
-              
-             let leftLeave;
-              if(popdata?.user?.totalLeaves > parseInt(hrms_user?.userAllowance)){
-                leftLeave = parseInt(popdata?.totalLeaves)
-              }
-              else{
-                  leftLeave = parseInt(popdata?.totalLeaves) - 2;
-                }
-              let netsalary = popdata?.user?.netSalary;
-               let perdaySalary = parseInt(netsalary/30);
-               return perdaySalary* leftLeave;
+    const deductionData = () => {
+        if (parseInt(popdata?.totalLeaves) > 2) {
 
-          }
-          else {
-return 0;
+            let leftLeave;
+            if (popdata?.user?.totalLeaves > parseInt(hrms_user?.userAllowance)) {
+                leftLeave = parseInt(popdata?.totalLeaves)
+            }
+            else {
+                leftLeave = parseInt(popdata?.totalLeaves) - 2;
+            }
+            let netsalary = popdata?.user?.netSalary;
+            let perdaySalary = parseInt(netsalary / 30);
+            return perdaySalary * leftLeave;
+
+        }
+        else {
+            return 0;
         }
     }
 
-  const setUsersTotalLeaves = async()=>{
-    const ans = await  setUserTotalLeaveApi();
-  }
-
-  useEffect(()=>{
-    setUsersTotalLeaves();
-  },[])
-
-  const [srchtxt , setsrchtxt] = useState("");
-
-  useEffect(()=>{
-
-    if(srchtxt === ""){
-        setData(totaldata);
-    }
-    else{
-         const filterdata = totaldata?.filter((f )=> f?.user?.fullName?.toLowerCase()?.includes(srchtxt?.toLowerCase()));
-         setData(filterdata);
+    const setUsersTotalLeaves = async () => {
+        const ans = await setUserTotalLeaveApi();
     }
 
-  },[srchtxt])
+    useEffect(() => {
+        setUsersTotalLeaves();
+    }, [])
 
+    const [srchtxt, setsrchtxt] = useState("");
 
+    useEffect(() => {
+
+        if (srchtxt === "") {
+            setData(totaldata);
+        }
+        else {
+            const filterdata = totaldata?.filter((f) => f?.user?.fullName?.toLowerCase()?.includes(srchtxt?.toLowerCase()));
+            setData(filterdata);
+        }
+
+    }, [srchtxt])
 
     return (
         <>
@@ -283,7 +284,7 @@ return 0;
                                                 className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Search Employee"
                                                 required=""
-                                                onChange={(e)=>setsrchtxt(e.target.value)}
+                                                onChange={(e) => setsrchtxt(e.target.value)}
                                                 value={srchtxt}
 
                                             />
@@ -334,18 +335,15 @@ return 0;
                                                         <td className="px-6 py-4">{item?.user?.fullName}</td>
                                                         <td className="px-6 py-4">{item?.user?.paySlipType}</td>
                                                         <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary : "00"}</td>
-                                                        
+
                                                         <td className="px-6 py-4">{item?.totalLeaves}</td>
                                                         <td className="px-6 py-4">{item?.user?.netSalary}</td>
 
                                                         <td className={`px-6 py-4 `}> <span className={`${item?.status === "Unpaid" ? "unpaid" : "paid"} `}>{item?.status}</span> </td>
-
-                                                        {/*  */}
-
-                                                        {
+ 
+ <td>
+{
                                                             (paySlipActionPermission || role === "ADMIN") &&
-
-
                                                             <div className="toglwCont">
                                                                 <td onClick={() => {
                                                                     if (showToggle === index) {
@@ -360,25 +358,21 @@ return 0;
                                                                 {
                                                                     showToggle === index &&
                                                                     <div className="togglewrap">
-
                                                                         <p onClick={() => {
                                                                             toggleStatus(item?.user?._id)
                                                                         }}>Click to {item?.status === "Unpaid" ? "Paid" : "Unpaid"}</p>
-
                                                                         <p onClick={() => {
                                                                             setOpenPayslip(true);
                                                                             setShowToggle(null);
                                                                             setPopData(item);
                                                                         }}>Payslip</p>
-
-                                                                        <p>Delete </p>
-
+                                                                        {/* <p>Delete </p> */}
                                                                     </div>
                                                                 }
                                                             </div>
-
                                                         }
 
+</td>
                                                     </tr>
                                                 ))
                                             }
@@ -553,8 +547,8 @@ return 0;
 
                             </div>
 
-                            <div className="payform">
-                                <div class="relative overflow-x-auto">
+                            <div className="">
+                                <div class="relative overflow-hidden">
                                     <table class="w-full text-sm text-left rtl:text-right  ">
                                         <thead class="text-xs vhg  uppercase bg-gray-50 dark:bg-gray-700 ">
                                             <tr>
@@ -576,7 +570,6 @@ return 0;
                                             </tr>
                                         </thead>
                                         <tbody className="vhg">
-
 
                                             <tr class="bg-white ">
 

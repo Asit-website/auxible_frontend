@@ -167,16 +167,17 @@ font-weight: 500;
 line-height: 16px;
 letter-spacing: 0.004em;
 text-align: left;
+padding: 10px 0px !important;
 
 }
 
 .timeEmptext{
-font-family: Inter;
+font-family: Inter !important;
 color: #2B2B2B !important;
-font-size: 24px;
-font-weight: 500;
-line-height: 32px;
-text-align: center;
+font-size: 24px !important;
+font-weight: 500 !important;
+line-height: 30px !important;
+text-align: center !important;
 
 }
 

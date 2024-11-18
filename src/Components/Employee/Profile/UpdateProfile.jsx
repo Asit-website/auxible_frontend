@@ -239,14 +239,7 @@ if(name === "pan" && value.length > 10){
 
           <div className="em">
             <div className="">
-              <form className="updateUser" onSubmit={(e)=>{
-                if(user?.updateProfile){
-                  
-                  handleSubmit(e)
-                }else{
-                  toast.error("Not Allowed");
-                }
-              }}>
+              <form className="updateUser" onSubmit={handleSubmit}>
               <div className="makethisgrid">
 
                 <div className="">

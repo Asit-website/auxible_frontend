@@ -427,12 +427,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-                <button
+                {/* <button
                   type="button"
                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sendBtn"
                 >
                   Send Email
-                </button>
+                </button> */}
 
                 <button
                   onClick={() =>
@@ -443,7 +443,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <span className="ref1">Edit</span>
                 </button>
 
-                <button
+                {/* <button
                   id="dropdownDefaultButton"
                   data-dropdown-toggle="dropdown"
                   className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
@@ -463,7 +463,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       fill="#666D76"
                     />
                   </svg>
-                </button>
+                </button> */}
               </div>
             </section>
 
@@ -480,7 +480,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <div className="lleaiFOlEFT">
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p>{data?.LeadOwner?.email}</p>
+                      <p>{data?.LeadOwner?.fullName}</p>
                     </div>
 
                     <div className="subPart">

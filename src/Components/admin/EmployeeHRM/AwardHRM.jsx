@@ -73,252 +73,18 @@ const sidebarItem = [
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
-  const { user, getBranchs, postBranch, updateBranch, deleteBranch, getDepartments, postDepartment, updateDepartment, deleteDepartment, getDesignations, postDesignation, updateDesignation, deleteDesignation, postLeaveType, updateLeaveType, getLeaveTypes, deleteLeaveType, postAward, getAward, allEmployee, deleteAward, updateAward } = useMain();
-
-  const [value, onChange] = useState(new Date());
-  const [gen, setGen] = useState([]);
-  const [flag, setFlag] = useState();
-
-  const [open, setOpen] = useState(0);
-
-  const [popup, setPopup] = useState(false);
+  const { user, postAward, getAward, allEmployee, deleteAward, updateAward } = useMain();
 
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
-
-  const styleing = {
-    display: popup ? "block" : "none",
-  };
-
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
 
-
   const [popup1, setPopup1] = useState(false);
-  const [popup11, setPopup11] = useState(false);
-  const [popup2, setPopup2] = useState(false);
-  const [popup21, setPopup21] = useState(false);
-  const [popup3, setPopup3] = useState(false);
-  const [popup31, setPopup31] = useState(false);
-  const [popup4, setPopup4] = useState(false);
-  const [popup41, setPopup41] = useState(false);
 
-  const [id, setId] = useState('');
-  const [branches, setBranches] = useState([]);
-  const [branches1, setBranches1] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const [departments1, setDepartments1] = useState([]);
-  const [designations, setDesignations] = useState([]);
-  const [designations1, setDesignations1] = useState([]);
-  const [leaveTypes, setLeaveTypes] = useState([]);
-  const [leaveTypes1, setLeaveTypes1] = useState([]);
-  const [branch, setBranch] = useState("");
-  const [branch1, setBranch1] = useState("");
-  const [departmentValue, setDepartmentValue] = useState({
-    branch: "",
-    name: "",
-  });
-  const [leaveTypeValue, setLeaveTypeValue] = useState({
-    name: "",
-    days: ""
-  });
-  const [designationValue, setDesignationValue] = useState({
-    department: "",
-    name: "",
-  });
-  const [departmentValue1, setDepartmentValue1] = useState({
-    branch: "",
-    name: "",
-  });
-  const [designationValue1, setDesignationValue1] = useState({
-    department: "",
-    name: "",
-  });
-  const [leaveTypeValue1, setLeaveTypeValue1] = useState({
-    name: "",
-    days: ""
-  });
   const [refreshFlag, setRefreshFlag] = useState(false);
-
-  useEffect(() => {
-    getData();
-  }, [refreshFlag]);
-
-  const getData = async () => {
-    const ans1 = await getBranchs();
-    const ans2 = await getDepartments();
-    const ans3 = await getDesignations();
-    const ans4 = await getLeaveTypes();
-    setBranches(ans1.data);
-    setBranches1(ans1.data);
-    setDepartments(ans2.data);
-    setDepartments1(ans2.data);
-    setDesignations(ans3.data);
-    setDesignations1(ans3.data);
-    setLeaveTypes(ans4.data);
-    setLeaveTypes1(ans4.data);
-  };
-
-  const handleCreateBranch = async () => {
-    const ans = await postBranch({ name: branch });
-    if (ans.success) {
-      toast.success(ans.message);
-      setBranch("");
-      setRefreshFlag(!refreshFlag);
-      setPopup1(false);
-    } else {
-      toast.error("something went wrong");
-    }
-  };
-
-  const handleUpdateBranch = async () => {
-    const ans = await updateBranch({ name: branch1, id });
-    if (ans.success) {
-      toast.success(ans.message);
-      setBranch1("");
-      setRefreshFlag(!refreshFlag);
-      setPopup11(false);
-    } else {
-      toast.error("something went wrong");
-    }
-  };
-
-  const handleCreateDepartment = async () => {
-    const ans = await postDepartment({
-      name: departmentValue.name,
-      branch: branches.find(x => x._id === departmentValue.branch),
-    });
-    if (ans.success) {
-      setDepartmentValue({
-        name: '',
-        branch: ''
-      });
-      toast.success(ans.message);
-      setRefreshFlag(!refreshFlag);
-      setPopup2(false);
-    } else {
-      toast.error("something went wrong");
-    }
-  };
-
-  const handleCreateDesignation = async () => {
-    const ans = await postDesignation({
-      name: designationValue.name,
-      department: departments.find(x => x._id === designationValue.department)
-    });
-    if (ans.success) {
-      toast.success(ans.message);
-      setDesignationValue({
-        name: '',
-        department: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup3(false);
-    } else {
-      toast.error("something went wrong");
-    }
-  };
-
-  const handleCreateLeaveType = async () => {
-    const ans = await postLeaveType({
-      days: leaveTypeValue?.days,
-      name: leaveTypeValue?.name
-    });
-    if (ans.success) {
-      alert(ans.message);
-      setLeaveTypeValue({
-        name: '',
-        days: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup4(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
-
-  const handleUpdateDepartment = async () => {
-    const ans = await updateDepartment({
-      id,
-      name: departmentValue1?.name,
-      branch: branches?.find(x => x?._id === departmentValue1?.branch),
-    });
-    if (ans.success) {
-      setDepartmentValue1({
-        name: '',
-        branch: ''
-      });
-      alert(ans.message);
-      setRefreshFlag(!refreshFlag);
-      setPopup21(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
-
-  const handleUpdateDesignation = async () => {
-    // console.log(designationValue);
-    const ans = await updateDesignation({
-      id,
-      name: designationValue1?.name,
-      department: departments?.find(x => x?._id === designationValue1?.department)
-    });
-    if (ans.success) {
-      alert(ans.message);
-      setDesignationValue1({
-        name: '',
-        department: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup31(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
-
-  const handleUpdateLeaveType = async () => {
-    const ans = await updateLeaveType({
-      id,
-      days: leaveTypeValue1?.days,
-      name: leaveTypeValue1?.name
-    });
-    if (ans.success) {
-      alert(ans.message);
-      setLeaveTypeValue1({
-        name: '',
-        days: ''
-      });
-      setRefreshFlag(!refreshFlag);
-      setPopup41(false);
-    } else {
-      alert("something went wrong");
-    }
-  };
-
-  const handleDelete = async (id, type) => {
-    let ans;
-    if (type === 'branch') {
-      ans = await deleteBranch(id);
-    }
-    else if (type === 'department') {
-      ans = await deleteDepartment(id);
-    }
-    else if (type === 'designation') {
-      ans = await deleteDesignation(id);
-    }
-    else if (type === 'leaveType') {
-      ans = await deleteLeaveType(id);
-    }
-
-    if (ans.success) {
-      alert(ans.message);
-      setRefreshFlag(!refreshFlag);
-    } else {
-      alert("something went wrong");
-    }
-  };
 
   const [allAward, setAllAward] = useState([]);
 
@@ -348,7 +114,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   }
 
   const [allEmp, setAllEmp] = useState([]);
-
 
   const fetchAward = async () => {
     const resp = await getAward();
@@ -433,7 +198,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   return (
     <>
       <div className="employee-dash h-full">
-        {/* <AdminSidebar pop={pop} setPop={setPop} /> */}
         {role === "EMPLOYEE" ? (
           <EmployeeSidebar pop={pop} setPop={setPop} />
         ) : (
@@ -441,7 +205,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         )}
 
         <div className="tm awardtm">
-          {/* <AdminNavbar user={user} setAlert={setAlert} /> */}
           {role === "EMPLOYEE" ? (
             <EmployeeNavbar user={user} setAlert={setAlert} />
           ) : (
@@ -451,6 +214,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="em">
             <div className="flex-col">
               <div className="admin-main adminmain">
+
                 <div className="plusSection">
                   <div className="adminFirt">
                     <h2 className="hrmShed">Manage Award</h2>
@@ -473,172 +237,90 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   />
                 </div>
 
-                <div>
-                  <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <div className="relative   overflow-x-auto w-full">
+                  <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
-                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                          <th scope="col" className="px-6 py-3">
-                            EMPLOYEE
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              AWARD TYPE
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                    <thead className="text-xs uppercase textALLtITL ">
+                      <tr>
+
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          EMPLOYEE
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          REASON
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          DATE
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          GIFT TYPE
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          RATING
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          DESCRIPTION
+                        </th>
+
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                          ACTION
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {allAward.map((item, index) => (
+                        <tr key={index} className="bg-white border-b fdf">
+
+                          <td className="px-6 py-4 taskAns">{item?.employee}</td>
+                          <td className="px-6 py-4 taskAns">
+                            {item?.awardType}
+                          </td>
+                          <td className="px-6 py-4 taskAns">{item?.date}</td>
+                          <td className="px-6 py-4 taskAns">{item?.gift}</td>
+
+                          <td className="px-6 py-4 taskAns">{item?.rating}</td>
+
+                          <td className="px-6 py-4 taskAns">{item?.description}</td>
+
+
+                          <div className="viewOnwWRAP">
+                            <td
+
+                              className="px-6 py-4 taskAns cursor-pointer"
+                            >
+                              <div className="testok">
+
+                                <svg className="cursor-pointer" onClick={() => {
+                                  setOnEdit(true);
+                                  setEditData(item);
+                                  setPopup1(true)
+                                }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
                                 </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              DATE
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+
+                                <svg className="cursor-pointer" onClick={(e) => {
+                                  e.preventDefault();
+                                  deleteProject(item?._id);
+                                }}
+                                  width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
                                 </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              GIFT
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              Rating
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              DESCRIPTION
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              ACTION
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
+
+                              </div>
+                            </td>
+
+
+
+                          </div>
+
                         </tr>
-                      </thead>
-
-                      <tbody>
-
-                        {
-                          allAward?.map((item, index) => (
-                            <tr key={index} class="bg-white dark:bg-gray-800">
-                              <th class="px-6 py-4">
-                                {item.employee}
-                              </th>
-                              <td class="px-6 py-4">
-                                {item?.awardType}
-                              </td>
-                              <td class="px-6 py-4">
-                                {/* {new Date(item.date).toLocaleDateString('en-US', {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: 'numeric'
-                                })} */}
-                                {item?.date}
-                              </td>
-                              <td class="px-6 py-4">
-                                {item.gift}
-                              </td>
-                              <td class="px-6 py-4">
-                                {item.rating}
-                              </td>
-                              <td class="px-6 py-4">
-                                {item.description}
-                              </td>
-                              <td class="px-6 py-4">
-                                <div className='flex items-center sk'>
-                                  <i onClick={() => {
-                                    setOnEdit(true);
-                                    setEditData(item);
-                                    setPopup1(true)
-                                  }} className="fa-solid fa-pen-to-square"></i>
-                                  <i onClick={(e) => {
-                                    e.preventDefault();
-                                    deleteProject(item?._id);
-                                  }} className="fa-solid fa-trash"></i>
-                                </div>
-                              </td>
-                            </tr>
-                          ))
-                        }
-
-
-                      </tbody>
-
-                    </table>
-                  </div>
-
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
 
 
-                <>
-                  {/* Main modal */}
-
-                </>
 
               </div>
             </div>
@@ -647,9 +329,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup1 && (
           <div className="allPopupWrap">
-            <div className="popup1 awardpopup">
+            <div className="awardpopupcont">
               <h2>Create New Award</h2>
-              <label onClick={() => {
+
+              <label 
+              onClick={() => {
                 setPopup1(false);
                 setOnEdit(false);
                 setEditData({});
@@ -665,8 +349,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <hr />
 
-              {/* <div className="award-popup-label"> */}
-              <div className="award-popup-label">
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Employee</p>
@@ -693,7 +376,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 </label>
 
               </div>
-              <div className="award-popup-label">
+
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Date</p>
@@ -719,9 +403,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-
-
-              <div className="award-popup-label award-popup-textarea">
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Description</p>
@@ -732,7 +414,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-              <div className="award-popup-label award-popup-textarea">
+              <div className="lableawaiwrap">
 
                 <label htmlFor="">
                   <p>Rating</p>
@@ -746,9 +428,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                 </label>
 
               </div>
-              {/* <div/> */}
-
-              <hr />
 
               <div className="btnWrap Award-popup-btn">
                 <button onClick={() => {
@@ -774,6 +453,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   <span>Create</span>
                 </button>
               </div>
+
             </div>
           </div>
         )}

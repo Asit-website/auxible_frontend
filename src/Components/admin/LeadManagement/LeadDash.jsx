@@ -10,8 +10,7 @@ import toast from "react-hot-toast";
 import moreVert from "../../images/more_vert.png";
 import edit from "../../images/edit.png";
 import delete4 from "../../images/delete.png";
-import { confirmAlert } from 'react-confirm-alert'; // Import
-
+import { confirmAlert } from "react-confirm-alert"; // Import
 
 const LeadDash = ({ setAlert, pop, setPop }) => {
   const {
@@ -22,12 +21,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     deleteTaskapi,
     deleteMeetapi,
     getAllLeads,
-    deleteLeads , 
+    getTodayLead,
+    deleteLeads,
     GetOpenLeadsApi,
+    closeLeadApiFetch
   } = useMain();
 
   const [start1, setStart1] = useState(false);
-  const [start2, setStart2] = useState(false);
   const [start3, setStart3] = useState(false);
 
   const stylePeer2 = {
@@ -51,21 +51,17 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  const [totalOpenLead , setTotalOpenLead] = useState(0);
-  const [totalCloseLead , setTotalCloseLead] = useState(0);
+  const [totalOpenLead, setTotalOpenLead] = useState(0);
+  const [totalCloseLead, setTotalCloseLead] = useState(0);
 
-  const GetOpenLeads = async()=>{
+  const GetOpenLeads = async () => {
+    const ans = await GetOpenLeadsApi({ id: hrms_user?._id });
 
-    const ans = await GetOpenLeadsApi({id:hrms_user?._id});
-
-     if(ans?.status){ 
+    if (ans?.status) {
       setTotalOpenLead(ans?.openLeads?.length);
       setTotalCloseLead(ans?.closeLead?.length);
-     }
-
-
-  }
-
+    }
+  };
 
   const [allTask, setAllTask] = useState([]);
 
@@ -73,29 +69,28 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
 
   const deleteProject = async (id) => {
     confirmAlert({
-        title: 'Are you sure to delete this data?',
-        message: 'All related data to this will be deleted',
-        buttons: [
-            {
-                label: 'Yes, Go Ahead!',
-                style: {
-                    background: "#FF5449"
-                },
-                onClick: async () => {
-                    await deleteLeads(id);
-                    toast.success("delete Successfully");
-                    fetchLead();
-                }
-            },
-            {
-                label: 'Cancel',
+      title: "Are you sure to delete this data?",
+      message: "All related data to this will be deleted",
+      buttons: [
+        {
+          label: "Yes, Go Ahead!",
+          style: {
+            background: "#FF5449",
+          },
+          onClick: async () => {
+            await deleteLeads(id);
+            toast.success("delete Successfully");
+            fetchLead();
+          },
+        },
+        {
+          label: "Cancel",
 
-                onClick: () => null
-            }
-        ]
+          onClick: () => null,
+        },
+      ],
     });
-
-};
+  };
 
   const fetchTask = async () => {
     const data = await getTaskApi({ userId: hrms_user?._id });
@@ -105,9 +100,9 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
   };
 
   const convertTo12HourFormat = (time) => {
-    const [hours, minutes] = time.split(':');
+    const [hours, minutes] = time.split(":");
     const intHours = parseInt(hours, 10);
-    const amPm = intHours >= 12 ? 'PM' : 'AM';
+    const amPm = intHours >= 12 ? "PM" : "AM";
     const adjustedHours = intHours % 12 || 12; // Convert 0 to 12 for 12 AM
     return `${adjustedHours}:${minutes} ${amPm}`;
   };
@@ -139,24 +134,84 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
     toast.dismiss(toastId);
   };
 
+  const [todayLeadSrch, setTodayLeadSrch] = useState("");
   const [allLeads, setAllLeads] = useState([]);
   const [optionedit, setOptionEdit] = useState(null);
+  const [optionedit2, setOptionEdit2] = useState(null);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const totalPages = Math.ceil(allLeads.length / itemsPerPage);
+
+  const [paginatedData, setPaginationData] = useState([]);
+
+
+  useEffect(() => {
+
+    if (todayLeadSrch === "") {
+      setPaginationData([...allLeads]);
+    }
+    else {
+      const filterData = allLeads.filter((lead) => lead?.Company?.toLowerCase()?.includes(todayLeadSrch?.toLocaleLowerCase()))
+      setPaginationData(filterData);
+    }
+
+  }, [todayLeadSrch])
+
+  useEffect(() => {
+    setPaginationData(allLeads?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+  }, [currentPage, allLeads])
 
   const fetchLeads = async () => {
-    const ans = await getAllLeads();
+    const ans = await getTodayLead();
     if (ans.status) {
-      setAllLeads(ans?.data);
+      setAllLeads(ans?.leads);
     }
   };
+
+  const [allCloseLead, setAllCloseLead] = useState([]);
+  const [allCloseForSrch, setAllCloseFroSrch] = useState([]);
+  const [closeSerch, setCloseSrch] = useState("");
+
+  const closeLead = async () => {
+    const ans = await closeLeadApiFetch();
+    setAllCloseFroSrch(ans?.status);
+    setAllCloseLead(ans?.status);
+  }
+
+  useEffect(() => {
+
+    if (closeSerch === "") {
+      setAllCloseLead([...allCloseForSrch]);
+    }
+    else {
+
+      const filterdata = allCloseForSrch.filter((lead) => lead?.Company?.toLowerCase()?.includes(closeSerch.toLowerCase()));
+
+      if (filterdata) {
+        setAllCloseLead(filterdata);
+      }
+    }
+
+  }, [closeSerch])
 
   useEffect(() => {
     fetchLead();
     fetchTask();
     fetchMeet();
     fetchLeads();
+    closeLead();
     GetOpenLeads();
   }, []);
+
+
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   return (
     <>
@@ -289,7 +344,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                     <h1>{totalCloseLead}</h1>
                   </div>
                 </div>
-               {/*  <div className="lead_dash_box sing1111">
+                {/*  <div className="lead_dash_box sing1111">
                   <div className="lead_contents">
                     <svg
                       width="42"
@@ -382,7 +437,6 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
             </div>
 
             <div className="my_things">
-
               <div className="table11">
                 <div className="my_open">
                   <h3>My Follow Up </h3>
@@ -392,19 +446,19 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr className="thol">
                         <th scope="col" className="px-4 py-3">
-                        LeadName
+                          LeadName
                         </th>
                         <th scope="col" className="px-4 py-3">
-                           Date
+                          Date
                         </th>
                         <th scope="col" className="px-4 py-3">
-                        FollowUpType
+                          FollowUpType
                         </th>
                         <th scope="col" className="px-4 py-3">
-                        Remark
+                          Remark
                         </th>
                         <th scope="col" className="px-4 py-3">
-                        Time 
+                          Time
                         </th>
                         <th scope="col" className="px-4 py-3">
                           Action
@@ -424,9 +478,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                             {task?.LeadName}
                           </th>
                           <td className="px-4 py-4 duedatest">
-                            {new Date(task?.Date).toLocaleDateString(
-                              "en-GB"
-                            )}
+                            {new Date(task?.Date).toLocaleDateString("en-GB")}
                           </td>
                           <td className="px-4 py-4 duedatest">
                             {task?.FollowUpType}
@@ -434,10 +486,13 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           <td className="px-4 py-4 duedatest">
                             {task?.FollowUpType}
                           </td>
-                          <td className="px-4 py-4 relt">{task?.Time && convertTo12HourFormat(task.Time)}</td>
+                          <td className="px-4 py-4 relt">
+                            {task?.Time && convertTo12HourFormat(task.Time)}
+                          </td>
 
                           <td className="px-3 py-3 thebuttn">
-                            <OutsideClickHandler
+
+                            {/* <OutsideClickHandler
                               onOutsideClick={() => {
                                 if (
                                   !document
@@ -521,9 +576,10 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                     <li className="sysok">
                                       <a
                                         onClick={() => {
-                                          navigate("/adminDash/taskLead" , {state:task})
+                                          navigate("/adminDash/taskLead", {
+                                            state: task,
+                                          });
                                         }}
-                                       
                                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                       >
                                         <svg
@@ -540,7 +596,6 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                         </svg>
 
                                         <span>View</span>
-
                                       </a>
                                     </li>
 
@@ -568,11 +623,43 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                         </span>
                                       </a>
                                     </li>
-
                                   </ul>
                                 </div>
                               </div>
-                            </OutsideClickHandler>
+                            </OutsideClickHandler> */}
+
+                            <div className="testok">
+                              <svg className="cursor-pointer" onClick={() => {
+                                navigate(
+                                  `/adminDash/importLead/${task?.LeadId}`,
+                                  {
+                                    state: {
+                                      type: "task",
+                                      data1: task,
+                                    },
+                                  }
+                                );
+                              }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                              </svg>
+
+                              <svg className="cursor-pointer" onClick={() => {
+                                navigate("/adminDash/taskLead", {
+                                  state: task,
+                                });
+                              }} width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                              </svg>
+
+                              <svg onClick={() => {
+                                deleteTask(task?._id);
+                              }}
+                                className="cursor-pointer" width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                              </svg>
+
+
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -676,7 +763,7 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           </td>
 
                           <td className="relative">
-                            <svg
+                            {/* <svg
                               className="floyu"
                               onClick={() => setStart1(!start1)}
                               width="32"
@@ -697,10 +784,10 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                 d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z"
                                 fill="#49515C"
                               />
-                            </svg>
+                            </svg> */}
 
                             {/* Dropdown menu */}
-                            <div
+                            {/* <div
                               id="dropdownAction"
                               style={stylePeer2}
                               className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 checkderop"
@@ -737,8 +824,10 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                 </li>
                                 <li className="sysok">
                                   <a
-                                    onClick={()=>{
-                                      navigate("/adminDash/meetLead", {state: meet})
+                                    onClick={() => {
+                                      navigate("/adminDash/meetLead", {
+                                        state: meet,
+                                      });
                                     }}
                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                   >
@@ -785,6 +874,34 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                                   </a>
                                 </li>
                               </ul>
+                            </div> */}
+
+                            <div className="testok">
+                              <svg className="cursor-pointer" onClick={() => {
+                                navigate(
+                                  `/adminDash/importLead/${meet?.LeadId}`,
+                                  { state: { type: "meet", data1: meet } }
+                                );
+                              }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                              </svg>
+
+                              <svg className="cursor-pointer" onClick={() => {
+                                navigate("/adminDash/meetLead", {
+                                  state: meet,
+                                });
+                              }} width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                              </svg>
+
+                              <svg onClick={() => {
+                                deleteMeet(meet?._id);
+                              }}
+                                className="cursor-pointer" width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                              </svg>
+
+
                             </div>
                           </td>
                         </tr>
@@ -821,349 +938,385 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
               </div>
             </div>
 
-            {/* this is lastest */}
-            <div className="my_things">
-              
-              <div className="table11">
-                <div className="my_open">
-                  <h3>Today's Leads</h3>
-                 
-                </div>
-                <div className="relative overflow-x-auto lonj">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr className="thol">
-                        <th scope="col" className="px-4 py-3">
-                          Company
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Email
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          FirstName
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          LastName
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Status
-                        </th>
-
-                        <th scope="col" className="px-4 py-3">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {allLeads.map((lead, index) => (
-                        <tr
-                          key={index}
-                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                        >
-                          <td className="px-4 py-4 duedatest">
-                            {lead?.Company}
-                          </td>
-                          <td className="px-4 py-4 duedatest">{lead?.Email}</td>
-                          <td className="px-4 py-4 duedatest">
-                            {lead?.FirstName}
-                          </td>
-                          <td className="px-4 py-4 relt">{lead?.LastName}</td>
-                          <td className="px-4 py-4 relt">{lead?.LeadStatus}</td>
-
-                          <td
-                                onClick={() => {
-                                  if (optionedit === index) {
-                                    setOptionEdit(null);
-                                  } else {
-                                    setOptionEdit(index);
-                                  }
-                                }}
-                                className="px-6 py-4 relative cursor-pointer"
-                              >
-                                <img src={moreVert} alt="" />
-
-                                {optionedit === index && (
-                                  <div className="attaedipop2">
-                                    <div   onClick={()=>navigate("/adminDash/editLead",{state:lead})} className="attposin" >
-                                      <img src={edit} alt="" />
-                                      <p>Edit</p>
-                                    </div>
-                                    <div  onClick={()=>{    
-                                       navigate(`/adminDash/importLead/${lead._id}`);  }}
-                                     className="attposin" >
-                                    <svg
-                                      width="20"
-                                      height="14"
-                                      viewBox="0 0 20 14"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
-                                        fill="#383838"
-                                      />
-                                    </svg>
-
-                                      <p>View</p>
-                                    </div>
-                                    <div 
-                                    onClick={()=>{  deleteProject(lead?._id)  }} 
-                                    className="attposin">
-                                      <img src={delete4} alt="" />
-                                      <p>Delete</p>
-                                    </div>
-                                  </div>
-                                )}
-                              </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="prev_next">
-                  <div className="on1">
-                    <p>1</p>
-                  </div>
-                  <div className="on1">
-                    <p>2</p>
-                  </div>
-                  <div className="next">
-                    <button>
-                      <span>Next</span>
-                      <svg
-                        width="8"
-                        height="10"
-                        viewBox="0 0 8 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-                          fill="#666D76"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
+            <div className="table11">
+              <div className="my_open">
+                <h3>Today's Leads</h3>
+                <input value={todayLeadSrch} onChange={(e) => setTodayLeadSrch(e.target.value)} type="text" className="searchclosde" placeholder="Search..." />
               </div>
 
-              <div className="table22">
-                <div className="my_open">
-                  <h3>My Deals Closing This Month</h3>
-                  <div>
+
+              <div className="relative  overflow-x-auto w-full">
+                <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs uppercase textALLtITL ">
+                    <tr>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
+                        Company
+                      </th>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
+                        Email
+                      </th>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
+                        FirstName
+                      </th>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
+                        LastName
+                      </th>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
+                        Status
+                      </th>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {paginatedData?.map((item, index) => (
+                      <tr key={index} className="bg-white border-b fdf">
+
+
+                        <td className="px-6 py-4 taskAns">
+                          {item?.Company}
+                        </td>
+                        <td className="px-6 py-4 taskAns">{item?.Email}</td>
+                        <td className="px-6 py-4 taskAns">
+                          {item?.FirstName}
+                        </td>
+                        <td className="px-6 py-4 taskAns">
+                          {item?.LastName}
+                        </td>
+                        <td className="px-6 py-4 taskAns">
+                          {item?.LeadStatus}
+                        </td>
+
+                        <td
+                          onClick={() => {
+                            if (optionedit === index) {
+                              setOptionEdit(null);
+                            } else {
+                              setOptionEdit(index);
+                            }
+                          }}
+                          className="px-6 py-4 relative cursor-pointer"
+                        >
+                          <img src={moreVert} alt="" />
+
+                          {optionedit === index && (
+                            <div className="attaedipop2">
+                              <div
+                                onClick={() =>
+                                  navigate("/adminDash/editLead", {
+                                    state: item,
+                                  })
+                                }
+                                className="attposin"
+                              >
+                                <img src={edit} alt="" />
+                                <p>Edit</p>
+                              </div>
+                              <div
+                                onClick={() => {
+                                  navigate(`/adminDash/importLead/${item._id}`);
+                                }}
+                                className="attposin"
+                              >
+                                <svg
+                                  width="20"
+                                  height="14"
+                                  viewBox="0 0 20 14"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
+                                    fill="#383838"
+                                  />
+                                </svg>
+
+                                <p>View</p>
+                              </div>
+                              <div
+                                onClick={() => {
+                                  deleteProject(item?._id);
+                                }}
+                                className="attposin"
+                              >
+                                <img src={delete4} alt="" />
+                                <p>Delete</p>
+                              </div>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="emPaginate">
+                <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
+                  handlePageChange(currentPage - 1);
+                }} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                <span className="pagenum">Page {currentPage} of {totalPages}</span>
+                <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
+                  handlePageChange(currentPage + 1)
+
+                }} disabled={currentPage === totalPages}>
+                  Next
+                </button>
+              </div>
+            </div>
+
+            {/* this is lastest */}
+            <div className="table22 table333">
+              <div className="my_open">
+                <h3>My Deals Closing This Month</h3>
+
+                <div className="searchdeclose">
+
+                  <input type="text" className="searchclosde" value={closeSerch} onChange={(e) => setCloseSrch(e.target.value)} placeholder="Search..." />
+
+
+                  {/* <div>
+                  <svg
+                    className="floyu"
+                    onClick={() => setStart3(!start3)}
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z"
+                      fill="#F5F9FF"
+                    />
+                    <path
+                      d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z"
+                      stroke="#B3CBF7"
+                    />
+                    <path
+                      d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z"
+                      fill="#49515C"
+                    />
+                  </svg>
+
+                 
+                  <div
+                    id="dropdownAction"
+                    style={stylePeer4}
+                    className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                  >
+                    <ul
+                      className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="dropdownActionButton"
+                    >
+                      <li className="sysok">
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z"
+                              fill="#383838"
+                            />
+                          </svg>
+
+                          <span>Edit</span>
+                        </a>
+                      </li>
+                      <li className="sysok">
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          <svg
+                            width="20"
+                            height="14"
+                            viewBox="0 0 20 14"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
+                              fill="#383838"
+                            />
+                          </svg>
+
+                          <span>View</span>
+                        </a>
+                      </li>
+                      <li className="sysok">
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          <svg
+                            width="12"
+                            height="16"
+                            viewBox="0 0 12 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z"
+                              fill="#DE3730"
+                            />
+                          </svg>
+
+                          <span>Delete</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div> */}
+
+                </div>
+              </div>
+              <div className="relative overflow-x-auto lonj">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr className="thol">
+                      <th scope="col" className="px-4 py-3">
+                        Company
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Email
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        FirstName
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        LastName
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Close Date
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Status
+                      </th>
+
+                      {/* <th scope="col" className="px-4 py-3">
+                        Action
+                      </th> */}
+
+
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      allCloseLead?.map((item, index) => (
+                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                          <th
+                            scope="row"
+                            className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
+                          >
+                            {item?.Company}
+                          </th>
+                          <td className="px-4 py-4 duedatest">{item?.Email}</td>
+                          <td className="px-4 py-4 duedatest">{item?.FirstName}</td>
+                          <td className="px-4 py-4 duedatest">{item?.LastName}</td>
+                          <td className="px-4 py-4 duedatest">{new Date(item?.closeDate).toLocaleDateString('en-GB')}</td>
+                          <td className="px-4 py-4 duedatest">{item?.LeadStatus}</td>
+                          <td className="px-4 py-4 duedatest">{item?.staus}</td>
+
+                          {/* <td
+                          onClick={() => {
+                            if (optionedit2 === index) {
+                              setOptionEdit2(null);
+                            } else {
+                              setOptionEdit2(index);
+                            }
+                          }}
+                          className="px-6 py-4 relative cursor-pointer"
+                        >
+                          <img src={moreVert} alt="" />
+
+                          {optionedit2 === index && (
+                            <div className="attaedipop2">
+                              <div
+                               
+                                className="attposin"
+                              >
+                                <img src={edit} alt="" />
+                                <p>Edit</p>
+                              </div>
+                              <div
+                             
+                                className="attposin"
+                              >
+                                <svg
+                                  width="20"
+                                  height="14"
+                                  viewBox="0 0 20 14"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
+                                    fill="#383838"
+                                  />
+                                </svg>
+
+                                <p>View</p>
+                              </div>
+                              <div
+                               
+                                className="attposin"
+                              >
+                                <img src={delete4} alt="" />
+                                <p>Delete</p>
+                              </div>
+                            </div>
+                          )}
+                        </td> */}
+
+
+                        </tr>
+
+                      ))
+                    }
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="prev_next">
+                <div className="on1">
+                  <p>1</p>
+                </div>
+                <div className="on1">
+                  <p>2</p>
+                </div>
+                <div className="next">
+                  <button>
+                    <span>Next</span>
                     <svg
-                      className="floyu"
-                      onClick={() => setStart3(!start3)}
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
+                      width="8"
+                      height="10"
+                      viewBox="0 0 8 10"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z"
-                        fill="#F5F9FF"
-                      />
-                      <path
-                        d="M0.5 4C0.5 2.067 2.067 0.5 4 0.5H28C29.933 0.5 31.5 2.067 31.5 4V28C31.5 29.933 29.933 31.5 28 31.5H4C2.067 31.5 0.5 29.933 0.5 28V4Z"
-                        stroke="#B3CBF7"
-                      />
-                      <path
-                        d="M16 14C14.9 14 14 14.9 14 16C14 17.1 14.9 18 16 18C17.1 18 18 17.1 18 16C18 14.9 17.1 14 16 14ZM16 8C14.9 8 14 8.9 14 10C14 11.1 14.9 12 16 12C17.1 12 18 11.1 18 10C18 8.9 17.1 8 16 8ZM16 20C14.9 20 14 20.9 14 22C14 23.1 14.9 24 16 24C17.1 24 18 23.1 18 22C18 20.9 17.1 20 16 20Z"
-                        fill="#49515C"
+                        d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
+                        fill="#666D76"
                       />
                     </svg>
-
-                    {/* Dropdown menu */}
-                    <div
-                      id="dropdownAction"
-                      style={stylePeer4}
-                      className="z-10 taning hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                    >
-                      <ul
-                        className="py-1 lesar text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownActionButton"
-                      >
-                        <li className="sysok">
-                          <a
-                            href="#"
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z"
-                                fill="#383838"
-                              />
-                            </svg>
-
-                            <span>Edit</span>
-                          </a>
-                        </li>
-                        <li className="sysok">
-                          <a
-                            href="#"
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            <svg
-                              width="20"
-                              height="14"
-                              viewBox="0 0 20 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
-                                fill="#383838"
-                              />
-                            </svg>
-
-                            <span>View</span>
-                          </a>
-                        </li>
-                        <li className="sysok">
-                          <a
-                            href="#"
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            <svg
-                              width="12"
-                              height="16"
-                              viewBox="0 0 12 16"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z"
-                                fill="#DE3730"
-                              />
-                            </svg>
-
-                            <span>Delete</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="relative overflow-x-auto lonj">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr className="thol">
-                        <th scope="col" className="px-4 py-3">
-                          Subject
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Due Date
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Status
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Priority
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Related To
-                        </th>
-                        <th scope="col" className="px-4 py-3">
-                          Contact Name
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th
-                          scope="row"
-                          className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
-                        >
-                          Follow up WhatsApp Message
-                        </th>
-                        <td className="px-4 py-4 duedatest">31/05/2023</td>
-                        <td className="px-4 py-4 duedatest">Not Started</td>
-                        <td className="px-4 py-4 duedatest">High</td>
-                        <td className="px-4 py-4 relt">Machi Gulinski</td>
-                        <td className="px-4 py-4">
-                          <div className="contactk">
-                            <img src={siy} alt="siy" />
-                            <p>Kris Marrier</p>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th
-                          scope="row"
-                          className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
-                        >
-                          Follow up WhatsApp Message
-                        </th>
-                        <td className="px-4 py-4 duedatest">31/05/2023</td>
-                        <td className="px-4 py-4 duedatest">Not Started</td>
-                        <td className="px-4 py-4 duedatest">High</td>
-                        <td className="px-4 py-4 relt">Machi Gulinski</td>
-                        <td className="px-4 py-4">
-                          <div className="contactk">
-                            <img src={siy} alt="siy" />
-                            <p>Kris Marrier</p>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th
-                          scope="row"
-                          className="px-4 aka py-4 font-medium text-gray-900 whitespace-nowrap  aka"
-                        >
-                          Follow up WhatsApp Message
-                        </th>
-                        <td className="px-4 py-4 duedatest">31/05/2023</td>
-                        <td className="px-4 py-4 duedatest">Not Started</td>
-                        <td className="px-4 py-4 duedatest">High</td>
-                        <td className="px-4 py-4 relt">Machi Gulinski</td>
-                        <td className="px-4 py-4">
-                          <div className="contactk">
-                            <img src={siy} alt="siy" />
-                            <p>Kris Marrier</p>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="prev_next">
-                  <div className="on1">
-                    <p>1</p>
-                  </div>
-                  <div className="on1">
-                    <p>2</p>
-                  </div>
-                  <div className="next">
-                    <button>
-                      <span>Next</span>
-                      <svg
-                        width="8"
-                        height="10"
-                        viewBox="0 0 8 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.08748 0L0.912476 1.175L4.72914 5L0.912476 8.825L2.08748 10L7.08748 5L2.08748 0Z"
-                          fill="#666D76"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                  </button>
                 </div>
               </div>
-
             </div>
-
           </div>
         </div>
       </div>

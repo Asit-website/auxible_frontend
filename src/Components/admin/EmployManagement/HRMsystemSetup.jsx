@@ -64,12 +64,13 @@ const sidebarItem = [
   {
     title: "Leave Type",
     img: hub3,
+    class:"syss",
     tableData: [
       {
-        title: "Leave Type",
+        title: "LEAVE TYPE",
       },
       {
-        title: "Days/Year",
+        title: "DAYS/YEAR",
       },
       {
         title: "ACTION",
@@ -611,7 +612,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                           open === index && "openItem"
                         } `}
                       >
-                        <img src={item.img} alt="" />
+                        <img className={`${item?.class}`} src={item.img} alt="" />
                         <span>{item.title}</span>
                       </div>
                     ))}

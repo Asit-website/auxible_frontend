@@ -17,7 +17,7 @@ const sidebarItem = [
     img: hub3,
     tableData: [
       {
-        title: "Industry",
+        title: "INDUSTRY",
       },
       {
         title: "ACTION",
@@ -29,7 +29,7 @@ const sidebarItem = [
     img: hub3,
     tableData: [
       {
-        title: "Source",
+        title: "SOURCE",
       },
 
       {
@@ -42,7 +42,7 @@ const sidebarItem = [
     img: hub3,
     tableData: [
       {
-        title: "Status",
+        title: "STATUS",
       },
 
       {
@@ -55,7 +55,7 @@ const sidebarItem = [
     img: hub3,
     tableData: [
       {
-        title: "Follow-up",
+        title: "FOLLOW-UP",
       },
 
       {

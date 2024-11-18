@@ -4,11 +4,8 @@ import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
 import chevron from "../../images/chevron_right.png";
 import { useMain } from "../../../hooks/useMain";
-
 import "./award.css";
-
 import plusIcon from "../../images/plusIcon.png";
-
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
@@ -79,10 +76,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
     if (onEdit) {
       const ans = await updateTransfer({ ...formdata });
       toast.success("update successfully");
+      fetchTranfer();
       setRefreshFlag(!refreshFlag);
     }
     else {
       const ans = await createTransfer({ ...formdata });
+      fetchTranfer();
       toast.success("Successfuly Created");
       setRefreshFlag(!refreshFlag);
     }
@@ -121,9 +120,6 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
   };
 
-
-
-
   useEffect(() => {
     fetchAllEmp();
     fetchAllDep();
@@ -142,6 +138,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           <div className="em">
             <div className="flex-col">
               <div className="admin-main adminmain">
+
+
                 <div className="plusSection">
                   <div className="adminFirt">
                     <h2 className="hrmShed">Manage Transfer</h2>
@@ -166,143 +164,87 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
                   />
                 </div>
 
-                <div>
-                  <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                          <th scope="col" className="px-6 py-3">
-                            EMPLOYEE NAME
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              BRANCH
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                <div className="relative   overflow-x-auto w-full">
+                  <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+                    <thead className="text-xs uppercase textALLtITL ">
+                      <tr>
+
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        EMPLOYEE 
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        BRANCH
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        DEPARTMENT
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        TRANSFER DATE
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        DESCRIPTION
+                        </th>
+                        <th scope="col" className="px-6 py-3 taskTitl ">
+                        ACTION
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {allTransfer.map((item, index) => (
+                        <tr key={index} className="bg-white border-b fdf">
+
+                          <td className="px-6 py-4 taskAns">{item?.Employee}</td>
+                          <td className="px-6 py-4 taskAns">
+                            {item?.branch}
+                          </td>
+                          <td className="px-6 py-4 taskAns">{item?.Department}</td>
+                          <td className="px-6 py-4 taskAns">{item?.TransferDate}</td>
+
+                          <td className="px-6 py-4 taskAns">{item?.Description}</td>
+
+                          <div className="viewOnwWRAP">
+
+                            <td
+
+                              className="px-6 py-4 taskAns cursor-pointer"
+                            >
+                              <div className="testok">
+
+                                <svg className="cursor-pointer" onClick={() => {
+                  setOnEdit(true);
+                  setEditData(item);
+                  setPopup1(true);
+                }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
                                 </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              DEPARTMENT
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+
+                                <svg className="cursor-pointer" onClick={(e) => {
+                  e.preventDefault()
+                  deleteProject(item?._id);
+                }}
+                                  width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
                                 </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              TRANSFER DATE
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              DESCRIPTION
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                            <div className="flex items-center">
-                              ACTION
-                              <a href="#">
-                                <svg
-                                  className="w-3 h-3 ms-1.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                </svg>
-                              </a>
-                            </div>
-                          </th>
+
+                              </div>
+
+                            </td>
+
+                          </div>
+
                         </tr>
-                      </thead>
-                      <tbody>
+                      ))}
+                    </tbody>
 
-                        {
-                          allTransfer?.map((item, index) => (
-                            <tr key={index} class="bg-white dark:bg-gray-800">
 
-                              <td class="px-6 py-4">
-                                {item?.Employee}
-                              </td>
-                              <td class="px-6 py-4">
-                                {item?.branch}
-                              </td>
-                              <td class="px-6 py-4">
-                                {item?.Department}
-                              </td>
-                              <td className="px-6 py-4">{item?.TransferDate}</td>
-
-                              <td class="px-6 py-4">
-                                {item?.Description}
-                              </td>
-                              <td class="px-6 py-4">
-                                <div className='flex items-center sk'>
-                                  <i onClick={() => {
-                                    setOnEdit(true);
-                                    setEditData(item);
-                                    setPopup1(true);
-                                  }} className="fa-solid fa-pen-to-square"></i>
-                                  <i onClick={(e) => {
-                                    e.preventDefault()
-                                    deleteProject(item?._id);
-                                  }} className="fa-solid fa-trash"></i>
-                                </div>
-                              </td>
-                            </tr>
-                          ))
-                        }
-                      </tbody>
-                    </table>
-                  </div>
-
+                  </table>
                 </div>
 
 
-                <>
-                  {/* Main modal */}
 
-                </>
+              
 
               </div>
             </div>
@@ -311,100 +253,112 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
         {popup1 && (
           <div className="allPopupWrap">
-            <div className="popup1 awardpopup">
+            <div className="awardpopupcont">
               <h2>Create New Transfer</h2>
-              <label onClick={() => {
-                setPopup1(false);
-                setOnEdit(false);
-                setEditData({});
-                setFormdata({
-                  branch: "", Employee: "", Department: "", TransferDate: "", Description: ""
-                })
-              }} className="cross-icon"></label>
+
+              <label 
+            onClick={() => {
+              setPopup1(false);
+              setOnEdit(false);
+              setEditData({});
+              setFormdata({
+                branch: "", Employee: "", Department: "", TransferDate: "", Description: ""
+              })
+            }}
+             className="cross-icon"></label>
 
               <hr />
 
-              <div className="award-popup-label">
+              <div className="lableawaiwrap">
+
                 <label htmlFor="">
                   <p>Employee</p>
-                  <select value={formdata?.Employee} name="Employee" onChange={changeHandler} id="">
-                    <option value="select Employee">select Employee</option>
+                  <select name="Employee" value={formdata?.Employee} onChange={changeHandler} id="">
+                    <option value="Select Employee"> Select Employee</option>
                     {
-                      allEmp?.map((item, index) => (
+                      allEmp.map((item, index) => (
                         <option value={item?.fullName} key={index}>{item?.fullName}</option>
                       ))
                     }
                   </select>
 
                 </label>
+
                 <label htmlFor="">
                   <p>Branch</p>
                   <select value={formdata?.branch} name="branch" onChange={changeHandler} id="">
-                    <option value="select Branch">select Branch</option>
-                    {
-                      allBranch?.map((item, index) => (
-                        <option value={item?.name} key={index}>{item?.name}</option>
-                      ))
-                    }
-                  </select>
+            <option value="select Branch">select Branch</option>
+            {
+              allBranch?.map((item, index) => (
+                <option value={item?.name} key={index}>{item?.name}</option>
+              ))
+            }
+          </select>
+                </label>
 
-                </label>
-              </div>
-              <div className="award-popup-label">
-                <label htmlFor="">
-                  <p>Department</p>
-                  <select value={formdata?.Department} name="Department" onChange={changeHandler} id="">
-                    <option value="select Department">select Department</option>
-                    {
-                      allDep.map((item, index) => (
-                        <option value={item?.name} key={index}>{item.name}</option>
-                      ))
-                    }
-                  </select>
-
-                </label>
-                <label htmlFor="">
-                  <p>Transfer Date</p>
-                  <input
-                    type="date"
-                    value={formdata.TransferDate}
-                    onChange={changeHandler}
-                    name="TransferDate"
-                    placeholder="dd-mm-yyyy"
-                  />
-                </label>
               </div>
 
-              <div className="award-popup-label award-popup-textarea">
-                <label htmlFor="">
-                  <p>Description</p>
-                  <textarea onChange={changeHandler}
-                    value={formdata.Description} id="w3review" name="Description" rows="8" cols="50" placeholder="Enter Description"></textarea>
-                </label>
-              </div>
-              {/* <div/> */}
+              <div className="lableawaiwrap">
 
-              <hr />
+              <label htmlFor="">
+          <p>Department</p>
+          <select value={formdata?.Department} name="Department" onChange={changeHandler} id="">
+            <option value="select Department">select Department</option>
+            {
+              allDep.map((item, index) => (
+                <option value={item?.name} key={index}>{item.name}</option>
+              ))
+            }
+          </select>
+
+        </label>
+
+        <label htmlFor="">
+          <p>Transfer Date</p>
+          <input
+            type="date"
+            value={formdata.TransferDate}
+            onChange={changeHandler}
+            name="TransferDate"
+            placeholder="dd-mm-yyyy"
+          />
+        </label>
+
+              </div>
+
+              <div className="lableawaiwrap">
+
+              <label htmlFor="">
+          <p>Description</p>
+          <textarea onChange={changeHandler}
+            value={formdata.Description} id="w3review" name="Description" rows="8" cols="50" placeholder="Enter Description"></textarea>
+
+                </label>
+
+              </div>
+
+             
 
               <div className="btnWrap Award-popup-btn">
-                <button className="cencel awd-cancel" onClick={() => {
+                <button onClick={() => {
                   setPopup1(false);
                   setOnEdit(false);
                   setEditData({});
                   setFormdata({
                     branch: "", Employee: "", Department: "", TransferDate: "", Description: ""
                   })
-                }}>
+                }} className="cencel awd-cancel">
                   <span>Cancel</span>
                 </button>
 
-                <button onClick={()=>{
-                   submitHandler();
-                   setPopup1(false);
-                }} className="create awd-create" >
+                <button className="create awd-create" onClick={() => {
+                  submitHandler();
+                  setPopup1(false);
+                }}>
                   <span>{onEdit ? "Update" : "Create"}</span>
                 </button>
               </div>
+
             </div>
           </div>
         )}
@@ -415,3 +369,4 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 };
 
 export default HRMsystemSetup;
+

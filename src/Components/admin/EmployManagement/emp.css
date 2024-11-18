@@ -23,9 +23,7 @@
 .adFrRIH .calce{
     width: 102px;
     height:  40px;
-    padding: 10px 24px 10px 24px;
     gap: 10px;
-    border: 1px 0px 0px 0px;
     border-radius: 10px;
     background: linear-gradient(131.78deg, #D1E8FD 6.87%, #EDEFFF 91.67%);
     border: 1px solid #0B56E4;
@@ -43,9 +41,8 @@
     
 }
 .adFrRIH .register{
-    width: Hug 132px;
+    width: 132px;
     height: 40px;
-    padding: 10px 16px 10px 12px;
     gap: 10px;
     border-radius: 10px;
     background-color: #0B56E4;
