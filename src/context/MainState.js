@@ -3,7 +3,7 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-const baseUrl = "http://localhost:5000";
+// const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
@@ -12,7 +12,7 @@ const baseUrl = "http://localhost:5000";
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
-// const baseUrl = "https://hrbackend.auxibleindia.com/";
+const baseUrl = "https://hrbackend.auxibleindia.com/";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -1406,34 +1406,21 @@ const MainState = (props) => {
 
    const createLead = async (
       {
+      
+         image,
          LeadOwner,
-         Company,
-         FirstName,
-         LastName,
-         Title,
-         Email,
-         Phone,
-         Fax,
+         leadType,
+         budget,
+         name,
          Mobile,
-         Website,
-         LeadSource,
-         NoOfEmployee,
-         Industry,
-         LeadStatus,
-         AnnualRevenue,
-         Rating,
-         EmailOptOut,
-         SkypeID,
-         SecondaryEmail,
-         Twitter,
-         Street,
-         City,
-         State,
-         ZipCode,
-         Country,
-         DescriptionInfo,
-         image , 
-         date
+         Email,
+         date,
+         Street ,
+         City ,
+          State, 
+          ZipCode ,
+           Country ,
+           LeadSource
       }) => {
 
       let data;
@@ -1447,67 +1434,39 @@ const MainState = (props) => {
 
 
          data = await post(`${baseUrl}/lead/createLead`, {
+        
+            image: imageUrl?.data,
             LeadOwner,
-            Company,
-            FirstName,
-            LastName,
-            Title,
-            Email,
-            Phone,
-            Fax,
+            leadType,
+            budget,
+            name,
             Mobile,
-            Website,
-            LeadSource,
-            NoOfEmployee,
-            Industry,
-            LeadStatus,
-            AnnualRevenue,
-            Rating,
-            EmailOptOut,
-            SkypeID,
-            SecondaryEmail,
-            Twitter,
-            Street,
-            City,
-            State,
-            ZipCode,
-            Country,
-            DescriptionInfo,
-            image: imageUrl?.data , 
-            date
+            Email,
+            date,
+            Street ,
+            City ,
+             State, 
+             ZipCode ,
+              Country ,
+              LeadSource
          }, true);
 
       }
       else {
          data = await post(`${baseUrl}/lead/createLead`, {
             LeadOwner,
-            Company,
-            FirstName,
-            LastName,
-            Title,
-            Email,
-            Phone,
-            Fax,
+            leadType,
+            budget,
+            name,
             Mobile,
-            Website,
-            LeadSource,
-            NoOfEmployee,
-            Industry,
-            LeadStatus,
-            AnnualRevenue,
-            Rating,
-            EmailOptOut,
-            SkypeID,
-            SecondaryEmail,
-            Twitter,
-            Street,
-            City,
-            State,
-            ZipCode,
-            Country,
-            DescriptionInfo,
-            date
-
+            Email,
+            date,
+            Street ,
+            City ,
+             State, 
+             ZipCode ,
+              Country ,
+              LeadSource
          }, true);
       }
 
@@ -1554,33 +1513,22 @@ const MainState = (props) => {
 
    const updateLead = async (
       {
-          LeadOwner,
-         Company,
-         FirstName,
-         LastName,
-         Title,
-         Email,
-         Phone,
-         Fax,
+       
+         image,
+         LeadOwner,
+         leadType,
+         budget,
+         name,
          Mobile,
-         Website,
-         LeadSource,
-         NoOfEmployee,
-         Industry,
-         LeadStatus,
-         AnnualRevenue,
-         Rating,
-         EmailOptOut,
-         SkypeID,
-         SecondaryEmail,
-         Twitter,
-         Street,
-         City,
-         State,
-         ZipCode,
-         Country,
-         DescriptionInfo, id , image , 
-         date
+         Email,
+         date,
+         Street ,
+         City ,
+          State, 
+          ZipCode ,
+           Country ,
+           LeadSource ,
+           id
       
       }
 
@@ -1595,34 +1543,22 @@ const MainState = (props) => {
 
         data = await post(`${baseUrl}/lead/editLead/${id}`,
          {
-            LeadOwner,
-            Company,
-            FirstName,
-            LastName,
+          
             image:imageUrl , 
-            Title,
-            Email,
-            Phone,
-            Fax,
-            Mobile,
-            Website,
-            LeadSource,
-            NoOfEmployee,
-            Industry,
-            LeadStatus,
-            AnnualRevenue,
-            Rating,
-            EmailOptOut,
-            SkypeID,
-            SecondaryEmail,
-            Twitter,
-            Street,
-            City,
-            State,
-            ZipCode,
-            Country,
-            DescriptionInfo,
-            date
+         LeadOwner,
+         leadType,
+         budget,
+         name,
+         Mobile,
+         Email,
+         date,
+         Street ,
+         City ,
+          State, 
+          ZipCode ,
+           Country ,
+           LeadSource
+      
 
          }, true);
 
@@ -1631,33 +1567,20 @@ const MainState = (props) => {
 
       data = await post(`${baseUrl}/lead/editLead/${id}`,
          {
-            LeadOwner,
-            Company,
-            FirstName,
-            LastName,
-            Title,
-            Email,
-            Phone,
-            Fax,
-            Mobile,
-            Website,
-            LeadSource,
-            NoOfEmployee,
-            Industry,
-            LeadStatus,
-            AnnualRevenue,
-            Rating,
-            EmailOptOut,
-            SkypeID,
-            SecondaryEmail,
-            Twitter,
-            Street,
-            City,
-            State,
-            ZipCode,
-            Country,
-            DescriptionInfo,
-            date
+         LeadOwner,
+         leadType,
+         budget,
+         name,
+         Mobile,
+         Email,
+         date,
+         Street ,
+         City,
+          State, 
+          ZipCode ,
+           Country ,
+           LeadSource
+      
 
          }, true);
 

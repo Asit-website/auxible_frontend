@@ -401,19 +401,19 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                         />
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        Company Name
+                        Lead Type
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        LeadName
+                        Name
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Email
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        Website
+                      Budget
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        Status
+                      LeadSource
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Lead Date
@@ -446,22 +446,19 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                           />
                         </th>
 
-                        <td className="px-6 py-4 taskAns">{item?.Company}</td>
+                        <td className="px-6 py-4 taskAns">{item?.leadType}</td>
                         <td className="px-6 py-4 taskAns">
-                          {item?.FirstName} {item?.LastName}
+                          {item?.name}
                         </td>
                         <td className="px-6 py-4 taskAns">{item?.Email}</td>
-                        <td className="px-6 py-4 taskAns">{item?.Website}</td>
+                        <td className="px-6 py-4 taskAns">{item?.budget}</td>
 
                         <td scope="col" className="px-3 py-3">
                           <div
                             scope="col"
-                            className={`statussame ${item?.LeadStatus === "Follow-up" && "followUp"
-                              } ${item?.LeadStatus == "Hot" && "Hot"} ${item?.LeadStatus == "Cold" && "Cold"
-                              } ${item?.LeadStatus == "cold" && "Cold"}  ${item?.LeadStatus == "Warm" && "Warm"
-                              }`}
+                            className={`statussame`}
                           >
-                            {item?.LeadStatus}
+                            {item?.LeadSource}
                           </div>
                         </td>
 
@@ -469,50 +466,59 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                           {new Date(item?.createAt).toLocaleDateString("en-CA")}
                         </td>
 
-                       
-                          <div className="viewOnwWRAP">
-                            <td
-                              
-                              className="px-6 py-4 taskAns cursor-pointer"
-                            >
-                              
-                            </td>
+                        {/* <OutsideClickHandler
+                          onOutsideClick={() => {
+                            if (index == currView) {
+                              setCurrView(-1);
+                            }
+                          }}
+                        > */}
+                        <div className="viewOnwWRAP">
+                          <td
 
+                            className="px-6 py-4 taskAns cursor-pointer"
+                          >
                             <div className="testok">
-                            <svg className="cursor-pointer" onClick={() => navigate("/employeeDash/editLead", { state: item })} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
-                            </svg>
+                              <svg className="cursor-pointer" onClick={() => navigate("/employeeDash/editLead", { state: item })} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
+                              </svg>
 
-                            <svg className="cursor-pointer" onClick={() => {
-                              navigate(`/employeeDash/importLead/${item._id}`);
-                            }} width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
-                            </svg>
+                              <svg className="cursor-pointer" onClick={() => {
+                                navigate(`/employeeDash/importLead/${item._id}`);
+                              }} width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1585 11.5833 10.0002 11.5833C6.84183 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z" fill="#383838" />
+                              </svg>
 
-                            <svg className="cursor-pointer" onClick={() => {
-                              deleteProject(item?._id)
-                            }} width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
-                            </svg>
+                              <svg className="cursor-pointer" onClick={() => {
+                                deleteProject(item?._id)
+                              }} width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.33317 5.5V13.8333H2.6665V5.5H9.33317ZM8.08317 0.5H3.9165L3.08317 1.33333H0.166504V3H11.8332V1.33333H8.9165L8.08317 0.5ZM10.9998 3.83333H0.999837V13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5H9.33317C10.2498 15.5 10.9998 14.75 10.9998 13.8333V3.83333Z" fill="#DE3730" />
+                              </svg>
 
-                            <div
-                              onClick={() => {
-                                closeLeadHandler(item?._id);
-                              }}
-                              className="subView"
-                            >
-                              <IoIosCloseCircle className="incfornsizze" />
-                              {/* <p > Close </p> */}
+                              <div
+                                onClick={() => {
+                                  closeLeadHandler(item?._id);
+                                }}
+                                className="subView"
+                              >
+                                <IoIosCloseCircle className="incfornsizze" />
+                                {/* <p > Close </p> */}
 
+                              </div>
                             </div>
-                            </div>
-                          </div>
-                       
+                          </td>
+
+
+
+                        </div>
+
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+
+
             </div>
 
             <div className="emPaginate">

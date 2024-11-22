@@ -553,11 +553,11 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                     <input type="checkbox" placeholder="" />
                                                 </th>
                                                 <th scope="col" className="px-3 py-3 leadti">
-                                                    Company Name
+                                                Lead Type
                                                 </th>
                                                 <th scope="col" className="px-3 py-3 leadti">
                                                     {/* First Name */}
-                                                    LeadName
+                                                    Name
                                                 </th>
                                                 {/* <th scope="col" className="px-3 py-3 leadti">
             Last name
@@ -576,7 +576,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                     Email
                                                 </th>
                                                 <th scope="col" className="px-3 py-3 leadti">
-                                                    Website
+                                                Budget
                                                 </th>
                                                 {/* <th scope="col" className="px-3 py-3 leadti">
                                                     City
@@ -586,7 +586,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                 </th> */}
                                                 <th scope="col" className="px-3 py-3 leadti">
                                                     {/* LinkedIn URL */}
-                                                    Status
+                                                    LeadSource
                                                 </th>
                                                 <th scope="col" className="px-3 py-3 leadti">
                                                     {/* LinkedIn URL */}
@@ -607,10 +607,10 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                             <input type="checkbox" placeholder="" />
                                                         </th>
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
-                                                            {item?.Company}
+                                                            {item?.leadType}
                                                         </td>
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
-                                                            {item?.FirstName}{item?.LastName}
+                                                            {item?.name}
                                                         </td>
                                                         {/* <td scope="col" className="px-3 py-3 myleadtit2">
                     {item?.LastName}
@@ -630,7 +630,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
 
                                                         <td scope="col" className="px-3 py-3 myleadtit2">
-                                                            {item?.Website}
+                                                            {item?.budget}
                                                         </td>
                                                         {/* <td scope="col" className="px-3 py-3 myleadtit2">
                                                             {item?.City}
@@ -644,8 +644,8 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
                                                         <td scope="col" className="px-3 py-3">
 
-                                                            <div scope="col" className={`statussame ${item?.LeadStatus === 'Follow-up' && "followUp"} ${item?.LeadStatus == 'Hot' && 'Hot'} ${item?.LeadStatus == 'Cold' && 'Cold'} ${item?.LeadStatus == 'cold' && 'Cold'}  ${item?.LeadStatus == 'Warm' && 'Warm'}`}>
-                                                                {item?.LeadStatus}
+                                                            <div scope="col" className={`statussame`}>
+                                                                {item?.LeadSource}
                                                             </div>
 
                                                         </td>

@@ -436,7 +436,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                 <button
                   onClick={() =>
-                    navigate("/adminDash/editLead", { state: data })
+                    navigate("/employeeDash/editLead", { state: data })
                   }
                   className="refresh1"
                 >
@@ -483,44 +483,49 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       <p>{data?.LeadOwner?.fullName}</p>
                     </div>
 
-                    <div className="subPart">
+                    {/* <div className="subPart">
                       <h3>{data?.title}</h3>
                       <p>-</p>
-                    </div>
+                    </div> */}
 
-                    <div className="subPart">
+                    {/* <div className="subPart">
                       <h3>Phone :</h3>
                       <p>{data?.Phone}</p>
-                    </div>
+                    </div> */}
 
                     <div className="subPart">
                       <h3>Mobile :</h3>
                       <p>{data?.Mobile}</p>
                     </div>
 
-                    <div className="subPart">
+                    {/* <div className="subPart">
                       <h3>Industry :</h3>
                       <p>{data?.Industry}</p>
+                    </div> */}
+
+                    <div className="subPart">
+                      <h3>Budget :</h3>
+                      <p>${data?.budget}</p>
                     </div>
 
                     <div className="subPart">
-                      <h3>Annual Revenue :</h3>
-                      <p>${data?.AnnualRevenue}</p>
+                      <h3>Lead Source :</h3>
+                      <p>{data?.LeadSource}</p>
                     </div>
 
                   </div>
 
                   {/* right side  */}
                   <div className="lleaiFOlEFT">
-                    <div className="subPart">
+                    {/* <div className="subPart">
                       <h3>Company :</h3>
                       <p>{data?.Company}</p>
-                    </div>
+                    </div> */}
 
                     <div className="subPart">
-                      <h3>Lead Name :</h3>
+                      <h3> Name :</h3>
                       <p>
-                        {data?.FirstName} {data?.LastName}
+                        {data?.name}
                       </p>
                     </div>
 
@@ -530,22 +535,22 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                     </div>
 
                     <div className="subPart">
-                      <h3>Fax :</h3>
-                      <p>{data?.Fax}</p>
+                      <h3>Lead Type :</h3>
+                      <p>{data?.leadType}</p>
                     </div>
-                    <div className="subPart">
+                 
+                    {/* <div className="subPart">
                       <h3>No. of Employees :</h3>
                       <p>{data?.NoOfEmployee}</p>
-                    </div>
-                    <div className="subPart">
+                    </div> */}
+                    {/* <div className="subPart">
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
-                    </div>
-                
+                    </div> */}
+                  
                   </div>
                 </div>
               </div>
-
               {/* second part  */}
               <div className="leadFirs">
                 <h2 className="ehading">Address Information</h2>
@@ -585,7 +590,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
               </div>
 
               {/* third  */}
-              <div className="leadFirs">
+              {/* <div className="leadFirs">
                 <h2 className="ehading">Description Information</h2>
 
                 <div className="eladinfoWrap secondWRap">
@@ -593,7 +598,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                     Description: <span>{data?.DescriptionInfo}</span>
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               {/* second  third  */}
               <div className="leadFirs">
@@ -744,8 +749,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                   <button
                     onClick={() =>
-                      // navigate("/adminDash/createQuotation", { state: { id } })
-                      navigate("/employeeDash/HRM/QuotationForm", { state: { id } })
+                   navigate("/employeeDash/HRM/QuotationForm", { state: { id } })
                     }
                     className="createQquot"
                   >
@@ -773,13 +777,9 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                         <div className="dj">
                           <img
-                            // onClick={() =>
-                            //   navigate("/adminDash/editQuotation", {
-                            //     state: item,
-                            //   })
-                            // }
+                           
                             onClick={()=>{
-                              navigate("/adminDash/HRM/QuotationForm" , {state:{item}})
+                              navigate("/employeeDash/HRM/QuotationForm" , {state:{item}})
                             }}
                             className="cursor-pointer"
                             src={veci}

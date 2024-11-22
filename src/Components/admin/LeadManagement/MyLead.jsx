@@ -29,6 +29,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
 
   const fetchLead = async () => {
     const ans = await getLead("", "", "", "");
+
     setAllLead(ans?.data);
     setAllData(ans?.data);
     setAllLeading(ans?.data);
@@ -391,19 +392,19 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         />
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        Company Name
+                        Lead Type
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        LeadName
+                        Name
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Email
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        Website
+                      Budget
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                        Status
+                      LeadSource
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Lead Date
@@ -436,22 +437,19 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                           />
                         </th>
 
-                        <td className="px-6 py-4 taskAns">{item?.Company}</td>
+                        <td className="px-6 py-4 taskAns">{item?.leadType}</td>
                         <td className="px-6 py-4 taskAns">
-                          {item?.FirstName} {item?.LastName}
+                          {item?.name}
                         </td>
                         <td className="px-6 py-4 taskAns">{item?.Email}</td>
-                        <td className="px-6 py-4 taskAns">{item?.Website}</td>
+                        <td className="px-6 py-4 taskAns">{item?.budget}</td>
 
                         <td scope="col" className="px-3 py-3">
                           <div
                             scope="col"
-                            className={`statussame ${item?.LeadStatus === "Follow-up" && "followUp"
-                              } ${item?.LeadStatus == "Hot" && "Hot"} ${item?.LeadStatus == "Cold" && "Cold"
-                              } ${item?.LeadStatus == "cold" && "Cold"}  ${item?.LeadStatus == "Warm" && "Warm"
-                              }`}
+                            className={`statussame`}
                           >
-                            {item?.LeadStatus}
+                            {item?.LeadSource}
                           </div>
                         </td>
 
