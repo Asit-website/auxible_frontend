@@ -16,7 +16,7 @@ import 'react-phone-input-2/lib/style.css'
 
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, createLead, getEmployees, AllLeadSource, AllLeadStatus, getLeadStat, uploadToCloudinaryImg } = useMain();
+    const { user, createLead, getEmployees, AllLeadSource, AllLeadStatus, getLeadStat, uploadToCloudinaryImg,getLeadType } = useMain();
     const [pop1, setPop1] = useState(false);
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -170,18 +170,22 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
 
     const [allLeadSource, setAllLeadSource] = useState([]);
-
+    const [allLeadType,setAllLeadType] = useState([]);
 
     const fetchSource = async () => {
         const ans = await AllLeadSource();
         setAllLeadSource(ans?.data);
     }
 
+    const fetchType = async () => {
+        const ans = await getLeadType();
+        setAllLeadType(ans?.data);
+      }
 
     useEffect(() => {
         getOwner();
         fetchSource();
-
+        fetchType();
     }, [])
 
     return (
@@ -371,12 +375,17 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                         id=""
                       >
                         <option>Select LeadType</option>
-                        <option value="Sound">Sound</option>
+                        {/* <option value="Sound">Sound</option>
                         <option value="LED">LED</option>
                         <option value="Lighting">Lighting</option>
                         <option value="All of the above">
                           All of the above
-                        </option>
+                        </option> */}
+                        {
+                            allLeadType?.map((val,index)=>{
+                                return <option key={index} value={val?.name}>{val?.name}</option>
+                            })
+                        }
                       </select>
                     </div>
                   </div>

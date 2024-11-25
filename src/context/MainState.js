@@ -163,6 +163,26 @@ const MainState = (props) => {
       return data;
    };
 
+   const getLeadType = async () => {
+      const data = await get(`${baseUrl}/system/getLeadType`, true);
+      return data;
+   };
+
+   const postLeadType = async ({ name }) => {
+      const data = await post(`${baseUrl}/system/postLeadType`, { name }, true);
+      return data;
+   };
+
+   const updateLeadType = async ({ id, name }) => {
+      const data = await put(`${baseUrl}/system/updateLeadType/${id}`, { name }, true);
+      return data;
+   };
+
+   const deleteLeadType = async (id) => {
+      const data = await deleteReq(`${baseUrl}/system/deleteLeadType/${id}`, true);
+      return data;
+   };
+
    const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType ,PermissionRole }) => {
 
 
@@ -2375,6 +2395,10 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
+         getLeadType,
+         postLeadType,
+         updateLeadType,
+         deleteLeadType,
          savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2
       }}> 
          {props.children}

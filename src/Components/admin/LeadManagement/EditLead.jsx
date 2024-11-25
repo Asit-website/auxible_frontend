@@ -20,6 +20,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     getEmployees,
     AllLeadSource,
     uploadToCloudinaryImg,
+    getLeadType
   } = useMain();
 
   const [pop1, setPop1] = useState(false);
@@ -120,6 +121,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   };
 
   const [allLeadSource, setAllLeadSource] = useState([]);
+  const [allLeadType,setAllLeadType] = useState([]);
   const [leadUpldProf, setLeadUpLdPro] = useState("");
 
 
@@ -128,9 +130,15 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     setAllLeadSource(ans?.data);
   };
 
+  const fetchType = async () => {
+    const ans = await getLeadType();
+    setAllLeadType(ans?.data);
+  }
+
 
   useEffect(() => {
     fetchSource();
+    fetchType();
   }, []);
 
 
@@ -335,12 +343,17 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                         id=""
                       >
                         <option>Select LeadType</option>
-                        <option value="Sound">Sound</option>
+                        {/* <option value="Sound">Sound</option>
                         <option value="LED">LED</option>
                         <option value="Lighting">Lighting</option>
                         <option value="All of the above">
                           All of the above
-                        </option>
+                        </option> */}
+                        {
+                          allLeadType?.map((val,index)=>{
+                            return <option key={index} value={val?.name}>{val?.name}</option>
+                          })
+                        }
                       </select>
                     </div>
                   </div>

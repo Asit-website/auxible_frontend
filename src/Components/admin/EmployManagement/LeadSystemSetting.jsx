@@ -50,12 +50,26 @@ const sidebarItem = [
       },
     ],
   },
+
   {
     title: "Follow Up",
     img: hub3,
     tableData: [
       {
         title: "FOLLOW-UP",
+      },
+
+      {
+        title: "ACTION",
+      },
+    ],
+  },
+  {
+    title: "Lead Type",
+    img: hub3,
+    tableData: [
+      {
+        title: "TYPE",
       },
 
       {
@@ -80,8 +94,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     getLeadStat,
     postLeadStat,
     updateLeadStat,
-    deleteLeadStat , 
-    postFollowUp, updateFollowUp , deleteFollowUp , getFollowUp , 
+    deleteLeadStat,
+    postFollowUp, updateFollowUp, deleteFollowUp, getFollowUp, getLeadType,
+    postLeadType,
+    updateLeadType,
+    deleteLeadType,
   } = useMain();
 
   const [open, setOpen] = useState(0);
@@ -95,6 +112,7 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
   const [allStatus, setAllStatus] = useState([]);
   const [allSource, setAllSource] = useState([]);
   const [allStat, setAllStat] = useState([]);
+  const [allType, setAllType] = useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const fetchAllStatus = async () => {
@@ -111,16 +129,23 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     setAllStat(ans?.data);
   }
 
+  const fetchAllType = async () => {
+    const ans = await getLeadType();
+    setAllType(ans?.data);
+  }
+
   useEffect(() => {
     fetchAllStatus();
     fetchAllSource();
     fetchAllStat();
+    fetchAllType();
   }, [refreshFlag]);
 
   const [popup5, setPopup5] = useState(false);
   const [popup6, setPopup6] = useState(false);
   const [popup7, setPopup7] = useState(false);
   const [popup8, setPopup8] = useState(false);
+  const [popup9, setPopup9] = useState(false);
 
   const [id, setId] = useState("");
 
@@ -135,7 +160,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     name: "",
   })
 
-  
+  const [leadType, setLeadType] = useState({
+    name: "",
+  })
+
+
   const handleCreateLeadStatus = async () => {
     const toastId = toast.loading("Loading...");
     const ans = await postLeadStatus({
@@ -186,7 +215,27 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
     toast.dismiss(toastId);
 
-   
+
+  };
+
+  const handleCreateLeadType = async () => {
+    const toastId = toast.loading("Loading...");
+    const ans = await postLeadType({
+      name: leadType?.name,
+    });
+
+    setRefreshFlag(!refreshFlag)
+
+    if (ans.status) {
+      toast.success("success");
+      fetchAllType();
+      setLeadType("");
+      setPopup9(false);
+    }
+
+    toast.dismiss(toastId);
+
+
   };
 
 
@@ -214,51 +263,59 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     }
   };
 
+  const deleteLeadTypeHandler = async (id) => {
+    const ans = await deleteLeadType(id);
+    if (ans?.success) {
+      toast.success("Delete Succesfuly");
+      fetchAllType();
+    }
+  };
+
   const [isIndusUpat, setIsInuP] = useState(false);
   const [isLeSrc, setIsLdSrc] = useState(false);
-  const [allFollow , setAllFollow] = useState([]);
+  const [allFollow, setAllFollow] = useState([]);
 
   const [isStat, setIsStat] = useState(false);
 
-  const getFollow = async()=>{
+  const getFollow = async () => {
     const ans = await getFollowUp();
-     if(ans?.success){
+    if (ans?.success) {
       setAllFollow(ans?.data);
-     }
+    }
   }
 
 
-  const CreateFollow = async()=>{
-    const ans = await postFollowUp({name:leadStat.name});
-     if(ans?.success){
+  const CreateFollow = async () => {
+    const ans = await postFollowUp({ name: leadStat.name });
+    if (ans?.success) {
       toast.success("Successfuly created");
-     }
-     getFollow();
-     setIsStat(false);
-     setLeadStat((prev) => ({
-       ...prev,
-       name: ""
-     }))
-     setPopup8(false);
+    }
+    getFollow();
+    setIsStat(false);
+    setLeadStat((prev) => ({
+      ...prev,
+      name: ""
+    }))
+    setPopup8(false);
   }
 
-  const deleteFollowHandler = async(id)=>{
+  const deleteFollowHandler = async (id) => {
     const ans = await deleteFollowUp(id);
-     if(ans?.success){
+    if (ans?.success) {
       toast.success('Successfult deleted');
-     }
-     getFollow();
-     setIsStat(false);
-     setLeadStat((prev) => ({
-       ...prev,
-       name: ""
-     }))
-     setPopup8(false);
+    }
+    getFollow();
+    setIsStat(false);
+    setLeadStat((prev) => ({
+      ...prev,
+      name: ""
+    }))
+    setPopup8(false);
   }
 
-  const updateFollow = async()=>{
-    const ans = await updateFollowUp({id:isStat , name:leadStat.name});
-    if(ans?.success){
+  const updateFollow = async () => {
+    const ans = await updateFollowUp({ id: isStat, name: leadStat.name });
+    if (ans?.success) {
       toast.success("Successfuly updated");
     }
     getFollow();
@@ -322,9 +379,23 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
     }
   };
 
-  useEffect(()=>{
+  const updateLeadTypeHandler = async () => {
+    const ans = await updateLeadType({ id: isStat, name: leadType.name });
+    if (ans?.success) {
+      toast.success("Successfuly updated");
+      fetchAllType();
+      setIsStat(false);
+      setLeadType((prev) => ({
+        ...prev,
+        name: ""
+      }))
+      setPopup9(false);
+    }
+  }
+
+  useEffect(() => {
     getFollow();
-    },[])
+  }, [])
 
   return (
     <>
@@ -354,6 +425,9 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                       }
                       else if (open === 3) {
                         setPopup8(true);
+                      }
+                      else if (open === 4) {
+                        setPopup9(true);
                       }
                     }}
                   >
@@ -623,6 +697,71 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
                                         className="cursor-pointer"
                                         onClick={() => {
                                           deleteFollowHandler(item?._id);
+                                        }}
+                                        src={deleted}
+                                        alt=""
+                                      />
+                                    </td>
+                                  </tr>
+                                ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {open === 4 && (
+                    <div className="hrmsystemsetup-leftmenu">
+                      <div className="hrmsystemsetup-container">
+                        <div className="hrmsystemsetup-pagination">
+                          <span>Lead Type</span>
+                        </div>
+
+                        <div className="relative overflow-x-auto">
+                          <table className="w-full table3 text-left   text-[#060606]">
+                            <thead className=" uppercase text-[#060606]">
+                              <tr>
+                                {sidebarItem[open].tableData.map(
+                                  (item, index) => (
+                                    <th
+                                      key={index}
+                                      scope="col"
+                                      className="px-6 py-3"
+                                    >
+                                      {item.title}
+                                    </th>
+                                  )
+                                )}
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {allType?.length === 0
+                                ? "No data found"
+                                : allType?.map((item, index) => (
+                                  <tr key={index} className="bg-white ">
+                                    <td className="px-6 py-4 tabl3Titl">
+                                      {item?.name}
+                                    </td>
+                                    <td className="px-6 py-4 flex hrmActions">
+                                      <img
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                          setPopup9(true);
+                                          setIsStat(item?._id);
+                                          setLeadType((prev) => ({
+                                            ...prev,
+                                            name: item?.name,
+                                          }));
+                                        }}
+                                        src={edited}
+                                        alt=""
+                                      />
+                                      <img
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                          deleteLeadTypeHandler(item?._id);
                                         }}
                                         src={deleted}
                                         alt=""
@@ -907,11 +1046,11 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
                 <button
                   className="create"
-                  onClick={ 
+                  onClick={
                     isStat ? updateLeadStatusHandler : handleCreateLeadStat
                   }
                 >
-                  <span onClick={()=>{
+                  <span onClick={() => {
                     setIsStat(false)
                     setPopup7(false)
                   }}>{isStat ? "Update" : "Create"}</span>
@@ -974,13 +1113,80 @@ const LeadSystemSetting = ({ setAlert, pop, setPop }) => {
 
                 <button
                   className="create"
-                  onClick={ 
+                  onClick={
                     isStat ? updateFollow : CreateFollow
                   }
                 >
-                  <span onClick={()=>{
+                  <span onClick={() => {
                     setIsStat(false)
                     setPopup8(false)
+                  }}>{isStat ? "Update" : "Create"}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {popup9 && (
+          <div className="allPopupWrap">
+            <div className="popup1 popup5 pono2">
+              <div className="popNav">
+                <h2>Create New Lead Type</h2>
+                <img
+                  onClick={() => {
+                    setPopup9(false);
+                    setIsStat(false);
+                    setLeadType((prev) => ({
+                      ...prev,
+                      name: "",
+                    }));
+                  }}
+                  src={cross1}
+                  alt=""
+                />
+              </div>
+              <hr />
+              <label>
+                <p className="popTitl">Lead Type</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter Lead Type"
+                  name="name"
+                  value={leadType?.name}
+                  onChange={(e) => {
+                    setLeadType({
+                      ...leadType,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                />
+              </label>
+
+              <div className="btnWrap">
+                <button
+                  className="cencel"
+                  onClick={() => {
+                    setPopup9(false);
+                    setIsStat(false);
+                    setLeadType((prev) => ({
+                      ...prev,
+                      name: "",
+                    }));
+                  }}
+                >
+                  <span>Cancel</span>
+                </button>
+
+                <button
+                  className="create"
+                  onClick={
+                    isStat ? updateLeadTypeHandler : handleCreateLeadType
+                  }
+                >
+                  <span onClick={() => {
+                    setIsStat(false)
+                    setPopup9(false)
                   }}>{isStat ? "Update" : "Create"}</span>
                 </button>
               </div>
