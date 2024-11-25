@@ -70,10 +70,6 @@ const EmployeeHRM = ({
   } = useMain();
 
 
-
- 
-
-
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
 
   const [counts, setCounts] = useState({
@@ -110,7 +106,6 @@ const EmployeeHRM = ({
 
   const fetchUserOwnDetailHandler = async()=>{
     const ans = await fetchUserOwnDetailApi(hrms_user?._id);
-    console.log("ans " ,ans);
     if(ans?.status){
       localStorage.setItem("hrms_user", JSON.stringify(ans?.data));
       localStorage.setItem("hrms_permission", JSON.stringify(ans?.data?.PermissionRole || {}));
