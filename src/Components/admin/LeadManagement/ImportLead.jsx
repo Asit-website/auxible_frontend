@@ -46,6 +46,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
+
+  // const [LeadStatus, setLeadStatus] = useState("");
+
   const [data, setData] = useState({});
 
   const [LeadStatus, setLeadStatus] = useState("");

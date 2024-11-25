@@ -22,7 +22,8 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
     AllLeadSource , 
     getEmployees,
     uploadToCloudinaryImg,
-    getLeadType
+    getLeadType , 
+    getLeadStat
   } = useMain();
   const [pop1, setPop1] = useState(false);
   const stylePeer = {
@@ -45,7 +46,9 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
      State:"" , 
      ZipCode:"" ,
       Country:"" ,
-      LeadSource:""
+      LeadSource:"" ,
+      LeadStatus: "",
+
 
   });
 
@@ -55,6 +58,14 @@ const CreateLead = ({ setAlert, pop, setPop }) => {
   const [allLeadSource, setAllLeadSource] = useState([]);
 
   const [allLeadType,setAllLeadType] = useState([]);
+
+  const [allleadStat, setAllLeadStat] = useState([]);
+
+  
+  const fetchStat = async () => {
+    const ans = await getLeadStat();
+    setAllLeadStat(ans?.data);
+}
 
   const fetchSource = async () => {
     const ans = await AllLeadSource();
@@ -139,7 +150,9 @@ const fetchType = async () => {
      State:"" , 
      ZipCode:"" ,
       Country:"" ,
-      LeadSource:""
+      LeadSource:"" , 
+      LeadStatus: "",
+
       });
     }
 
@@ -155,6 +168,8 @@ const fetchType = async () => {
     getOwner();
     fetchSource();
     fetchType();
+    fetchStat();
+
   }, []);
 
 
@@ -389,6 +404,24 @@ const fetchType = async () => {
                                             </select>
                                         </div>
                   
+                  </div>
+
+
+                  <div className="lead_inp">
+                  <div className="lead_inp1">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
+                                                <option >Select Status</option>
+                                                {
+                                                    allleadStat?.map((val, index) => {
+                                                        return <option key={index} value={val?.name}>{val?.name}</option>
+                                                    })
+                                                }
+                                              
+                                            </select>
+                                        </div>
+
+                 
                   </div>
 
                 

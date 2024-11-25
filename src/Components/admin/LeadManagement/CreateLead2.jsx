@@ -40,8 +40,17 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
      State:"" , 
      ZipCode:"" ,
       Country:"" ,
-      LeadSource:""
+      LeadSource:"",
+      LeadStatus: "",
+
     });
+
+    const [allleadStat, setAllLeadStat] = useState([]);
+
+    const fetchStat = async () => {
+        const ans = await getLeadStat();
+        setAllLeadStat(ans?.data);
+    }
 
     const [emailisValid, setIsemailValid] = useState(null);
     const [emailisValid1, setIsemailValid1] = useState(null);
@@ -152,7 +161,8 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
      State:"" , 
      ZipCode:"" ,
       Country:"" ,
-      LeadSource:""
+      LeadSource:"",
+      LeadStatus:""
             })
 
             toast.success("Successfuly submit");
@@ -186,6 +196,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         getOwner();
         fetchSource();
         fetchType();
+        fetchStat();
     }, [])
 
     return (
@@ -418,6 +429,23 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                   </div>
 
                 
+                  <div className="lead_inp">
+                  <div className="lead_inp1">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
+                                                <option >Select Status</option>
+                                                {
+                                                    allleadStat?.map((val, index) => {
+                                                        return <option key={index} value={val?.name}>{val?.name}</option>
+                                                    })
+                                                }
+                                              
+                                            </select>
+                                        </div>
+
+                 
+                  </div>
+
 
                 </div>
 

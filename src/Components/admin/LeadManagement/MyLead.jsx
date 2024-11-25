@@ -407,6 +407,9 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                       LeadSource
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
+                      LeadStatus
+                      </th>
+                      <th scope="col" className="px-6 py-3 taskTitl ">
                         Lead Date
                       </th>
 
@@ -452,6 +455,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                             {item?.LeadSource}
                           </div>
                         </td>
+                        <td className="px-6 py-4 taskAns">{item?.LeadStatus}</td>
 
                         <td className="px-6 py-4 taskAns">
                           {new Date(item?.createAt).toLocaleDateString("en-CA")}

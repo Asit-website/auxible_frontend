@@ -1440,7 +1440,8 @@ const MainState = (props) => {
           State, 
           ZipCode ,
            Country ,
-           LeadSource
+           LeadSource ,
+           LeadStatus
       }) => {
 
       let data;
@@ -1468,7 +1469,8 @@ const MainState = (props) => {
              State, 
              ZipCode ,
               Country ,
-              LeadSource
+              LeadSource,
+              LeadStatus
          }, true);
 
       }
@@ -1486,7 +1488,8 @@ const MainState = (props) => {
              State, 
              ZipCode ,
               Country ,
-              LeadSource
+              LeadSource,
+              LeadStatus
          }, true);
       }
 
@@ -1541,7 +1544,8 @@ const MainState = (props) => {
           ZipCode ,
            Country ,
            LeadSource ,
-           id
+           id,
+           LeadStatus
       
       }
 
@@ -1570,7 +1574,8 @@ const MainState = (props) => {
           State, 
           ZipCode ,
            Country ,
-           LeadSource
+           LeadSource,
+           LeadStatus
       
 
          }, true);
@@ -1592,7 +1597,8 @@ const MainState = (props) => {
           State, 
           ZipCode ,
            Country ,
-           LeadSource
+           LeadSource,
+           LeadStatus
       
 
          }, true);

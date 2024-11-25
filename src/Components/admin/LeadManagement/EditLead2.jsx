@@ -24,7 +24,8 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
     AllLeadStatus,
     getLeadStat,
     uploadToCloudinaryImg,
-    getLeadType
+    getLeadType,
+    
   } = useMain();
 
   const [pop1, setPop1] = useState(false);
@@ -53,8 +54,10 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
      State:"" , 
      ZipCode:"" ,
       Country:"" ,
-      LeadSource:""
+      LeadSource:"",
+      LeadStatus:""
   });
+
 
   const navigate = useNavigate();
   const [leadUpldProf, setLeadUpLdPro] = useState("");
@@ -140,7 +143,8 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
        State:item?.State , 
        ZipCode:item?.ZipCode ,
         Country:item?.Country ,
-        LeadSource:item?.LeadSource
+        LeadSource:item?.LeadSource,
+        LeadStatus:item?.LeadStatus
     });
     if (item?.image) {
       setLeadUpLdPro(item?.image);
@@ -398,6 +402,23 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                   </div>
 
                 
+                  <div className="lead_inp">
+                  <div className="lead_inp1">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
+                                                <option >Select Status</option>
+                                                {
+                                                    allleadStat?.map((val, index) => {
+                                                        return <option key={index} value={val?.name}>{val?.name}</option>
+                                                    })
+                                                }
+                                              
+                                            </select>
+                                        </div>
+
+                 
+                  </div>
+
 
                 </div>
 

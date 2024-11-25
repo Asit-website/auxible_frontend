@@ -20,7 +20,8 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     getEmployees,
     AllLeadSource,
     uploadToCloudinaryImg,
-    getLeadType
+    getLeadType ,
+    getLeadStat
   } = useMain();
 
   const [pop1, setPop1] = useState(false);
@@ -49,7 +50,9 @@ const EditLead = ({ setAlert, pop, setPop }) => {
      State:"" , 
      ZipCode:"" ,
       Country:"" ,
-      LeadSource:""
+      LeadSource:"",
+      LeadStatus: "",
+
   });
 
   const navigate = useNavigate();
@@ -124,6 +127,14 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   const [allLeadType,setAllLeadType] = useState([]);
   const [leadUpldProf, setLeadUpLdPro] = useState("");
 
+  const [allleadStat, setAllLeadStat] = useState([]);
+
+  
+  const fetchStat = async () => {
+    const ans = await getLeadStat();
+    setAllLeadStat(ans?.data);
+}
+
 
   const fetchSource = async () => {
     const ans = await AllLeadSource();
@@ -139,6 +150,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     fetchSource();
     fetchType();
+    fetchStat()
   }, []);
 
 
@@ -159,7 +171,8 @@ const EditLead = ({ setAlert, pop, setPop }) => {
        State:item?.State , 
        ZipCode:item?.ZipCode ,
         Country:item?.Country ,
-        LeadSource:item?.LeadSource
+        LeadSource:item?.LeadSource,
+        LeadStatus: item?.LeadStatus
     });
     if (item?.image) {
       setLeadUpLdPro(item?.image);
@@ -383,6 +396,24 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                                             </select>
                                         </div>
                   
+                  </div>
+
+                  
+                  <div className="lead_inp">
+                  <div className="lead_inp1">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
+                                                <option >Select Status</option>
+                                                {
+                                                    allleadStat?.map((val, index) => {
+                                                        return <option key={index} value={val?.name}>{val?.name}</option>
+                                                    })
+                                                }
+                                              
+                                            </select>
+                                        </div>
+
+                 
                   </div>
 
                 
