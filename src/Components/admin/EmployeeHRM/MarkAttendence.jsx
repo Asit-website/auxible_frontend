@@ -100,6 +100,8 @@ const MarkAttendance = ({
     return allDash?.slice(startIndex, endIndex);
   };
 
+  console.log("allDash",allDash);
+
   const parseDate = (dateStr) => {
     if (dateStr !== null) {
       const [day, month, year] = dateStr?.split("/")?.map(Number);
@@ -190,8 +192,6 @@ const MarkAttendance = ({
     }
   };
 
-
-
   const handleDownload = async () => {
     console.log("handleDownload");
   };
@@ -243,7 +243,7 @@ const MarkAttendance = ({
 
   const currentPageData = getCurrentPageData();
 
-  const currentPageData2 = getCurrentPageData2();
+  const [currentPageData2 , setcurrentPageData2] = useState([]);
 
   const [showImportPop, setShowImportPop] = useState(false);
 
@@ -251,23 +251,27 @@ const MarkAttendance = ({
 
   const [srchText, setSrchText] = useState("");
 
+
   const srchHandler = (e) => {
     setSrchText(e.target.value);
   };
 
   useEffect(() => {
-    if (selectedOption === "monthly") {
-      if (srchText === "") {
-        getData();
-      } else {
-        const filteredData = data.filter(
-          (item) =>
-            item &&
-            item.user &&
-            item.user.fullName &&
-            item.user.fullName.includes(srchText)
-        );
+    if (selectedOption === "daily") {
+        
+      if(srchText === ""){
+        let currentPagdata = getCurrentPageData2();
+        setcurrentPageData2(currentPagdata);
       }
+      else{
+        const filterdata = allDash.filter((d)=> {
+          return d?.user?.fullName?.toLowerCase()?.includes(srchText?.toLowerCase());
+         })
+
+         setcurrentPageData2(filterdata);
+        
+      }
+
     }
   }, [srchText, makeChange]);
 
@@ -449,6 +453,13 @@ const MarkAttendance = ({
       toast.error("Something went wrong , please try again");
     }
   }
+
+  useEffect(()=>{
+    let currentPagdata = getCurrentPageData2();
+     setcurrentPageData2(currentPagdata);
+
+  },[allDash , currentPage2])
+ 
 
   return (
     <>
@@ -723,15 +734,19 @@ const MarkAttendance = ({
                     <h3>Daily Attendance</h3>
 
                     <div className="seexwrap">
-                      <div className="serchEmpl">
-                        <input
-                          type="text"
-                          value={srchText}
-                          onChange={srchHandler}
-                          placeholder="Search Employee"
-                        />
-                        <img src={bxsearch} alt="" />
-                      </div>
+                 
+                   {
+                     selectedOption === "daily" && 
+                     <div className="serchEmpl">
+                     <input
+                       type="text"
+                       value={srchText}
+                       onChange={srchHandler}
+                       placeholder="Search Employee"
+                     />
+                     <img src={bxsearch} alt="" />
+                   </div>
+                   }
 
                       {(selectedOption === "daily" && date === "" ) && (
                         <ReactHTMLTableToExcel
@@ -821,7 +836,7 @@ const MarkAttendance = ({
                         {data?.map((item, index) => (
                           <tr key={index} className="bg-white ">
                             <td className="px-6 py-4 itemANs">
-                              {item?.user?.fullName}
+                              {item?.user?.fullName} 
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {item?.user?.department}
