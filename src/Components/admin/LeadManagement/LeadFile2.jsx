@@ -90,11 +90,11 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
   
         for (let i = 0; i < data?.length; i++) {
 
-          const { Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate , LeadStatus } = data[i];
+          const { Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate , LeadStatus , Mobile } = data[i];
       
         const ans = await createExcelLead({
-          LeadOwner: hrms_user?._id, Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate  , LeadStatus
-            });
+          LeadOwner: hrms_user?._id, Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate  , LeadStatus , Mobile
+            }); 
           }
         
   

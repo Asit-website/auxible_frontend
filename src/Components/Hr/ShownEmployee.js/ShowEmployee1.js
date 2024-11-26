@@ -99,7 +99,7 @@ const ShowEmployee1 = ({ setAlert, pop1, setPop1 }) => {
                               </div>
                             </td>
                             <td className="px-6 py-4 timer">
-                              <p>KDS{e?.employeeCode}</p>
+                              <p>{e?.employeeCode}</p>
                             </td>
                             <td className="px-6 py-4 relative cursor-pointer">
                               <div className="flex items-center status relative"

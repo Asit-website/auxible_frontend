@@ -1498,7 +1498,7 @@ const MainState = (props) => {
 
 
    const createExcelLead = async ({
-      LeadOwner,  Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate  , LeadStatus
+      LeadOwner,  Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate  , LeadStatus , Mobile
    }) => {
 
       let data;
@@ -1511,7 +1511,7 @@ const MainState = (props) => {
          leadType: LeadType , 
          budget: Budget , 
          LeadSource: LeadSource , 
-         LeadStatus
+         LeadStatus , Mobile
 
       }, true);
 

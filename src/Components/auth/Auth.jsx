@@ -50,7 +50,6 @@ const Auth = (props) => {
     e.preventDefault();
 
     let ans = await login(value);
-    console.log("ans " ,ans?.PermissionRole);
 
     if (ans.success) {
       setUser(ans.user);

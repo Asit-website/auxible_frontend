@@ -331,7 +331,7 @@ const Payslip = ({ pop, setPop }) => {
                                                 data.filter(x => x.user.designation !== "CEO" && x.user._id !== user._id)?.map((item, index) => (
                                                     <tr key={index} className="bg-white opos border-b dark:bg-gray-800 dark:border-gray-700">
 
-                                                        <td className="px-6 py-4">#KDS{item?.user?.employeeCode}</td>
+                                                        <td className="px-6 py-4">#{item?.user?.employeeCode}</td>
                                                         <td className="px-6 py-4">{item?.user?.fullName}</td>
                                                         <td className="px-6 py-4">{item?.user?.paySlipType}</td>
                                                         <td className="px-6 py-4">{item?.user?.salary ? item?.user?.salary : "00"}</td>
@@ -532,7 +532,7 @@ const Payslip = ({ pop, setPop }) => {
                                     Uttar pradesh-251352</p> */}
                                     <label className="d_slip" >
                                         <p>Employee Code : </p>
-                                        <p>KDS{popdata?.user?.employeeCode}</p>
+                                        <p>{popdata?.user?.employeeCode}</p>
                                     </label>
                                     <label className="d_slip" >
                                         <p>Father Name : </p>

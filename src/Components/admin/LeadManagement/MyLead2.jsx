@@ -413,7 +413,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                       Budget
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
-                      LeadSource
+                      Mobile
                       </th>
                       <th scope="col" className="px-6 py-3 taskTitl ">
                       LeadStatus
@@ -461,7 +461,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                             scope="col"
                             className={`statussame`}
                           >
-                            {item?.LeadSource}
+                            {item?.Mobile}
                           </div>
                         </td>
 

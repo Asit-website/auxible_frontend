@@ -586,7 +586,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                 </th> */}
                                                 <th scope="col" className="px-3 py-3 leadti">
                                                     {/* LinkedIn URL */}
-                                                    LeadSource
+                                                    Mobile
                                                 </th>
                                                 <th scope="col" className="px-3 py-3 leadti">
                                                     {/* LinkedIn URL */}
@@ -645,7 +645,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                         <td scope="col" className="px-3 py-3">
 
                                                             <div scope="col" className={`statussame`}>
-                                                                {item?.LeadSource}
+                                                                {item?.Mobile}
                                                             </div>
 
                                                         </td>
