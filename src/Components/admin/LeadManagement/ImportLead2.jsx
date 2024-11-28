@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import leadProfile from "../../images/leadProfile.png";
@@ -13,9 +13,10 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png"
 import { useLocation } from 'react-router-dom';
-
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import useOnClickOutside from "../../../hooks/useOutsideClick"
+
 
 
 const ImportLead2 = ({ setAlert, pop, setPop }) => {
@@ -144,6 +145,10 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   }
 
   const [userQuotation, setUserQu] = useState([]);
+
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setOpenAdNew(false))
+
 
   const getQuotation = async () => {
     const ans = await getQuotationAll(id);
@@ -483,15 +488,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       <p>{data?.LeadOwner?.fullName}</p>
                     </div>
 
-                    {/* <div className="subPart">
-                      <h3>{data?.title}</h3>
-                      <p>-</p>
-                    </div> */}
-
-                    {/* <div className="subPart">
-                      <h3>Phone :</h3>
-                      <p>{data?.Phone}</p>
-                    </div> */}
+               
 
                     <div className="subPart">
                       <h3>Mobile :</h3>
@@ -517,11 +514,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                   {/* right side  */}
                   <div className="lleaiFOlEFT">
-                    {/* <div className="subPart">
-                      <h3>Company :</h3>
-                      <p>{data?.Company}</p>
-                    </div> */}
-
+                
                     <div className="subPart">
                       <h3> Name :</h3>
                       <p>
@@ -539,14 +532,10 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       <p>{data?.leadType}</p>
                     </div>
                  
-                    {/* <div className="subPart">
-                      <h3>No. of Employees :</h3>
-                      <p>{data?.NoOfEmployee}</p>
-                    </div> */}
-                    {/* <div className="subPart">
+                    <div className="subPart">
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
-                    </div> */}
+                    </div>
                   
                   </div>
                 </div>
@@ -605,11 +594,11 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                 <div className="LEADSsTunav">
 
-                  <h2 className="ehading">Lead Status</h2>
+                  <h2 className="ehading">Lead Remark</h2>
 
                   <hr />
 
-                  <select
+                  {/* <select
                     onChange={(e) => {
                       setLeadStatus(e.target.value);
                       updatingLeadStatus(e.target.value);
@@ -626,10 +615,10 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                       })
                     }
                  
-                  </select>
+                  </select> */}
 
                   <label className="noteLabel">
-                    <p>Note:</p>
+                    <p>Remark:</p>
                     <textarea
                       value={Note}
                       onChange={(e) => { setNote(e.target.value) }}
@@ -661,11 +650,11 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                           </div>
 
-                          <div className="noteStaus">
+                          {/* <div className="noteStaus">
 
                             <p>{note?.Status}</p>
 
-                          </div>
+                          </div> */}
 
                           <p className="notedate">{new Date(note?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
@@ -704,7 +693,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
                     {
                       opnAdNew &&
-                      <div className="opeAnew">
+                      <div ref={ref} className="opeAnew">
 
                         <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
                         <hr />
@@ -858,11 +847,11 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
             </nav>
 
             <form className="taskForm" >
-
-              <label>
-                <p>LeadName</p>
-                <input name="LeadName" value={taskData?.LeadName} onChange={taskHandler} type="text" placeholder="Subject" />
+            <label>
+                <p>Remark</p>
+                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
               </label>
+
 
               <label>
                 <p>Follow-Up type</p>
@@ -895,13 +884,9 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
               </div>
 
-              <label>
-                <p>Remark</p>
-                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
-              </label>
+           
 
-
-              <div className="btnstask">
+              <div className="btnstask2">
                 <button onClick={data1 ? taskUpdateHandler : TaskSubmitHandler} className="creattk">
                   {data1 ? "Task Update " : " Task Create"}
                 </button>

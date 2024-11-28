@@ -27,8 +27,12 @@ const MyLead = ({ setAlert, pop, setPop }) => {
   const [allLead, setAllLead] = useState([]);
   const [allData, setAllData] = useState([]);
 
+  console.log("allLead" , allLead);
+
   const fetchLead = async () => {
     const ans = await getLead("", "", "", "");
+
+    console.log("ans",ans);
 
     setAllLead(ans?.data);
     setAllData(ans?.data);
