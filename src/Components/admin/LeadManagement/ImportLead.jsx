@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminNavbar from "../../admin/Navbar/AdminNavbar";
 import AdminSidebar from "../../admin/Sidebar/AdminSidebar";
 import "react-calendar/dist/Calendar.css";
@@ -10,10 +10,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import veci from "../../images/veci.svg";
 import deli from "../../images/deli.svg";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png";
 import { useLocation } from "react-router-dom";
+import useOnClickOutside from "../../../hooks/useOutsideClick"
 
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
@@ -43,11 +43,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const location = useLocation();
   const { type, data1 } = location.state || {};
-
-  const [refreshFlag, setRefreshFlag] = useState(false);
-
-
-  // const [LeadStatus, setLeadStatus] = useState("");
 
   const [data, setData] = useState({});
 
@@ -153,6 +148,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
   const [opnAdNew, setOpenAdNew] = useState(false);
+
+  const ref = useRef(null)
+
+
+  useOnClickOutside(ref, () => setOpenAdNew(false))
+
 
   const [taskData, setTaskData] = useState({
     LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
@@ -382,13 +383,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     }));
   }, [data]);
 
-
   useEffect(() => {
     const size = allNote.length;
     if (size) {
       let lastNote = allNote[size - 1];
       const { Status } = lastNote;
       setLeadStatus(Status);
+    }
+    else{
+      setLeadStatus("Status")
     }
   }, [allNote]);
 
@@ -398,6 +401,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     fetchFollowUp();
     getQuotationOfLead();
   }, []);
+
+  console.log("data",data);
 
   return (
     <div className="imprtleadCont">
@@ -410,6 +415,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
           <div className="em">
             {/* first  */}
             <section className="firsSec">
+
               {/* /left side  */}
               <div className="leadLe">
                 <img
@@ -430,12 +436,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-                {/* <button
-                  type="button"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sendBtn"
-                >
-                  Send Email
-                </button> */}
+              
 
                 <button
                   onClick={() =>
@@ -446,28 +447,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <span className="ref1">Edit</span>
                 </button>
 
-                {/* <button
-                  id="dropdownDefaultButton"
-                  data-dropdown-toggle="dropdown"
-                  className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
-                  type="button"
-                >
-                  Actions{" "}
-                  <svg
-                    className="ml-2"
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.293 9.29303L12 13.586L7.70697 9.29303L6.29297 10.707L12 16.414L17.707 10.707L16.293 9.29303Z"
-                      fill="#666D76"
-                    />
-                  </svg>
-                </button> */}
+             
               </div>
+
             </section>
 
             {/* second sect */}
@@ -486,26 +468,13 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <p>{data?.LeadOwner?.fullName}</p>
                     </div>
 
-                    {/* <div className="subPart">
-                      <h3>{data?.title}</h3>
-                      <p>-</p>
-                    </div> */}
-
-                    {/* <div className="subPart">
-                      <h3>Phone :</h3>
-                      <p>{data?.Phone}</p>
-                    </div> */}
-
+                
                     <div className="subPart">
                       <h3>Mobile :</h3>
                       <p>{data?.Mobile}</p>
                     </div>
 
-                    {/* <div className="subPart">
-                      <h3>Industry :</h3>
-                      <p>{data?.Industry}</p>
-                    </div> */}
-
+                
                     <div className="subPart">
                       <h3>Budget :</h3>
                       <p>${data?.budget}</p>
@@ -520,11 +489,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                   {/* right side  */}
                   <div className="lleaiFOlEFT">
-                    {/* <div className="subPart">
-                      <h3>Company :</h3>
-                      <p>{data?.Company}</p>
-                    </div> */}
-
+                 
                     <div className="subPart">
                       <h3> Name :</h3>
                       <p>
@@ -542,14 +507,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <p>{data?.leadType}</p>
                     </div>
                  
-                    {/* <div className="subPart">
-                      <h3>No. of Employees :</h3>
-                      <p>{data?.NoOfEmployee}</p>
-                    </div> */}
-                    {/* <div className="subPart">
+                    <div className="subPart">
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
-                    </div> */}
+                    </div>
+                 
+                  
                   
                   </div>
                 </div>
@@ -593,25 +556,14 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 </div>
               </div>
 
-              {/* third  */}
-              {/* <div className="leadFirs">
-                <h2 className="ehading">Description Information</h2>
-
-                <div className="eladinfoWrap secondWRap">
-                  <p>
-                    Description: <span>{data?.DescriptionInfo}</span>
-                  </p>
-                </div>
-              </div> */}
-
               {/* second  third  */}
               <div className="leadFirs">
                 <div className="LEADSsTunav">
-                  <h2 className="ehading">Lead Status</h2>
+                  <h2 className="ehading">Lead Remark</h2>
 
                   <hr />
 
-                  <select
+                  {/* <select
                     onChange={(e) => {
                       setLeadStatus(e.target.value);
                       updatingLeadStatus(e.target.value);
@@ -629,10 +581,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                         </option>
                       );
                     })}
-                  </select>
+                  </select> */}
 
                   <label className="noteLabel">
-                    <p>Note:</p>
+                    <p>Remark:</p>
                     <textarea
                       value={Note}
                       onChange={(e) => {
@@ -666,9 +618,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <div key={index} className="singlNoteDe">
                         <div className="line_danda"></div>
 
-                        <div className="noteStaus">
+                        {/* <div className="noteStaus">
                           <p>{note?.Status}</p>
-                        </div>
+                        </div> */}
 
                         <p className="notedate">
                           {new Date(note?.Date).toLocaleDateString("en-US", {
@@ -705,13 +657,12 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <div className="addNewCont">
                     <div
                       onClick={() => setOpenAdNew((prev) => !prev)}
-                      className="addneEW"
-                    >
+                      className="addneEW cursor-pointer" >
                       <p>Add New</p>
                     </div>
 
                     {opnAdNew && (
-                      <div className="opeAnew">
+                      <div   ref={ref} className="opeAnew">
                         <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
                         <hr />
                         <p onClick={() => setOpenCreateMeet(true)}>Meeting</p>
@@ -937,14 +888,14 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
             </nav>
 
             <form className="taskForm">
-              <label>
-                <p>LeadName</p>
+       
+<label>
+                <p>Remark</p>
                 <input
-                  name="LeadName"
-                  value={taskData?.LeadName}
+                  name="Remark"
+                  value={taskData?.Remark}
                   onChange={taskHandler}
                   type="text"
-                  placeholder="Subject"
                 />
               </label>
 
@@ -989,22 +940,14 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 </label>
               </div>
 
-              <label>
-                <p>Remark</p>
-                <input
-                  name="Remark"
-                  value={taskData?.Remark}
-                  onChange={taskHandler}
-                  type="text"
-                />
-              </label>
+           
 
-              <div className="btnstask">
+              <div className="btnstask2">
                 <button
                   onClick={data1 ? taskUpdateHandler : TaskSubmitHandler}
                   className="creattk"
                 >
-                  {data1 ? "Task Update " : " Task Create"}
+                  {data1 ? "Update " : " Create"}
                 </button>
                 <button
                   onClick={() => setOpenCreateTask(false)}
@@ -1023,6 +966,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       {openCreateMeet && (
         <div className="createTaskWrap">
           <div className="cretTaskCont2">
+            
             <nav>
               <p>Create Meeting</p>
               <img
@@ -1165,7 +1109,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              <div className="btnstask">
+             
+            </form>
+
+            <div className="btnstask">
                 <button
                   onClick={data1 ? meetUpdateHandler : meetSubmitHandler}
                   className="creatmt"
@@ -1179,7 +1126,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   Cancel
                 </button>
               </div>
-            </form>
 
             <hr />
           </div>

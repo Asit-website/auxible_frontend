@@ -283,6 +283,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
           <AdminNavbar user={user} setAlert={setAlert} />
 
           <div className="em">
+            
             <div className="leadThings">
               <div className="lead_content1">
                 <h2>Lead Management</h2>
