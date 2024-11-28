@@ -916,6 +916,9 @@ td {
   text-align: left;
   max-width: 85%;
 }
+.givegapalso{
+  gap:20px;
+}
 .side-dash-box2 .dash-wrap p {
   font-family: Inter;
   font-size: 15px;
@@ -2743,6 +2746,7 @@ abbr:where([title]) {
 .basic-information2 {
   padding: 15px 0px;
   border-radius: 10px;
+  width: 50%;
 }
 
 .addedinfowidth {

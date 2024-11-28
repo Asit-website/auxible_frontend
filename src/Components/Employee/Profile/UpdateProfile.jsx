@@ -108,7 +108,6 @@ if(name === "pan" && value.length > 10){
     e.preventDefault();
     const ans = await updateProfile(value );
 
-    // this is for upload the user documents 
     const {
       adharCard,
       ITR ,
@@ -178,7 +177,6 @@ if(name === "pan" && value.length > 10){
     if (ans.success) {
       toast.success(ans?.message);
       setValue(ans.data);
-      // navigate("/employeeDash");
     } else {
       toast.error(ans?.message);
     }
@@ -271,6 +269,24 @@ if(name === "pan" && value.length > 10){
                   // required
                   />
                 </div>
+
+                <div className="">
+                  <label htmlFor="fullName" className="block mb-1 ">
+                    Update Password 
+                  </label>
+                  <input
+                    type="text"
+                    name="updatePassword"
+                    value={value.updatePassword}
+                    id="fullName"
+                    className=" block"
+                    onChange={(e)=>setValue((prev)=>({
+                      ...prev , 
+                      updatePassword: e.target.value
+                    }))}
+                    />
+                </div>
+         
                 <div className="">
                   <label htmlFor="mobile" className="block mb-1">
                     Mobile Number
@@ -349,21 +365,7 @@ if(name === "pan" && value.length > 10){
                   />
                 </div>
                 
-                {/* <div className="">
-                  <label htmlFor="gmail" className="block mb-1">
-                    Company Gmail
-                  </label>
-                  <input
-                    className="block "
-                    name="gmail"
-                    value={value.gmail}
-                    onChange={handleChange}
-                    id="gmail"
-                    type="email"
-                  // 
-                  />
-                </div> */}
-
+              
                 <div className="">
                   <label htmlFor="department" className="block mb-1">
                     Department
@@ -491,16 +493,7 @@ if(name === "pan" && value.length > 10){
                   <label htmlFor="currentState" className="block mb-1">
                     Current state
                   </label>
-                  {/* <select
-                    className="rounded-lg  "
-                    name="currentState"
-                    id="currentState"
-                    value={value.currentState}
-                    onChange={handleChange}
-                  >
-                    <option>CurrentState</option>
-                    <option>Jharkhand</option>
-                  </select> */}
+            
                   <input
                     type="text"
                     id="currentState"

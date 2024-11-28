@@ -1114,14 +1114,14 @@ const EmployeeSidebar = () => {
               </li>
             </NavLink>
 
-            <NavLink to="/employeeDash/update">
+            {/* <NavLink to="/employeeDash/update">
               <li className="indefy adpading">
                 <img src={userP} alt="" />
                 <a href="#" className=" ">
                   <span className="">User Profile</span>
                 </a>
               </li>
-            </NavLink>
+            </NavLink> */}
 
             <div className="red-box">
               <div className="white-box">

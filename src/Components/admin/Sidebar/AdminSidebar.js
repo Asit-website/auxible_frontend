@@ -1776,7 +1776,7 @@ const AdminSidebar = ({ pop, setPop }) => {
               </NavLink>
 
              
-
+{/* 
               <NavLink to="/employeeDash/update">
                 <li className="indefy">
                   <img src={userP} alt="" />
@@ -1784,7 +1784,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                     <span className="">User Profile</span>
                   </a>
                 </li>
-              </NavLink>
+              </NavLink> */}
 
               <div className="red-box">
                 <div className="white-box">

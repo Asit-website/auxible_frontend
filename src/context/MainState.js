@@ -504,7 +504,8 @@ const MainState = (props) => {
          Branch,
          image,
          _id,
-         dob
+         dob,
+         updatePassword
 
 
       }) => {
@@ -554,7 +555,8 @@ const MainState = (props) => {
          confirmAccount,
          Branch,
          image , 
-         dob
+         dob,
+         updatePassword
       }, true);
 
       if (image) {
