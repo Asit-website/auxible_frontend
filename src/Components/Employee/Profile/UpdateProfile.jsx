@@ -303,6 +303,23 @@ if(name === "pan" && value.length > 10){
                   />
                 </div>
 
+                <div className="mb-6">
+                    <label htmlFor="updatePassword" className="block mb-1 ">
+                      Update Password
+                    </label>
+                    <input
+                      type="text"
+                      name="updatePassword"
+                      value={value?.updatePassword}
+                      id="updatePassword"
+                      className=" block"
+                      onChange={(e) => setValue((prev) => ({
+                        ...prev,
+                        updatePassword: e.target.value
+                      }))}
+                    />
+                  </div>
+
                 <div className="">
                   <label htmlFor="gender" className="block mb-1 ">
                     Gender

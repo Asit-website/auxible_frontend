@@ -33,44 +33,44 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
 
 
-  const handleChange = async(e) => {
-    const {name  , value} = e.target;
-   
+  const handleChange = async (e) => {
+    const { name, value } = e.target;
+
     if (name === "pan" && value.length > 10) {
-     return; 
-   }
+      return;
+    }
     if (name === "adhar" && value.length > 12) {
-     return; 
-   }
+      return;
+    }
     if (name === "currentPin" && value.length > 6) {
-     return; 
-   }
-   if(name === "perPin" && value.length > 6){
-     return
-   }
-   if(name === "mobile" && value.length > 10){
-     return
-   }
-   if(name === "pan" && value.length > 10){
-     return
-   }
-   
-   
-   
-   
+      return;
+    }
+    if (name === "perPin" && value.length > 6) {
+      return
+    }
+    if (name === "mobile" && value.length > 10) {
+      return
+    }
+    if (name === "pan" && value.length > 10) {
+      return
+    }
+
+
+
+
     if (name === "image") {
-     setValue({ ...value, [e.target.name]: e.target.files[0] });
-     let image = e.target.files[0];
-     const ans = await uploadToCloudinaryImg({image});
-     if(ans.status){
-       setUploadedProfile(ans?.data);
+      setValue({ ...value, [e.target.name]: e.target.files[0] });
+      let image = e.target.files[0];
+      const ans = await uploadToCloudinaryImg({ image });
+      if (ans.status) {
+        setUploadedProfile(ans?.data);
       }
-   } else {
-     setValue({ ...value, [e.target.name]: e.target.value });
-   }
-   
-   
-     };
+    } else {
+      setValue({ ...value, [e.target.name]: e.target.value });
+    }
+
+
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ans = await updateProfile(value);
@@ -78,7 +78,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
     if (ans.success) {
       setAlert("success", ans.message);
       setValue(ans?.data);
-      navigate("/adminDash");
+      navigate("/adminDash/HRM");
 
     } else {
       setAlert("error", ans.message);
@@ -178,12 +178,29 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                 </div>
 
                 <div className="mb-6">
+                    <label htmlFor="updatePassword" className="block mb-1 ">
+                      Update Password
+                    </label>
+                    <input
+                      type="text"
+                      name="updatePassword"
+                      value={value?.updatePassword}
+                      id="updatePassword"
+                      className=" block"
+                      onChange={(e) => setValue((prev) => ({
+                        ...prev,
+                        updatePassword: e.target.value
+                      }))}
+                    />
+                  </div>
+
+                <div className="mb-6">
                   <label htmlFor="gender" className="block mb-1 ">
                     Gender
                   </label>
                   <select className='w-full' name="gender" id="gender" onChange={() => null} value={value?.gender}>
-                     <option>Male</option>
-                     <option>Female</option>
+                    <option>Male</option>
+                    <option>Female</option>
                   </select>
                 </div>
 

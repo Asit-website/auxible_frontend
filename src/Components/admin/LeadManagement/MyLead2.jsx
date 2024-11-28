@@ -222,7 +222,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
       setAllLead(allLeading);
     } else {
       const filterData = allLeading.filter((lead) => {
-        const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
+        const leadName = `${lead.leadType}`.toLowerCase();
         return leadName.includes(searchText.toLowerCase());
       });
       setAllLead(filterData);
