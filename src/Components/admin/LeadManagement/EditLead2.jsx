@@ -272,13 +272,26 @@ const EditLead2 = ({ setAlert, pop, setPop }) => {
                   <div className="lead_inp">
                     <div className="lead_inp1">
                       <label htmlFor="">Lead Owner *</label>
-                      <input
-                        required
-                        type="LeadOwner"
-                        value={formdata?.LeadOwner?.fullName}
-                        disabled
-                        onChange={changeHandler}
-                      />
+                     
+                      
+                      {/* <div className="leadwonerwrap">
+
+                        {formdata?.LeadOwner?.map((owner , index)=>(
+                          <p>{owner?.fullName} {formdata?.LeadOwner?.length !== index+1 && ","} </p>
+                        ))}
+
+                      </div> */}
+                      <div className="leadwonerwrap">
+  {Array.isArray(formdata?.LeadOwner) && formdata.LeadOwner.length > 0 && (
+    formdata.LeadOwner.map((owner, index) => (
+      <p key={index}>
+        {owner?.fullName}{" "}
+        {formdata.LeadOwner.length !== index + 1 && ","}
+      </p>
+    ))
+  ) }
+</div>
+
                     </div>
                   
 

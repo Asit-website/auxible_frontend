@@ -20,10 +20,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
     user,
     getLead2,
-    updateLeadStatus,
+    allEmployee,
     CreateNoteApi,
-    getQuotationAll,
-    deleteQuotation,
     taskCreateApi,
     meetCreateApi,
     taskEditApi,
@@ -36,7 +34,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollowUp,
     getUserByDesignation1,
     getQuotationApi,
-    deleteQuotationapi , deleteQproapi
+    deleteQuotationapi , deleteQproapi , shareLeadApi
   } = useMain();
 
   const { id } = useParams();
@@ -101,10 +99,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollow();
   }, []);
 
-  const updatingLeadStatus = async (leading) => {
-    const { _id } = data;
-    const ans = await updateLeadStatus(_id, leading);
-  };
+
 
   const [isNoteEdit, setIsNoteEdit] = useState(false);
   const [allNote, setAllNote] = useState([]);
@@ -315,6 +310,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [allQuota, setAllQuota] = useState([]);
   const [allPropo, setAllPropo] = useState([]);
 
+  const [ shareForm, setShareForm] = useState(false);
+
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
     console.log('ans',ans);
@@ -395,14 +392,47 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     }
   }, [allNote]);
 
+
+  const [allemp , setAllEmp] = useState([]);
+
+  const [shareEmp, setShareEmp] = useState([]);
+
+  const handleCheckboxClick = (empId) => {
+    setShareEmp((prevShareEmp) =>
+      prevShareEmp.includes(empId)
+        ? prevShareEmp.filter((id) => id !== empId) // Remove if already selected
+        : [...prevShareEmp, empId] // Add if not selected
+    );
+  };
+
+   const getallemplyee =async()=>{
+    const ans = await allEmployee();
+    setAllEmp(ans?.emp);
+   }
+
+
+   const shareLead = async()=>{
+     if(shareEmp.length ===0){
+      return  toast.error("Please Select atleast one user");
+     }
+     else{
+
+       const resp = await shareLeadApi({leadId: id , shareEmp:shareEmp});
+       if(resp?.status){
+        toast.success("Successfuly shared");
+       }
+     }
+   }
+
   useEffect(() => {
     getData();
     getNotes();
     fetchFollowUp();
     getQuotationOfLead();
+    getallemplyee();
   }, []);
 
-  console.log("data",data);
+
 
   return (
     <div className="imprtleadCont">
@@ -438,6 +468,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
               <div className="laedRight">
               
 
+          <button onClick={()=>setShareForm(true)} className="refresh1"><span className="ref1">Share</span></button>
+
                 <button
                   onClick={() =>
                     navigate("/adminDash/editLead", { state: data })
@@ -465,7 +497,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <div className="lleaiFOlEFT">
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p>{data?.LeadOwner?.fullName}</p>
+                      <p> {data?.LeadOwner?.map((owner , index)=>(
+                         <span key={index}>{owner?.fullName} {data?.LeadOwner?.length !== index+1 && ","} </span>
+                      ))} </p>
                     </div>
 
                 
@@ -1125,6 +1159,44 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 >
                   Cancel
                 </button>
+              </div>
+
+            <hr />
+          </div>
+        </div>
+      )}
+
+
+{shareForm && (
+        <div className="createTaskWrap">
+          <div className="cretTaskCont">
+            <nav>
+              <p>Share Lead</p>
+              <img
+                onClick={() => setShareForm(false)}
+                className="cursor-pointer"
+                src={cancel}
+                alt=""
+              />
+            </nav>
+
+            
+         <div className="shareusersdetail">
+      {allemp?.map((emp, index) => (
+        <div key={index} className="singlemp">
+          <input
+            type="checkbox"
+            onChange={() => handleCheckboxClick(emp?._id)}
+            checked={shareEmp.includes(emp?._id)}
+          />
+          <span>{emp.fullName}</span>
+        </div>
+      ))}
+    </div>
+
+    <div className="btnstask2">
+                <button onClick={()=> shareLead()} className="creattk">  Share </button>
+                <button onClick={() => setShareForm(false)}className="tkCnacel">  Cancel </button>
               </div>
 
             <hr />

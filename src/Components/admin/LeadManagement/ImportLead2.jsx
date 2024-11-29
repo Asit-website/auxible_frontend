@@ -28,7 +28,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1 , getQuotationApi , deleteQuotationapi
+    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1 , getQuotationApi , deleteQuotationapi , allEmployee  ,shareLeadApi
   } = useMain();
 
   const { id } = useParams();
@@ -190,6 +190,9 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
   const [opnAdNew, setOpenAdNew] = useState(false);
 
+  const [ shareForm, setShareForm] = useState(false);
+
+
   const [taskData, setTaskData] = useState({
     LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
     FollowUpType: "",
@@ -283,6 +286,20 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   }
 
   const [allQuota, setAllQuota] = useState([]);
+
+  const [allemp , setAllEmp] = useState([]);
+
+  const [shareEmp, setShareEmp] = useState([]);
+
+  
+  const handleCheckboxClick = (empId) => {
+    setShareEmp((prevShareEmp) =>
+      prevShareEmp.includes(empId)
+        ? prevShareEmp.filter((id) => id !== empId) 
+        : [...prevShareEmp, empId] 
+    );
+  };
+
 
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
@@ -378,13 +395,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   }, [data]);
 
 
-  useEffect(() => {
-    getData();
-    getNotes();
-    fetchFollowUp();
-    getQuotationOfLead();
 
-  }, [])
 
   useEffect(()=>{
    
@@ -398,6 +409,33 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
  
 },[allNote])
 
+const shareLead = async()=>{
+  if(shareEmp.length ===0){
+   return  toast.error("Please Select atleast one user");
+  }
+  else{
+
+    const resp = await shareLeadApi({leadId: id , shareEmp:shareEmp});
+    if(resp?.status){
+     toast.success("Successfuly shared");
+    }
+  }
+}
+
+const getallemplyee =async()=>{
+  const ans = await allEmployee();
+  setAllEmp(ans?.emp);
+ }
+
+
+ useEffect(() => {
+  getData();
+  getNotes();
+  fetchFollowUp();
+  getQuotationOfLead();
+  getallemplyee()
+
+}, [])
 
 
   return (
@@ -432,12 +470,9 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-                {/* <button
-                  type="button"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 sendBtn"
-                >
-                  Send Email
-                </button> */}
+             
+              <button onClick={()=>setShareForm(true)} className="refresh1"><span className="ref1">Share</span></button>
+
 
                 <button
                   onClick={() =>
@@ -448,27 +483,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                   <span className="ref1">Edit</span>
                 </button>
 
-                {/* <button
-                  id="dropdownDefaultButton"
-                  data-dropdown-toggle="dropdown"
-                  className="text-white silo   px-5 py-2.5 text-center inline-flex items-center"
-                  type="button"
-                >
-                  Actions{" "}
-                  <svg
-                    className="ml-2"
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.293 9.29303L12 13.586L7.70697 9.29303L6.29297 10.707L12 16.414L17.707 10.707L16.293 9.29303Z"
-                      fill="#666D76"
-                    />
-                  </svg>
-                </button> */}
+              
               </div>
             </section>
 
@@ -485,8 +500,9 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
                   <div className="lleaiFOlEFT">
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p>{data?.LeadOwner?.fullName}</p>
-                    </div>
+                      <p> {data?.LeadOwner?.map((owner , index)=>(
+                         <span key={index}>{owner?.fullName} {data?.LeadOwner?.length !== index+1 && ","} </span>
+                      ))} </p>                    </div>
 
                
 
@@ -1017,6 +1033,44 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
         </div>
       }
+
+{shareForm && (
+        <div className="createTaskWrap">
+          <div className="cretTaskCont">
+            <nav>
+              <p>Share Lead</p>
+              <img
+                onClick={() => setShareForm(false)}
+                className="cursor-pointer"
+                src={cancel}
+                alt=""
+              />
+            </nav>
+
+            
+         <div className="shareusersdetail">
+      {allemp?.map((emp, index) => (
+        <div key={index} className="singlemp">
+          <input
+            type="checkbox"
+            onChange={() => handleCheckboxClick(emp?._id)}
+            checked={shareEmp.includes(emp?._id)}
+          />
+          <span>{emp.fullName}</span>
+        </div>
+      ))}
+    </div>
+
+    <div className="btnstask2">
+                <button onClick={()=> shareLead()} className="creattk">  Share </button>
+                <button onClick={() => setShareForm(false)}className="tkCnacel">  Cancel </button>
+              </div>
+
+            <hr />
+          </div>
+        </div>
+      )}
+
 
 
     </div>

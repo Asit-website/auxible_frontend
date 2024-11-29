@@ -20,8 +20,8 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     getEmployees,
     AllLeadSource,
     uploadToCloudinaryImg,
-    getLeadType ,
-    getLeadStat
+    getLeadType,
+    getLeadStat,
   } = useMain();
 
   const [pop1, setPop1] = useState(false);
@@ -45,14 +45,13 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     Mobile: "",
     Email: "",
     date: "",
-    Street:"" ,
-    City:"" ,
-     State:"" , 
-     ZipCode:"" ,
-      Country:"" ,
-      LeadSource:"",
-      LeadStatus: "",
-
+    Street: "",
+    City: "",
+    State: "",
+    ZipCode: "",
+    Country: "",
+    LeadSource: "",
+    LeadStatus: "",
   });
 
   const navigate = useNavigate();
@@ -76,22 +75,20 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   const changeHandler = async (e) => {
     const { name, value } = e.target;
 
-    
     if (name === "Mobile" && value.length > 10) {
-        return
+      return;
     }
-    if(name === "ZipCode" && value?.length > 6){
-      return ;
+    if (name === "ZipCode" && value?.length > 6) {
+      return;
     }
 
     setFormdata((prev) => ({
-        ...prev,
-        [name]: value
-    }))
-}
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const submitHandler = async () => {
-
     const toastId = toast.loading("Loading...");
 
     if (emailisValid === false && formdata.Email !== "") {
@@ -106,7 +103,6 @@ const EditLead = ({ setAlert, pop, setPop }) => {
     }
 
     toast.dismiss(toastId);
-
   };
 
   const [emailisValid, setIsemailValid] = useState(null);
@@ -114,8 +110,6 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   const getOwner = async () => {
     const ans = await getEmployees();
     setEmp(ans?.data);
-
-
   };
 
   const handleValidation = () => {
@@ -124,17 +118,15 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   };
 
   const [allLeadSource, setAllLeadSource] = useState([]);
-  const [allLeadType,setAllLeadType] = useState([]);
+  const [allLeadType, setAllLeadType] = useState([]);
   const [leadUpldProf, setLeadUpLdPro] = useState("");
 
   const [allleadStat, setAllLeadStat] = useState([]);
 
-  
   const fetchStat = async () => {
     const ans = await getLeadStat();
     setAllLeadStat(ans?.data);
-}
-
+  };
 
   const fetchSource = async () => {
     const ans = await AllLeadSource();
@@ -144,20 +136,17 @@ const EditLead = ({ setAlert, pop, setPop }) => {
   const fetchType = async () => {
     const ans = await getLeadType();
     setAllLeadType(ans?.data);
-  }
-
+  };
 
   useEffect(() => {
     fetchSource();
     fetchType();
-    fetchStat()
+    fetchStat();
   }, []);
-
 
   useEffect(() => {
     getOwner();
     setFormdata({
-    
       image: item?.image,
       LeadOwner: item?.LeadOwner,
       leadType: item?.leadType,
@@ -166,19 +155,18 @@ const EditLead = ({ setAlert, pop, setPop }) => {
       Mobile: item?.Mobile,
       Email: item?.Email,
       date: item?.date,
-      Street:item?.Street ,
-      City:item?.City,
-       State:item?.State , 
-       ZipCode:item?.ZipCode ,
-        Country:item?.Country ,
-        LeadSource:item?.LeadSource,
-        LeadStatus: item?.LeadStatus
+      Street: item?.Street,
+      City: item?.City,
+      State: item?.State,
+      ZipCode: item?.ZipCode,
+      Country: item?.Country,
+      LeadSource: item?.LeadSource,
+      LeadStatus: item?.LeadStatus,
     });
     if (item?.image) {
       setLeadUpLdPro(item?.image);
     }
   }, [item]);
-
 
   return (
     <>
@@ -265,24 +253,23 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                 <h2>Lead Information</h2>
 
                 <div className="lead_input mt-5">
-
                   <div className="lead_inp">
                     <div className="lead_inp1">
                       <label htmlFor="">Lead Owner *</label>
-                      <input
-                        required
-                        type="LeadOwner"
-                        value={formdata?.LeadOwner?.fullName}
-                        disabled
-                        onChange={changeHandler}
-                      />
+                      <div className="leadwonerwrap">
+  {Array.isArray(formdata?.LeadOwner) && formdata.LeadOwner.length > 0 && (
+    formdata.LeadOwner.map((owner, index) => (
+      <p key={index}>
+        {owner?.fullName}{" "}
+        {formdata.LeadOwner.length !== index + 1 && ","}
+      </p>
+    ))
+  ) }
+</div>
                     </div>
-                  
 
                     <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Name
-                      </label>
+                      <label htmlFor="">Name</label>
                       <input
                         value={formdata.name}
                         name="name"
@@ -290,15 +277,11 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                         type="text"
                       />
                     </div>
-
                   </div>
 
                   <div className="lead_inp">
-
-                  <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Budget *
-                      </label>
+                    <div className="lead_inp1">
+                      <label htmlFor="">Budget *</label>
                       <input
                         required
                         type="number"
@@ -307,11 +290,9 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                         onChange={changeHandler}
                       />
                     </div>
-                
+
                     <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Email *
-                      </label>
+                      <label htmlFor="">Email *</label>
                       <input
                         required
                         value={formdata.Email}
@@ -330,12 +311,9 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                     </div>
                   </div>
 
-           
                   <div className="lead_inp">
                     <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Mobile
-                      </label>
+                      <label htmlFor="">Mobile</label>
                       <input
                         value={formdata.Mobile}
                         name="Mobile"
@@ -345,9 +323,7 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                     </div>
 
                     <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Lead Type *
-                      </label>
+                      <label htmlFor="">Lead Type *</label>
                       <select
                         required
                         value={formdata?.leadType}
@@ -362,20 +338,20 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                         <option value="All of the above">
                           All of the above
                         </option> */}
-                        {
-                          allLeadType?.map((val,index)=>{
-                            return <option key={index} value={val?.name}>{val?.name}</option>
-                          })
-                        }
+                        {allLeadType?.map((val, index) => {
+                          return (
+                            <option key={index} value={val?.name}>
+                              {val?.name}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
                   </div>
 
                   <div className="lead_inp">
                     <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Date
-                      </label>
+                      <label htmlFor="">Date</label>
                       <input
                         value={formdata.date}
                         name="date"
@@ -385,86 +361,108 @@ const EditLead = ({ setAlert, pop, setPop }) => {
                     </div>
 
                     <div className="lead_inp1">
-                                            <label htmlFor="">Lead Source</label>
-                                            <select name="LeadSource" value={formdata.LeadSource} onChange={changeHandler} id="">
-                                                <option>Select lead source</option>
-                                                {
-                                                    allLeadSource?.map((item, index) => (
-                                                        <option key={index} value={item?.name}>{item?.name}</option>
-                                                    ))
-                                                }
-                                            </select>
-                                        </div>
-                  
+                      <label htmlFor="">Lead Source</label>
+                      <select
+                        name="LeadSource"
+                        value={formdata.LeadSource}
+                        onChange={changeHandler}
+                        id=""
+                      >
+                        <option>Select lead source</option>
+                        {allLeadSource?.map((item, index) => (
+                          <option key={index} value={item?.name}>
+                            {item?.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  
                   <div className="lead_inp">
-                  <div className="lead_inp1">
-                                            <label htmlFor="">Lead Status *</label>
-                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
-                                                <option >Select Status</option>
-                                                {
-                                                    allleadStat?.map((val, index) => {
-                                                        return <option key={index} value={val?.name}>{val?.name}</option>
-                                                    })
-                                                }
-                                              
-                                            </select>
-                                        </div>
-
-                 
+                    <div className="lead_inp1">
+                      <label htmlFor="">Lead Status *</label>
+                      <select
+                        required
+                        value={formdata?.LeadStatus}
+                        name="LeadStatus"
+                        onChange={changeHandler}
+                        id=""
+                      >
+                        <option>Select Status</option>
+                        {allleadStat?.map((val, index) => {
+                          return (
+                            <option key={index} value={val?.name}>
+                              {val?.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                   </div>
-
-                
-
                 </div>
-
-
               </div>
 
-
               <div className="lead_information mt-6">
-                                <h2>Address Information</h2>
+                <h2>Address Information</h2>
 
-                                <div className="lead_input mt-5">
+                <div className="lead_input mt-5">
+                  <div className="lead_inp">
+                    <div className="lead_inp1">
+                      <label htmlFor="">Street</label>
+                      <input
+                        value={formdata.Street}
+                        name="Street"
+                        onChange={changeHandler}
+                        type="text"
+                      />
+                    </div>
+                    <div className="lead_inp1">
+                      <label htmlFor="">City</label>
+                      <input
+                        value={formdata.City}
+                        name="City"
+                        onChange={changeHandler}
+                        type="text"
+                      />
+                    </div>
+                  </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Street</label>
-                                            <input value={formdata.Street} name="Street" onChange={changeHandler} type="text" />
-                                        </div>
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">City</label>
-                                            <input value={formdata.City} name="City" onChange={changeHandler} type="text" />
-                                        </div>
-                                    </div>
+                  <div className="lead_inp">
+                    <div className="lead_inp1">
+                      <label htmlFor="">State</label>
+                      <input
+                        value={formdata.State}
+                        name="State"
+                        onChange={changeHandler}
+                        type="text"
+                      />
+                    </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">State</label>
-                                            <input value={formdata.State} name="State" onChange={changeHandler} type="text" />
-                                        </div>
-                                       
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Zip Code</label>
-                                            <input value={formdata.ZipCode} name="ZipCode" onChange={changeHandler} type="Number" />
-                                        </div>
-                                    </div>
+                    <div className="lead_inp1">
+                      <label htmlFor="">Zip Code</label>
+                      <input
+                        value={formdata.ZipCode}
+                        name="ZipCode"
+                        onChange={changeHandler}
+                        type="Number"
+                      />
+                    </div>
+                  </div>
 
-                                    <div className="lead_inp">
-                                        <div className="lead_inp1">
-                                            <label htmlFor="">Country</label>
-                                            <input value={formdata.Country} name="Country" onChange={changeHandler} type="text" />
-                                        </div>
-                                     
-                                    </div>
+                  <div className="lead_inp">
+                    <div className="lead_inp1">
+                      <label htmlFor="">Country</label>
+                      <input
+                        value={formdata.Country}
+                        name="Country"
+                        onChange={changeHandler}
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                </div>
-
-                            </div>
-
-           
               <div>
                 <button
                   type="button"
