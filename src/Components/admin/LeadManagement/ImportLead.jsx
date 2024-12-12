@@ -657,10 +657,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                         </div> */}
 
                         <p className="notedate">
-                          {new Date(note?.Date).toLocaleDateString("en-US", {
-                            month: "long",
-                            day: "numeric",
-                            year: "numeric",
+                          {new Date(note?.Date).toLocaleString(undefined, {
+                            
+                            timeZone: 'Asia/Kolkata'
                           })}
                         </p>
 
