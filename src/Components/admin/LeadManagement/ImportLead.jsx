@@ -99,8 +99,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollow();
   }, []);
 
-
-
   const [isNoteEdit, setIsNoteEdit] = useState(false);
   const [allNote, setAllNote] = useState([]);
 
@@ -314,7 +312,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
-    console.log('ans',ans);
     setAllQuota(ans?.quotations);
     setAllPropo(ans?.proposals);
   };
@@ -431,6 +428,8 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getQuotationOfLead();
     getallemplyee();
   }, []);
+
+  console.log("allNote" , allNote)
 
 
 
@@ -597,25 +596,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                   <hr />
 
-                  {/* <select
-                    onChange={(e) => {
-                      setLeadStatus(e.target.value);
-                      updatingLeadStatus(e.target.value);
-                    }}
-                    value={LeadStatus}
-                    className="leadUPdateStsus"
-                    name="LeadStatus"
-                    id=""
-                  >
-                    <option> Status</option>
-                    {leadStat?.map((val, index) => {
-                      return (
-                        <option key={index} value={val?.name}>
-                          {val?.name}
-                        </option>
-                      );
-                    })}
-                  </select> */}
+                  
 
                   <label className="noteLabel">
                     <p>Remark:</p>
@@ -652,9 +633,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <div key={index} className="singlNoteDe">
                         <div className="line_danda"></div>
 
-                        {/* <div className="noteStaus">
-                          <p>{note?.Status}</p>
-                        </div> */}
+                       
 
                         <p className="notedate">
                           {new Date(note?.Date).toLocaleDateString("en-US", {

@@ -315,7 +315,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       alt=""
                     />
                     <span
-                      className={`${
+                      className={`adddforn500 ${
                         window.location.pathname === "/adminDash/permission"
                           ? "fan"
                           : ""
@@ -995,7 +995,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       alt=""
                     />
                     <span
-                      className={`${
+                      className={` adddforn500 ${
                         window.location.pathname === "/performance/Assets"
                           ? "fan"
                           : ""
@@ -1028,7 +1028,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       alt=""
                     />
                     <span 
-                      className={` addonefont ${
+                      className={`adddforn500 addonefont ${
                         window.location.pathname === "/adminDash/HRM/Expense"
                           ? "fan"
                           : ""
