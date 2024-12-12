@@ -644,10 +644,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                         <p className="noteTExt">{note?.Note}</p>
 
-                        {/* <img onClick={()=>{
-                                    setIsNoteEdit(note?._id);
-                                  setNote(note?.Note);
-                                  }} src={veci} alt="" /> */}
+                      
                         <img
                           onClick={() => {
                             deleteNote(note?._id);
