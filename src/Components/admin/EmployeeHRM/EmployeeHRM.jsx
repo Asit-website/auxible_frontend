@@ -167,28 +167,28 @@ const EmployeeHRM = ({
 
   const [task, setTask] = useState([
     {
-      name: "Chirag",
+      name: "john",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "Madfish",
+      task: "company",
     },
     {
-      name: "Chirag",
+      name: "john",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "Madfish",
+      task: "compan1",
     },
     {
-      name: "Chirag",
+      name: "john",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "Madfish",
+      task: "compan1",
     },
     {
-      name: "Chirag",
+      name: "john",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "Madfish",
+      task: "compan1",
     },
   ]);
 
@@ -953,7 +953,7 @@ const EmployeeHRM = ({
                       </NavLink>
 
                       {/* third  */}
-                      <NavLink to="/adminDash/announcement">
+                      <NavLink to="/adminDash/HRM/taskProjects">
                         <div className="hrLefThi">
                           <h2 className="headind">
                             {" "}

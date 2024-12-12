@@ -460,7 +460,19 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                             {item?.Mobile}
                           </div>
                         </td>
-                        <td className="px-6 py-4 taskAns">{item?.LeadStatus}</td>
+                        <td className="px-6 py-4 taskAns">
+                        <div
+                            scope="col"
+                            className={`statussame ${item?.LeadStatus === "Connected" && "connected"
+                              } ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"
+                              } ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" 
+                              } ${item?.LeadStatus == "Not Converted" && "Converteds" 
+                              } ${item?.LeadStatus == "Junk" && "Junk" 
+                              }`}
+                          >
+                            {item?.LeadStatus}
+                          </div>
+                        </td>
 
                         <td className="px-6 py-4 taskAns">
                           {new Date(item?.createAt).toLocaleDateString("en-CA")}

@@ -39,6 +39,35 @@ body {
   top: 50%;
   cursor: pointer;
 }
+.connected{
+  background: #2FE7FF;
+  /* color: white; */
+  /* border: 1px solid #E45D3A;
+  color: #F58E07; */
+}
+.Nurturing{
+  background-color: #FFD22E;
+}
+.Qualified{
+  background-color: #FF8F2C;
+  color: white;
+}
+.Unqualified{
+  background-color: #3342FF;
+  color: white;
+}
+.Converted{
+  background-color: #FF31ED;
+  color: white;
+}
+.Converteds{
+  background-color: #692DFE;
+  color: white;
+}
+.Junk{
+  background-color: #FF3033;
+  color: white;
+}
 .employee_sal_card {
   background-color: #ffffff;
   border: 1px solid #d8dbdf;

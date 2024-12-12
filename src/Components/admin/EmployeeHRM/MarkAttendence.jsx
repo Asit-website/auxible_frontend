@@ -1270,7 +1270,7 @@ const MarkAttendance = ({
 
                 <nav >
                   <h2>Edit Attendance</h2>
-                  <img onClick={() => setEditform(null)} src={cutt} alt="" />
+                  <img className="cursor-pointer" onClick={() => setEditform(null)} src={cutt} alt="" />
                 </nav>
 
                 <hr />

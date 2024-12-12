@@ -672,7 +672,7 @@ const getallemplyee =async()=>{
 
                           </div> */}
 
-                          <p className="notedate">{new Date(note?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                          <p className="notedate">{new Date(note?.Date).toLocaleTimeString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
                           <p className="noteTExt">{note?.Note}</p>
 
