@@ -27,12 +27,8 @@ const MyLead = ({ setAlert, pop, setPop }) => {
   const [allLead, setAllLead] = useState([]);
   const [allData, setAllData] = useState([]);
 
-  console.log("allLead" , allLead);
-
   const fetchLead = async () => {
     const ans = await getLead("", "", "", "");
-
-    console.log("ans",ans);
 
     setAllLead(ans?.data);
     setAllData(ans?.data);
@@ -402,9 +398,7 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Name
                       </th>
-                      <th scope="col" className="px-6 py-3 taskTitl ">
-                        Email
-                      </th>
+            
                       <th scope="col" className="px-6 py-3 taskTitl ">
                       Budget
                       </th>
@@ -449,7 +443,6 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         <td className="px-6 py-4 taskAns">
                           {item?.name}
                         </td>
-                        <td className="px-6 py-4 taskAns">{item?.Email}</td>
                         <td className="px-6 py-4 taskAns">{item?.budget}</td>
 
                         <td scope="col" className="px-3 py-3">
@@ -463,12 +456,15 @@ const MyLead = ({ setAlert, pop, setPop }) => {
                         <td className="px-6 py-4 taskAns">
                         <div
                             scope="col"
-                            className={`statussame ${item?.LeadStatus === "Connected" && "connected"
-                              } ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"
-                              } ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" 
-                              } ${item?.LeadStatus == "Not Converted" && "Converteds" 
-                              } ${item?.LeadStatus == "Junk" && "Junk" 
-                              }`}
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
                           >
                             {item?.LeadStatus}
                           </div>

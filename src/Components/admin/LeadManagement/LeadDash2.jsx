@@ -979,7 +979,20 @@ const closeLead = async()=>{
                         </td>
 
                         <td className="px-6 py-4 taskAns">
-                          {item?.LeadStatus}
+                        <div
+                            scope="col"
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
+                          >
+                            {item?.LeadStatus}
+                          </div>
                         </td>
 
                         <div className="viewOnwWRAP">
@@ -1184,7 +1197,24 @@ const closeLead = async()=>{
                           )}
                         </td>
 
-                        <td className="px-6 py-4 taskAns">{item?.LeadStatus}</td>
+                        <td className="px-6 py-4 taskAns">
+
+                        <div
+                            scope="col"
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
+                          >
+                            {item?.LeadStatus}
+                          </div>
+                          
+                        </td>
 
                       </tr>
                     ))}

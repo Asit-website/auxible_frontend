@@ -853,7 +853,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
               {/* fourth  */}
               <div className="leadFirs">
                 <div className="attachment">
-                  <h2 className="ehading">Description Information</h2>
+                  <h2 className="ehading">Descriptive Information</h2>
                   <div className="saya">
                     <p>Upload File</p>
                     <svg

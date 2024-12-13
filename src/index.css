@@ -40,16 +40,16 @@ body {
   cursor: pointer;
 }
 .connected{
-  background: #2FE7FF;
-  /* color: white; */
-  /* border: 1px solid #E45D3A;
-  color: #F58E07; */
+  background: #FFD22E;
+  color: white;
+
 }
 .Nurturing{
-  background-color: #FFD22E;
+  background-color: #FF8F2C;
+  color: white;
 }
 .Qualified{
-  background-color: #FF8F2C;
+  background-color: #35ff3e;
   color: white;
 }
 .Unqualified{
@@ -64,14 +64,18 @@ body {
   background-color: #692DFE;
   color: white;
 }
+.Newleadstatus{
+  background-color: #2FE7FF;
+  color: white;
+}
 .Junk{
   background-color: #FF3033;
   color: white;
 }
 .employee_sal_card {
   background-color: #ffffff;
-  border: 1px solid #d8dbdf;
 
+  border: 1px solid #d8dbdf;
   border-radius: 10px;
   box-shadow: rgba(208, 212, 216, 0.2) 0px 8px 24px;
 
@@ -954,6 +958,11 @@ td {
   letter-spacing: 0px;
   text-align: left;
   max-width: 85%;
+}
+
+.lessfontweight2{
+  font-size: 14px !important;
+  font-weight: 400 !important;
 }
 .givegapalso{
   gap:20px;

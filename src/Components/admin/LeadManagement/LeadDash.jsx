@@ -68,8 +68,8 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
           },
           onClick: async () => {
             await deleteLeads(id);
+            await fetchLead();
             toast.success("delete Successfully");
-            fetchLead();
           },
         },
         {
@@ -755,8 +755,21 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           </div>
                         </td>
 
-                        <td className="px-6 py-4 taskAns">
-                          {item?.LeadStatus}
+                        <td className={`px-6 py-4 taskAns  `}>
+                        <div
+                            scope="col"
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
+                          >
+                            {item?.LeadStatus}
+                          </div>
                         </td>
 
                         <div className="viewOnwWRAP">
@@ -923,7 +936,22 @@ const LeadDash = ({ setAlert, pop, setPop }) => {
                           )}
                         </td>
 
-                        <td className="px-6 py-4 taskAns">{item?.LeadStatus}</td>
+                        <td className="px-6 py-4 taskAns">
+                        <div
+                            scope="col"
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
+                          >
+                            {item?.LeadStatus}
+                          </div>
+                        </td>
 
                       </tr>
                     ))}

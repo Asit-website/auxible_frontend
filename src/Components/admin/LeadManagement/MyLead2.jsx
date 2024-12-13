@@ -406,9 +406,7 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                       <th scope="col" className="px-6 py-3 taskTitl ">
                         Name
                       </th>
-                      <th scope="col" className="px-6 py-3 taskTitl ">
-                        Email
-                      </th>
+                   
                       <th scope="col" className="px-6 py-3 taskTitl ">
                       Budget
                       </th>
@@ -449,23 +447,8 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                           />
                         </th>
 
-                        <td className="px-6 py-4 taskAns">
-                        <div
-                            scope="col"
-                            className={`statussame ${item?.LeadStatus === "Connected" && "connected"
-                              } ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"
-                              } ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" 
-                              } ${item?.LeadStatus == "Not Converted" && "Converteds" 
-                              } ${item?.LeadStatus == "Junk" && "Junk" 
-                              }`}
-                          >
-                            {item?.LeadStatus}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 taskAns">
-                          {item?.name}
-                        </td>
-                        <td className="px-6 py-4 taskAns">{item?.Email}</td>
+                        <td className="px-6 py-4 taskAns">{item?.leadType}</td>
+                        <td className="px-6 py-4 taskAns">{item?.name}</td>
                         <td className="px-6 py-4 taskAns">{item?.budget}</td>
 
                         <td scope="col" className="px-3 py-3">
@@ -477,18 +460,28 @@ const MyLead2 = ({ setAlert, pop, setPop }) => {
                           </div>
                         </td>
 
-                        <td className="px-6 py-4 taskAns">{item?.LeadStatus}</td>
+                        <td className="px-6 py-4 taskAns">
+                        <div
+                            scope="col"
+                            className={`statussame 
+                              ${item?.LeadStatus === "Connected" && "connected"  } 
+                              ${item?.LeadStatus == "Nurturing" && "Nurturing"} ${item?.LeadStatus == "Qualified" && "Qualified"} 
+                              ${item?.LeadStatus == "Unqualified" && "Unqualified"}  ${item?.LeadStatus == "Converted" && "Converted" }
+                               ${item?.LeadStatus == "Not Converted" && "Converteds" }
+                               ${item?.LeadStatus == "Junk" && "Junk" }
+                               ${item?.LeadStatus === "New" && "Newleadstatus"}
+                              
+                               `}
+                          >
+                            {item?.LeadStatus}
+                          </div>
+
+                        </td>
                         <td className="px-6 py-4 taskAns">
                           {new Date(item?.createAt).toLocaleDateString("en-CA")}
                         </td>
 
-                        {/* <OutsideClickHandler
-                          onOutsideClick={() => {
-                            if (index == currView) {
-                              setCurrView(-1);
-                            }
-                          }}
-                        > */}
+                      
                         <div className="viewOnwWRAP">
                           <td
 
