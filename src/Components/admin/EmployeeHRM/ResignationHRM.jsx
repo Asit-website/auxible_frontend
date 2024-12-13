@@ -14,6 +14,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import { RxCross2 } from "react-icons/rx";
+
 
 
 
@@ -249,20 +251,25 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
-              <h2>Create New Resignation</h2>
 
-              <label 
-           onClick={() => {
-            setPopup1(false);
-            setOnEdit(false);
-            setEditData({});
-            setFormdata({
-              Employee: "",
-              noticeDate: "",
-              resignationDate: "",
-              description: ""
-            })
-          }} className="cross-icon"></label>
+              <div className="allform_header">
+
+              <h2>Create New Resignation</h2>
+ 
+               <RxCross2  onClick={() => {
+                 setPopup1(false);
+                 setOnEdit(false);
+                 setEditData({});
+                 setFormdata({
+                   Employee: "",
+                   noticeDate: "",
+                   resignationDate: "",
+                   description: ""
+                  })
+                }} className="RxCross2_form"  />
+
+                </div>
+             
 
               <hr />
 

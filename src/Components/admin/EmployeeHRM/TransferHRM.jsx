@@ -6,9 +6,11 @@ import chevron from "../../images/chevron_right.png";
 import { useMain } from "../../../hooks/useMain";
 import "./award.css";
 import plusIcon from "../../images/plusIcon.png";
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import toast from "react-hot-toast";
+import { RxCross2 } from "react-icons/rx";
+
 
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
@@ -254,20 +256,28 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
+
+              <div className="allform_header">
+
               <h2>Create New Transfer</h2>
 
-              <label 
-            onClick={() => {
+               <RxCross2      onClick={() => {
               setPopup1(false);
               setOnEdit(false);
               setEditData({});
               setFormdata({
                 branch: "", Employee: "", Department: "", TransferDate: "", Description: ""
               })
-            }}
-             className="cross-icon"></label>
+            }}  className="RxCross2_form" />
+
+              </div>
+
 
               <hr />
+
+              <div className="popup_formdiv">
+
+              
 
               <div className="lableawaiwrap">
 
@@ -334,6 +344,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
             value={formdata.Description} id="w3review" name="Description" rows="8" cols="50" placeholder="Enter Description"></textarea>
 
                 </label>
+
+              </div>
 
               </div>
 
