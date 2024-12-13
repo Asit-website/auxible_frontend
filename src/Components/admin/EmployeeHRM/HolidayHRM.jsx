@@ -14,6 +14,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
 
 
 
@@ -237,10 +238,11 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
-              <h2>Create New Holiday</h2>
 
-              <label 
-           onClick={() => {
+              <div className="allform_header">
+
+              <h2>Create New Holiday</h2>
+              <RxCross2  onClick={() => {
             setPopup1(false);
             setOnEdit(false);
             setEditData({});
@@ -249,9 +251,16 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
               startDate:"",
               endDate:""
              })
-          }} className="cross-icon"></label>
+          }} className="RxCross2_form" />
+              </div>
+
+             
 
               <hr />
+
+              <div className="popup_formdiv">
+
+             
 
               <div className="lableawaiwrap">
 
@@ -284,6 +293,9 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
           </label>
 
               </div>
+              
+              </div>
+
 
               <div className="btnWrap Award-popup-btn">
                 <button  onClick={() => {

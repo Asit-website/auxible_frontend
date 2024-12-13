@@ -273,6 +273,10 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <hr />
 
+              <div className="popup_formdiv">
+
+            
+
               <div className="lableawaiwrap">
 
               <label>
@@ -316,6 +320,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
             <p>Description</p>
             <textarea onChange={changeHandler} value={formdata?.description} name="description" rows="8" cols="50" placeholder="Enter Description"></textarea>
           </label>
+
+              </div>
 
               </div>
 

@@ -12,6 +12,8 @@ import plusIcon from "../../images/plusIcon.png";
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
+
 
 
 
@@ -257,10 +259,12 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
+
+              <div className="allform_header">
+
               <h2>Create New Warning</h2>
 
-              <label 
-           onClick={() => {
+              <RxCross2  onClick={() => {
             setPopup1(false);
             setOnEdit(false);
             setEditData({});
@@ -271,10 +275,16 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
               warningDate: "",
               description: ""
             })
-          }} className="cross-icon"></label>
+          }} className="RxCross2_form" />
 
+              </div>
+
+            
               <hr />
 
+            <div className="popup_formdiv">
+
+          
               <div className="lableawaiwrap">
 
               <label htmlFor="">
@@ -332,6 +342,9 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
           </label>
 
               </div>
+
+              </div>
+
 
       
               <div className="btnWrap Award-popup-btn">

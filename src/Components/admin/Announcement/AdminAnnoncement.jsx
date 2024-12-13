@@ -364,19 +364,18 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
 
         {/* form  */}
         {openForm && (
-          <div className="annFormwrap">
+          <div className="allPopupWrap">
             <form
               onSubmit={() => {
                 submitHandler();
                 setOpenForm(false);
               }}
-              className="openform"
+              className="awardpopupcont"
             >
-              <nav>
+              <div className="allform_header">
                 {/* left  */}
                 <h2>Create New Announcement</h2>
-                <img
-                  onClick={() => {
+                 <RxCross2  onClick={() => {
                     setOpenForm(false);
                     setOnEdit(false);
                     setEditData({});
@@ -389,16 +388,14 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                       endDate: "",
                       description: "",
                     });
-                  }}
-                  className="cursor-pointer"
-                  src={cross}
-                  alt=""
-                />
-              </nav>
+                  }} className="RxCross2_form" />
+              </div>
 
               <hr />
 
-              <div className="allInputFileds">
+<div className="popup_formdiv allInputFileds4">
+
+
                 <label htmlFor="title">
                   <p>Announcement Title</p>
                   <input
@@ -506,6 +503,10 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                     placeholder="Enter Annoucement Title"
                   ></textarea>
                 </div>
+
+              {/* </div> */}
+
+
               </div>
 
               <hr />
@@ -535,6 +536,8 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   {onEdit ? "Update" : "Create"}
                 </button>
               </div>
+
+
             </form>
           </div>
         )}

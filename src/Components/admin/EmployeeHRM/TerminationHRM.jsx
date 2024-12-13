@@ -13,6 +13,8 @@ import plusIcon from "../../images/plusIcon.png";
 import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import { RxCross2 } from "react-icons/rx";
+
 
 const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   const { user, createTermination, getTermination, deleteTermination, updateTermination, allEmployee } = useMain();
@@ -246,10 +248,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
-              <h2>Create New Termination</h2>
 
-              <label 
-           onClick={() => {
+              <div className="allform_header">
+
+              <h2>Create New Termination</h2>
+              <RxCross2    onClick={() => {
             setPopup1(false);
             setOnEdit(false);
             setEditData({});
@@ -260,9 +263,14 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
               terminationDate: "",
               description: "",
             })
-          }} className="cross-icon"></label>
+          }}  className="RxCross2_form" />
+              </div>
+
+              
 
               <hr />
+
+<div className="popup_formdiv">
 
               <div className="lableawaiwrap">
 
@@ -320,6 +328,8 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
             </textarea>
           </label>
+
+              </div>
 
               </div>
 
