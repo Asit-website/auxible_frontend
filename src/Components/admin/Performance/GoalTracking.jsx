@@ -126,20 +126,7 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
 
   };
 
-  // const data = [
-  //   {
-  //     goalType: "Short term goal",
-  //     subject: "afb project",
-  //     branch: "Head office",
-  //     target: "10000000",
-  //     startDate: "	Jan 4, 2024",
-  //     endDate: "Jan 4, 2024",
-  //     rating: "5",
-  //     progress: "96%"
-
-  //   },
-
-  // ]
+  
 
 
   return (
@@ -311,12 +298,12 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
         {/* form  */}
         {
           openForm &&
-          <div className='annFormwrap'>
+          <div className='annFormwrap2'>
 
             <form onSubmit={() => {
               submitHandler();
               setOpenForm(false);
-            }} className='openform' >
+            }} className='openform4' >
 
               <nav>
                 {/* left  */}
@@ -332,6 +319,8 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
               </nav>
 
               <hr />
+
+           <div className="popup_formdiv">
 
               <div className="allInputFileds">
 
@@ -412,6 +401,9 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
 
               </div>
 
+              </div>
+
+
               <hr />
 
               <div className="createBtn">
@@ -428,7 +420,10 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
 
 
             </form>
+
+
           </div>
+
         }
 
       </div>

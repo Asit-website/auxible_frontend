@@ -261,7 +261,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
 
               <h2>Create New Transfer</h2>
 
-               <RxCross2      onClick={() => {
+               <RxCross2   onClick={() => {
               setPopup1(false);
               setOnEdit(false);
               setEditData({});

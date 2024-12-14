@@ -491,7 +491,7 @@ const AdminProfile = ({ pop, setPop, setAlert }) => {
                   />
                 </label>
 
-                <div className="anDesWrap">
+                <div className="anDesWrap makefdufsld">
                   <p>Announcement Description</p>
                   <textarea
                     onChange={changeHandler}

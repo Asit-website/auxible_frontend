@@ -333,6 +333,7 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
         {popup1 && (
           <div className="allPopupWrap">
             <div className="awardpopupcont">
+              
               <div className="allform_header">
                 <h2>Create New Award</h2>
 
