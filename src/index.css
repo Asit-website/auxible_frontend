@@ -7648,6 +7648,7 @@ input::-webkit-inner-spin-button {
   gap: 20px;
   overflow-y: scroll;
   padding: 0px 10px 0px 0px;
+  overflow-x: hidden;
 }
 
 .popup_formdiv::-webkit-scrollbar {
@@ -7659,6 +7660,29 @@ input::-webkit-inner-spin-button {
 }
 
 .popup_formdiv::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #cccccc;
+}
+
+
+.adclient_form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: scroll;
+  max-height: 400px;
+  padding: 0px 10px 0px 0px;
+}
+
+.adclient_form::-webkit-scrollbar {
+  width: 1em;
+}
+
+.adclient_form::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #cccccc;
+}
+
+.adclient_form::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #cccccc;
 }

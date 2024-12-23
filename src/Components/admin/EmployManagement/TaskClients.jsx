@@ -347,131 +347,140 @@ const TaskClients = ({ setAlert, pop, setPop }) => {
       </div>
 
       {addClientPop && (
-        <div className="addCliWrap">
-          <div className="addClieCont">
-            <nav>
-              <p>Add Client</p>
-              <img
-                onClick={() => {
-                  setAddClientPop(false);
-                  setIsEdit(false);
-                }}
-                src={cut}
-                alt=""
-              />
-            </nav>
+       <div className="addCliWrap">
+       <div className="addClieCont">
+         <nav>
+           <p>Add Client</p>
+           <img
+             onClick={() => {
+               setAddClientPop(false);
+               setIsEdit(false);
+             }}
+             src={cut}
+             alt=""
+           />
+         </nav>
 
-            <hr />
+         <hr />
 
-            <form onSubmit={isEdit ? editHandler : submitHandler}>
-              <label>
-                <p>Name</p>
-                <input
-                  type="text"
-                  name="Name"
-                  value={formdata.Name}
-                  onChange={changeHandler}
-                  placeholder="Name"
-                />
-              </label>
+         <form className="" onSubmit={isEdit ? editHandler : submitHandler}>
 
-              <label>
-                <p>Email</p>
-                <input
-                  type="text"
-                  name="Email"
-                  value={formdata.Email}
-                  onChange={changeHandler}
-                  placeholder="Email"
-                />
-              </label>
+           <div className="adclient_form">
 
-              <div className="citstateCont">
-                <label>
-                  <p>City</p>
-                  <input
-                    type="text"
-                    name="City"
-                    value={formdata.City}
-                    onChange={changeHandler}
-                    placeholder="City"
-                  />
-                </label>
+           
+           <label>
+             <p>Name</p>
+             <input
+               type="text"
+               name="Name"
+               value={formdata.Name}
+               onChange={changeHandler}
+               placeholder="Name"
+             />
+           </label>
 
-                <label>
-                  <p>State</p>
-                  <input
-                    type="text"
-                    name="State"
-                    value={formdata.State}
-                    onChange={changeHandler}
-                    placeholder="State"
-                  />
-                </label>
-              </div>
+           <label>
+             <p>Email</p>
+             <input
+               type="text"
+               name="Email"
+               value={formdata.Email}
+               onChange={changeHandler}
+               placeholder="Email"
+             />
+           </label>
 
-              <div className="citstateCont">
-                <label>
-                  <p>Zip/Post Code</p>
-                  <input
-                    type="text"
-                    name="ZipCode"
-                    value={formdata.ZipCode}
-                    onChange={changeHandler}
-                    placeholder="Zip/Post Code"
-                  />
-                </label>
+           <div className="citstateCont">
+             <label>
+               <p>City</p>
+               <input
+                 type="text"
+                 name="City"
+                 value={formdata.City}
+                 onChange={changeHandler}
+                 placeholder="City"
+               />
+             </label>
 
-                <label>
-                  <p>Country</p>
-                  <input
-                    type="text"
-                    name="Country"
-                    value={formdata.Country}
-                    onChange={changeHandler}
-                    placeholder="Country"
-                  />
-                </label>
-              </div>
+             <label>
+               <p>State</p>
+               <input
+                 type="text"
+                 name="State"
+                 value={formdata.State}
+                 onChange={changeHandler}
+                 placeholder="State"
+               />
+             </label>
+           </div>
 
-              <label>
-                <p>Phone Number</p>
-                <input
-                  type="text"
-                  name="PhoneNumber"
-                  value={formdata.PhoneNumber}
-                  onChange={changeHandler}
-                  placeholder="Phone Number"
-                />
-              </label>
+           <div className="citstateCont">
+             <label>
+               <p>Zip/Post Code</p>
+               <input
+                 type="text"
+                 name="ZipCode"
+                 value={formdata.ZipCode}
+                 onChange={changeHandler}
+                 placeholder="Zip/Post Code"
+               />
+             </label>
 
-              <label>
-                <p>Address</p>
-                <input
-                  type="text"
-                  name="Address"
-                  value={formdata.Address}
-                  onChange={changeHandler}
-                  placeholder="Address"
-                />
-              </label>
+             <label>
+               <p>Country</p>
+               <input
+                 type="text"
+                 name="Country"
+                 value={formdata.Country}
+                 onChange={changeHandler}
+                 placeholder="Country"
+               />
+             </label>
+           </div>
 
-              <div className="btnsss">
-                <button type="submit" className="saveclient">
-                  <span>Save Client</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setAddClientPop(false);
-                  }}
-                  className="cancel"
-                >
-                  <span>Cancel</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+           <label>
+             <p>Phone Number</p>
+             <input
+               type="text"
+               name="PhoneNumber"
+               value={formdata.PhoneNumber}
+               onChange={changeHandler}
+               placeholder="Phone Number"
+             />
+           </label>
+
+           <label>
+             <p>Address</p>
+             <input
+               type="text"
+               name="Address"
+               value={formdata.Address}
+               onChange={changeHandler}
+               placeholder="Address"
+             />
+           </label>
+
+           </div>
+
+           <div className="btnsss">
+             <button type="submit" className="saveclient">
+               <span>Save Client</span>
+             </button>
+             <button
+               onClick={() => {
+                 setAddClientPop(false);
+               }}
+               className="cancel"
+             >
+               <span>Cancel</span>
+             </button>
+           </div>
+
+         </form>
+
+
+       </div>
+     </div>
       )}
 
       {showImport && (

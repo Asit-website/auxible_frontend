@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 import bxUser from "../../images/bx-user-pin.png";
 import { ImCross } from "react-icons/im";
 import * as EmailValidator from "email-validator";
-import validator from 'validator';
 
 const item = [
   {
@@ -64,7 +63,6 @@ const EmployeeManage = ({
     getEmployee();
   }, []);
 
-  
 
   const [value1, setValue1] = useState({
     status: false,
@@ -75,7 +73,8 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
-    PermissionRole: ""
+    PermissionRole: "" ,
+    employeeCode:""
   });
 
   const [emailisValid, setIsemailValid] = useState(null);
@@ -85,8 +84,6 @@ const EmployeeManage = ({
     const valid = EmailValidator.validate(value1.email);
     setIsemailValid(valid);
 };
-
-
 
   const [value2, setValue2] = useState({
     status: false,
@@ -380,6 +377,10 @@ const EmployeeManage = ({
           return toast.error("Please Enter Correct Gmail")
       }
 
+       if(value1.employeeCode === ""){
+        return toast.error("Please Enter employee Code");
+       }
+
     if (!id) {
       const {
         adharCard,
@@ -633,9 +634,7 @@ const EmployeeManage = ({
                 <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
                   <span>Cancel</span>
                 </button></NavLink>
-                {/* <button className="register">
-                  <span>Register New</span>
-                </button> */}
+               
               </div>
             </section>
 
@@ -737,13 +736,27 @@ const EmployeeManage = ({
                                 }}
                                 className={`${(emailisValid === false && value1.email !== "") && "emailvalidinput"}`}
                                 type="email"
-                                // name="gmail"
                                 name="email"
-                                // value={value1?.gmail}
                                 value={value1?.email}
-                                // placeholder="Company Gmail"
                                 placeholder="Company Email Address"
                                 disabled={value1.status}
+                              />
+                            </label>
+
+                            <label htmlFor="">
+                              <p>Employee Code</p>
+
+                              <input
+                                onChange={(e) => {
+                                   setValue1((prev)=>({
+                                    ...prev,
+                                    employeeCode: e.target.value
+                                   }))
+                                }}
+                                type="text"
+                                name="employeeCode"
+                                value={value1?.employeeCode}
+                                placeholder="Employee Code"
                               />
                             </label>
 

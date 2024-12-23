@@ -851,14 +851,14 @@
 
 .addCliWrap {
     background: #40404066;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
     z-index: 3000;
     width: 100%;
-    min-height: 130vh;
+    height: 100%;
     padding: 20px 0px;
     display: flex;
     justify-content: center;
@@ -868,7 +868,7 @@
 .addClieCont {
     width: 599px;
     padding: 24px;
-    height: 700px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 16px;
