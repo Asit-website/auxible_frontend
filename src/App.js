@@ -106,6 +106,9 @@ import AcceptPage from "./Components/AcceptPage.jsx";
 import PermissionData from "./Components/admin/Permission/PermissionData.js";
 import { useMain } from "./hooks/useMain.js";
 import ScrollTop from "./Components/utils/ScrollTop.jsx";
+import QuotationForm2 from "./Components/admin/EmployManagement/QuotationForm2.jsx";
+import QuotationForm3 from "./Components/admin/EmployManagement/QuotationForm3.jsx";
+import QuotationForm4 from "./Components/admin/EmployManagement/QuotationForm4.jsx";
 var tc;
 
 const ROLES = {
@@ -262,6 +265,9 @@ function App() {
               <Route path="/adminDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/employeeDash/HRM/HRMsystemSetup" element={<HRMsystemSetup />} />
               <Route path="/adminDash/HRM/QuotationForm" element={<QuotationForm />} />
+              <Route path="/adminDash/HRM/QuotationForm2" element={<QuotationForm2 />} />
+              <Route path="/adminDash/HRM/QuotationForm3" element={<QuotationForm3 />} />
+              <Route path="/adminDash/HRM/QuotationForm4" element={<QuotationForm4 />} />
               {/* <Route path="/adminDash/HRM/ITR" element={<ITR />} /> */}
               <Route path="/adminDash/HRM/Expense" element={<Expense />} />
 

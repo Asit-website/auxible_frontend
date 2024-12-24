@@ -38,6 +38,13 @@
     padding-bottom: 30px;
     background-color: white;
 }
+.prev_quotarioncont {
+    max-width: 900px;
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 30px;
+    background-color: white;
+}
 
 .sinproid {
     display: flex;
@@ -135,6 +142,22 @@
     justify-content: center;
     overflow-y: scroll;
 }
+.previ_wrap {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: fit-content;
+    height: fit-content;
+    display: flex;
+    padding-top: 100px;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    z-index: 1000;
+}
 
 .qtoform {
     display: grid;
@@ -152,6 +175,91 @@
 
 }
 
+.quota2_ref{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-end;
+}
+.quota2_ref p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.qut1_to{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.qut1_to p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.quot2_dear{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.quot2_dear p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.aubdisolpara{
+    background-color: orange;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    transform: translateY(22px);
+}
+.aubdisolpara2{
+    background-color: #c00000;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    transform: translateY(22px);
+}
+
+.quo1_termandcond{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.quo1_termandcond h4{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    margin-bottom: 10px;
+}
+.quo1_termandcond p{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.0015em;
+}
+.quo1_extrapra{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.0015em;
+}
 .qtoform label p {
     font-family: Inter;
     font-size: 16px;
@@ -280,6 +388,14 @@
 
 }
 
+.quuo2_table_head {
+   border: 1px solid black;
+}
+.quuo2_table_head2 {
+   border: 1px solid black;
+}
+
+
 .theadqu2 th {
     background: #0B56E3 !important;
     font-family: Inter;
@@ -288,6 +404,49 @@
     line-height: 32px;
     color: white !important;
 
+}
+
+.quuo2_table_head th {
+    background: rgb(64 ,  64 , 64);
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 50px;
+    line-height: 22px;
+    color: white !important;
+    border: 1px solid black !important;
+
+}
+.quuo2_table_head2 th {
+    background: gray;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 50px;
+    line-height: 22px;
+    color: white !important;
+    border: 1px solid black !important;
+
+}
+
+.prewid1{
+    width: 10px;
+}
+.prewid2{
+    width: 80px;
+
+}
+.prewid3{
+    width: 50px;
+
+}
+.prewid4{
+    width: 60px;
+
+}
+
+.prewid5{
+    width: 80px;
 }
 
 .tabletr input {
@@ -312,7 +471,19 @@
     text-align: left;
     color: #101820;
 }
+.quotabletr2 td {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    color: #101820;
+    border: 1px solid black !important;
+}
 
+.hard_para{
+    font-weight: 600 !important;
+}
 .tabletr .inpu11 {
     width: 340px;
     height: 34px;
@@ -320,6 +491,13 @@
     border: 1px solid #6A6A6A;
 }
 
+.appinput2{
+    width: 150px !important;
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #6A6A6A;
+    
+}
 
 .qutaRightcont {
     display: flex;

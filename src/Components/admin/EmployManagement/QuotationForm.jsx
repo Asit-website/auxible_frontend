@@ -245,7 +245,6 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
               <div className="qutaLeft">
 
                 <div className="qutLTo">
-                  {/* <h2>Quotation Form</h2> */}
 
                   <div className="qutolobutons">
                      <button onClick={()=>setPreview(true)}>Preview</button>
@@ -508,7 +507,7 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
               {
        preview && 
          <div className="previwwraps">
-     <div className="qutaRight">
+            <div className="qutaRight">
                 <div ref={contonentPDF} className="qutaRightcont">
                   
                   <div className="hdquot">
