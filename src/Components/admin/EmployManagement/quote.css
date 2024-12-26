@@ -149,7 +149,23 @@
     left: 0;
     right: 0;
     bottom: 0;
-    min-height: fit-content;
+    min-height: 100vh;
+    height: fit-content;
+    display: flex;
+    padding-top: 100px;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    z-index: 1000;
+}
+.previ_wrap2 {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 150vh;
     height: fit-content;
     display: flex;
     padding-top: 100px;
@@ -209,6 +225,12 @@
     font-weight: 500;
     line-height: 20px;
 }
+.quot2_dear h4{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
 .aubdisolpara{
     background-color: orange;
     height: 40px;
@@ -223,6 +245,18 @@
 }
 .aubdisolpara2{
     background-color: #c00000;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    transform: translateY(22px);
+}
+.aubdisolpara3{
+    background-color: black;
     height: 40px;
     display: flex;
     align-items: center;
@@ -365,6 +399,27 @@
     width: 100%;
 }
 
+.quotabl_wrap{
+    overflow-x: scroll;
+}
+.quotablle3 {
+    max-width: 100%;
+    width: 100%;
+}
+
+.quotabl_wrap::-webkit-scrollbar {
+    width: 0.5em !important;
+  }
+  
+  .quotabl_wrap::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 4px #cccccc !important;
+  }
+  
+  .quotabl_wrap::-webkit-scrollbar-thumb {
+    border-radius: 10px !important;
+    background: #cccccc !important;
+  }
+
 .quotablle2 {
     width: 100%;
 }
@@ -446,7 +501,7 @@
 }
 
 .prewid5{
-    width: 80px;
+    width: 40px;
 }
 
 .tabletr input {
@@ -491,12 +546,23 @@
     border: 1px solid #6A6A6A;
 }
 
+.eachprepara{
+    border-bottom: 1px solid black;
+    padding: 5px 5px;
+}
+
+
 .appinput2{
     width: 150px !important;
     height: 34px;
     border-radius: 5px;
     border: 1px solid #6A6A6A;
     
+}
+
+.addwidth{
+    width: 300px !important;
+
 }
 
 .qutaRightcont {
@@ -1609,4 +1675,64 @@
     font-family: inter;
     font-weight: 500;
     font-size: 16px;
+}
+
+.totalCI_charges{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.totalCI_charges label{
+   display: grid;
+   grid-template-columns: repeat(2 , 0.2fr);
+   gap: 10px;
+   
+}
+.totalCI_charges label p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    color: black;
+}
+.totalCI_charges label input{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.005em;
+    color: black;
+    border-radius: 10px;
+    width: 180px;
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #6A6A6A;
+    padding: 0px 10px;
+   
+
+}
+
+.totalcai_cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.totalcai_cont p{
+    border: 1px solid black;
+    padding: 8px 5px;
+    text-align: right;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.005em;
+    color: black;
+}
+
+.addsomethin1{
+    padding: 0px !important;
 }

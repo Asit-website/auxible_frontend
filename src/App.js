@@ -109,6 +109,8 @@ import ScrollTop from "./Components/utils/ScrollTop.jsx";
 import QuotationForm2 from "./Components/admin/EmployManagement/QuotationForm2.jsx";
 import QuotationForm3 from "./Components/admin/EmployManagement/QuotationForm3.jsx";
 import QuotationForm4 from "./Components/admin/EmployManagement/QuotationForm4.jsx";
+import QuotationForm5 from "./Components/admin/EmployManagement/QuotationForm5.jsx";
+import QuotationForm6 from "./Components/admin/EmployManagement/QuotationForm6.jsx";
 var tc;
 
 const ROLES = {
@@ -268,6 +270,8 @@ function App() {
               <Route path="/adminDash/HRM/QuotationForm2" element={<QuotationForm2 />} />
               <Route path="/adminDash/HRM/QuotationForm3" element={<QuotationForm3 />} />
               <Route path="/adminDash/HRM/QuotationForm4" element={<QuotationForm4 />} />
+              <Route path="/adminDash/HRM/QuotationForm5" element={<QuotationForm5 />} />
+              <Route path="/adminDash/HRM/QuotationForm6" element={<QuotationForm6 />} />
               {/* <Route path="/adminDash/HRM/ITR" element={<ITR />} /> */}
               <Route path="/adminDash/HRM/Expense" element={<Expense />} />
 

@@ -16,7 +16,7 @@ import { useReactToPrint } from "react-to-print";
 import { CiCirclePlus } from "react-icons/ci";
 import pluslogo from "../../images/8922789.png";
 
-const QuotationForm4 = ({ setAlert, pop, setPop }) => {
+const QuotationForm5 = ({ setAlert, pop, setPop }) => {
   const {
     user,
     uploadSingleImage,
@@ -25,10 +25,6 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-
-  //   const location = useLocation();
-
-  //   const { id, item } = location.state;
 
   const [formdata, setFormdata] = useState({
     quotationNum: "",
@@ -44,7 +40,15 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
     companyWebsite: "",
     total:"",
     candICharge:"" , 
-    totalPayableAmt:""
+    totalPayableAmt:"" , 
+    subTotal:"", 
+    serviceTax:"" ,
+     installation:"" ,
+     other:"" ,
+      transpotation :"",
+       totalPayableAmt:"" ,
+       tax:""
+
   });
 
   const textChangeHandler = (e) => {
@@ -112,11 +116,26 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
   };
 
   const [rows, setRows] = useState([
-    {product: "", model: "" , brand:"" , productPic:"" , unitPrice:"" , qty:"" , total:"" },
+    { productName: "", description: [""], unitPrice: "", taxRate: "", amount: "" },
   ]);
 
   const addRow = () => {
-    setRows([...rows, {product: "", model: "" , brand:"" , productPic:"" , unitPrice:"" , qty:"" , total:"" }]);
+    setRows([
+      ...rows,
+      { productName: "", description: [""], unitPrice: "", taxRate: "", amount: "" },
+    ]);
+  };
+
+  const addDescriptionField = (rowIndex) => {
+    const newRows = [...rows];
+    newRows[rowIndex].description.push(""); 
+    setRows(newRows);
+  };
+
+  const handleDescriptionChange = (rowIndex, descIndex, value) => {
+    const newRows = [...rows];
+    newRows[rowIndex].description[descIndex] = value; 
+    setRows(newRows);
   };
 
   //   const postQuotationForm = async () => {
@@ -324,163 +343,158 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
                   </form>
 
              
-                  <div class="relative quotabl_wrap">
-                    <table className="quotablle3 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                     
-                      <thead className="theadqu">
-                        <tr>
-                          <th scope="col" className="px-2 py-3">
-                            Product
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Model
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Brand
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Product Picture
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                              Unit Price
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                             Qty
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                             Total
-                          </th>
-                        </tr>
-                      </thead>
+              <div className="relative quotabl_wrap">
+      <table className="quotablle3 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="theadqu">
+          <tr>
+            <th scope="col" className="px-2 py-3">Product Name</th>
+            <th scope="col" className="px-2 py-3">Product Description</th>
+            <th scope="col" className="px-2 py-3">Unit Price</th>
+            <th scope="col" className="px-2 py-3">Tax Rate</th>
+            <th scope="col" className="px-2 py-3">Amount</th>
+          </tr>
+        </thead>
 
-                      <tbody>
-                        {rows.map((row, index) => (
-                          <tr className="bg-white tabletr" key={index}>
-
-                            <td className="px-2 py-4">
-                              <input
-                                type="text"
-                                className="appinput2 addwidth"
-                                value={row.product}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].product = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-
-                            <td className="px-2 py-4">
-                              <input
-                                type="text"
-                                className="appinput2"
-                                value={row.model}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].model = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-
-                            <td className="px-2 py-4">
-                              <input
-                                type="text"
-                                className="appinput2"
-                                value={row.brand}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].brand = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-
-                            <td className="px-2 py-4">
+        <tbody>
+          {rows.map((row, rowIndex) => (
+            <tr className="bg-white tabletr" key={rowIndex}>
+              <td className="px-2 py-4">
                 <input
-                  type="file"
-                  accept="image/*"
-                  className="appinput2"
-                  onChange={(e) => handleImageUpload(e, index)} 
+                  type="text"
+                  className="appinput2 addwidth"
+                  value={row.productName}
+                  onChange={(e) => {
+                    const newRows = [...rows];
+                    newRows[rowIndex].productName = e.target.value;
+                    setRows(newRows);
+                  }}
                 />
-                {/* {row.productPic && (
-                  <img src={row.productPic} alt="Product" className="mt-2 w-16 h-16 object-cover" />
-                )} */}
               </td>
 
-                            <td className="px-2 py-4">
-                              <input
-                              className="appinput2"
-                                type="text"
-                                value={row.unitPrice}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].unitPrice = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-
-                            <td className="px-2 py-4">
-                              <input
-                              className="appinput2"
-                                type="text"
-                                value={row.qty}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].qty = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-
-                            <td className="px-2 py-4">
-                              <input
-                              className="appinput2"
-                                type="text"
-                                value={row.total}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].total = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-
-
-                          </tr>
-                        ))}
-                      </tbody>
-
-                    </table>
+              <td className="px-2 py-4 flex ">
+                <div>      
+        
+                {row.description.map((desc, descIndex) => (
+                  <div key={descIndex} className="flex items-center mb-2">
+                    <input
+                      type="text"
+                      className="appinput2"
+                      value={desc}
+                      onChange={(e) => handleDescriptionChange(rowIndex, descIndex, e.target.value)}
+                    />
                   </div>
+                ))}
+
+           </div>
+
+                <button
+                  type="button"
+                  className="ml-2"
+                  onClick={() => addDescriptionField(rowIndex)}
+                >
+                  Add 
+                </button>
+              </td>
+
+              <td className="px-2 py-4">
+                <input
+                  type="text"
+                  className="appinput2"
+                  value={row.unitPrice}
+                  onChange={(e) => {
+                    const newRows = [...rows];
+                    newRows[rowIndex].unitPrice = e.target.value;
+                    setRows(newRows);
+                  }}
+                />
+              </td>
+
+              <td className="px-2 py-4">
+                <input
+                  type="text"
+                  className="appinput2"
+                  value={row.taxRate}
+                  onChange={(e) => {
+                    const newRows = [...rows];
+                    newRows[rowIndex].taxRate = e.target.value;
+                    setRows(newRows);
+                  }}
+                />
+              </td>
+
+              <td className="px-2 py-4">
+                <input
+                  className="appinput2"
+                  type="text"
+                  value={row.amount}
+                  onChange={(e) => {
+                    const newRows = [...rows];
+                    newRows[rowIndex].amount = e.target.value;
+                    setRows(newRows);
+                  }}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <button
+        type="button"
+        className="bg-green-500 text-white px-3 py-2 mt-4 rounded"
+        onClick={addRow}
+      >
+        Add Row
+      </button>
+    </div>
 
                   <div onClick={addRow} className="admorCont cursor-pointer">
                     <img src={plussing} alt="" />
                     <span>Add Item</span>
                   </div>
 
-
                  <div className="totalCI_charges">
+
                    <label htmlFor="">
-                    <p>Total</p>
+                    <p>Sub Total :</p>
+                    <input onChange={textChangeHandler} name="subTotal" value={formdata.subTotal} type="text" />
+                   </label>
+
+                   <label htmlFor="">
+                    <p>Tax : </p>
+                    <input onChange={textChangeHandler} name="tax" value={formdata.tax} type="text" />
+                   </label>
+                   <label htmlFor="">
+                    <p>Sercice Tax :</p>
+                    <input onChange={textChangeHandler} name="serviceTax" value={formdata.serviceTax} type="text" />
+                   </label>
+                   <label htmlFor="">
+                    <p> Installation :</p>
+                    <input onChange={textChangeHandler} name="installation" value={formdata.installation} type="text" />
+                   </label>
+                   <label htmlFor="">
+                    <p> Other :</p>
+                    <input onChange={textChangeHandler} name="other" value={formdata.other} type="text" />
+                   </label>
+                   <label htmlFor="">
+                    <p> Transpotation :</p>
+                    <input onChange={textChangeHandler} name="transpotation" value={formdata.transpotation} type="text" />
+                   </label>
+
+                   <label htmlFor="">
+                    <p>Total :</p>
                     <input onChange={textChangeHandler} name="total" value={formdata.total} type="text" />
                    </label>
-                   <label htmlFor="">
-                    <p>C & I Charges @ 10%</p>
-                    <input onChange={textChangeHandler} name="candICharge" value={formdata.candICharge} type="text" />
-                   </label>
-                   <label htmlFor="">
-                    <p>Total Payable amount</p>
-                    <input onChange={textChangeHandler} name="totalPayableAmt" value={formdata.totalPayableAmt} type="text" />
-                   </label>
+
+           
+
                  </div>
             
                 </div>
               </div>
 
               {preview && (
-                <div className="previ_wrap">
+                <div className="previ_wrap2">
                   <div className="prev_quotarioncont">
 
                     <div ref={contonentPDF} className="qutaRightcont">
@@ -503,7 +517,7 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
 
                       <div className="talbeLike">
                         <div class="relative w-full">
-                         <p className="aubdisolpara2 text-white">AUDIO SOLUTION</p>
+                         <p className="aubdisolpara3 text-white">VIDEO SOLUTION</p>
                           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="quuo2_table_head2">
                               <tr>
@@ -511,49 +525,51 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
                                   S. No.
                                 </th>
                                 <th scope="col" className="px-2 py-3">
-                                 Product
+                                 Product Name
                                 </th>
                                 <th scope="col" className="px-2 py-3">
-                                  Model
-                                </th>
-                                <th scope="col" className="px-2 py-3">
-                                  Brand
-                                </th>
-                                <th scope="col" className="px-2 py-3">
-                                  Product Picture
+                                  Product Description
                                 </th>
                                 <th scope="col" className="px-2 py-3">
                                   Unit Price
                                 </th>
                                 <th scope="col" className="px-2 py-3">
-                                  Qty
+                                  Tax Rate
                                 </th>
                                 <th scope="col" className="px-2 py-3">
-                                  Total
+                                  Amount
                                 </th>
+                               
                               </tr>
                             </thead>
                             <tbody>
-                              {rows.map((row, index) => (
-                                <tr className="bg-white quotabletr2 " key={index}>
-                                    
-                                  <td className="px-2 py-2 prewid1">{index+1} </td>
-                                  <td className="px-2 py-2 prewid2">{row.product} </td>
-                                  <td className="px-2 py-2 prewid4">{row.model}</td>
-                                  <td className="px-2 py-2 prewid1">{row.brand}</td>
-
-                                  <td className="px-2 py-2 prewid1"> <img src={row.productPic} alt="" /> </td>
-                                  <td className="px-2 py-2 prewid5">{row.unitPrice}</td>
-                                  <td className="px-2 py-2 prewid5">{row.qty}</td>
-                                  <td className="px-2 py-2 prewid5">{row.total}</td>
-                                </tr>
-                              ))}
+                            {rows.map((row, rowIndex) => (
+            <tr className="bg-white quotabletr2" key={rowIndex}>
+              <td className="px-2 py-2 prewid1">{rowIndex + 1}</td>
+              <td className="px-2 py-2 prewid2">{row.productName}</td>
+              <td className="prewid2  addsomethin1">
+                {row.description.map((desc, descIndex) => (  <p className="eachprepara" key={descIndex}>{desc}</p>  ))}
+              </td>
+              <td className="px-2 py-2 prewid4">{row.unitPrice}</td>
+              <td className="px-2 py-2 prewid1">{row.taxRate}</td>
+           
+              <td className="px-2 py-2 prewid5">{row.amount}</td>
+            
+            
+         
+            </tr>
+          ))}
                             </tbody>
                           </table>
 
                           <div className="totalcai_cont">
+                           <p>Sub Total: {formdata.subTotal}</p>
                            <p>Total: {formdata.total}</p>
-                           <p>C & I Charges @ 10%: {formdata.candICharge}</p>
+                           <p>Tax {formdata.tax}</p>
+                           <p>Service Tax {formdata.serviceTax}</p>
+                           <p>Installation {formdata.installation}</p>
+                           <p>Other {formdata.other}</p>
+                           <p>Transpotation {formdata.transpotation}</p>
                            <p>Total Payable amount: {formdata.totalPayableAmt}</p>
                           </div>
 
@@ -592,4 +608,4 @@ const QuotationForm4 = ({ setAlert, pop, setPop }) => {
     </>
   );
 };
-export default QuotationForm4;
+export default QuotationForm5;
