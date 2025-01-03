@@ -10,17 +10,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import veci from "../../images/veci.svg";
 import deli from "../../images/deli.svg";
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png";
 import { useLocation } from "react-router-dom";
-import useOnClickOutside from "../../../hooks/useOutsideClick"
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+
 
 
 const ImportLead = ({ setAlert, pop, setPop }) => {
   const {
     user,
     getLead2,
-    allEmployee,
+    updateLeadStatus,
     CreateNoteApi,
     taskCreateApi,
     meetCreateApi,
@@ -34,7 +39,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollowUp,
     getUserByDesignation1,
     getQuotationApi,
-    deleteQuotationapi , deleteQproapi , shareLeadApi
+    deleteQuotationapi,
+    deleteQproapi,
+    getSaveTempalte
   } = useMain();
 
   const { id } = useParams();
@@ -99,6 +106,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     getFollow();
   }, []);
 
+  const updatingLeadStatus = async (leading) => {
+    const { _id } = data;
+    const ans = await updateLeadStatus(_id, leading);
+  };
+
   const [isNoteEdit, setIsNoteEdit] = useState(false);
   const [allNote, setAllNote] = useState([]);
 
@@ -141,12 +153,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
   const [opnAdNew, setOpenAdNew] = useState(false);
-
-  const ref = useRef(null)
-
-
-  useOnClickOutside(ref, () => setOpenAdNew(false))
-
 
   const [taskData, setTaskData] = useState({
     LeadName: `${data?.FirstName || ""} ${data?.LastName || ""}`,
@@ -308,7 +314,26 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
   const [allQuota, setAllQuota] = useState([]);
   const [allPropo, setAllPropo] = useState([]);
 
-  const [ shareForm, setShareForm] = useState(false);
+  const [openDrops , setOpenDrops] = useState(null);
+
+  const proNavRef = useRef(null);
+  useOnClickOutside(proNavRef, () => setOpenDrops(null));
+
+  const [saveTemplate , setSaveTemplate ] = useState([]);
+
+   const fetchSaveTemplates = async()=>{
+     try{
+
+      const ans = await getSaveTempalte(id);
+      console.log("savetemplate ",ans);
+       if(ans?.status){
+         setSaveTemplate(ans?.data);
+       }
+
+     }catch(error){
+      toast.error("Something went wrong , Please try again");
+     }
+   }
 
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
@@ -316,31 +341,30 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
     setAllPropo(ans?.proposals);
   };
 
-  const deleteQuotationApi = async(id)=>{
+  const deleteQuotationApi = async (id) => {
     const toastId = toast.loading("Loading...");
     const ans = await deleteQuotationapi(id);
-      if(ans?.status){
-         getQuotationOfLead();
-        toast.success("Successfuly deleted");
-      }
-      else {
-        toast.error("Something went wrong");
-      }
-      toast.dismiss(toastId);
-  }
+    if (ans?.status) {
+      getQuotationOfLead();
+      fetchSaveTemplates();
+      toast.success("Successfuly deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
+    toast.dismiss(toastId);
+  };
 
-  const deletePropsalApi = async(id)=>{
+  const deletePropsalApi = async (id) => {
     const toastId = toast.loading("Loading...");
     const ans = await deleteQproapi(id);
-      if(ans?.status){
-         getQuotationOfLead();
-        toast.success("Successfuly deleted");
-      }
-      else {
-        toast.error("Something went wrong");
-      }
-      toast.dismiss(toastId);
-  }
+    if (ans?.status) {
+      getQuotationOfLead();
+      toast.success("Successfuly deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
+    toast.dismiss(toastId);
+  };
 
   useEffect(() => {
     if (type === "meet" && data1) {
@@ -384,54 +408,15 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       const { Status } = lastNote;
       setLeadStatus(Status);
     }
-    else{
-      setLeadStatus("Status")
-    }
   }, [allNote]);
-
-
-  const [allemp , setAllEmp] = useState([]);
-
-  const [shareEmp, setShareEmp] = useState([]);
-
-  const handleCheckboxClick = (empId) => {
-    setShareEmp((prevShareEmp) =>
-      prevShareEmp.includes(empId)
-        ? prevShareEmp.filter((id) => id !== empId) // Remove if already selected
-        : [...prevShareEmp, empId] // Add if not selected
-    );
-  };
-
-   const getallemplyee =async()=>{
-    const ans = await allEmployee();
-    setAllEmp(ans?.emp);
-   }
-
-
-   const shareLead = async()=>{
-     if(shareEmp.length ===0){
-      return  toast.error("Please Select atleast one user");
-     }
-     else{
-
-       const resp = await shareLeadApi({leadId: id , shareEmp:shareEmp});
-       if(resp?.status){
-        toast.success("Successfuly shared");
-       }
-     }
-   }
 
   useEffect(() => {
     getData();
     getNotes();
     fetchFollowUp();
     getQuotationOfLead();
-    getallemplyee();
+    fetchSaveTemplates();
   }, []);
-
-  console.log("allNote" , allNote)
-
-
 
   return (
     <div className="imprtleadCont">
@@ -444,7 +429,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
           <div className="em">
             {/* first  */}
             <section className="firsSec">
-
               {/* /left side  */}
               <div className="leadLe">
                 <img
@@ -465,9 +449,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
               {/* right side  */}
               <div className="laedRight">
-              
 
-          <button onClick={()=>setShareForm(true)} className="refresh1"><span className="ref1">Share</span></button>
+                {/* <button className="refresh1" >
+                  <span className="ref1">Share</span>
+                </button> */}
 
                 <button
                   onClick={() =>
@@ -477,8 +462,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 >
                   <span className="ref1">Edit</span>
                 </button>
-
-             
+                
               </div>
 
             </section>
@@ -496,37 +480,46 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <div className="lleaiFOlEFT">
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p> {data?.LeadOwner?.map((owner , index)=>(
-                         <span key={index}>{owner?.fullName} {data?.LeadOwner?.length !== index+1 && ","} </span>
-                      ))} </p>
+                      <p>{data?.LeadOwner?.fullName}</p>
                     </div>
 
-                
+                    <div className="subPart">
+                      <h3>{data?.title}</h3>
+                      <p>-</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Phone :</h3>
+                      <p>{data?.Phone}</p>
+                    </div>
+
                     <div className="subPart">
                       <h3>Mobile :</h3>
                       <p>{data?.Mobile}</p>
                     </div>
 
-                
                     <div className="subPart">
-                      <h3>Budget :</h3>
-                      <p>${data?.budget}</p>
+                      <h3>Industry :</h3>
+                      <p>{data?.Industry}</p>
                     </div>
 
                     <div className="subPart">
-                      <h3>Lead Source :</h3>
-                      <p>{data?.LeadSource}</p>
+                      <h3>Annual Revenue :</h3>
+                      <p>${data?.AnnualRevenue}</p>
                     </div>
-
                   </div>
 
                   {/* right side  */}
                   <div className="lleaiFOlEFT">
-                 
                     <div className="subPart">
-                      <h3> Name :</h3>
+                      <h3>Company :</h3>
+                      <p>{data?.Company}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Lead Name :</h3>
                       <p>
-                        {data?.name}
+                        {data?.FirstName} {data?.LastName}
                       </p>
                     </div>
 
@@ -536,17 +529,17 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                     </div>
 
                     <div className="subPart">
-                      <h3>Lead Type :</h3>
-                      <p>{data?.leadType}</p>
+                      <h3>Fax :</h3>
+                      <p>{data?.Fax}</p>
                     </div>
-                 
+                    <div className="subPart">
+                      <h3>No. of Employees :</h3>
+                      <p>{data?.NoOfEmployee}</p>
+                    </div>
                     <div className="subPart">
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
                     </div>
-                 
-                  
-                  
                   </div>
                 </div>
               </div>
@@ -589,17 +582,46 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 </div>
               </div>
 
+              {/* third  */}
+              <div className="leadFirs">
+                <h2 className="ehading">Descriptive Information</h2>
+
+                <div className="eladinfoWrap secondWRap">
+                  <p>
+                    Description: <span>{data?.DescriptionInfo}</span>
+                  </p>
+                </div>
+              </div>
+
               {/* second  third  */}
               <div className="leadFirs">
                 <div className="LEADSsTunav">
-                  <h2 className="ehading">Lead Remark</h2>
+                  <h2 className="ehading">Lead Status</h2>
 
                   <hr />
 
-                  
+                  <select
+                    onChange={(e) => {
+                      setLeadStatus(e.target.value);
+                      updatingLeadStatus(e.target.value);
+                    }}
+                    value={LeadStatus}
+                    className="leadUPdateStsus sewidfls"
+                    name="LeadStatus"
+                    id=""
+                  >
+                    <option> Status</option>
+                    {leadStat?.map((val, index) => {
+                      return (
+                        <option key={index} value={val?.name}>
+                          {val?.name}
+                        </option>
+                      );
+                    })}
+                  </select>
 
                   <label className="noteLabel">
-                    <p>Remark:</p>
+                    <p>Note:</p>
                     <textarea
                       value={Note}
                       onChange={(e) => {
@@ -633,18 +655,24 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <div key={index} className="singlNoteDe">
                         <div className="line_danda"></div>
 
-                       
+                        <div className="noteStaus">
+                          <p>{note?.Status}</p>
+                        </div>
 
                         <p className="notedate">
-                          {new Date(note?.Date).toLocaleString(undefined, {
-                            
-                            timeZone: 'Asia/Kolkata'
+                          {new Date(note?.Date).toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
                           })}
                         </p>
 
                         <p className="noteTExt">{note?.Note}</p>
 
-                      
+                        {/* <img onClick={()=>{
+                                    setIsNoteEdit(note?._id);
+                                  setNote(note?.Note);
+                                  }} src={veci} alt="" /> */}
                         <img
                           onClick={() => {
                             deleteNote(note?._id);
@@ -666,12 +694,13 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <div className="addNewCont">
                     <div
                       onClick={() => setOpenAdNew((prev) => !prev)}
-                      className="addneEW cursor-pointer" >
+                      className="addneEW"
+                    >
                       <p>Add New</p>
                     </div>
 
                     {opnAdNew && (
-                      <div   ref={ref} className="opeAnew">
+                      <div className="opeAnew">
                         <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
                         <hr />
                         <p onClick={() => setOpenCreateMeet(true)}>Meeting</p>
@@ -704,7 +733,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 </div>
               </div>
 
-              {/* third third  */}
+              {/* quotation */}
               <div className="leadFirs">
                 <div className="LEADSsTunav litu">
                   <h2 className="ehading">Quotation</h2>
@@ -741,13 +770,11 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                         <div className="dj">
                           <img
-                            // onClick={() =>
-                            //   navigate("/adminDash/editQuotation", {
-                            //     state: item,
-                            //   })
-                            // }
-                            onClick={()=>{
-                              navigate("/adminDash/HRM/QuotationForm" , {state:{item}})
+                          
+                            onClick={() => {
+                              navigate("/adminDash/HRM/QuotationForm", {
+                                state: { item },
+                              });
                             }}
                             className="cursor-pointer"
                             src={veci}
@@ -761,14 +788,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                             src={deli}
                             alt="deli"
                           />
-                          {/* <img
-                            onClick={() =>
-                              navigate("/invoicePage", { state: item })
-                            }
-                            className="dli cursor-pointer"
-                            src={semi}
-                            alt="semi"
-                          /> */}
+                        
                         </div>
                       </div>
                     ))}
@@ -777,6 +797,66 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   <span className="norecord">No records found</span>
                 )}
               </div>
+
+              {/* Quotation cards is here  */}
+
+              <div className="leadFirs">
+  <div className="LEADSsTunav litu">
+    <h2 className="ehading">Recent Templates</h2>
+  </div>
+
+  <hr />
+  <div className="allCards">
+    {saveTemplate?.length > 0 ? (
+      saveTemplate.map((item, index) => (
+        <div   
+       
+         key={index} className="card ">
+          <img src="https://res.cloudinary.com/dd9tagtiw/image/upload/v1735558409/WhatsApp_Image_2024-12-30_at_17.02.43_160b7501_fg2z1u.jpg" alt={`Card ${item?.customerName}`} />
+         
+         
+           <div className="thredotwrap">
+
+          
+          <div className="card-content">
+
+            <h3 className="card-title">Name: {item?.customerName}</h3>
+            <p className="card-meta">
+              Quotation Date: {new Date(item?.createdAt).toLocaleDateString("en-GB")}
+            </p>
+          </div>
+
+          <BsThreeDotsVertical onClick={()=> {
+            setOpenDrops(index);
+          }} className="threedot_lead" />
+
+          {
+       openDrops === index && 
+        <div className="dropswrap" ref={proNavRef} >
+           <p    onClick={() => {
+          navigate("/adminDash/HRM/QuotationForm", {
+            state: { item },
+          });
+        }}><MdEdit className="lead_icon" />     <span>Edit</span>  </p>
+           <p 
+            onClick={()=>{
+              deleteQuotationApi(item?._id);
+            }}
+           >  <MdDelete className="lead_icon" /> <span>Delete</span>  </p>
+        </div>
+          }
+
+          </div>
+
+
+        </div>
+      ))
+    ) : (
+      <span className="norecord">No records found</span>
+    )}
+  </div>
+</div>
+
 
               {/* fourth third  */}
               <div className="leadFirs">
@@ -803,11 +883,9 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                       <div key={index} className="sakacont">
                         <div className="singlquot" key={index}>
                           <p className="invId">
-                          Proposal For: {item?.proposalFor}
+                            Proposal For: {item?.proposalFor}
                           </p>
-                          <p className="invId">
-                          Created By: {item?.createdBy}
-                          </p>
+                          <p className="invId">Created By: {item?.createdBy}</p>
                           <p className="date">
                             {new Date(item?.createdAt).toLocaleDateString(
                               "en-GB"
@@ -817,9 +895,10 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
 
                         <div className="dj">
                           <img
-                          
-                            onClick={()=>{
-                              navigate("/adminDash/HRM/ProposalForm" , {state:{item}})
+                            onClick={() => {
+                              navigate("/adminDash/HRM/ProposalForm", {
+                                state: { item },
+                              });
                             }}
                             className="cursor-pointer"
                             src={veci}
@@ -853,7 +932,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
               {/* fourth  */}
               <div className="leadFirs">
                 <div className="attachment">
-                  <h2 className="ehading">Descriptive Information</h2>
+                  <h2 className="ehading">Description Information</h2>
                   <div className="saya">
                     <p>Upload File</p>
                     <svg
@@ -897,14 +976,14 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
             </nav>
 
             <form className="taskForm">
-       
-<label>
-                <p>Remark</p>
+              <label>
+                <p>LeadName</p>
                 <input
-                  name="Remark"
-                  value={taskData?.Remark}
+                  name="LeadName"
+                  value={taskData?.LeadName}
                   onChange={taskHandler}
                   type="text"
+                  placeholder="Subject"
                 />
               </label>
 
@@ -949,14 +1028,22 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 </label>
               </div>
 
-           
+              <label>
+                <p>Remark</p>
+                <input
+                  name="Remark"
+                  value={taskData?.Remark}
+                  onChange={taskHandler}
+                  type="text"
+                />
+              </label>
 
-              <div className="btnstask2">
+              <div className="btnstask">
                 <button
                   onClick={data1 ? taskUpdateHandler : TaskSubmitHandler}
                   className="creattk"
                 >
-                  {data1 ? "Update " : " Create"}
+                  {data1 ? "Task Update " : " Task Create"}
                 </button>
                 <button
                   onClick={() => setOpenCreateTask(false)}
@@ -975,7 +1062,6 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
       {openCreateMeet && (
         <div className="createTaskWrap">
           <div className="cretTaskCont2">
-            
             <nav>
               <p>Create Meeting</p>
               <img
@@ -1118,10 +1204,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-             
-            </form>
-
-            <div className="btnstask">
+              <div className="btnstask">
                 <button
                   onClick={data1 ? meetUpdateHandler : meetSubmitHandler}
                   className="creatmt"
@@ -1135,44 +1218,7 @@ const ImportLead = ({ setAlert, pop, setPop }) => {
                   Cancel
                 </button>
               </div>
-
-            <hr />
-          </div>
-        </div>
-      )}
-
-
-{shareForm && (
-        <div className="createTaskWrap">
-          <div className="cretTaskCont">
-            <nav>
-              <p>Share Lead</p>
-              <img
-                onClick={() => setShareForm(false)}
-                className="cursor-pointer"
-                src={cancel}
-                alt=""
-              />
-            </nav>
-
-            
-         <div className="shareusersdetail">
-      {allemp?.map((emp, index) => (
-        <div key={index} className="singlemp">
-          <input
-            type="checkbox"
-            onChange={() => handleCheckboxClick(emp?._id)}
-            checked={shareEmp.includes(emp?._id)}
-          />
-          <span>{emp.fullName}</span>
-        </div>
-      ))}
-    </div>
-
-    <div className="btnstask2">
-                <button onClick={()=> shareLead()} className="creattk">  Share </button>
-                <button onClick={() => setShareForm(false)}className="tkCnacel">  Cancel </button>
-              </div>
+            </form>
 
             <hr />
           </div>

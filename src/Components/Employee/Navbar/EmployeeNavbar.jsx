@@ -1,34 +1,35 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import lok from "../../images/lok.png";
 import bottom from "../../images/bottom.png";
-import bell from "../../images/bell.png";
+import notifications from "../../images/notifications.png";
 import OutsideClickHandler from "react-outside-click-handler";
 import { NavLink } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import LogoutPop from "../Popup/LogoutPop";
 import { useMain } from "../../../hooks/useMain";
 import kushel1 from "../../images/auxi.png";
-import redcancel from "../../images/redcancel.png"
-import notifyy from "../../images/notifyy.png"
-
+import redcancel from "../../images/redcancel.png";
+import notifyy from "../../images/notifyy.png";
 
 var tc;
 var tc2;
 
 const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
+  const {
+    postActivity,
+    getActivitiesByUser,
+    fetchUserNotify,
+    deleteNotification,
+  } = useMain();
 
-  const { postActivity, getActivitiesByUser , fetchUserNotify , deleteNotification   } = useMain();
-
-
-  let todayDate = new Date().toLocaleDateString('en-GB');
+  let todayDate = new Date().toLocaleDateString("en-GB");
   const [pass, setPass] = useState(false);
-  const [user , setUser] = useState({});
+  const [user, setUser] = useState({});
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-     setUser(hrms_user);
-  },[])
+    setUser(hrms_user);
+  }, []);
 
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
@@ -59,7 +60,8 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
     console.log(data);
 
     if (data.data.length > 0) {
-      let isLoggedOut = data.data[0].activity[data.data[0].activity.length - 1].message !== "";
+      let isLoggedOut =
+        data.data[0].activity[data.data[0].activity.length - 1].message !== "";
 
       if (!isLoggedOut) {
         setIsLoggedOut(false);
@@ -220,7 +222,10 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
       }
     } else {
       // alert("you have been logged out. Please login next working day!");
-      setAlert("success", "you have been logged out. Please login next working day!");
+      setAlert(
+        "success",
+        "you have been logged out. Please login next working day!"
+      );
     }
   };
 
@@ -233,56 +238,58 @@ const EmployeeNavbar = ({ setAlert, pop1, setPop1 }) => {
   else if (hours >= 12 && hours <= 17) greet = "Afternoon";
   else if (hours >= 17 && hours <= 24) greet = "Evening";
 
-  const [allNotication , setAllNotification] = useState([]);
-  const [currLoad , setCurrLoad] = useState(1);
-  const [actNotify , setActNotify] = useState([]);
+  const [allNotication, setAllNotification] = useState([]);
+  const [currLoad, setCurrLoad] = useState(1);
+  const [actNotify, setActNotify] = useState([]);
 
-  const [shownotify , setShownotify] = useState(false);
-  
-  const fetchNotification  = async()=>{
+  const [shownotify, setShownotify] = useState(false);
+
+  const fetchNotification = async () => {
     const ans = await fetchUserNotify();
-     if(ans.status){
-        // setAllNotification(ans?.notifications);
-        let notifications = ans?.notifications;
-        let reversedNotifications = notifications.slice().reverse(); 
-  
-        setAllNotification(reversedNotifications);  
-     }
-}
+    if (ans.status) {
+      // setAllNotification(ans?.notifications);
+      let notifications = ans?.notifications;
+      let reversedNotifications = notifications.slice().reverse();
 
+      setAllNotification(reversedNotifications);
+    }
+  };
 
-useEffect(()=>{
-  fetchNotification();
-  setCurrLoad(1);
-},[])
+  useEffect(() => {
+    fetchNotification();
+    setCurrLoad(1);
+  }, []);
 
-
-useEffect(()=>{
-
-   let num = currLoad*10;
-  const nNotify = allNotication.slice(0 , num);
-  setActNotify(nNotify);
-
-},[allNotication , currLoad])
+  useEffect(() => {
+    let num = currLoad * 10;
+    const nNotify = allNotication.slice(0, num);
+    setActNotify(nNotify);
+  }, [allNotication, currLoad]);
 
   return (
     <>
       <div className="Employee-nav w-full">
-        <div className="logo ">
+        {/* <div className="logo ">
           <img src={kushel1} alt="" />
-        </div>
+        </div> */}
         <NavLink to="/employeeDash">
-        <div className="second-logo flex items-center">
-      
-        </div>
+          <div className="logo">
+            <img src={kushel1} alt="" />
+          </div>
         </NavLink>
-        <div  className="third-logo ">
-          <input style={{visibility:"hidden"}}  type="search" placeholder="Search" />
+        <NavLink to="/employeeDash">
+          <div className="second-logo flex items-center"></div>
+        </NavLink>
+        <div className="third-logo ">
+          <input
+            style={{ visibility: "hidden" }}
+            type="search"
+            placeholder="Search"
+          />
         </div>
 
-       
-        <div onClick={()=>setShownotify(true)} className="fifth-logo ">
-          <img  src={bell} alt="" />
+        <div onClick={() => setShownotify(true)} className="fifth-logo ">
+          <img style={{ width: "32px" }} src={notifications} alt="" />
         </div>
 
         <OutsideClickHandler
@@ -292,9 +299,12 @@ useEffect(()=>{
           }}
         >
           <div className="relative cursor-pointer" onClick={updateUser}>
-
             <div className="sixth-logo flex items-center relative ">
-              <img className="john" src={user?.profileImage ? user?.profileImage : lok} alt="lok" />
+              <img
+                className="john"
+                src={user?.profileImage ? user?.profileImage : lok}
+                alt="lok"
+              />
               <p className="ml-2.5">{user?.fullName}</p>
               <img className="ml-2.5 bottom" src={bottom} alt="bottom" />
             </div>
@@ -307,7 +317,6 @@ useEffect(()=>{
                 <p className=" text-center">Edit Profile</p>
               </NavLink>
             </div>
-
           </div>
         </OutsideClickHandler>
       </div>
@@ -322,72 +331,60 @@ useEffect(()=>{
         />
       )}
 
-         {/* this is notification sidebar  */}
+      {/* this is notification sidebar  */}
 
- {
-  shownotify && 
-  <div className="notifySidwrap">
+      {shownotify && (
+        <div className="notifySidwrap">
+          <div className="notifcont">
+            <nav>
+              <h2>Notifications</h2>
+              <img
+                onClick={() => {
+                  setShownotify(false);
+                }}
+                src={redcancel}
+                alt=""
+              />
+            </nav>
 
-  <div className="notifcont">
+            <hr />
 
-    <nav>
-     <h2>Notifications</h2>
-     <img onClick={()=>{
-      setShownotify(false);
-     }}  src={redcancel} alt="" />
-    </nav>
+            <div className="allnotiftcont">
+              {allNotication?.length > 0 ? (
+                <div className="allnotifywrap">
+                  {actNotify?.map((item, index) => (
+                    <>
+                      <div key={index} className="singlnotify">
+                        <h2>{item?.title}</h2>
 
-    <hr />
+                        <p>{item?.description}</p>
 
-     <div className="allnotiftcont">
+                        <p>
+                          Date :{" "}
+                          {new Date(parseInt(item?.date)).toLocaleDateString()}
+                        </p>
+                      </div>
 
-         {
+                      <hr />
+                    </>
+                  ))}
 
-allNotication?.length > 0 ?
-
-             <div className="allnotifywrap">
-
-{
-
-           actNotify?.map((item , index)=>(
-
-             <>
-
-             <div key={index} className="singlnotify">
-               <h2>{item?.title}</h2>
-
-              <p>{item?.description}</p>
-
-              <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
-
-
-             </div>
-
-              <hr />
-             </>
-
-           ))
-
-          }
-
-          <button  onClick={() => setCurrLoad(currLoad + 1)}
- className="lodmorebtns"><span>Load More...</span></button>
-
-           </div>
-
-
-           :
-            <div className="nonotify">
-              <img src={notifyy} alt="" />
+                  <button
+                    onClick={() => setCurrLoad(currLoad + 1)}
+                    className="lodmorebtns"
+                  >
+                    <span>Load More...</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="nonotify">
+                  <img src={notifyy} alt="" />
+                </div>
+              )}
             </div>
-         }
-
-     </div>
-
-  </div>
-
-</div>
- }
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -48,6 +48,9 @@ const MarkAttendance = ({
   const [departments, setDepartments] = useState([]);
   const [allDash, setAllDash] = useState([]);
 
+  // dumy state to force rerender to show more text 
+  const [updateFlag, setUpdateFlag] = useState(false);
+
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
   const { role } = hrms_user;
@@ -100,8 +103,6 @@ const MarkAttendance = ({
     return allDash?.slice(startIndex, endIndex);
   };
 
-  console.log("allDash",allDash);
-
   const parseDate = (dateStr) => {
     if (dateStr !== null) {
       const [day, month, year] = dateStr?.split("/")?.map(Number);
@@ -113,6 +114,7 @@ const MarkAttendance = ({
 
   const getData = async () => {
     let ans = await getAllActivities();
+    console.log(ans)
     setAllDash(ans?.data);
     const ans1 = await allEmployee();
     setUsers(ans1?.emp);
@@ -192,6 +194,8 @@ const MarkAttendance = ({
     }
   };
 
+
+
   const handleDownload = async () => {
     console.log("handleDownload");
   };
@@ -243,7 +247,7 @@ const MarkAttendance = ({
 
   const currentPageData = getCurrentPageData();
 
-  const [currentPageData2 , setcurrentPageData2] = useState([]);
+  const currentPageData2 = getCurrentPageData2();
 
   const [showImportPop, setShowImportPop] = useState(false);
 
@@ -251,27 +255,23 @@ const MarkAttendance = ({
 
   const [srchText, setSrchText] = useState("");
 
-
   const srchHandler = (e) => {
     setSrchText(e.target.value);
   };
 
   useEffect(() => {
-    if (selectedOption === "daily") {
-        
-      if(srchText === ""){
-        let currentPagdata = getCurrentPageData2();
-        setcurrentPageData2(currentPagdata);
+    if (selectedOption === "monthly") {
+      if (srchText === "") {
+        getData();
+      } else {
+        const filteredData = data.filter(
+          (item) =>
+            item &&
+            item.user &&
+            item.user.fullName &&
+            item.user.fullName.includes(srchText)
+        );
       }
-      else{
-        const filterdata = allDash.filter((d)=> {
-          return d?.user?.fullName?.toLowerCase()?.includes(srchText?.toLowerCase());
-         })
-
-         setcurrentPageData2(filterdata);
-        
-      }
-
     }
   }, [srchText, makeChange]);
 
@@ -454,12 +454,17 @@ const MarkAttendance = ({
     }
   }
 
-  useEffect(()=>{
-    let currentPagdata = getCurrentPageData2();
-     setcurrentPageData2(currentPagdata);
-
-  },[allDash , currentPage2])
- 
+  //=======function to trim words to 15 length only ======
+  const truncateText = (text, wordLimit, isExpanded) => {
+    if (isExpanded) return text; 
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "..."; 
+    }
+    return text; 
+  };
+  
+  
 
   return (
     <>
@@ -734,19 +739,15 @@ const MarkAttendance = ({
                     <h3>Daily Attendance</h3>
 
                     <div className="seexwrap">
-                 
-                   {
-                     selectedOption === "daily" && 
-                     <div className="serchEmpl">
-                     <input
-                       type="text"
-                       value={srchText}
-                       onChange={srchHandler}
-                       placeholder="Search Employee"
-                     />
-                     <img src={bxsearch} alt="" />
-                   </div>
-                   }
+                      <div className="serchEmpl">
+                        <input
+                          type="text"
+                          value={srchText}
+                          onChange={srchHandler}
+                          placeholder="Search Employee"
+                        />
+                        <img src={bxsearch} alt="" />
+                      </div>
 
                       {(selectedOption === "daily" && date === "" ) && (
                         <ReactHTMLTableToExcel
@@ -836,7 +837,7 @@ const MarkAttendance = ({
                         {data?.map((item, index) => (
                           <tr key={index} className="bg-white ">
                             <td className="px-6 py-4 itemANs">
-                              {item?.user?.fullName} 
+                              {item?.user?.fullName}
                             </td>
                             <td className="px-6 py-4 itemANs">
                               {item?.user?.department}
@@ -928,6 +929,9 @@ const MarkAttendance = ({
                             <th scope="col" className="px-6 py-3 currentText">
                               Break
                             </th>
+                            <th scope="col" className="px-6 py-3 currentText">
+                              Task
+                            </th>
 
                             <th scope="col" className="px-6 py-3 currentText">
                               action
@@ -967,6 +971,36 @@ const MarkAttendance = ({
                               <td className="px-6 py-4 itemANs">
                                 {item?.breakTime ? item?.breakTime : "No break"}
                               </td>
+
+                             <td className="px-6 py-4 itemANs">
+  {item?.todayTask ? (
+    <span>
+      {truncateText(item.todayTask, 15, item.isExpanded)}{" "}
+      {item.todayTask.split(" ").length > 15 && (
+        <button
+          onClick={() => {
+            item.isExpanded = !item.isExpanded; 
+            setUpdateFlag((prev) => !prev); 
+          }}
+          style={{
+            color: "blue",
+            cursor: "pointer",
+            border: "none",
+            background: "none",
+            padding: "0",
+            textDecoration: "underline",
+          }}
+        >
+          {item.isExpanded ? "Show Less" : "See More"}
+        </button>
+      )}
+    </span>
+  ) : (
+    "No Task"
+  )}
+</td>
+
+
 
                               <td
 
@@ -1270,7 +1304,7 @@ const MarkAttendance = ({
 
                 <nav >
                   <h2>Edit Attendance</h2>
-                  <img className="cursor-pointer" onClick={() => setEditform(null)} src={cutt} alt="" />
+                  <img onClick={() => setEditform(null)} src={cutt} alt="" />
                 </nav>
 
                 <hr />

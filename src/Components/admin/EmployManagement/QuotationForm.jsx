@@ -6,32 +6,19 @@ import "./HRMsystem.css";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import plussing from "../../images/plussing.png";
-import inputfileds from "../../images/inputfield.png";
 import "./quote.css";
-import JoditEditor from "jodit-react";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import { CiCirclePlus } from "react-icons/ci";
-import pluslogo from "../../images/8922789.png"
-
-
-const data = `<h3 style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">User App(android/iOS)</h3><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">Login with</li></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">1. Email address</li><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">2. Password</li></ol><ul class="ulist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 500; line-height: 32px; text-align: left; color: rgb(16, 24, 32);">Sign Up</li></ul><ol class="ollist" style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: gilroy; list-style: none; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);"><span style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 600; line-height: 26px; text-align: left;">Name:</span><span>&nbsp;</span>You’ll likely be asked to enter your first and last name.</li><li style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 400; line-height: 32px; text-align: left; color: rgb(16, 24, 32);"><span style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; padding: 0px; margin: 0px; font-family: Inter; font-size: 18px; font-weight: 600; line-height: 26px; text-align: left;">Email address:<span>&nbsp;</span></span>You’ll need to provide a valid email address to create an account.</li></ol>`;
 
 const QuotationForm = ({ setAlert, pop, setPop }) => {
-  const {
-    user,
-    uploadSingleImage,
-    postQuotationFormApi,
-    updateQuotationFormApi,
-  } = useMain();
+  
+  const { user, uploadSingleImage } = useMain();
+
+  const [currentshowindex, setCurrShowIndex] = useState(0);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-
-  const location = useLocation();
-
-  const { id, item } = location.state;
 
   const [formdata, setFormdata] = useState({
     quotationNum: "",
@@ -45,6 +32,8 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     companyAddress: "",
     companyGSTIN: "",
     companyWebsite: "",
+    totalPayableAmt:"",
+    total:""
   });
 
   const textChangeHandler = (e) => {
@@ -54,161 +43,95 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
       [name]: value,
     }));
   };
-
-  const editor = useRef(null);
-
   const navigate = useNavigate();
+  const { role } = hrms_user;
 
-  const [content, setContent] = useState(data);
+  const [preview, setPreview] = useState([false, false, false, false]);
 
-  const { role, } = hrms_user;
-
-  const fileInputRef = useRef(null);
-
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const [preview , setPreview] = useState(false);
-
-  const [logoImage, setLogoImage] = useState("");
-  const [buislogoname , setBuisLogName] = useState("");
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const formdata2 = new FormData();
-      formdata2.append("Image", file);
-      setBuisLogName(file);
-
-      const ans = await uploadSingleImage(formdata2);
-      if (ans?.status) {
-        sessionStorage.setItem("quotationLogoLink", ans?.link);
-        toast.success("Successfuly uploaded");
-        setLogoImage(ans?.link);
-      } else {
-        toast.error("Something went wrong , please try again");
-      }
-    }
+  const handlePreviewClick = () => {
+    const updatedPreview = preview.map((value, index) =>
+      index === currentshowindex ? true : value
+    );
+    setPreview(updatedPreview);
   };
 
   const [rows, setRows] = useState([
-    { description: "", quantity: "", price: "", total: "" },
+    { application: "", brand: "", model: "", description: "" , qty:"" , unitPrice:"" , amount:"" },
   ]);
 
   const addRow = () => {
-    setRows([...rows, { description: "", quantity: "", price: "", total: "" }]);
+    setRows([...rows, { application: "", brand: "", model: "", description: "" , qty:"" , unitPrice:"" , amount:"" }]);
   };
 
-  const postQuotationForm = async () => {
-    const toastId = toast.loading("Loading...");
+  const [rows3, setRows3] = useState([
+    {area: "", description: "" , qty:"" , price:"" , amount:"" , unit:"" },
+  ]);
 
-    const ans = await postQuotationFormApi({
-      ...formdata,
-      items: rows,
-      userId: hrms_user?._id,
-      leadId: id,
-      content,
-    });
-
-    if (ans?.status) {
-      toast.success("Successfuly created");
-      setFormdata({
-        quotationNum: "",
-        customerName: "",
-        customerReq: "",
-        mobileNum: "",
-        quotationDate: "",
-        validUntil: "",
-        customerId: "",
-        companyName: "",
-        companyAddress: "",
-        companyGSTIN: "",
-        companyWebsite: "",
-      });
-
-      sessionStorage.removeItem("quotationLogoLink");
-
-      setRows([]);
-      setContent(data);
-    }
-    toast.dismiss(toastId);
+  const addRow3 = () => {
+    setRows3([...rows3, {area: "", model: "", description: "" , qty:"" , unitPrice:"" , amount:"" },]);
   };
 
-  const updateQuotationForm = async () => {
-    const toastId = toast.loading("Loading...");
+  const [rows4, setRows4] = useState([
+    {product: "", model: "" , brand:"" , productPic:"" , unitPrice:"" , qty:"" , total:"" },
+  ]);
 
-    const ans = await updateQuotationFormApi({
-      ...formdata,
-      items: rows,
-      userId: hrms_user?._id,
-      leadId: id,
-      content,
-      id: item?._id,
-    });
-
-    if (ans?.status) {
-      toast.success("Successfuly updated");
-      setFormdata({
-        quotationNum: "",
-        customerName: "",
-        customerReq: "",
-        mobileNum: "",
-        quotationDate: "",
-        validUntil: "",
-        customerId: "",
-        companyName: "",
-        companyAddress: "",
-        companyGSTIN: "",
-        companyWebsite: "",
-      });
-
-      setRows([]);
-      setContent(data);
-      sessionStorage.removeItem("quotationLogoLink");
-    }
-    toast.dismiss(toastId);
+  const addRow4 = () => {
+    setRows4([...rows4, {product: "", model: "" , brand:"" , productPic:"" , unitPrice:"" , qty:"" , total:"" }]);
   };
 
-  useEffect(() => {
-    const quotationLogoLink = sessionStorage.getItem("quotationLogoLink");
-    if (quotationLogoLink) {
-      setLogoImage(quotationLogoLink);
-    }
-  }, []);
+  const [rows2, setRows2] = useState([
+    {
+      productName: "",
+      description: [""],
+      unitPrice: "",
+      taxRate: "",
+      amount: "",
+    },
+  ]);
 
-  useEffect(() => {
-    if (item) {
-      const {
-        quotationNum,
-        customerName,
-        customerReq,
-        mobileNum,
-        quotationDate,
-        validUntil,
-        customerId,
-        companyName,
-        companyAddress,
-        companyGSTIN,
-        companyWebsite,
-        items,
-      } = item;
-      setRows(items);
-      setFormdata({
-        quotationNum,
-        customerName,
-        customerReq,
-        mobileNum,
-        quotationDate,
-        validUntil,
-        customerId,
-        companyName,
-        companyAddress,
-        companyGSTIN,
-        companyWebsite,
-      });
+  const addRow2 = () => {
+    setRows2([
+      ...rows2,
+      {
+        productName: "",
+        description: [""],
+        unitPrice: "",
+        taxRate: "",
+        amount: "",
+      },
+    ]);
+  };
+
+  const handleDescriptionChange = (rowIndex, descIndex, value) => {
+    const newRows = [...rows2];
+    newRows[rowIndex].description[descIndex] = value;
+    setRows2(newRows);
+  };
+
+  const addDescriptionField = (rowIndex) => {
+    const newRows = [...rows2];
+    newRows[rowIndex].description.push("");
+    setRows2(newRows);
+  };
+
+  const handleImageUpload = async (e, index) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const formdata2 = new FormData();
+      formdata2.append("Image", file);
+
+      const ans = await uploadSingleImage(formdata2);
+
+      if (ans?.status) {
+        const newRows = [...rows4];
+        newRows[index].productPic = ans?.link;
+        setRows4(newRows);
+      } else {
+        console.error("Image upload failed");
+      }
     }
-  }, []);
+  };
 
   const contonentPDF = useRef();
 
@@ -222,6 +145,10 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
     },
     onAfterPrint: () => alert("success", "item saved"),
   });
+
+  const handleCancelClick = () => {
+    setPreview(preview.map(() => false));
+  };
 
   return (
     <>
@@ -241,373 +168,1423 @@ const QuotationForm = ({ setAlert, pop, setPop }) => {
 
           <div className="em">
             <div className="qutaWrap">
-
               <div className="qutaLeft">
-
                 <div className="qutLTo">
-
                   <div className="qutolobutons">
-                     <button onClick={()=>setPreview(true)}>Preview</button>
-                     <button onClick={()=>{
-                        if (item) {
-                          updateQuotationForm();
-                        } else {
-                          postQuotationForm();
-                        }
-                     }}>Create</button>
-                     <button onClick={()=>{
-                       navigate(-1);
-                     }} className="cnebuqo">Cancel</button>
+                    <button onClick={handlePreviewClick}>Preview</button>
+                    <button
+                    >
+                      Save
+                    </button>
+
+                    <button>Create</button>
+
+                    <button
+                      onClick={() => {
+                        navigate(-1);
+                      }}
+                      className="cnebuqo"
+                    >
+                      Cancel
+                    </button>
                   </div>
-              
                 </div>
 
-                <div className="allwhitebg">
+                <div className="allquotation_formtate">
+                  <button
+                    onClick={() => {
+                      setCurrShowIndex(0);
+                      setFormdata({
+                        quotationNum: "",
+                        customerName: "",
+                        customerReq: "",
+                        mobileNum: "",
+                        quotationDate: "",
+                        validUntil: "",
+                        customerId: "",
+                        companyName: "",
+                        companyAddress: "",
+                        companyGSTIN: "",
+                        companyWebsite: "",
+                        totalPayableAmt:"",
+                        total:""
+                      })
+                    }}
+                  >
+                    <span>Audio & Sound</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrShowIndex(1);
+                      setFormdata({
+                        quotationNum: "",
+                        customerName: "",
+                        customerReq: "",
+                        mobileNum: "",
+                        quotationDate: "",
+                        validUntil: "",
+                        customerId: "",
+                        companyName: "",
+                        companyAddress: "",
+                        companyGSTIN: "",
+                        companyWebsite: "",
+                        totalPayableAmt:"",
+                        total:""
+                      })
+                    }}
+                  >
+                    <span>LED</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrShowIndex(2);
+                      setFormdata({
+                        quotationNum: "",
+                        customerName: "",
+                        customerReq: "",
+                        mobileNum: "",
+                        quotationDate: "",
+                        validUntil: "",
+                        customerId: "",
+                        companyName: "",
+                        companyAddress: "",
+                        companyGSTIN: "",
+                        companyWebsite: "",
+                        totalPayableAmt:"",
+                        total:""
+                      })
+                    }}
+                  >
+                    <span>Home Theatre System</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrShowIndex(3);
+                      setFormdata({
+                        quotationNum: "",
+                        customerName: "",
+                        customerReq: "",
+                        mobileNum: "",
+                        quotationDate: "",
+                        validUntil: "",
+                        customerId: "",
+                        companyName: "",
+                        companyAddress: "",
+                        companyGSTIN: "",
+                        companyWebsite: "",
+                        totalPayableAmt:"",
+                        total:""
+                      })
+                    }}
+                  >
+                   
+                    <span>Pixel Lighting</span>
+                  </button>
+                </div>
 
-                  <form className="qtoform">
-
-                    <label>
-                      <p>Quotation No*</p>
-                      <input
-                        value={formdata.quotationNum}
-                        name="quotationNum"
-                        onChange={textChangeHandler}
-                        type="text"
-                        placeholder="#01"
-                      />
-                    </label>
-
-                    <label>
-                      <p>Customer Name*</p>
-                      <input
-                        value={formdata.customerName}
-                        name="customerName"
-                        onChange={textChangeHandler}
-                        type="text"
-                        placeholder="Akash Negi"
-                      />
-                    </label>
-
-                    <label>
-                      <p>Customer Requirement</p>
-                      <input
-                        type="text"
-                        value={formdata.customerReq}
-                        name="customerReq"
-                        onChange={textChangeHandler}
-                        placeholder="Mobile App - diet care app"
-                      />
-                    </label>
-
-                    <label>
-                      <p>Mobile Number*</p>
-                      <input
-                        value={formdata.mobileNum}
-                        name="mobileNum"
-                        onChange={textChangeHandler}
-                        type="text"
-                        placeholder="+918595046368"
-                      />
-                    </label>
-
-                    <label>
-                      <p>Quotation Date*</p>
-                      <input
-                        value={formdata.quotationDate}
-                        name="quotationDate"
-                        onChange={textChangeHandler}
-                        type="date"
-                      />
-                    </label>
-
-                    <label>
-                      <p>Valid Until*</p>
-                      <input
-                        value={formdata.validUntil}
-                        name="validUntil"
-                        onChange={textChangeHandler}
-                        type="date"
-                      />
-                    </label>
-
-                    <label>
-                      <p>Customer ID*</p>
-                      <input
-                        value={formdata.customerId}
-                        name="customerId"
-                        onChange={textChangeHandler}
-                        type="text"
-                      />
-                    </label>
-
-          
-
-                  </form>
-
-
-<div className="adddbunelogo cursor-pointer" onClick={handleImageClick}>
-  <img src={pluslogo} width={50} alt="" />
-  <p > {buislogoname ? buislogoname?.name: "Add Business Logo"} </p>
-  <input
-    type="file"
-    ref={fileInputRef}
-    style={{ display: "none" }}
-    onChange={handleFileChange}
-  />
-</div>
-
-
-
-
-
-                  <div class="relative ">
-                    <table className="quotablle text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                      <thead className="theadqu">
-                        <tr>
-                          <th scope="col" className="px-2 py-3">
-                            Description
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Quantity
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Price
-                          </th>
-                          <th scope="col" className="px-2 py-3">
-                            Total
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {rows.map((row, index) => (
-                          <tr className="bg-white tabletr" key={index}>
-                            <td className="px-2 py-4">
-                              <input
-                                type="text"
-                                className="inpu11"
-                                value={row.description}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].description = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="px-2 py-4">
-                              <input
-                                type="number"
-                                value={row.quantity}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].quantity = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="px-2 py-4">
-                              <input
-                                type="number"
-                                value={row.price}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].price = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="px-2 py-4">
-                              <input
-                                type="number"
-                                value={row.total}
-                                onChange={(e) => {
-                                  const newRows = [...rows];
-                                  newRows[index].total = e.target.value;
-                                  setRows(newRows);
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div onClick={addRow} className="admorCont cursor-pointer">
-                    <img src={plussing} alt="" />
-                    <span>Add Item</span>
-                  </div>
-
-                  <div className="docuThird">
-                    <h3>Format</h3>
-
-                    <hr />
-
-                    <JoditEditor
-                      ref={editor}
-                      value={content}
-                      tabIndex={1}
-                      onBlur={(newContent) => setContent(newContent)}
-                      onChange={(newContent) => {
-                        setContent(newContent);
-                      }}
-                    />
-                  </div>
-
-                  <div className="comapnydetail">
-                    <h3 className="comdetail">Company Details</h3>
-
+                {currentshowindex === 0 && (
+                  <div className="allwhitebg">
                     <form className="qtoform">
                       <label>
-                        <p>Company Name*</p>
+                        <p>Ref No*</p>
                         <input
-                          value={formdata.companyName}
-                          name="companyName"
+                          value={formdata.quotationNum}
+                          name="quotationNum"
                           onChange={textChangeHandler}
                           type="text"
-                          placeholder=""
+                          placeholder="#01"
                         />
                       </label>
 
                       <label>
-                        <p>Company Address*</p>
+                        <p>Kind Attention</p>
                         <input
-                          value={formdata.companyAddress}
-                          name="companyAddress"
-                          onChange={textChangeHandler}
                           type="text"
-                          placeholder=""
+                          value={formdata.customerReq}
+                          name="customerReq"
+                          onChange={textChangeHandler}
+                          placeholder="Akash "
                         />
                       </label>
 
                       <label>
-                        <p>Company GSTIN*</p>
+                        <p>Quotation Date*</p>
+                        <input
+                          value={formdata.quotationDate}
+                          name="quotationDate"
+                          onChange={textChangeHandler}
+                          type="date"
+                        />
+                      </label>
+                    </form>
+
+                    <div class="relative allowoverflow">
+                      <table className="quotablle  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="theadqu">
+                          <tr>
+                            <th scope="col" className="px-2 py-3">
+                              Application
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Brand
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Model
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Description
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Qty
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Unit Price
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Amount
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rows.map((row, index) => (
+                            <tr className="bg-white tabletr" key={index}>
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.application}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].application = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.brand}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].brand = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.model}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].model = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.description}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].description = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.qty}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].qty = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.unitPrice}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].unitPrice = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.amount}
+                                  onChange={(e) => {
+                                    const newRows = [...rows];
+                                    newRows[index].amount = e.target.value;
+                                    setRows(newRows);
+                                  }}
+                                />
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div onClick={addRow} className="admorCont cursor-pointer">
+                      <img src={plussing} alt="" />
+                      <span>Add Item</span>
+                    </div>
+                  </div>
+                )}
+
+                {currentshowindex === 1 && (
+                  <div className="allwhitebg">
+                    <form className="qtoform">
+                      <label>
+                        <p>Ref No*</p>
+                        <input
+                          value={formdata.quotationNum}
+                          name="quotationNum"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder="#01"
+                        />
+                      </label>
+
+                      <label>
+                        <p>Kind Attention</p>
+                        <input
+                          type="text"
+                          value={formdata.customerReq}
+                          name="customerReq"
+                          onChange={textChangeHandler}
+                          placeholder="Akash "
+                        />
+                      </label>
+
+                      <label>
+                        <p>Quotation Date*</p>
+                        <input
+                          value={formdata.quotationDate}
+                          name="quotationDate"
+                          onChange={textChangeHandler}
+                          type="date"
+                        />
+                      </label>
+
+                      <label>
+                        <p>GSTN No.</p>
                         <input
                           value={formdata.companyGSTIN}
                           name="companyGSTIN"
                           onChange={textChangeHandler}
                           type="text"
-                        />
-                      </label>
-
-                      <label>
-                        <p>Company Website*</p>
-                        <input
-                          value={formdata.companyWebsite}
-                          name="companyWebsite"
-                          onChange={textChangeHandler}
-                          type="text"
+                          placeholder="GSTIN Number"
                         />
                       </label>
                     </form>
-                  </div>
 
-                </div>
-              </div>
-
-              {
-       preview && 
-         <div className="previwwraps">
-            <div className="qutaRight">
-                <div ref={contonentPDF} className="qutaRightcont">
-                  
-                  <div className="hdquot">
-                    {logoImage ? <img src={logoImage} alt="Logo" /> : <p></p>}
-                    <p>Quotation {formdata?.quotationNum}</p>
-
-                  </div>
-
-                  <p className="cust">Customer</p>
-
-                  <div className="gridView">
-                    <div><p>Customer Name :</p> <span>{formdata?.customerName}</span></div>
-                    <div><p>Date : </p> <span>{formdata?.quotationDate}</span></div>
-                    <div><p>Requirement :</p> <span>{formdata?.customerReq}</span> </div>
-                    <div><p>Valid Until :</p> <span>{formdata?.validUntil}</span> </div>
-                    <div><p>Contact No. :</p> <span>{formdata?.mobileNum}</span> </div>
-                    <div><p>Customer ID :</p> <span>{formdata?.customerId}</span> </div>
-                  </div>
-
-
-                  <div className="talbeLike">
-                    <div class="relative w-full">
-                      <table className="quotablle2 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="theadqu2">
+                    <div class="relative ">
+                      <table className="quotablle text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="theadqu">
                           <tr>
+                            <th scope="col" className="px-2 py-3">
+                              Area
+                            </th>
                             <th scope="col" className="px-2 py-3">
                               Description
                             </th>
                             <th scope="col" className="px-2 py-3">
-                              Quantity
+                              Qty
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Unit
                             </th>
                             <th scope="col" className="px-2 py-3">
                               Price
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Amount
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rows3.map((row, index) => (
+                            <tr className="bg-white tabletr" key={index}>
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.area}
+                                  onChange={(e) => {
+                                    const newRows = [...rows3];
+                                    newRows[index].area = e.target.value;
+                                    setRows3(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.description}
+                                  onChange={(e) => {
+                                    const newRows = [...rows3];
+                                    newRows[index].description = e.target.value;
+                                    setRows3(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.qty}
+                                  onChange={(e) => {
+                                    const newRows = [...rows3];
+                                    newRows[index].qty = e.target.value;
+                                    setRows3(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.unit}
+                                  onChange={(e) => {
+                                    const newRows = [...rows3];
+                                    newRows[index].unit = e.target.value;
+                                    setRows3(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.price}
+                                  onChange={(e) => {
+                                    const newRows = [...rows3];
+                                    newRows[index].price = e.target.value;
+                                    setRows3(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.amount}
+                                  onChange={(e) => {
+                                    const newRows = [...rows3];
+                                    newRows[index].amount = e.target.value;
+                                    setRows3(newRows);
+                                  }}
+                                />
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div onClick={addRow3} className="admorCont cursor-pointer">
+                      <img src={plussing} alt="" />
+                      <span>Add Item</span>
+                    </div>
+                  </div>
+                )}
+
+                {currentshowindex === 2 && (
+                  <div className="allwhitebg">
+                    <form className="qtoform">
+                      <label>
+                        <p>Ref No*</p>
+                        <input
+                          value={formdata.quotationNum}
+                          name="quotationNum"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder="#01"
+                        />
+                      </label>
+
+                      <label>
+                        <p>Customer Name*</p>
+                        <input
+                          value={formdata.customerName}
+                          name="customerName"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder="Akash Negi"
+                        />
+                      </label>
+
+                      <label>
+                        <p>Quotation Date*</p>
+                        <input
+                          value={formdata.quotationDate}
+                          name="quotationDate"
+                          onChange={textChangeHandler}
+                          type="date"
+                        />
+                      </label>
+                    </form>
+
+                    <div class="relative quotabl_wrap">
+                      <table className="quotablle3 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="theadqu">
+                          <tr>
+                            <th scope="col" className="px-2 py-3">
+                              Product
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Model
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Brand
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Product Picture
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Unit Price
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Qty
                             </th>
                             <th scope="col" className="px-2 py-3">
                               Total
                             </th>
                           </tr>
                         </thead>
+
                         <tbody>
-                          {rows.map((row, index) => (
-                            <tr className="bg-white tabletr2" key={index}>
-                              <td className="px-2 py-4">{row.description}</td>
-                              <td className="px-2 py-4">{row.quantity}</td>
-                              <td className="px-2 py-4">{row.price}</td>
-                              <td className="px-2 py-4">{row.total}</td>
+                          {rows4.map((row, index) => (
+                            <tr className="bg-white tabletr" key={index}>
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2 addwidth"
+                                  value={row.product}
+                                  onChange={(e) => {
+                                    const newRows = [...rows4];
+                                    newRows[index].product = e.target.value;
+                                    setRows4(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.model}
+                                  onChange={(e) => {
+                                    const newRows = [...rows4];
+                                    newRows[index].model = e.target.value;
+                                    setRows4(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.brand}
+                                  onChange={(e) => {
+                                    const newRows = [...rows4];
+                                    newRows[index].brand = e.target.value;
+                                    setRows4(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="appinput2"
+                                  onChange={(e) => handleImageUpload(e, index)}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.unitPrice}
+                                  onChange={(e) => {
+                                    const newRows = [...rows4];
+                                    newRows[index].unitPrice = e.target.value;
+                                    setRows4(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.qty}
+                                  onChange={(e) => {
+                                    const newRows = [...rows4];
+                                    newRows[index].qty = e.target.value;
+                                    setRows4(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.total}
+                                  onChange={(e) => {
+                                    const newRows = [...rows4];
+                                    newRows[index].total = e.target.value;
+                                    setRows4(newRows);
+                                  }}
+                                />
+                              </td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
-                  </div>
 
-                  <div className="userApp">
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                  </div>
-
-                  <hr />
-
-                  <div className="rigthfot">
-                    <div className="rigthfotleft">
-                      <p className="leftfist">{formdata.companyName}</p>
-                      <p className="seconle">
-                        IT and e-Commerce Development Company
-                      </p>
-                      <p className="thirleft">
-                        <span>GST No. </span> {formdata.companyGSTIN}
-                      </p>
+                    <div onClick={addRow4} className="admorCont cursor-pointer">
+                      <img src={plussing} alt="" />
+                      <span>Add Item</span>
                     </div>
 
-                    <div className="rigthfotright">
-                      <p>Reach us at</p>
-                      <p>{formdata?.companyAddress}</p>
-                      <p>+91-9045301702 / +1-585-566-2070</p>
-                      <p>{formdata?.companyWebsite}</p>
+                    <div className="totalCI_charges">
+                      <label htmlFor="">
+                        <p>Total</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="total"
+                          value={formdata.total}
+                          type="text"
+                        />
+                      </label>
+                      <label htmlFor="">
+                        <p>C & I Charges @ 10%</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="candICharge"
+                          value={formdata.candICharge}
+                          type="text"
+                        />
+                      </label>
+                      <label htmlFor="">
+                        <p>Total Payable amount</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="totalPayableAmt"
+                          value={formdata.totalPayableAmt}
+                          type="text"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                )}
+
+                {currentshowindex === 3 && (
+                  <div className="allwhitebg">
+                    <form className="qtoform">
+                      <label>
+                        <p>Ref No*</p>
+                        <input
+                          value={formdata.quotationNum}
+                          name="quotationNum"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder="#01"
+                        />
+                      </label>
+
+                      <label>
+                        <p>Customer Name*</p>
+                        <input
+                          value={formdata.customerName}
+                          name="customerName"
+                          onChange={textChangeHandler}
+                          type="text"
+                          placeholder="Akash Negi"
+                        />
+                      </label>
+
+                      <label>
+                        <p>Quotation Date*</p>
+                        <input
+                          value={formdata.quotationDate}
+                          name="quotationDate"
+                          onChange={textChangeHandler}
+                          type="date"
+                        />
+                      </label>
+                    </form>
+
+                    <div className="relative quotabl_wrap">
+                      <table className="quotablle3 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="theadqu">
+                          <tr>
+                            <th scope="col" className="px-2 py-3">
+                              Product Name
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Product Description
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Unit Price
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Tax Rate
+                            </th>
+                            <th scope="col" className="px-2 py-3">
+                              Amount
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {rows2.map((row, rowIndex) => (
+                            <tr className="bg-white tabletr" key={rowIndex}>
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2 addwidth"
+                                  value={row.productName}
+                                  onChange={(e) => {
+                                    const newRows = [...rows2];
+                                    newRows[rowIndex].productName =  e.target.value;
+                                    setRows2(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4 flex ">
+                                <div>
+                                  {row?.description?.map((desc, descIndex) => (
+                                    <div
+                                      key={descIndex}
+                                      className="flex items-center mb-2"
+                                    >
+                                      <input
+                                        type="text"
+                                        className="appinput2"
+                                        value={desc}
+                                        onChange={(e) =>
+                                          handleDescriptionChange(
+                                            rowIndex,
+                                            descIndex,
+                                            e.target.value
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+
+                                <button
+                                  type="button"
+                                  className="ml-2"
+                                  onClick={() => addDescriptionField(rowIndex)}
+                                >
+                                  Add
+                                </button>
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.unitPrice}
+                                  onChange={(e) => {
+                                    const newRows = [...rows2];
+                                    newRows[rowIndex].unitPrice = e.target.value;
+                                    setRows2(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  type="text"
+                                  className="appinput2"
+                                  value={row.taxRate}
+                                  onChange={(e) => {
+                                    const newRows = [...rows2];
+                                    newRows[rowIndex].taxRate = e.target.value;
+                                    setRows2(newRows);
+                                  }}
+                                />
+                              </td>
+
+                              <td className="px-2 py-4">
+                                <input
+                                  className="appinput2"
+                                  type="text"
+                                  value={row.amount}
+                                  onChange={(e) => {
+                                    const newRows = [...rows2];
+                                    newRows[rowIndex].amount = e.target.value;
+                                    setRows2(newRows);
+                                  }}
+                                />
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div onClick={addRow2} className="admorCont cursor-pointer">
+                      <img src={plussing} alt="" />
+                      <span>Add Item</span>
+                    </div>
+
+                    <div className="totalCI_charges">
+                      <label htmlFor="">
+                        <p>Sub Total :</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="subTotal"
+                          value={formdata.subTotal}
+                          type="text"
+                        />
+                      </label>
+
+                      <label htmlFor="">
+                        <p>Tax : </p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="tax"
+                          value={formdata.tax}
+                          type="text"
+                        />
+                      </label>
+                      <label htmlFor="">
+                        <p>Sercice Tax :</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="serviceTax"
+                          value={formdata.serviceTax}
+                          type="text"
+                        />
+                      </label>
+                      <label htmlFor="">
+                        <p> Installation :</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="installation"
+                          value={formdata.installation}
+                          type="text"
+                        />
+                      </label>
+                      <label htmlFor="">
+                        <p> Other :</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="other"
+                          value={formdata.other}
+                          type="text"
+                        />
+                      </label>
+                      <label htmlFor="">
+                        <p> Transpotation :</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="transpotation"
+                          value={formdata.transpotation}
+                          type="text"
+                        />
+                      </label>
+
+                      <label htmlFor="">
+                        <p>Total :</p>
+                        <input
+                          onChange={textChangeHandler}
+                          name="total"
+                          value={formdata.total}
+                          type="text"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {preview[0] && (
+                <div className="previ_wrap">
+                  <div className="prev_quotarioncont">
+                    <div ref={contonentPDF} className="qutaRightcont">
+                      <div className="quota2_ref">
+                        <p>Ref. No- {formdata.quotationNum}</p>
+                        <p>Date : {formdata.quotationDate}</p>
+                      </div>
+
+                      <div className="qut1_to">
+                        <p>To, {formdata.customerName}</p>
+                        <p>Kind Attention :- {formdata.customerReq}</p>
+                        <p>Noida</p>
+                      </div>
+
+                      <div className="quot2_dear">
+                        <p>Dear Sir,</p>
+                        <p>
+                          As per discussion held, please find attached the
+                          quotation for the sound solution for your suggested
+                          area premises.
+                        </p>
+                      </div>
+
+                      <div className="talbeLike">
+                        <div class="relative w-full">
+                          <p className="aubdisolpara">AUDIO SOLUTION</p>
+                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="quuo2_table_head">
+                              <tr>
+                                <th scope="col" className="px-2 py-3 ">
+                                  SI. No.
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Application
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Brand
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Model
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Description
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Qty
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Unit Price
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Amount
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {rows.map((row, index) => (
+                                <tr
+                                  className="bg-white quotabletr2 "
+                                  key={index}
+                                >
+                                  <td className="px-2 py-2 prewid1">
+                                    {index + 1}{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid2">
+                                    {row.application}{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid1">
+                                    {row.brand}
+                                  </td>
+                                  <td className="px-2 py-2 prewid3">
+                                    {row.model}
+                                  </td>
+                                  <td className="px-2 py-2 prewid4">
+                                    {row.description}
+                                  </td>
+                                  <td className="px-2 py-2 prewid1">
+                                    {row.qty}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.unitPrice}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.amount}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div className="quo1_termandcond">
+                        <h4>TERMS & CONDITIONS</h4>
+                        <p>1. GST 18% will be extra as applicable.</p>
+                        <p>2. Freight & ITC charges extra as per actual.</p>
+                        <p>
+                          3. All specifications will be followe as per standard
+                          practice from companies.
+                        </p>
+                        <p>
+                          4. All warranties for various products to be provided
+                          as per OEM policy.
+                        </p>
+                        <p>5. 100% advance along with PO.</p>
+                        <p>6. All payment to be done through cheque/ RTGS</p>
+                        <p>7. Quotation validation within 15-days.</p>
+                      </div>
+
+                      <p className="quo1_extrapra">
+                        Hope you find our quotation in line with your
+                        requirement. Looking forward to being a part of your
+                        prestigious project.
+                      </p>
+                      <p className="quo1_extrapra">Regards</p>
                     </div>
 
                     <hr />
+
+                    <div className="prntBtn">
+                      <button
+                        onClick={() => handleCancelClick()}
+                        className="cnebuqo"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          generatePdf();
+                        }}
+                      >
+                        <span>Print</span>
+                      </button>
+                    </div>
                   </div>
-
                 </div>
+              )}
 
-                <hr />
+              {preview[1] && (
+                <div className="previ_wrap">
+                  <div className="prev_quotarioncont">
+                    <div ref={contonentPDF} className="qutaRightcont">
+                      <div className="quota2_ref">
+                        <p>Ref. No- {formdata.quotationNum}</p>
+                        <p>Date : {formdata.quotationDate}</p>
+                      </div>
 
-                <div className="prntBtn">
-                  <button onClick={()=>setPreview(false)} className="cnebuqo">Cancel</button>
-                  <button
-                    onClick={() => {
-                    
-                      generatePdf();
-                    }}
-                  >
-                    <span>Print</span>
-                  </button>
+                      <div className="qut1_to">
+                        <p>To, {formdata.customerName}</p>
+                        <p>Kind Attention :- {formdata.customerReq}</p>
+                        <p>GSTIN- {formdata.companyGSTIN}</p>
+                      </div>
+
+                      <div className="quot2_dear">
+                        <p>Dear Sir,</p>
+                        <p>
+                          As per discussion held, please find attached the
+                          quotation for the sound solution for your suggested
+                          area premises.
+                        </p>
+                      </div>
+
+                      <div className="talbeLike">
+                        <div class="relative w-full">
+                          <p className="aubdisolpara2 text-white">
+                            LIGHTING SOLUTION
+                          </p>
+                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="quuo2_table_head2">
+                              <tr>
+                                <th scope="col" className="px-2 py-3 ">
+                                  S. No.
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Area
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Description
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Qty
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Unit
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Price
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Amount
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {rows3.map((row, index) => (
+                                <tr
+                                  className="bg-white quotabletr2 "
+                                  key={index}
+                                >
+                                  <td className="px-2 py-2 prewid1">
+                                    {index + 1}{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid2">
+                                    {row.area}{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid4">
+                                    {row.description}
+                                  </td>
+                                  <td className="px-2 py-2 prewid1">
+                                    {row.qty}
+                                  </td>
+                                  <td className="px-2 py-2 prewid1">
+                                    {row.unit}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.price}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.amount}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div className="quo1_termandcond">
+                        <h4>TERMS & CONDITIONS</h4>
+                        <p className="hard_para">
+                          Valid period of the above quotation: 15 days
+                          Excluded:Supporting frame, Structure, And any civil &
+                          electrical work.
+                        </p>
+                        <p className="hard_para">
+                          Included:Installation, Delivery, Module, PowerSupply,
+                          & Cable, Receiving & Sending card, Controller,
+                          Training,
+                        </p>
+                        <p className="hard_para">
+                          Payment term: 100% down payment, before shipment
+                        </p>
+                        <p className="hard_para">
+                          Installation-Technical Assitance will be provided by
+                          us during installation. All outstationCharge of
+                          engineer will be bear by client only
+                        </p>
+                        <p className="hard_para">
+                          Warrantly: ONE year warranty (can be extend up to 5
+                          years AMC) voltage Stabilizerto be provided by client
+                          in case of voltage fluctation A computer,
+                        </p>
+                        <p>1. GST 18% will be extra as applicable.</p>
+                        <p>2. Freight & ITC charges extra as per actual.</p>
+                        <p>
+                          3. All specifications will be followe as per standard
+                          practice from companies.
+                        </p>
+                        <p>
+                          4. All warranties for various products to be provided
+                          as per OEM policy.
+                        </p>
+                        <p>5. 100% advance along with PO.</p>
+                        <p>6. All payment to be done through cheque/ RTGS</p>
+                        <p>7. Quotation validation within 15-days.</p>
+                      </div>
+
+                      <p className="quo1_extrapra">
+                        Hope you find our quotation in line with your
+                        requirement. Looking forward to being a part of your
+                        prestigious project.
+                      </p>
+                      <p className="quo1_extrapra">Regards</p>
+                    </div>
+
+                    <hr />
+
+                    <div className="prntBtn">
+                      <button
+                        onClick={() => handleCancelClick()}
+                        className="cnebuqo"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          generatePdf();
+                        }}
+                      >
+                        <span>Print</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              )}
 
-              </div> 
-         </div>
-              }
-           
+              {preview[2] && (
+                <div className="previ_wrap">
+                  <div className="prev_quotarioncont">
+
+                    <div ref={contonentPDF} className="qutaRightcont">
+                      <div className="quota2_ref">
+                        <p>Ref. No- {formdata.quotationNum}</p>
+                        <p>Date : {formdata.quotationDate}</p>
+                      </div>
+
+                      <div className="qut1_to">
+                        <p>Kind Attention :- {formdata.customerName}</p>
+                        <p>Home Solution</p>
+                        <p>Delhi</p>
+                      </div>
+
+                      <div className="quot2_dear">
+                        <h4>Dear Sir,</h4>
+                        <p>
+                          As per discussion held, please find attached the
+                          quotation for the sound solution for your suggested
+                          area premises.
+                        </p>
+                      </div>
+
+                      <div className="talbeLike">
+                        <div class="relative w-full">
+                          <p className="aubdisolpara2 text-white">
+                            AUDIO SOLUTION
+                          </p>
+                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="quuo2_table_head2">
+                              <tr>
+                                <th scope="col" className="px-2 py-3 ">
+                                  S. No.
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Product
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Model
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Brand
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Product Picture
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Unit Price
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Qty
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Total
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {rows4.map((row, index) => (
+                                <tr
+                                  className="bg-white quotabletr2 "
+                                  key={index}
+                                >
+                                  <td className="px-2 py-2 prewid1">
+                                    {index + 1}{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid2">
+                                    {row.product}{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid4">
+                                    {row.model}
+                                  </td>
+                                  <td className="px-2 py-2 prewid1">
+                                    {row.brand}
+                                  </td>
+
+                                  <td className="px-2 py-2 prewid1">
+                                    {" "}
+                                    <img src={row.productPic} alt="" />{" "}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.unitPrice}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.qty}
+                                  </td>
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.total}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+
+                          <div className="totalcai_cont">
+                            <p>Total: {formdata.total}</p>
+                            <p>C & I Charges @ 10%: {formdata.candICharge}</p>
+                            <p>
+                              Total Payable amount: {formdata.totalPayableAmt}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr />
+
+                    <div className="prntBtn">
+                      <button
+                        onClick={() => handleCancelClick()}
+                        className="cnebuqo"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          generatePdf();
+                        }}
+                      >
+                        <span>Print</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {preview[3] && (
+                <div className="previ_wrap2">
+                  <div className="prev_quotarioncont">
+                    <div ref={contonentPDF} className="qutaRightcont">
+                      <div className="quota2_ref">
+                        <p>Ref. No- {formdata.quotationNum}</p>
+                        <p>Date : {formdata.quotationDate}</p>
+                      </div>
+
+                      <div className="qut1_to">
+                        <p>Kind Attention :- {formdata.customerName}</p>
+                        <p>Home Solution</p>
+                        <p>Delhi</p>
+                      </div>
+
+                      <div className="quot2_dear">
+                        <h4>Dear Sir,</h4>
+                        <p>
+                          As per discussion held, please find attached the
+                          quotation for the sound solution for your suggested
+                          area premises.
+                        </p>
+                      </div>
+
+                      <div className="talbeLike">
+                        <div class="relative w-full">
+                          <p className="aubdisolpara3 text-white">
+                            VIDEO SOLUTION
+                          </p>
+                          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="quuo2_table_head2">
+                              <tr>
+                                <th scope="col" className="px-2 py-3 ">
+                                  S. No.
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Product Name
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Product Description
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Unit Price
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Tax Rate
+                                </th>
+                                <th scope="col" className="px-2 py-3">
+                                  Amount
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {rows2.map((row, rowIndex) => (
+                                <tr
+                                  className="bg-white quotabletr2"
+                                  key={rowIndex}
+                                >
+                                  <td className="px-2 py-2 prewid1">
+                                    {rowIndex + 1}
+                                  </td>
+                                  <td className="px-2 py-2 prewid2">
+                                    {row.productName}
+                                  </td>
+                                  <td className="prewid2  addsomethin1">
+                                    {row.description.map((desc, descIndex) => (
+                                      <p
+                                        className="eachprepara"
+                                        key={descIndex}
+                                      >
+                                        {desc}
+                                      </p>
+                                    ))}
+                                  </td>
+                                  <td className="px-2 py-2 prewid4">
+                                    {row.unitPrice}
+                                  </td>
+                                  <td className="px-2 py-2 prewid1">
+                                    {row.taxRate}
+                                  </td>
+
+                                  <td className="px-2 py-2 prewid5">
+                                    {row.amount}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+
+                          <div className="totalcai_cont">
+                            <p>Sub Total: {formdata.subTotal}</p>
+                            <p>Total: {formdata.total}</p>
+                            <p>Tax: {formdata.tax}</p>
+                            <p>Service Tax: {formdata.serviceTax}</p>
+                            <p>Installation: {formdata.installation}</p>
+                            <p>Other: {formdata.other}</p>
+                            <p>Transpotation: {formdata.transpotation}</p>
+                            <p>Total Payable amount: {formdata.total}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr />
+
+                    <div className="prntBtn">
+                      <button
+                        onClick={() => handleCancelClick()}
+                        className="cnebuqo"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          generatePdf();
+                        }}
+                      >
+                        <span>Print</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

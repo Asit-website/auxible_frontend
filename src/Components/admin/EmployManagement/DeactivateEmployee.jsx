@@ -21,7 +21,7 @@ import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 
-const EmployeeManagement = ({
+const DeactivateEmployee = ({
   pop1,
   setPop1,
   pop,
@@ -34,7 +34,7 @@ const EmployeeManagement = ({
 
   let todayDate = new Date().toLocaleDateString('en-GB');
 
-  const { user, getUsers, getActivitiesByUser, deleteUser, getDepartments, getDesignations } = useMain();
+  const { user, getUsers, getActivitiesByUser, deleteUser,getDepartments,getDesignations } = useMain();
 
   const [data, setData] = useState([]);
 
@@ -42,10 +42,10 @@ const EmployeeManagement = ({
 
   const itemsPerPage = 10;
 
-  const filteredData = data.filter((item) => item.designation !== "CEO" && item._id !== user._id && item.isDeactivated == "No");
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const filteredData = data.filter((item) => item.designation !== "CEO" && item._id !== user._id && item?.isDeactivated == "Yes");
+const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -56,39 +56,39 @@ const EmployeeManagement = ({
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON.parse(localStorage.getItem("hrms_permission"));
 
-  const { role } = hrms_user;
-  const { employeeManageEditPermission, employeeManageActivatePermission } = hrms_permission;
+   const {role } = hrms_user;
+   const {  employeeManageEditPermission , employeeManageActivatePermission} = hrms_permission;
 
-  const [allData, setAllData] = useState([]);
+  const [allData , setAllData] = useState([]);
 
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   const [currView, setCurrView] = useState(-1);
 
-  const [filters, setFilters] = useState({
-    department: "Department",
-    designation: "Designation",
-    employeeType: "Employee Type"
+  const [filters , setFilters] = useState({
+    department:"Department",
+    designation:"Designation" , 
+    employeeType:"Employee Type"
   })
 
-  const [department, setDepartment] = useState([]);
+  const [department,setDepartment] = useState([]);
 
-  const [designation, setDesignation] = useState([]);
+  const [designation,setDesignation] = useState([]);
 
-  const fetchDesig = async () => {
-    const ans = await getDesignations();
-    setDesignation(ans?.data);
+  const fetchDesig = async()=>{
+      const ans = await getDesignations();
+      setDesignation(ans?.data);
   }
-
+  
 
   const getData = async () => {
     const ans = await getUsers();
-    const reversedData = ans?.data?.slice().reverse();
+    const reversedData = ans?.data?.slice().reverse(); 
     setAllData(reversedData);
     setData(reversedData);
   };
-
-  const getDep = async () => {
+  
+  const getDep = async () =>{
     const ans = await getDepartments();
     setDepartment(ans?.data);
   }
@@ -97,29 +97,29 @@ const EmployeeManagement = ({
     const data = await getActivitiesByUser(date, '', '', 0, 10, '');
   };
 
-  const deleteUser1 = async (id, isDeact) => {
+  const deleteUser1 = async (id , isDeact) => {
 
     confirmAlert({
-      title: `Are you sure you want to ${isDeact ? "Activate" : "Deactivate"} this Person?`,
+      title: `Are you sure you want to ${isDeact?"Activate":"Deactivate"} this Person?`,
       buttons: [
         {
-          label: `${isDeact ? "Activate" : "Deactivate"}`,
+          label: `${isDeact?"Activate":"Deactivate"}`,
           style: {
             background: "#DD3409"
           },
           onClick: async () => {
             await deleteUser(id);
-            toast.success(`${isDeact ? "Activate" : "Deactivate"} Successfully`);
+            toast.success(`${isDeact?"Activate":"Deactivate"} Successfully`);
             setRefreshFlag(!refreshFlag);
             getData();
           }
         },
         {
           label: 'Cancel',
-          style: {
-            background: "none",
-            border: "1px solid #0B56E4",
-            color: "#0B56E4",
+          style:{
+            background:"none",
+            border:"1px solid #0B56E4",
+            color:"#0B56E4",
           },
           onClick: () => null
         }
@@ -128,16 +128,16 @@ const EmployeeManagement = ({
 
   };
 
-  const filterHandler = (e) => {
-    const { name, value } = e.target;
+  const  filterHandler = (e)=>{
+    const {name , value} = e.target;
 
-    setFilters((prev) => ({
-      ...prev,
+     setFilters((prev)=>({
+      ...prev ,
       [name]: value
-    }))
+     }))
 
   }
-
+  
   useEffect(() => {
     getData();
     fetchDesig();
@@ -152,57 +152,57 @@ const EmployeeManagement = ({
     const completeData = [...allData];
 
     const filterData = completeData.filter((data) => {
-      return (
-        (filters.department === "Department" || data.department === filters.department) &&
-        (filters.designation === "Designation" || data.designation === filters.designation) &&
-        (filters.employeeType === "Employee Type" || data.EmployeeType === filters.employeeType)
-      );
+        return (
+            (filters.department === "Department" || data.department === filters.department) &&
+            (filters.designation === "Designation" || data.designation === filters.designation) &&
+            (filters.employeeType === "Employee Type" || data.EmployeeType === filters.employeeType)
+        );
     });
 
     setCurrentPage(1);
     setData(filterData);
-  }, [filters.department, filters.designation, filters.employeeType]);
+}, [filters.department, filters.designation, filters.employeeType]);
 
-  const [checkInpId, setCheckInpId] = useState([]);
+const [checkInpId , setCheckInpId] = useState([]);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // Smooth scrolling
-    });
-  };
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Smooth scrolling
+  });
+};
 
-  const srchEmpFunction = (e) => {
-    const value = e.target.value;
-    setCurrentPage(1);
-    if (value === "") {
-      setData(allData);
+const srchEmpFunction = (e)=>{
+   const value = e.target.value;
+   setCurrentPage(1);
+    if(value === ""){
+   setData(allData);
     }
-    else {
+    else{
       const completeData = [...allData];
-      console.log("comp;ete", completeData);
-      const filter = completeData.filter((data) => data?.fullName?.toLowerCase()?.includes(value.toLowerCase()));
-      console.log("filter", filter);
+      console.log("comp;ete" , completeData);
+      const filter = completeData.filter((data) =>  data?.fullName?.toLowerCase()?.includes(value.toLowerCase()) );
+      console.log("filter" , filter);
       setData(filter);
-    }
-  }
+        }
+}
 
-  const checkallinput = () => {
-    const idList = allData.map((d) => d?._id);
-    setCheckInpId(idList);
-  };
+const checkallinput = () => {
+  const idList = allData.map((d) => d?._id); 
+  setCheckInpId(idList);
+};
 
 
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> :
-
-          role === "EMPLOYEE" ?
-            <EmployeeSidebar pop={pop} setPop={setPop} />
-            :
-            <AdminSidebar pop={pop} setPop={setPop} />
-
+        {isHr ? <HrSidebar /> : 
+        
+          role=== "EMPLOYEE" ?
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+           :
+        <AdminSidebar pop={pop} setPop={setPop} />
+        
         }
         <div className="tm">
           {isHr ? (
@@ -213,36 +213,32 @@ const EmployeeManagement = ({
               setPop1={setPop1}
             />
           ) : (
-
-            role === "EMPLOYEE" ?
-              <EmployeeNavbar user={user} setAlert={setAlert} /> :
-
-              <AdminNavbar user={user} setAlert={setAlert} />
-
-
+            
+              role === "EMPLOYEE" ?
+               <EmployeeNavbar user={user} setAlert={setAlert}  />:
+  
+            <AdminNavbar user={user} setAlert={setAlert} />
+            
+  
           )}
 
           <div className="em">
             <div className="flex-col">
 
               {/* first  */}
-
+             
               <div className="hrmsFri">
 
-                <h2>Employee Management</h2>
-
-
-
+                <h2>Deactivate Employee Management</h2>
+                
                 {/* right  */}
                 <div className="hrFRi">
-                  <NavLink to="/adminDash/EmployeeMan"><button className="ddBtn">
+                 <NavLink to="/adminDash/EmployeeMan"><button className="ddBtn">
                     <img src={pp} alt="" />
                     <span>Add Employee</span>
                   </button></NavLink>
                   {/* <img src={f} alt="" /> */}
                 </div>
-
-
 
               </div>
 
@@ -256,9 +252,9 @@ const EmployeeManagement = ({
                 <select name="department" onChange={filterHandler} id="">
                   <option value="Department">Department</option>
                   {
-                    department?.map((val, index) => {
+                     department?.map((val,index)=>{
                       return <option key={index} value={val?.name}>{val?.name}</option>
-                    })
+                     })
                   }
                 </select>
 
@@ -267,9 +263,9 @@ const EmployeeManagement = ({
                 <select name="designation" onChange={filterHandler} id="">
                   <option value="Designation">Designation</option>
                   {
-                    designation?.map((val, index) => {
+                     designation?.map((val,index)=>{
                       return <option key={index} value={val?.name}>{val?.name}</option>
-                    })
+                     })
                   }
                 </select>
 
@@ -290,14 +286,9 @@ const EmployeeManagement = ({
 
 
               {/* second */}
-              <div className="yasir">
-                <p className="totalRecord">Total Records {data?.length}</p>
-                <div className="hrFRi">
-                 <NavLink to="/adminDash/HRM/deactivate"><button className="ddBtn">
-                    <span>Show Deactivate Employee</span>
-                  </button></NavLink>
-                </div>
-              </div>
+
+              <p className="totalRecord">Total Records {data?.length}</p>
+
               <main className="creteEmpWrap2">
 
                 <div className="EllWrap">
@@ -306,8 +297,8 @@ const EmployeeManagement = ({
                     <p className="hhj">All Employee</p>
 
                     <div className="deletwrP">
-
-                      <input type="text" placeholder="Search..." className="emsearchi" onChange={(e) => srchEmpFunction(e)} />
+                     
+                      <input type="text" placeholder="Search..." className="emsearchi" onChange={(e)=>srchEmpFunction(e)}  />
                     </div>
                   </div>
 
@@ -320,13 +311,13 @@ const EmployeeManagement = ({
                     <thead className="text-xs uppercase textALLtITL ">
                       <tr>
                         <th scope="col" className="px-6 py-3 taskTitl ">
-                          <input onClick={() => {
-                            if (checkInpId?.length === allData?.length) {
-                              setCheckInpId([]);
-                            }
-                            else {
+                          <input onClick={()=>{
+                             if(checkInpId?.length === allData?.length){
+                                setCheckInpId([]);
+                             }
+                             else{
                               checkallinput();
-                            }
+                             }
                           }} checked={checkInpId?.length === allData.length} type="checkbox" className="checkboxes" />
 
                         </th>
@@ -357,23 +348,23 @@ const EmployeeManagement = ({
 
                     <tbody>
                       {
-                        paginatedData.filter(x => x.designation !== "CEO" && x._id !== user._id && x.isDeactivated == "No")?.map((item, index) => (
+                        paginatedData.filter(x => x.designation !== "CEO" && x._id !== user._id && x.isDeactivated == "Yes")?.map((item, index) => (
                           <tr key={index} className="bg-white border-b fdf">
                             <th scope="col" className="px-6 py-3 taskTitl ">
-                              <input onClick={() => {
-                                if (checkInpId.includes(item?._id)) {
-                                  const filterdata = checkInpId.filter((id) => id !== item?._id);
+                              <input onClick={()=>{
+                                 if(checkInpId.includes(item?._id)){
+                                  const filterdata = checkInpId.filter((id)=> id !== item?._id);
                                   setCheckInpId(filterdata);
-                                }
-                                else {
-                                  setCheckInpId((prev) => [...prev, item?._id]);
-                                }
+                                 }
+                                 else{
+                                  setCheckInpId((prev) => [...prev, item?._id]); 
+   }
                               }} checked={checkInpId.includes(item?._id)} type="checkbox" className="checkboxes" />
 
                             </th>
                             <th scope="row" className="px-6 py-4   "><span className="index cursor-pointer">
                               {(currentPage - 1) * itemsPerPage + index + 1}
-                            </span> </th>
+                              </span> </th>
                             <td className="px-6 py-4 taskAns">{item?.fullName}</td>
                             <td className="px-6 py-4 taskAns">{item?.email}</td>
                             <td className="px-6 py-4 taskAns">{item?.department}</td>
@@ -381,66 +372,66 @@ const EmployeeManagement = ({
                             <td className="px-6 py-4 taskAns">{item?.joiningDate}</td>
 
                             <OutsideClickHandler
-                              onOutsideClick={() => {
+                              onOutsideClick={()=>{
+                                if (index == currView) {
+                                  setCurrView(-1);
+                                } 
+                              }}
+                            >
+                            <div className="viewOnwWRAP">
+
+                              <td onClick={() => {
                                 if (index == currView) {
                                   setCurrView(-1);
                                 }
-                              }}
-                            >
-                              <div className="viewOnwWRAP">
-
-                                <td onClick={() => {
-                                  if (index == currView) {
-                                    setCurrView(-1);
-                                  }
-                                  else {
-                                    setCurrView(index)
-                                  }
-                                }} className="px-6 py-4 taskAns cursor-pointer"><img src={actions} alt="" /></td>
+                                else {
+                                  setCurrView(index)
+                                }
+                              }} className="px-6 py-4 taskAns cursor-pointer"><img src={actions} alt="" /></td>
 
 
-                                {
-                                  index == currView &&
+                              {
+                                index == currView &&
 
-                                  <div className=" viewOne">
-                                    {/* first  */}
-                                    <div onClick={() => navigate("/adminDash/EmployeeDetails", { state: item?._id })} className="subView">
-                                      <img src={happy} alt="" />
-                                      <p>View</p>
-                                    </div>
+                                <div className=" viewOne">
+                                  {/* first  */}
+                                  <div onClick={()=>navigate("/adminDash/EmployeeDetails" , {state:item?._id})} className="subView">
+                                    <img src={happy} alt="" />
+                                    <p>View</p>
+                                  </div>
 
-                                    <hr />
+                                  <hr />
 
-                                    {/* second */}
-                                    {
-                                      (employeeManageEditPermission || role === "ADMIN") &&
-
-                                      <div onClick={() => {
-                                        navigate(`/adminDash/EmployeeMan/${item._id}`);
-                                      }} className="subView">
-                                        <img src={edit22} alt="" />
-                                        <p>Edit </p>
-                                      </div>
-
-                                    }
-
-                                    <hr />
-
-                                    {/* third */}
-                                    {
-                                      (employeeManageActivatePermission || role === "ADMIN") &&
-
-                                      <div onClick={() => {
-                                        deleteUser1(item?._id, item?.isDeactivated === "Yes");
-                                      }} className="subView">
-                                        <img src={deleted} alt="" />
-                                        <p className="deel"> {item?.isDeactivated === "Yes" ? "Activate" : "Deactivate"} </p>
-                                      </div>
-                                    }
+                                  {/* second */}
+                                  {
+                                     (employeeManageEditPermission || role === "ADMIN") && 
+                                  
+                                  <div onClick={() => {
+                                    navigate(`/adminDash/EmployeeMan/${item._id}`);
+                                  }} className="subView">
+                                    <img src={edit22} alt="" />
+                                    <p>Edit </p>
                                   </div>
 
                                 }
-                              </div>
+
+                                  <hr />
+
+                                  {/* third */}
+                                  {
+                                    (employeeManageActivatePermission || role === "ADMIN") && 
+                                  
+                                  <div onClick={() => {
+                                    deleteUser1(item?._id , item?.isDeactivated === "Yes");
+                                  }} className="subView">
+                                    <img src={deleted} alt="" />
+                                    <p className="deel"> {item?.isDeactivated === "Yes"?"Activate":"Deactivate"} </p>
+                                  </div>
+}
+                                </div>
+
+                              }
+                            </div>
                             </OutsideClickHandler>
                           </tr>
                         ))
@@ -459,21 +450,21 @@ const EmployeeManagement = ({
             </div>
 
             <div className="emPaginate">
-              <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
-                handlePageChange(currentPage - 1);
-                scrollToTop();
-              }} disabled={currentPage === 1}>
-                Previous
-              </button>
-              <span className="pagenum">Page {currentPage} of {totalPages}</span>
-              <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
-                handlePageChange(currentPage + 1)
-                scrollToTop();
+        <button className={`prepaginate ${currentPage !== 1 && "putthehovebtn"}`} onClick={() => {
+          handlePageChange(currentPage - 1);
+           scrollToTop();
+        }} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span className="pagenum">Page {currentPage} of {totalPages}</span>
+        <button className={`prepaginate ${currentPage !== totalPages && "putthehovebtn"} `} onClick={() => {
+          handlePageChange(currentPage + 1)
+          scrollToTop();
 
-              }} disabled={currentPage === totalPages}>
-                Next
-              </button>
-            </div>
+        }} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
           </div>
         </div>
       </div>
@@ -481,4 +472,4 @@ const EmployeeManagement = ({
   );
 };
 
-export default EmployeeManagement;
+export default DeactivateEmployee;

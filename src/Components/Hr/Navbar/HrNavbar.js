@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import kushel1 from "../../images/kushel1.png";
+import kushel1 from "../../images/auxi.png";
 import notification from "../../images/notifications.png"
 import chatbot from "../../images/chat_bubble_outline.png"
 import lok from "../../images/lok.png";

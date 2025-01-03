@@ -21,9 +21,12 @@ const item = [
 const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   
   const { user, updateProfile, postActivity, getStatisticsByUser, getBranchs, getDepartments, getDesignations , uploadToCloudinaryImg  , uploadOwnDocs} = useMain();
-  const [value, setValue] = useState(user);
 
 
+  const [value, setValue] = useState({...user ,
+     mobile:user?.mobile || '' , 
+    });
+    
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
@@ -44,6 +47,7 @@ const UpdateProfile = ({ setAlert, pop1, setPop1 }) => {
   const handleChange = async(e) => {
  const {name  , value} = e.target;
 
+
  if (name === "pan" && value.length > 10) {
   return; 
 }
@@ -62,16 +66,22 @@ if(name === "mobile" && value.length > 10){
 if(name === "pan" && value.length > 10){
   return
 }
-
- if (name === "image") {
-  setValue({ ...value, [e.target.name]: e.target.files[0] });
-  let image = e.target.files[0];
-  const ans = await uploadToCloudinaryImg({image});
+ if (name === "profileImage") {
+   let image = e.target.files[0];
+   const ans = await uploadToCloudinaryImg({image});
+   setValue((prev)=>({
+    ...prev ,
+    [e.target.name]: ans?.data
+   }))
   if(ans.status){
     setUploadedProfile(ans?.data);
    }
 } else {
-  setValue({ ...value, [e.target.name]: e.target.value });
+  setValue((prev) => ({
+    ...prev, 
+    [name]: value, 
+  }));
+  
 }
   };
 
@@ -102,11 +112,11 @@ if(name === "pan" && value.length > 10){
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     
      const toastId = toast.loading("Loading...");
 
-    e.preventDefault();
-    const ans = await updateProfile(value );
+    const ans = await updateProfile({...value});
 
     const {
       adharCard,
@@ -198,6 +208,9 @@ if(name === "pan" && value.length > 10){
 
   },[user])
 
+  useEffect(() => {
+    setValue({ ...user }); // Update the state when `user` changes
+  }, [user]); 
 
   useEffect(() => {
     let user1 = JSON.parse(localStorage.getItem("hrms_user"));
@@ -295,30 +308,13 @@ if(name === "pan" && value.length > 10){
                     type="number"
                     name="mobile"
                     onChange={handleChange}
-                    value={value.mobile}
+                    value={value.mobile || ''}
                     id="mobile"
                     className=" block "
                     disabled={!!user?.mobile}
                   // required
                   />
                 </div>
-
-                <div className="mb-6">
-                    <label htmlFor="updatePassword" className="block mb-1 ">
-                      Update Password
-                    </label>
-                    <input
-                      type="text"
-                      name="updatePassword"
-                      value={value?.updatePassword}
-                      id="updatePassword"
-                      className=" block"
-                      onChange={(e) => setValue((prev) => ({
-                        ...prev,
-                        updatePassword: e.target.value
-                      }))}
-                    />
-                  </div>
 
                 <div className="">
                   <label htmlFor="gender" className="block mb-1 ">
@@ -335,23 +331,22 @@ if(name === "pan" && value.length > 10){
                     DOB
                   </label>
                   
-                 <input disabled={!!user?.dob} type="date" name="dob"    onChange={handleChange}  value={value?.dob} className=" block "/>
+                 <input disabled={!!user?.dob} type="date" name="dob" onChange={handleChange}  value={value?.dob} className=" block "/>
                 </div>
 
                 <div className="">
-                  <label  htmlFor="image" className="block mb-1">
-                    Image
+                  <label  htmlFor="profileImage" className="block mb-1">
+                  profile Image
                   </label>
 
                   <input
                     className="block "
-                    name="image"
+                    name="profileImage"
                     onChange={handleChange}
                     id="file_input"
                     type="file"
                      value={pic}
-                     disabled={!!user?.pic}
-
+                    //  disabled={!!user?.profileImage}
                   />
 
                    {
@@ -434,13 +429,13 @@ if(name === "pan" && value.length > 10){
                     JoiningDate
                   </label>
                   <input
-                    // onChange={() => null}
                     type="date"
                     name="joiningDate"
                     value={value.joiningDate}
                     disabled={!!user?.joiningDate}
-                    className="block "
+                    className="block"
                     id="date"
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -1010,9 +1005,9 @@ if(name === "pan" && value.length > 10){
 
  <div className="makethisfelxd">
 
-                <div className="basic-information2 mb-4 mt-7">
+                <div className="basic-information2 givethissowidth mb-4 mt-7">
                       <div className="basics">
-                        <h3>Documents </h3>
+                        <h3>Documents</h3>
                       </div>
 
                       <hr className="upper" />
@@ -1315,6 +1310,8 @@ if(name === "pan" && value.length > 10){
                     }
                   </div>
                 </div>
+
+
                 </div>
 
 

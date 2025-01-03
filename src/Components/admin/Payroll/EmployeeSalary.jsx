@@ -170,7 +170,7 @@ useEffect(() => {
                                                             className="px-6 py-4 oklo font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                                         >
                                                             {/* {index + 1} */}
-                                                            #{val?.employeeCode}
+                                                            #KDS{val?.employeeCode}
                                                         </th>
                                                         <td className="px-6 py-4">{val?.fullName}</td>
                                                         <td className="px-6 py-4">Monthly Payslip</td>

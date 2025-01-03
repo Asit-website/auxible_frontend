@@ -165,7 +165,8 @@ padding: 0px 12px;
     line-height: 20px;
     letter-spacing: 0.0025em;
     text-align: left;
-color: #2B2B2B;    
+color: #2B2B2B;   
+min-width: fit-content; 
 
 }
 .fiterWrap .line{

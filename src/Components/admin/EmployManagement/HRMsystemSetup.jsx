@@ -274,6 +274,11 @@ const HRMsystemSetup = ({ setAlert, pop, setPop }) => {
   };
 
   const handleCreateDepartment = async () => {
+      // Validation to check if both fields are filled
+  if (!departmentValue.name || !departmentValue.branch) {
+    toast.error("Both department name and branch are required!");
+    return;
+  }
     const toastId = toast.loading("Loading...");
     const ans = await postDepartment({
       name: departmentValue.name,

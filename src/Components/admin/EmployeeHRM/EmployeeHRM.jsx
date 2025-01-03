@@ -66,7 +66,7 @@ const EmployeeHRM = ({
     getTodayBirthday,
     changeStatusBreak,
     allEmployee , 
-    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense
+    LeaveAllowApihandler , leaveTypeApi , postHalfDay , CreateExpense ,getTasks
   } = useMain();
 
 
@@ -164,33 +164,41 @@ const EmployeeHRM = ({
   const [star2, setStar2] = useState(false);
 
   const [openAnn, setOpenAnn] = useState(false);
-
+  // const [task, setTask] = useState()
   const [task, setTask] = useState([
     {
-      name: "john",
+      name: "Chirag",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "company",
+      task: "Madfish",
     },
     {
-      name: "john",
+      name: "Chirag",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "compan1",
+      task: "Madfish",
     },
     {
-      name: "john",
+      name: "Chirag",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "compan1",
+      task: "Madfish",
     },
     {
-      name: "john",
+      name: "Chirag",
       assignDate: "31/05/2023",
       endDate: "31/05/2023",
-      task: "compan1",
+      task: "Madfish",
     },
   ]);
+ 
+  // const getTaskAnnouncement=async()=>{
+  //   const ans=await getTasks() 
+  //   setTask(ans?.data);
+  // }
+  // useEffect(() => {
+  //   getTaskAnnouncement();
+  // }, []);
 
   const getData = async () => {
     setLoadFlag(true);
@@ -583,7 +591,6 @@ const EmployeeHRM = ({
   };
 
   const submitHandler2 = async (e) => {
-    e.preventDefault();
 
     const toastId = toast.loading("Loading...");
 
@@ -736,7 +743,7 @@ const EmployeeHRM = ({
         setFormdata3({  title:"" ,itemCode:"" , quantity:"" , unit:"" ,  purchasePrice:"" , salesPrice:"" , purchaseDate:"" ,  category:""})
      }
 
-
+     const [showMore, setShowMore] = useState(false);
   return (
     <>
       <div className="employee-dash relative h-full">
@@ -802,8 +809,7 @@ const EmployeeHRM = ({
                     {(activeEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/activeEmployee`}
-                      >
+                        to={`${role==="ADMIN" ? "/adminDash/HRM/activeEmployee":"/employeeDash/HRM/activeEmployee"} `}  >
                         <div className="sinActDat colorChange1 ">
                           <img className="firImg" src={ac1} alt="" />
 
@@ -834,7 +840,7 @@ const EmployeeHRM = ({
                     {(leaveRequestPermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/leaveRequest`}
+                        to={`${role === "ADMIN"?"/adminDash/HRM/leaveRequest":"/employeeDash/HRM/leaveRequest"}`}
                       >
                         <div className="sinActDat colorChange2">
                           <img className="firImg" src={ac2} alt="" />
@@ -850,7 +856,7 @@ const EmployeeHRM = ({
                     {(employeeOnLeavePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/LeaveEmployee`}
+                        to={`${role==="ADMIN" ? "/adminDash/HRM/LeaveEmployee":"/employeeDash/HRM/LeaveEmployee"}`}
                       >
                         <div className="sinActDat colorChange3">
                           <img className="firImg" src={ac3} alt="" />
@@ -867,7 +873,7 @@ const EmployeeHRM = ({
                     {(totalEmployeePermission || role === "ADMIN") && (
                       <NavLink
                         className="skm"
-                        to={`/adminDash/HRM/totalEmployee`}
+                        to={`${role ==="ADMIN"?"/adminDash/HRM/totalEmployee":"/employeeDash/HRM/totalEmployee" }`}
                       >
                         <div className="sinActDat colorChange4">
                           <img className="firImg" src={ac4} alt="" />
@@ -953,7 +959,7 @@ const EmployeeHRM = ({
                       </NavLink>
 
                       {/* third  */}
-                      <NavLink to="/adminDash/HRM/taskProjects">
+                     
                         <div className="hrLefThi">
                           <h2 className="headind">
                             {" "}
@@ -1020,7 +1026,7 @@ const EmployeeHRM = ({
                             </table>
                           </div>
                         </div>
-                      </NavLink>
+                    
                     </div>
 
                     {/* right side */}
@@ -1627,7 +1633,6 @@ const EmployeeHRM = ({
                         type="button"
                         onClick={() => {
                           setOpenExpense(true);
-                          // navigate("/adminDash/HRM/Expense")
                         }}
                       >
                         <span>Create Expense</span>
@@ -1743,60 +1748,70 @@ const EmployeeHRM = ({
                     </div>
 
                     {/* this is for annoucement  */}
+                   
                     <div className="hrLefThi">
-                      <div className="adflex">
-                        <img src={annNav} alt="" />
-                        <h3>Announcement Lists </h3>
-                      </div>
+  <div className="adflex">
+    <img src={annNav} alt="" />
+    <h3>Announcement Lists </h3>
+  </div>
 
-                      <div className="relative overflow-x-auto annTable">
-                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                          <thead className="text-xs uppercase textALLtITL ">
-                            <tr>
-                              <th scope="col" className="px-6 py-3 taskTitl">
-                                TITLE
-                              </th>
-                              <th scope="col" className="px-2 py-3 taskTitl">
-                                START DATE
-                              </th>
-                              <th scope="col" className="px-6 py-3 taskTitl">
-                                END DATE
-                              </th>
+  <div className="relative overflow-x-auto annTable">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-xs uppercase textALLtITL ">
+        <tr>
+          <th scope="col" className="px-6 py-3 taskTitl">
+            TITLE
+          </th>
+          <th scope="col" className="px-2 py-3 taskTitl">
+            START DATE
+          </th>
+          <th scope="col" className="px-6 py-3 taskTitl">
+            END DATE
+          </th>
+        </tr>
+      </thead>
 
-                            
-                            </tr>
-                          </thead>
+      <tbody>
+        {announce?.slice(0, showMore ? announce.length : 5).map((val, index) => (
+          <tr
+            onClick={() => setOpenAnn(val)}
+            key={index}
+            className="bg-white border-b singleannoucs "
+          >
+            <th
+              scope="row"
+              className="px-3 py-4 font-medium tasklo whitespace-nowrap taskAns taskans11"
+            >
+              {val?.title}
+            </th>
+            <td className="px-3 py-4 taskAns lolo taskans11">
+              {val?.startDate}
+            </td>
+            <td className="px-3 py-4 taskAns lolo taskans11">
+              {val?.endDate}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-                          <tbody>
-                            {announce?.map((val, index) => {
-                              return (
-                                <tr
-                                onClick={()=>setOpenAnn(val)}
-                                  key={index}
-                                  className="bg-white border-b singleannoucs "
-                                >
-                                  <th
-                                    scope="row"
-                                    className="px-3 py-4 font-medium tasklo  whitespace-nowrap taskAns taskans11"
-                                  >
-                                    {val?.title}
-                                  </th>
-                                  <td className="px-3 py-4 taskAns lolo taskans11">
-                                    {val?.startDate}
-                                  </td>
-                                  <td className="px-3 py-4 taskAns lolo taskans11">
-                                    {val?.endDate}
-                                  </td>
-                                  {/* <td className="px-3 py-4 taskAns taskans11">
-                                    {val?.description}
-                                  </td> */}
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+    <button
+        style={{
+          backgroundColor: '#007bff', 
+          color: 'white',
+          padding: '0.5rem 1rem',
+         margin:"10px",
+          borderRadius: '4px',
+          cursor: 'pointer',
+          float: "right"
+        }}
+        onClick={() => setShowMore(!showMore)}
+      >
+        {showMore ? 'See Less' : 'See More'}
+      </button>
+</div>
+
                   </>
                 )}
 
@@ -2015,6 +2030,7 @@ const EmployeeHRM = ({
                           <div className="leavebuttons">
                             <button
                               onClick={(e) => {
+                                e.preventDefault();
                                 submitHandler2();
                               }}
                               type="button"

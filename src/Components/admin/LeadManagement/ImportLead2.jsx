@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { useMain } from "../../../hooks/useMain";
 import leadProfile from "../../images/leadProfile.png";
@@ -13,9 +13,10 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import cancel from "../../images/cancell.png"
 import { useLocation } from 'react-router-dom';
+
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
-import useOnClickOutside from "../../../hooks/useOutsideClick"
+import { RxCross2 } from "react-icons/rx";
 
 
 
@@ -28,7 +29,7 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     getQuotationAll,
     deleteQuotation,
     taskCreateApi,
-    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1 , getQuotationApi , deleteQuotationapi , allEmployee  ,shareLeadApi
+    meetCreateApi, taskEditApi, meetEditApi, GetNoteApi, DeleteNoteApi, updateNoteApi, FetchFollowApi, getLeadStat , getFollowUp,getUserByDesignation1 , getQuotationApi , deleteQuotationapi
   } = useMain();
 
   const { id } = useParams();
@@ -146,10 +147,6 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   const [userQuotation, setUserQu] = useState([]);
 
-  const ref = useRef(null)
-  useOnClickOutside(ref, () => setOpenAdNew(false))
-
-
   const getQuotation = async () => {
     const ans = await getQuotationAll(id);
     if (ans?.status) {
@@ -186,12 +183,11 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
     });
   };
 
+  const [openSharePop , setOpenSharePop] = useState(true);
+
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const [openCreateMeet, setOpenCreateMeet] = useState(false);
   const [opnAdNew, setOpenAdNew] = useState(false);
-
-  const [ shareForm, setShareForm] = useState(false);
-
 
   const [taskData, setTaskData] = useState({
     LeadName: `${data?.FirstName || ''} ${data?.LastName || ''}`,
@@ -287,20 +283,6 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
 
   const [allQuota, setAllQuota] = useState([]);
 
-  const [allemp , setAllEmp] = useState([]);
-
-  const [shareEmp, setShareEmp] = useState([]);
-
-  
-  const handleCheckboxClick = (empId) => {
-    setShareEmp((prevShareEmp) =>
-      prevShareEmp.includes(empId)
-        ? prevShareEmp.filter((id) => id !== empId) 
-        : [...prevShareEmp, empId] 
-    );
-  };
-
-
   const getQuotationOfLead = async () => {
     const ans = await getQuotationApi(id);
     setAllQuota(ans);
@@ -395,7 +377,13 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
   }, [data]);
 
 
+  useEffect(() => {
+    getData();
+    getNotes();
+    fetchFollowUp();
+    getQuotationOfLead();
 
+  }, [])
 
   useEffect(()=>{
    
@@ -409,33 +397,6 @@ const ImportLead2 = ({ setAlert, pop, setPop }) => {
  
 },[allNote])
 
-const shareLead = async()=>{
-  if(shareEmp.length ===0){
-   return  toast.error("Please Select atleast one user");
-  }
-  else{
-
-    const resp = await shareLeadApi({leadId: id , shareEmp:shareEmp});
-    if(resp?.status){
-     toast.success("Successfuly shared");
-    }
-  }
-}
-
-const getallemplyee =async()=>{
-  const ans = await allEmployee();
-  setAllEmp(ans?.emp);
- }
-
-
- useEffect(() => {
-  getData();
-  getNotes();
-  fetchFollowUp();
-  getQuotationOfLead();
-  getallemplyee()
-
-}, [])
 
 
   return (
@@ -470,20 +431,23 @@ const getallemplyee =async()=>{
 
               {/* right side  */}
               <div className="laedRight">
-             
-              <button onClick={()=>setShareForm(true)} className="refresh1"><span className="ref1">Share</span></button>
-
+              
+              <button onClick={()=>{
+                setOpenSharePop(true);
+              }} className="refresh1"  >
+                  <span className="ref1">Share</span>
+                </button>
 
                 <button
                   onClick={() =>
-                    navigate("/employeeDash/editLead", { state: data })
+                    navigate("/adminDash/editLead", { state: data })
                   }
                   className="refresh1"
                 >
                   <span className="ref1">Edit</span>
                 </button>
 
-              
+               
               </div>
             </section>
 
@@ -500,41 +464,47 @@ const getallemplyee =async()=>{
                   <div className="lleaiFOlEFT">
                     <div className="subPart">
                       <h3>Lead Owner :</h3>
-                      <p> {data?.LeadOwner?.map((owner , index)=>(
-                         <span key={index}>{owner?.fullName} {data?.LeadOwner?.length !== index+1 && ","} </span>
-                      ))} </p>                    </div>
+                      <p>{data?.LeadOwner?.fullName}</p>
+                    </div>
 
-               
+                    <div className="subPart">
+                      <h3>{data?.title}</h3>
+                      <p>-</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Phone :</h3>
+                      <p>{data?.Phone}</p>
+                    </div>
 
                     <div className="subPart">
                       <h3>Mobile :</h3>
                       <p>{data?.Mobile}</p>
                     </div>
 
-                    {/* <div className="subPart">
+                    <div className="subPart">
                       <h3>Industry :</h3>
                       <p>{data?.Industry}</p>
-                    </div> */}
-
-                    <div className="subPart">
-                      <h3>Budget :</h3>
-                      <p>${data?.budget}</p>
                     </div>
 
                     <div className="subPart">
-                      <h3>Lead Source :</h3>
-                      <p>{data?.LeadSource}</p>
+                      <h3>Annual Revenue :</h3>
+                      <p>${data?.AnnualRevenue}</p>
                     </div>
 
                   </div>
 
                   {/* right side  */}
                   <div className="lleaiFOlEFT">
-                
                     <div className="subPart">
-                      <h3> Name :</h3>
+                      <h3>Company :</h3>
+                      <p>{data?.Company}</p>
+                    </div>
+
+                    <div className="subPart">
+                      <h3>Lead Name :</h3>
                       <p>
-                        {data?.name}
+                        {data?.FirstName} {data?.LastName}
                       </p>
                     </div>
 
@@ -544,18 +514,22 @@ const getallemplyee =async()=>{
                     </div>
 
                     <div className="subPart">
-                      <h3>Lead Type :</h3>
-                      <p>{data?.leadType}</p>
+                      <h3>Fax :</h3>
+                      <p>{data?.Fax}</p>
                     </div>
-                 
+                    <div className="subPart">
+                      <h3>No. of Employees :</h3>
+                      <p>{data?.NoOfEmployee}</p>
+                    </div>
                     <div className="subPart">
                       <h3>Lead Status :</h3>
                       <p>{data?.LeadStatus}</p>
                     </div>
-                  
+                
                   </div>
                 </div>
               </div>
+
               {/* second part  */}
               <div className="leadFirs">
                 <h2 className="ehading">Address Information</h2>
@@ -595,26 +569,26 @@ const getallemplyee =async()=>{
               </div>
 
               {/* third  */}
-              {/* <div className="leadFirs">
-                <h2 className="ehading">Description Information</h2>
+              <div className="leadFirs">
+                <h2 className="ehading">Descriptive Information</h2>
 
                 <div className="eladinfoWrap secondWRap">
                   <p>
                     Description: <span>{data?.DescriptionInfo}</span>
                   </p>
                 </div>
-              </div> */}
+              </div>
 
               {/* second  third  */}
               <div className="leadFirs">
 
                 <div className="LEADSsTunav">
 
-                  <h2 className="ehading">Lead Remark</h2>
+                  <h2 className="ehading">Lead Status</h2>
 
                   <hr />
 
-                  {/* <select
+                  <select
                     onChange={(e) => {
                       setLeadStatus(e.target.value);
                       updatingLeadStatus(e.target.value);
@@ -631,10 +605,10 @@ const getallemplyee =async()=>{
                       })
                     }
                  
-                  </select> */}
+                  </select>
 
                   <label className="noteLabel">
-                    <p>Remark:</p>
+                    <p>Note:</p>
                     <textarea
                       value={Note}
                       onChange={(e) => { setNote(e.target.value) }}
@@ -666,13 +640,13 @@ const getallemplyee =async()=>{
 
                           </div>
 
-                          {/* <div className="noteStaus">
+                          <div className="noteStaus">
 
                             <p>{note?.Status}</p>
 
-                          </div> */}
+                          </div>
 
-                          <p className="notedate">{new Date(note?.Date).toLocaleTimeString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                          <p className="notedate">{new Date(note?.Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
                           <p className="noteTExt">{note?.Note}</p>
 
@@ -709,7 +683,7 @@ const getallemplyee =async()=>{
 
                     {
                       opnAdNew &&
-                      <div ref={ref} className="opeAnew">
+                      <div className="opeAnew">
 
                         <p onClick={() => setOpenCreateTask(true)}>Follow Up</p>
                         <hr />
@@ -754,7 +728,8 @@ const getallemplyee =async()=>{
 
                   <button
                     onClick={() =>
-                   navigate("/employeeDash/HRM/QuotationForm", { state: { id } })
+                      // navigate("/adminDash/createQuotation", { state: { id } })
+                      navigate("/employeeDash/HRM/QuotationForm", { state: { id } })
                     }
                     className="createQquot"
                   >
@@ -782,9 +757,13 @@ const getallemplyee =async()=>{
 
                         <div className="dj">
                           <img
-                           
+                            // onClick={() =>
+                            //   navigate("/adminDash/editQuotation", {
+                            //     state: item,
+                            //   })
+                            // }
                             onClick={()=>{
-                              navigate("/employeeDash/HRM/QuotationForm" , {state:{item}})
+                              navigate("/adminDash/HRM/QuotationForm" , {state:{item}})
                             }}
                             className="cursor-pointer"
                             src={veci}
@@ -818,7 +797,7 @@ const getallemplyee =async()=>{
               {/* fourth  */}
               <div className="leadFirs">
                 <div className="attachment">
-                  <h2 className="ehading">Descriptive Information</h2>
+                  <h2 className="ehading">Description Information</h2>
                   <div className="saya">
                     <p>Upload File</p>
                     <svg
@@ -863,11 +842,11 @@ const getallemplyee =async()=>{
             </nav>
 
             <form className="taskForm" >
-            <label>
-                <p>Remark</p>
-                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
-              </label>
 
+              <label>
+                <p>LeadName</p>
+                <input name="LeadName" value={taskData?.LeadName} onChange={taskHandler} type="text" placeholder="Subject" />
+              </label>
 
               <label>
                 <p>Follow-Up type</p>
@@ -900,9 +879,13 @@ const getallemplyee =async()=>{
 
               </div>
 
-           
+              <label>
+                <p>Remark</p>
+                <input name="Remark" value={taskData?.Remark} onChange={taskHandler} type="text" />
+              </label>
 
-              <div className="btnstask2">
+
+              <div className="btnstask">
                 <button onClick={data1 ? taskUpdateHandler : TaskSubmitHandler} className="creattk">
                   {data1 ? "Task Update " : " Task Create"}
                 </button>
@@ -1034,43 +1017,36 @@ const getallemplyee =async()=>{
         </div>
       }
 
-{shareForm && (
-        <div className="createTaskWrap">
-          <div className="cretTaskCont">
+
+      {
+         openSharePop && 
+
+         <div className="opensharpopwra">
+          <div className="opensharecont">
+
             <nav>
-              <p>Share Lead</p>
-              <img
-                onClick={() => setShareForm(false)}
-                className="cursor-pointer"
-                src={cancel}
-                alt=""
-              />
+               <h2>Share Lead</h2>
+               <RxCross2 onClick={()=>{
+                setOpenSharePop(false);
+               }} className="sharecross" />
+
             </nav>
 
-            
-         <div className="shareusersdetail">
-      {allemp?.map((emp, index) => (
-        <div key={index} className="singlemp">
-          <input
-            type="checkbox"
-            onChange={() => handleCheckboxClick(emp?._id)}
-            checked={shareEmp.includes(emp?._id)}
-          />
-          <span>{emp.fullName}</span>
-        </div>
-      ))}
-    </div>
-
-    <div className="btnstask2">
-                <button onClick={()=> shareLead()} className="creattk">  Share </button>
-                <button onClick={() => setShareForm(false)}className="tkCnacel">  Cancel </button>
-              </div>
-
             <hr />
-          </div>
-        </div>
-      )}
 
+            <div className="popup_formdiv2">
+              jfdljflkdf dsjs
+            </div>
+
+            
+            <div className="sharebutons">
+               <button>Cancel</button>
+               <button>Share</button>
+            </div>
+
+          </div>
+         </div>
+      }
 
 
     </div>

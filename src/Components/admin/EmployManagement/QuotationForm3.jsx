@@ -279,7 +279,7 @@ const QuotationForm3 = ({ setAlert, pop, setPop }) => {
                       />
                     </label>
 
-                    <label>
+                    {/* <label>
                       <p>Customer Name*</p>
                       <input
                         value={formdata.customerName}
@@ -288,7 +288,7 @@ const QuotationForm3 = ({ setAlert, pop, setPop }) => {
                         type="text"
                         placeholder="Akash Negi"
                       />
-                    </label>
+                    </label> */}
 
                     <label>
                       <p>Kind Attention</p>
@@ -297,7 +297,7 @@ const QuotationForm3 = ({ setAlert, pop, setPop }) => {
                         value={formdata.customerReq}
                         name="customerReq"
                         onChange={textChangeHandler}
-                        placeholder="Mobile App - diet care app"
+                        placeholder="Akash "
                       />
                     </label>
 

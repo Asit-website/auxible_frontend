@@ -19,16 +19,11 @@ import pluslogo from "../../images/8922789.png";
 const QuotationForm2 = ({ setAlert, pop, setPop }) => {
   const {
     user,
-    uploadSingleImage,
-    postQuotationFormApi,
-    updateQuotationFormApi,
+   
   } = useMain();
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
 
-  //   const location = useLocation();
-
-  //   const { id, item } = location.state;
 
   const [formdata, setFormdata] = useState({
     quotationNum: "",
@@ -51,43 +46,10 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
       [name]: value,
     }));
   };
-
-  const editor = useRef(null);
-
   const navigate = useNavigate();
-
-  const [content, setContent] = useState("");
-
   const { role } = hrms_user;
 
-  const fileInputRef = useRef(null);
-
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
-
   const [preview, setPreview] = useState(false);
-
-  const [logoImage, setLogoImage] = useState("");
-  const [buislogoname, setBuisLogName] = useState("");
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const formdata2 = new FormData();
-      formdata2.append("Image", file);
-      setBuisLogName(file);
-
-      const ans = await uploadSingleImage(formdata2);
-      if (ans?.status) {
-        sessionStorage.setItem("quotationLogoLink", ans?.link);
-        toast.success("Successfuly uploaded");
-        setLogoImage(ans?.link);
-      } else {
-        toast.error("Something went wrong , please try again");
-      }
-    }
-  };
 
   const [rows, setRows] = useState([
     { application: "", brand: "", model: "", description: "" , qty:"" , unitPrice:"" , amount:"" },
@@ -97,75 +59,6 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
     setRows([...rows, { application: "", brand: "", model: "", description: "" , qty:"" , unitPrice:"" , amount:"" }]);
   };
 
-  //   const postQuotationForm = async () => {
-  //     const toastId = toast.loading("Loading...");
-
-  //     const ans = await postQuotationFormApi({
-  //       ...formdata,
-  //       items: rows,
-  //       userId: hrms_user?._id,
-  //       leadId: id,
-  //       content,
-  //     });
-
-  //     if (ans?.status) {
-  //       toast.success("Successfuly created");
-  //       setFormdata({
-  //         quotationNum: "",
-  //         customerName: "",
-  //         customerReq: "",
-  //         mobileNum: "",
-  //         quotationDate: "",
-  //         validUntil: "",
-  //         customerId: "",
-  //         companyName: "",
-  //         companyAddress: "",
-  //         companyGSTIN: "",
-  //         companyWebsite: "",
-  //       });
-
-  //       sessionStorage.removeItem("quotationLogoLink");
-
-  //       setRows([]);
-  //       setContent(data);
-  //     }
-  //     toast.dismiss(toastId);
-  //   };
-
-  //   const updateQuotationForm = async () => {
-  //     const toastId = toast.loading("Loading...");
-
-  //     const ans = await updateQuotationFormApi({
-  //       ...formdata,
-  //       items: rows,
-  //       userId: hrms_user?._id,
-  //       leadId: id,
-  //       content,
-  //       id: item?._id,
-  //     });
-
-  //     if (ans?.status) {
-  //       toast.success("Successfuly updated");
-  //       setFormdata({
-  //         quotationNum: "",
-  //         customerName: "",
-  //         customerReq: "",
-  //         mobileNum: "",
-  //         quotationDate: "",
-  //         validUntil: "",
-  //         customerId: "",
-  //         companyName: "",
-  //         companyAddress: "",
-  //         companyGSTIN: "",
-  //         companyWebsite: "",
-  //       });
-
-  //       setRows([]);
-  //       setContent(data);
-  //       sessionStorage.removeItem("quotationLogoLink");
-  //     }
-  //     toast.dismiss(toastId);
-  //   };
 
   useEffect(() => {
     const quotationLogoLink = sessionStorage.getItem("quotationLogoLink");
@@ -173,39 +66,6 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
       setLogoImage(quotationLogoLink);
     }
   }, []);
-
-  //   useEffect(() => {
-  //     if (item) {
-  //       const {
-  //         quotationNum,
-  //         customerName,
-  //         customerReq,
-  //         mobileNum,
-  //         quotationDate,
-  //         validUntil,
-  //         customerId,
-  //         companyName,
-  //         companyAddress,
-  //         companyGSTIN,
-  //         companyWebsite,
-  //         items,
-  //       } = item;
-  //       setRows(items);
-  //       setFormdata({
-  //         quotationNum,
-  //         customerName,
-  //         customerReq,
-  //         mobileNum,
-  //         quotationDate,
-  //         validUntil,
-  //         customerId,
-  //         companyName,
-  //         companyAddress,
-  //         companyGSTIN,
-  //         companyWebsite,
-  //       });
-  //     }
-  //   }, []);
 
   const contonentPDF = useRef();
 
@@ -242,15 +102,7 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
                 <div className="qutLTo">
                   <div className="qutolobutons">
                     <button onClick={() => setPreview(true)}>Preview</button>
-                    <button
-                    //  onClick={()=>{
-                    //     if (item) {
-                    //       updateQuotationForm();
-                    //     } else {
-                    //       postQuotationForm();
-                    //     }
-                    //  }}
-                    >
+               
                       Create
                     </button>
                     <button
@@ -278,7 +130,7 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
                       />
                     </label>
 
-                    <label>
+                    {/* <label>
                       <p>Customer Name*</p>
                       <input
                         value={formdata.customerName}
@@ -287,7 +139,7 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
                         type="text"
                         placeholder="Akash Negi"
                       />
-                    </label>
+                    </label> */}
 
                     <label>
                       <p>Kind Attention</p>
@@ -296,7 +148,7 @@ const QuotationForm2 = ({ setAlert, pop, setPop }) => {
                         value={formdata.customerReq}
                         name="customerReq"
                         onChange={textChangeHandler}
-                        placeholder="Mobile App - diet care app"
+                        placeholder="Akash "
                       />
                     </label>
 

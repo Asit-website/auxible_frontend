@@ -11,6 +11,9 @@ import toast from "react-hot-toast";
 import bxUser from "../../images/bx-user-pin.png";
 import { ImCross } from "react-icons/im";
 import * as EmailValidator from "email-validator";
+import validator from 'validator';
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 
 const item = [
   {
@@ -38,6 +41,10 @@ const EmployeeManage = ({
 
   const navigate = useNavigate();
 
+  let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
+
+  const { role } = hrms_user;
+
   const {
     user,
     createEmployee1,
@@ -63,6 +70,7 @@ const EmployeeManage = ({
     getEmployee();
   }, []);
 
+  
 
   const [value1, setValue1] = useState({
     status: false,
@@ -73,7 +81,7 @@ const EmployeeManage = ({
     reportingManager: "",
     designation: "",
     joiningDate: "",
-    PermissionRole: "" ,
+    PermissionRole: "" , 
     employeeCode:""
   });
 
@@ -84,6 +92,8 @@ const EmployeeManage = ({
     const valid = EmailValidator.validate(value1.email);
     setIsemailValid(valid);
 };
+
+
 
   const [value2, setValue2] = useState({
     status: false,
@@ -364,7 +374,6 @@ const EmployeeManage = ({
   const handleSubmit = async (e, type) => {
     e.preventDefault();
 
-    const toastId = toast.loading("Loading...");
 
    
         if (emailisValid === false && value1?.email !== "") {
@@ -377,9 +386,12 @@ const EmployeeManage = ({
           return toast.error("Please Enter Correct Gmail")
       }
 
-       if(value1.employeeCode === ""){
-        return toast.error("Please Enter employee Code");
-       }
+      if(value1.employeeCode === ""){
+        return toast.error("Please Enter Employee Code")
+      }
+
+      const toastId = toast.loading("Loading...");
+
 
     if (!id) {
       const {
@@ -608,16 +620,25 @@ const EmployeeManage = ({
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+      {isHr ? (
+          <HrSidebar />
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
+
 
         <div className="tm">
-          {isHr ? (
+        {isHr ? (
             <HrNavbar
               user={user}
               setAlert={setAlert}
               pop1={pop1}
               setPop1={setPop1}
             />
+          ) : role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
           ) : (
             <AdminNavbar user={user} setAlert={setAlert} />
           )}
@@ -634,7 +655,9 @@ const EmployeeManage = ({
                 <NavLink to="/adminDash/HRM/employeeManagement"><button className="calce">
                   <span>Cancel</span>
                 </button></NavLink>
-               
+                {/* <button className="register">
+                  <span>Register New</span>
+                </button> */}
               </div>
             </section>
 
@@ -727,6 +750,19 @@ const EmployeeManage = ({
                             </label>
 
                             <label htmlFor="">
+                              <p>Employee Code</p>
+
+                              <input
+                                onChange={(e) => {
+                                  handleChange(e, "form1");
+                                }}
+                                type="text"
+                                name="employeeCode"
+                                value={value1?.employeeCode}
+                                placeholder="Enter Employee Code"
+                              />
+                            </label>
+                            <label htmlFor="">
                               <p>Company Email</p>
 
                               <input
@@ -736,27 +772,13 @@ const EmployeeManage = ({
                                 }}
                                 className={`${(emailisValid === false && value1.email !== "") && "emailvalidinput"}`}
                                 type="email"
+                                // name="gmail"
                                 name="email"
+                                // value={value1?.gmail}
                                 value={value1?.email}
+                                // placeholder="Company Gmail"
                                 placeholder="Company Email Address"
                                 disabled={value1.status}
-                              />
-                            </label>
-
-                            <label htmlFor="">
-                              <p>Employee Code</p>
-
-                              <input
-                                onChange={(e) => {
-                                   setValue1((prev)=>({
-                                    ...prev,
-                                    employeeCode: e.target.value
-                                   }))
-                                }}
-                                type="text"
-                                name="employeeCode"
-                                value={value1?.employeeCode}
-                                placeholder="Employee Code"
                               />
                             </label>
 

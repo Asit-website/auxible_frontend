@@ -94,10 +94,28 @@ const LeadFile = ({ setAlert, pop, setPop }) => {
 
       for (let i = 0; i < data?.length; i++) {
 
-        const { Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate , LeadStatus , Mobile } = data[i];
+        const {
+          CompanyName,
+          Email,
+          LeadStatus , 
+          FirstName,
+          LastName ,
+          Website
+        } = data[i];
 
-        const ans = await createExcelLead({  LeadOwner: hrms_user?._id, Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate , LeadStatus  , Mobile });
+       
+
+        const ans = await createExcelLead({
+          LeadOwner: hrms_user?._id,
+          CompanyName,
+          Email,
+          Website , 
+          LeadStatus , 
+          FirstName,
+          LastName ,
+        });
         
+        // console.log("ans" ,ans);
       }
 
       toast.success("Successfuly uploaded");

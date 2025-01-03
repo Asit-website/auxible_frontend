@@ -249,6 +249,7 @@
     cursor: pointer;
 }
 
+
 .allPopupWrap {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.2);
@@ -264,6 +265,37 @@
     padding: 50px 0px;
 
 }
+
+
+
+.allform_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+
+  
+.popup_formdiv{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+    padding: 0px 10px 0px 0px;
+  }
+  
+  .popup_formdiv::-webkit-scrollbar {
+    width: 1em;
+  }
+  
+  .popup_formdiv::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #cccccc;
+  }
+  
+  .popup_formdiv::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #cccccc;
+  }
 
 .incheight{
     height: 100% ;
@@ -292,6 +324,14 @@
     gap: 6px;
 
 }
+
+
+.RxCross2_form{
+    font-weight: 600;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
 
 .awardpopupcont h2{
     font-family: Inter;

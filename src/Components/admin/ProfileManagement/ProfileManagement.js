@@ -143,7 +143,7 @@ const ProfileManagement = ({ setAlert, pop, setPop }) => {
                               </div>
                             </td>
                             <td className="px-6 py-4 timer">
-                              <p>{e?.employeeCode}</p>
+                              <p>KDS{e?.employeeCode}</p>
                             </td>
                             <td className="px-6 py-4 relative cursor-pointer">
                               <div className="flex items-center status relative"

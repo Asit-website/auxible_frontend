@@ -449,7 +449,7 @@ color: #FFFFFF;
         text-align: right;
         
     }
-    .subPart p,span{
+    .subPart p{
         font-family: Inter;
         color: #1B2533;
         font-size: 16px;
@@ -565,7 +565,7 @@ padding: 0px 12px;
 
     .cretTaskCont{
         width: 599px;
-height: fit-content;
+height: 490px;
 position: fixed;
 top: 50%;
 left: 50%;
@@ -606,8 +606,8 @@ line-height: 32px;
     }
     .cretTaskCont2{
         width: 599px;
-height: 550px;
-position: fixed;
+height: 850px;
+position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%,-50%);
@@ -617,7 +617,6 @@ background: #FFFFFF;
 display: flex;
 flex-direction: column;
 gap: 12px;
-overflow-y: scroll;
 
     }
     .addnewTx{
@@ -670,7 +669,6 @@ text-align: left;
         display: flex;
         flex-direction: column;
     gap: 16px;
-    position: relative;
  margin-top: 14px;
 }
     .taskForm label{
@@ -710,32 +708,8 @@ text-align: left;
     display: flex;
     align-items: center;
     gap: 16px;
-    position: sticky;
-    bottom: 0;
-    background-color: white;
-    padding: 10px 10px;
-
-}
-.btnstask2{
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
 }
 .btnstask .creattk{
-    width: 125px;
-    height: 40px;
-    border-radius: 10px;
-    background: #0B56E4;
-    font-family: Inter;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.005em;
-color: #FFFFFF;    
-    
-}
-.btnstask2 .creattk{
     width: 125px;
     height: 40px;
     border-radius: 10px;
@@ -762,20 +736,6 @@ color: #FFFFFF;
 color: white;        
     
 }
-.btnstask2 .creatmt{
-    width: 152px;
-    height: 40px;
-    border-radius: 10px;
-    background: #0B56E4;
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.005em;
-    text-align: center;
-color: white;        
-    
-}
 .btnstask .tkCnacel{
     width: 86px;
     height: 40px;
@@ -788,15 +748,42 @@ color: white;
     letter-spacing: 0.005em;
 color: #666D76;        
 }
-.btnstask2 .tkCnacel{
-    width: 86px;
-    height: 40px;
-    border-radius: 10px;
-    background: #F8F9FB;
-    font-family: Inter;
-    border: 1px solid #B8BBC0;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.005em;
-color: #666D76;        
+/* ==Quotation cards css is here == */
+.allCards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
 }
+.card {
+    width: 300px;
+    border-radius: 8px;
+    max-height: 400px;
+    height: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+  }
+.card img {
+    width: 100%;
+    height: 200px;
+    display: block;
+  }
+
+  .card-content {
+    padding: 16px 0px 0px 0px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .card-meta {
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+  }
+  

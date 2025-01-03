@@ -300,123 +300,129 @@ const GoalTracking = ({ pop, setPop, setAlert }) => {
           openForm &&
           <div className='annFormwrap2'>
 
-          <form onSubmit={() => {
-            submitHandler();
-            setOpenForm(false);
-          }} className='openform4' >
+            <form onSubmit={() => {
+              submitHandler();
+              setOpenForm(false);
+            }} className='openform4' >
 
-            <nav>
-              {/* left  */}
-              <h2>Create New Goal Tracking</h2>
-              <img onClick={() => {
-                setOpenForm(false);
-                setOnEdit(false);
-                setEditData({});
-                setFormdata({
-                  Branch: "", GoalType: "", startDate: "", endDate: "", subject: "", target: "", description: "", status: "", rating: "", progress: ""
-                })
-              }} className='cursor-pointer' src={cross} alt="" />
-            </nav>
+              <nav>
+                {/* left  */}
+                <h2>Create New Goal Tracking</h2>
+                <img onClick={() => {
+                  setOpenForm(false);
+                  setOnEdit(false);
+                  setEditData({});
+                  setFormdata({
+                    Branch: "", GoalType: "", startDate: "", endDate: "", subject: "", target: "", description: "", status: "", rating: "", progress: ""
+                  })
+                }} className='cursor-pointer' src={cross} alt="" />
+              </nav>
 
-            <hr />
+              <hr />
 
-         <div className="popup_formdiv">
+           <div className="popup_formdiv">
 
-            <div className="allInputFileds">
+              <div className="allInputFileds">
 
-              <label htmlFor="" className='halfLabel' >
-                <p>Branch</p>
-                <select name="Branch" id="Branch" onChange={changeHandler} value={formdata.Branch}>
-                  <option>Select Branch</option>
-                  {
-                    branch?.map((val, index) => {
-                      return <option key={index} value={val.name}>{val.name}</option>
-                    })
-                  }
-                </select>
-              </label>
+                <label htmlFor="" className='halfLabel' >
+                  <p>Branch</p>
+                  <select name="Branch" id="Branch" onChange={changeHandler} value={formdata.Branch}>
+                    <option>Select Branch</option>
+                    {
+                      branch?.map((val, index) => {
+                        return <option key={index} value={val.name}>{val.name}</option>
+                      })
+                    }
+                  </select>
+                </label>
 
-              <label className='halfLabel' >
-                <p>GoalTypes</p>
-                <select name="GoalType" id="GoalType" value={formdata.GoalType} onChange={changeHandler}>
-                  <option>Select Goal Type</option>
-                  <option>Short term goal</option>
-                  <option>Long term goal</option>
-                </select>
-              </label>
+                <label className='halfLabel' >
+                  <p>GoalTypes</p>
+                  <select name="GoalType" id="GoalType" value={formdata.GoalType} onChange={changeHandler}>
+                    <option>Select Goal Type</option>
+                    <option>Short term goal</option>
+                    <option>Long term goal</option>
+                  </select>
+                </label>
 
-              <label className='halfLabel' >
-                <p>Start Date</p>
-                <input value={formdata.startDate} name='startDate' onChange={changeHandler} type="date" />
-              </label>
+                <label className='halfLabel' >
+                  <p>Start Date</p>
+                  <input value={formdata.startDate} name='startDate' onChange={changeHandler} type="date" />
+                </label>
+                <label className='halfLabel' >
+                  <p>End Date</p>
+                  <input value={formdata.endDate} name='endDate' onChange={changeHandler} type="date" />
+                </label>
 
-              <label className='halfLabel' >
-                <p>End Date</p>
-                <input value={formdata.endDate} name='endDate' onChange={changeHandler} type="date" />
-              </label>
+                <label className='fullLabel' >
+                  <p>Subject</p>
+                  <input value={formdata.subject} onChange={changeHandler} name='subject' type="text" />
+                </label>
 
-              <label className='fullLabel' >
-                <p>Subject</p>
-                <input value={formdata.subject} onChange={changeHandler} name='subject' type="text" />
-              </label>
+                <label className='fullLabel' >
+                  <p>Target Achievement</p>
+                  <input value={formdata.target} name='target' onChange={changeHandler} type="text" />
+                </label>
+                <label htmlFor='description' className='fullLabel' >
+                  <p>Description</p>
+                  <textarea value={formdata.description} name="description" id="description" onChange={changeHandler} cols="20" rows="8"></textarea>
+                </label>
 
-              <label className='fullLabel' >
-                <p>Target Achievement</p>
-                <input value={formdata.target} name='target' onChange={changeHandler} type="text" />
-              </label>
-
-              <label htmlFor='description' className='fullLabel' >
-                <p>Description</p>
-                <textarea value={formdata.description} name="description" id="description" onChange={changeHandler} cols="20" rows="8"></textarea>
-              </label>
-
-              <label htmlFor='status' className='fullLabel' >
-                <p>Status</p>
-                <select value={formdata.status} id="status" name='status' onChange={changeHandler}>
-                  <option>Not Started</option>
-                  <option>In progress</option>
-                  <option>Completed</option>
-                </select>
-              </label>
+                <label htmlFor='status' className='fullLabel' >
+                  <p>Status</p>
+                  <select value={formdata.status} id="status" name='status' onChange={changeHandler}>
+                    <option>Not Started</option>
+                    <option>In progress</option>
+                    <option>Completed</option>
+                  </select>
+                </label>
 
 
-              <div className='fullStars' >
-              
-                <p>Rating</p>
-                <input className='w-full' value={formdata.rating} name='rating' onChange={changeHandler} type="number" placeholder='rating out of 5' />
+                <div className='fullStars' >
+                  {/* <FaRegStar />
+                  <FaRegStar />
+                  <FaRegStar />
+                  <FaRegStar />
+                  <FaRegStar /> */}
+                  <p>Rating</p>
+                  <input className='w-full' value={formdata.rating} name='rating' onChange={changeHandler} type="number" placeholder='rating out of 5' />
+                </div>
+
+                <div className='fullStars' >
+                  {/* <FaRegStar />
+                  <FaRegStar />
+                  <FaRegStar />
+                  <FaRegStar />
+                  <FaRegStar /> */}
+                  <p>Progress</p>
+                  <input className='w-full' value={formdata.progress} name='progress' onChange={changeHandler} type="range" placeholder='Progress' />
+                </div>
+
+
               </div>
 
-              <div className='fullStars' >
-              
-                <p>Progress</p>
-                <input className='w-full' value={formdata.progress} name='progress' onChange={changeHandler} type="range" placeholder='Progress' />
               </div>
 
 
-            </div>
+              <hr />
 
-            </div>
-
-
-            <hr />
-
-            <div className="createBtn">
-              <button type='button' onClick={() => {
-                setOpenForm(false);
-                setOnEdit(false);
-                setEditData({});
-                setFormdata({
-                  Branch: "", GoalType: "", startDate: "", endDate: "", subject: "", target: "", description: "", status: "", rating: "", progress: ""
-                })
-              }} className='cancelBtn'>Cancel</button>
-              <button type='submit' className='creteBtn'>Create</button>
-            </div>
+              <div className="createBtn">
+                <button type='button' onClick={() => {
+                  setOpenForm(false);
+                  setOnEdit(false);
+                  setEditData({});
+                  setFormdata({
+                    Branch: "", GoalType: "", startDate: "", endDate: "", subject: "", target: "", description: "", status: "", rating: "", progress: ""
+                  })
+                }} className='cancelBtn'>Cancel</button>
+                <button type='submit' className='creteBtn'>Create</button>
+              </div>
 
 
-          </form>
+            </form>
 
 
-        </div>
+          </div>
 
         }
 

@@ -186,7 +186,7 @@ const EmployeeManageByHr = ({ setAlert, pop1, setPop1 }) => {
                   <div className="admin-form">
                     <div className="admin-form1">
                       {/* <img className="ladki" src={ladki} alt="ladki" />
-                      <p className="kds">#001</p> */}
+                      <p className="kds">KDS#001</p> */}
                       <div className="form-section">
                         <div>
                           <div className="flex flex-col">

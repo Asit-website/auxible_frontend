@@ -172,9 +172,22 @@ border: 1px solid #0B56E4;
      color: #FFFFFF;
 }
 
-.makethisflex{
+
+/* ====== properly assigned the edit and delete button under Action  */
+
+.makethisflex {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center; /* Ensures buttons are horizontally centered */
+    gap: 15px; /* Adjust spacing between icons */
+}
 
+.makethisflex svg {
+    cursor: pointer;
+    color: #1B2533; /* Consistent icon color */
+    transition: transform 0.2s ease; /* Smooth hover effect */
+}
+
+.makethisflex svg:hover {
+    transform: scale(1.2); /* Slightly enlarges icon on hover */
 }

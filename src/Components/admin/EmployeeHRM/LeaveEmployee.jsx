@@ -85,7 +85,7 @@ const LeaveEmployee = ({
 
               {/* Second */}
               <main className="laveEmplyWrap">
-                {data?.map((employ, index) => (
+                {data?.length > 0 ?data?.map((employ, index) => (
                   <div key={index} className="singl_EmplyL">
                     <div className="singEmp_profileL">
                       <img
@@ -122,7 +122,7 @@ const LeaveEmployee = ({
                       </p>
                     </div>
                   </div>
-                ))}
+                )): <p className="no_data">No Data Found</p>}
               </main>
             </div>
           </div>

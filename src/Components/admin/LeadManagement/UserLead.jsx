@@ -6,6 +6,7 @@ import { useMain } from "../../../hooks/useMain";
 import search from "../../images/bx-search.png"
 import fff from "../../images/fff.png"
 import { NavLink, useNavigate } from "react-router-dom";
+import OutsideClickHandler from 'react-outside-click-handler';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import toast from "react-hot-toast";
@@ -92,8 +93,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
     const endIndex = Math.min(startIndex + itemsPerPage, allLead?.length);
 
-    const [currentItems , setCurrentItems] = useState([]);
-
+    const currentItems = allLead?.slice(startIndex, endIndex);
 
     const nextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -186,14 +186,11 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
 
     useEffect(() => {
-
-        console.log("Filter1" , Filter1);
-        if (Filter1 === "Select" || Filter1 === "") {
-            const currentitem = allLeading?.slice(startIndex, endIndex);
-            setCurrentItems(currentitem);
+        if (leadUser === "Select User" || leadUser === "") {
+            setAllLead(allLeading);
             return;
         } else {
-            const userLead = allLeading;
+            const userLead = allLeading.filter((ld) => ld?.LeadOwner === leadUser);
 
             let FiltData;
 
@@ -226,7 +223,6 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                 });
             }
             else if (Filter1 === "Last 14 Days") {
-
                 const fourteenDaysAgo = new Date(today);
                 fourteenDaysAgo.setDate(today.getDate() - 14);
 
@@ -235,19 +231,16 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                     return createdAt >= fourteenDaysAgo && createdAt <= today;
                 });
             } else if (Filter1 === "This Month") {
-
                 const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
                 const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
 
                 FiltData = userLead.filter((ld) => {
-                    
                     const createdAt = new Date(ld.createAt);
                     return createdAt >= firstDayOfMonth && createdAt <= firstDayOfNextMonth;
                 });
             }
 
-
-            setCurrentItems(FiltData);
+            setAllLead(FiltData);
         }
     }, [Filter1]);
 
@@ -262,7 +255,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
         else {
 
             const filterData = allLeading.filter((lead) => {
-                const leadName = `${lead.leadType}`.toLowerCase();
+                const leadName = `${lead.FirstName} ${lead.LastName}`.toLowerCase();
                 return leadName.includes(searchText.toLowerCase());
             });
             setAllLead(filterData);
@@ -303,12 +296,6 @@ const UserLead = ({ setAlert, pop, setPop }) => {
     }
 
 
-    useEffect(()=>{
-        const currentitem = allLead?.slice(startIndex, endIndex);
-        setCurrentItems(currentitem);
-
-    },[currentPage , allLead])
-
     return (
         <>
             <div className="employee-dash h-full">
@@ -332,7 +319,7 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                         <img src={download} alt="" />
                                         <span className="ref1">  Import Leads</span>
                                     </button></NavLink>
-                            
+                               
                                 </div>
                             </div>
                         </div>
@@ -352,6 +339,93 @@ const UserLead = ({ setAlert, pop, setPop }) => {
 
                                 </div>
 
+                                {/* <div
+                                    id="dropdown"
+                                    className="z-10 dart hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                                    style={stylePeer3}
+                                >
+                                    <div className="filter_lead">
+                                        <h2>Filter Leads by</h2>
+                                    </div>
+                                    <div className="trt_things">
+                                        <div className="touched_things">
+                                            <input type="checkbox" />
+                                            <span>Touched Records</span>
+                                        </div>
+                                        <div className="fg">
+                                            <span>By</span>
+                                            <select className="testo" name="" id="">
+                                                <option value="User & system">User & system</option>
+                                            </select>
+                                        </div>
+                                        <div className="in_the">
+                                            <select className="aloy1" name="" id="">
+                                                <option value="In the last">In the last</option>
+                                            </select>
+                                            <div className="stoing">
+                                                <input type="text" placeholder="2" />
+                                            </div>
+                                            <select className="aloy2" name="" id="">
+                                                <option value="Days">Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="setting">
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Untouched Records</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Activities</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Notes</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Annual Revenue</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Country</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Created Time</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Industry</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input type="checkbox" />
+                                            <span>Last Activity Time</span>
+                                        </div>
+                                        <div className="some_things">
+                                            <input checked={OwnerFilter}
+                                                onChange={handleCheckboxChange} type="checkbox" />
+                                            <span>Lead Owner</span>
+                                        </div>
+                                    </div>
+                                    <div className="apply_footer">
+                                        <div className="apply">
+                                            <button onClick={() => {
+                                                applyHandler();
+                                                setFilter(false);
+                                            }}>Apply</button>
+                                        </div>
+                                        <div className="cancel">
+                                            <button onClick={() => {
+                                                setOwnerFilter(false);
+                                                setAllLead(allLeading);
+                                                setFilter(false);
+
+                                            }}>Clear</button>
+                                        </div>
+                                    </div>
+                                </div> */}
 
                             </div>
 
@@ -416,32 +490,28 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                                 <th scope="col" className="px-3 py-3">
                                                     <input type="checkbox" placeholder="" />
                                                 </th>
-                                                <th scope="col" className="px-3 py-3 leadti">
-                                                Lead Type
+                                                <th scope="col" className="px-3 py-3 leadti makedivcent">
+                                                    Company Name
                                                 </th>
-                                                <th scope="col" className="px-3 py-3 leadti">
+                                                <th scope="col" className="px-3 py-3 leadti makedivcent">
                                                     {/* First Name */}
-                                                    Name
+                                                    LeadName
                                                 </th>
-   
+                                                
+                                                {/* <th scope="col" className="px-3 py-3 leadti makedivcent">
+                                                    Email
+                                                </th> */}
+                                                <th scope="col" className="px-3 py-3 leadti makedivcent">
+                                                    Website
+                                                </th>
                                              
-                                                <th scope="col" className="px-3 py-3 leadti">
-                                                Budget
+                                                <th scope="col" className="px-3 py-3 leadti makedivcent">
+                                                    Status
                                                 </th>
-                                   
-                                                <th scope="col" className="px-3 py-3 leadti">
-                                                Lead Status
-                                                </th>
-                                   
-                                                <th scope="col" className="px-3 py-3 leadti">
-                                                    {/* LinkedIn URL */}
-                                                    Mobile
-                                                </th>
-                                                <th scope="col" className="px-3 py-3 leadti">
-                                                    {/* LinkedIn URL */}
+                                                <th scope="col" className="px-3 py-3 leadti makedivcent">
                                                     Lead Date
                                                 </th>
-                                                <th scope="col" className="px-3 py-3 leadti">
+                                                <th scope="col" className="px-3 py-3 leadti makedivcent">
                                                     Action
                                                 </th>
                                             </tr>
@@ -452,24 +522,29 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                                             {
                                                 currentItems?.map((item, index) => {
                                                     return <tr key={index} className="">
-                                                        <th scope="col" className="px-3 py-3">
+                                                        <td scope="col" className="px-3 py-3">
                                                             <input type="checkbox" placeholder="" />
-                                                        </th>
-                                                        <td scope="col" className="px-3 py-3 myleadtit2">
-                                                            {item?.leadType}
                                                         </td>
-                                                        <td scope="col" className="px-3 py-3 myleadtit2">
-                                                            {item?.name}
+                                                        <td scope="col" className="px-3 py-3 myleadtit2 makedivcent">
+                                                            {item?.Company}
                                                         </td>
-            
-                                                    
+                                                        <td scope="col" className="px-3 py-3 myleadtit2 makedivcent">
+                                                            {item?.FirstName}{item?.LastName}
+                                                        </td>
+                                                        
+                                                        {/* <td scope="col" className="px-3 py-3 myleadtit2 makedivcent">
+                                                            {item?.Email}
+                                                        </td> */}
 
-                                                        <td scope="col" className="px-3 py-3 myleadtit2">
-                                                            {item?.budget}
-                                                        </td>
 
-                                                        <td className={`px-6 py-4 myleadtit2  `}>
-                        <div
+                                                        <td scope="col" className="px-3 py-3 myleadtit2 makedivcent">
+                                                            {item?.Website}
+                                                        </td>
+                                                      
+
+                                                        <td scope="col" className="px-3 py-3">
+
+                                                        <div
                             scope="col"
                             className={`statussame 
                               ${item?.LeadStatus === "Connected" && "connected"  } 
@@ -483,25 +558,16 @@ const UserLead = ({ setAlert, pop, setPop }) => {
                           >
                             {item?.LeadStatus}
                           </div>
-                        </td>
-                
-
-                                                        <td scope="col" className="px-3 py-3">
-
-                                                            <div scope="col" className={`statussame`}>
-                                                                {item?.Mobile}
-                                                            </div>
-
                                                         </td>
 
-                                                        <td className="px-6 py-4 taskAns docentertext">
+                                                        <td className="px-6 py-4 taskAns makedivcent">
                                                             {new Date(item?.createAt).toLocaleDateString("en-CA")}
                                                         </td>
 
 
-                                                        <td className="thebuttn docentertext">
-                                                       
-                                                            <div className="testok docentertext">
+                                                        <td className="thebuttn">
+                                                           
+                                                            <div className="testok">
                                                                 <svg className="cursor-pointer" onClick={() => navigate("/adminDash/editLead", { state: item })} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M9.71569 5.51667L10.4824 6.28333L2.93236 13.8333H2.16569V13.0667L9.71569 5.51667ZM12.7157 0.5C12.5074 0.5 12.2907 0.583333 12.1324 0.741667L10.6074 2.26667L13.7324 5.39167L15.2574 3.86667C15.5824 3.54167 15.5824 3.01667 15.2574 2.69167L13.3074 0.741667C13.1407 0.575 12.9324 0.5 12.7157 0.5ZM9.71569 3.15833L0.499023 12.375V15.5H3.62402L12.8407 6.28333L9.71569 3.15833Z" fill="#383838" />
                                                                 </svg>

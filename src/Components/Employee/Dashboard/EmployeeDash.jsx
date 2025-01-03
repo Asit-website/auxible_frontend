@@ -853,7 +853,7 @@ toast.dismiss(toastId);
                      <div className="annNav">
 
                     <img src={annNav} alt="" />
-                    <h3>Announcement Lists </h3>
+                    <h3>Announcement Lists  </h3>
 
                      </div>
 

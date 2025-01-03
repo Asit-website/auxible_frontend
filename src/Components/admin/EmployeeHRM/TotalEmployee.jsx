@@ -15,6 +15,8 @@ import "./hrm.css";
 import "./totalEmploy.css"
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
+import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 
 
 
@@ -29,6 +31,10 @@ const TotalEmployee = ({
   const { user, getUsers } = useMain();
 
   const [data, setData] = useState([])
+
+  let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+
+  const { role } = hrms_user;
 
   useEffect(() => {
     getData();
@@ -45,15 +51,23 @@ const TotalEmployee = ({
   return (
     <>
       <div className="employee-dash h-full">
-        {isHr ? <HrSidebar /> : <AdminSidebar pop={pop} setPop={setPop} />}
+      {isHr ? (
+          <HrSidebar />
+        ) : role === "EMPLOYEE" ? (
+          <EmployeeSidebar pop={pop} setPop={setPop} />
+        ) : (
+          <AdminSidebar pop={pop} setPop={setPop} />
+        )}
         <div className="tm">
-          {isHr ? (
+        {isHr ? (
             <HrNavbar
               user={user}
               setAlert={setAlert}
               pop1={pop1}
               setPop1={setPop1}
             />
+          ) : role === "EMPLOYEE" ? (
+            <EmployeeNavbar user={user} setAlert={setAlert} />
           ) : (
             <AdminNavbar user={user} setAlert={setAlert} />
           )}

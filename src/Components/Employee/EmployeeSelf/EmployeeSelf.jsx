@@ -16,10 +16,8 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
    const [user1, setUser1] = useState({});
 
-
    const location = useLocation();
    const state = location.state;
-
 
    const [isChecked, setIsChecked] = useState(false);
    const [isChecked2, setIsChecked2] = useState(false);
@@ -140,7 +138,7 @@ const EmployeeSelf = ({ setAlert, pop1, setPop1 }) => {
 
                         <div className="singfirst">
                            <p>Employee ID :</p>
-                           <span>{user1?.employeeCode}</span>
+                           <span>KDS{user1?.employeeCode}</span>
                         </div>
 
                         <div className="singfirst">

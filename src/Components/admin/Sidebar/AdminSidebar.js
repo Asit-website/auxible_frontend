@@ -175,6 +175,8 @@ const AdminSidebar = ({ pop, setPop }) => {
 
   const [openLead, setOpenLead] = useState(false);
 
+  console.log("openLead" , openLead);
+
   const stylepoo = {
     display: start ? "block" : "none",
   };
@@ -315,7 +317,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       alt=""
                     />
                     <span
-                      className={`adddforn500 ${
+                      className={`${
                         window.location.pathname === "/adminDash/permission"
                           ? "fan"
                           : ""
@@ -727,7 +729,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p className="lessfontweight2">Leave Management Setup</p>
+                      <p className="lessfontparas">Leave Management Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -789,7 +791,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={anal} alt="dasg" />
-                      <p className="lessfontweight2">Payroll Management</p>
+                      <p className="lessfontparas">Payroll Management</p>
                     </div>
 
                     <img src={vect} alt="" />
@@ -882,7 +884,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p className="lessfontweight2">Performance Setup</p>
+                      <p className="lessfontparas">Performance Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -995,7 +997,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       alt=""
                     />
                     <span
-                      className={` adddforn500 ${
+                      className={`${
                         window.location.pathname === "/performance/Assets"
                           ? "fan"
                           : ""
@@ -1028,7 +1030,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                       alt=""
                     />
                     <span 
-                      className={`adddforn500 addonefont ${
+                      className={` addonefont ${
                         window.location.pathname === "/adminDash/HRM/Expense"
                           ? "fan"
                           : ""
@@ -1253,7 +1255,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={anal} alt="dasg" />
-                      <p className="lessfontweight2">Payroll Management</p>
+                      <p className="lessfontparas">Payroll Management</p>
                     </div>
 
                     <img src={vect} alt="" />
@@ -1466,7 +1468,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p className="lessfontweight2">Leave Management Setup</p>
+                      <p className="lessfontparas">Leave Management Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -1529,7 +1531,7 @@ const AdminSidebar = ({ pop, setPop }) => {
                   >
                     <div className="dash-wrap">
                       <img src={reading} alt="dasg" />
-                      <p className="lessfontweight2">Performance Setup</p>
+                      <p className="lessfontparas">Performance Setup</p>
                     </div>
 
                     <img src={vect} alt="vect" />
@@ -1776,16 +1778,8 @@ const AdminSidebar = ({ pop, setPop }) => {
               </NavLink>
 
              
-{/* 
-              <NavLink to="/employeeDash/update">
-                <li className="indefy">
-                  <img src={userP} alt="" />
-                  <a href="#" className=" ">
-                    <span className="">User Profile</span>
-                  </a>
-                </li>
-              </NavLink> */}
 
+         
               <div className="red-box">
                 <div className="white-box">
                   <img src={chakka} alt="chakka" />
@@ -1809,3 +1803,13 @@ const AdminSidebar = ({ pop, setPop }) => {
 };
 
 export default AdminSidebar;
+
+
+{/* <NavLink to="/employeeDash/update">
+<li className="indefy">
+  <img src={userP} alt="" />
+  <a href="#" className=" ">
+    <span className="">User Profile</span>
+  </a>
+</li>
+</NavLink> */}

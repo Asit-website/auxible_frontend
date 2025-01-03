@@ -565,26 +565,40 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
             <hr />
 
             <p>
-              Time In:{" "}
-              {new Date(timerPop?.timeIn).toLocaleTimeString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric",
-                hour12: true,
-              })}
-            </p>
+  Time In:{" "}
+  <input
+    type="datetime-local" 
+    onChange={(e) =>
+      setTimerPop((prev) => ({
+        ...prev,
+        timeIn: new Date(e.target.value).toISOString(), 
+      }))
+    }
+    value={
+      new Date(timerPop.timeIn).toISOString().slice(0, 16) 
+    }
+  />
+</p>
 
-            <p>
-              Time Out:{" "}
-              {new Date(Number(timerPop?.timeOut)).toLocaleTimeString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric",
-                hour12: true,
-              })}
-            </p>
 
-            <p>Total Time: {timerPop?.totalTime} </p>
+<p>
+  Time Out:{" "}
+  <input
+    type="datetime-local" 
+    onChange={(e) =>
+      setTimerPop((prev) => ({
+        ...prev,
+        timeOut: new Date(e.target.value).getTime().toString(), 
+      }))
+    }
+    value={
+      new Date(Number(timerPop.timeOut)).toISOString().slice(0, 16) 
+    }
+  />
+</p>
+
+
+            <p>Total Time: <input type="text" value={timerPop?.totalTime} /> </p>
           </div>
         </div>
       )}

@@ -10,13 +10,14 @@ import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
 import * as EmailValidator from "email-validator";
 import validator from 'validator';
+import { FaUpload } from "react-icons/fa6";
 import usit from '../../images/usit.png';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 
 const CreateLead2 = ({ setAlert, pop, setPop }) => {
-    const { user, createLead, getEmployees, AllLeadSource, AllLeadStatus, getLeadStat, uploadToCloudinaryImg,getLeadType } = useMain();
+    const { user, createLead, getEmployees, AllLeadSource, AllLeadStatus, getLeadStat, uploadToCloudinaryImg } = useMain();
     const [pop1, setPop1] = useState(false);
     const stylePeer = {
         display: pop1 ? "block" : "none"
@@ -28,29 +29,34 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
     const [formdata, setFormdata] = useState({
         image: "",
-    LeadOwner: userDetail?._id,
-    leadType: "",
-    budget: "",
-    name: "",
-    Mobile: "",
-    Email: "",
-    date: "",
-    Street:"" ,
-    City:"" ,
-     State:"" , 
-     ZipCode:"" ,
-      Country:"" ,
-      LeadSource:"",
-      LeadStatus: "",
-
+        LeadOwner: userDetail?._id,
+        Company: "",
+        FirstName: "",
+        LastName: "",
+        Title: "",
+        Email: "",
+        Phone: "",
+        Fax: "",
+        Mobile: "",
+        Website: "",
+        LeadSource: "",
+        NoOfEmployee: "",
+        Industry: "",
+        LeadStatus: "",
+        AnnualRevenue: "",
+        Rating: "",
+        EmailOptOut: "",
+        SkypeID: "",
+        SecondaryEmail: "",
+        Twitter: "",
+        Street: "",
+        City: "",
+        State: "",
+        ZipCode: "",
+        Country: "",
+        DescriptionInfo: "", 
+        date:""
     });
-
-    const [allleadStat, setAllLeadStat] = useState([]);
-
-    const fetchStat = async () => {
-        const ans = await getLeadStat();
-        setAllLeadStat(ans?.data);
-    }
 
     const [emailisValid, setIsemailValid] = useState(null);
     const [emailisValid1, setIsemailValid1] = useState(null);
@@ -120,7 +126,7 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
     const changeHandler = async (e) => {
         const { name, value } = e.target;
 
-        if (name === "ZipCode" && value.length > 6) {
+        if (name === "Phone" && value.length > 10) {
             return
         }
 
@@ -135,34 +141,59 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
     }
 
     const submitHandler = async () => {
-      
         const toastId = toast.loading("Loading...");
         if (emailisValid === false && formdata.Email !== "") {
-          toast.dismiss(toastId);
-          return toast.error("Please Enter Correct Gmail");
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Email")
         }
-    
+        if (emailisValid1 === false && formdata.SecondaryEmail !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Gmail")
+        }
+        if (isUrlValid === false && formdata.Website !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Website Link")
+        }
+        if (isUrlValid1 === false && formdata.SkypeID !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Linkedin Url")
+        }
 
-       
+        if (isUrlValid2 === false && formdata.Twitter !== "") {
+            toast.dismiss(toastId);
+            return toast.error("Please Enter Correct Twitter Url")
+        }
         const ans = await createLead({ ...formdata });
         if (ans?.status) {
             navigate("/employeeDash/myLead")
             setFormdata({
-                image: "",
-    LeadOwner: userDetail?._id,
-    leadType: "",
-    budget: "",
-    name: "",
-    Mobile: "",
-    Email: "",
-    date: "",
-    Street:"" ,
-    City:"" ,
-     State:"" , 
-     ZipCode:"" ,
-      Country:"" ,
-      LeadSource:"",
-      LeadStatus:""
+                LeadOwner: userDetail?._id,
+                Company: "",
+                FirstName: "",
+                LastName: "",
+                Title: "",
+                Email: "",
+                Phone: "",
+                Fax: "",
+                Mobile: "",
+                Website: "",
+                LeadSource: "",
+                NoOfEmployee: "",
+                Industry: "",
+                LeadStatus: "",
+                AnnualRevenue: "",
+                Rating: "",
+                EmailOptOut: "",
+                SkypeID: "",
+                SecondaryEmail: "",
+                Twitter: "",
+                Street: "",
+                City: "",
+                State: "",
+                ZipCode: "",
+                Country: "",
+                DescriptionInfo: "" , 
+                date:""
             })
 
             toast.success("Successfuly submit");
@@ -177,25 +208,33 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
         setEmp(ans?.data);
     }
 
+    useEffect(() => {
+        getOwner();
+    }, [])
 
-
+    const [allLeadStatus, setAllLeadStatus] = useState([]);
     const [allLeadSource, setAllLeadSource] = useState([]);
-    const [allLeadType,setAllLeadType] = useState([]);
+    const [allleadStat, setAllLeadStat] = useState([]);
+
+
+    const fetchStatus = async () => {
+        const ans = await AllLeadStatus();
+        setAllLeadStatus(ans?.data);
+    }
 
     const fetchSource = async () => {
         const ans = await AllLeadSource();
         setAllLeadSource(ans?.data);
     }
 
-    const fetchType = async () => {
-        const ans = await getLeadType();
-        setAllLeadType(ans?.data);
-      }
+    const fetchStat = async () => {
+        const ans = await getLeadStat();
+        setAllLeadStat(ans?.data);
+    }
 
     useEffect(() => {
-        getOwner();
+        fetchStatus();
         fetchSource();
-        fetchType();
         fetchStat();
     }, [])
 
@@ -209,11 +248,20 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
 
                     <div className="em">
 
-                    
+                        {/* <div className="ghj">
+
+
+                            <div className="makethifles">
+                                <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
+                                <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
+
+                            </div>
+
+                        </div> */}
 
 <div className="ghj makeitsticky">
                             <div className="makethifles">
-                                <NavLink to="/employeeDash/myLead"><button>Back</button></NavLink>
+                                <NavLink to="/adminDash/myLead"><button>Back</button></NavLink>
 
                                 <button onClick={submitHandler} type="button" class="siubmitbtnlead">Submit</button>
 
@@ -292,131 +340,194 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                             </>
 
                             <div className="lead_information mt-6">
-                <h2>Lead Information</h2>
+                                <h2>Lead Information</h2>
 
-                <div className="lead_input mt-5">
+                                <div className="lead_input mt-5">
 
-                  <div className="lead_inp">
-                    <div className="lead_inp1">
-                      <label htmlFor="">Lead Owner *</label>
-                      <input
-                        required
-                        type="LeadOwner"
-                        value={userDetail?.fullName}
-                        disabled
-                        onChange={changeHandler}
-                      />
-                    </div>
-                  
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Lead Owner *</label>
+                                            <input required type="LeadOwner" value={userDetail?.fullName} disabled onChange={changeHandler} />
 
-                    <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Name
-                      </label>
-                      <input
-                        value={formdata.name}
-                        name="name"
-                        onChange={changeHandler}
-                        type="text"
-                      />
-                    </div>
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Company *</label>
+                                            <input required type="text" value={formdata.Company} name="Company" onChange={changeHandler} />
+                                        </div>
+                                    </div>
 
-                  </div>
+                                    <div className="lead_inp">
+                                    <div className="lead_inp1 makeitflexcol">
 
-                  <div className="lead_inp">
+<div className="lead_inp11">
+    <label htmlFor="">First Name *</label>
+    <select required className="selr" name="" id="">
+        <option>None</option>
+        <option>Mr</option>
+        <option>Mrs</option>
+    </select>
+</div>
 
-                  <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Budget *
-                      </label>
-                      <input
-                        required
-                        type="number"
-                        value={formdata.budget}
-                        name="budget"
-                        onChange={changeHandler}
-                      />
-                    </div>
-                
-                    <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Email *
-                      </label>
-                      <input
-                        required
-                        value={formdata.Email}
-                        name="Email"
-                        onChange={(e) => {
-                          changeHandler(e);
-                          handleValidation(e.target.value);
-                        }}
-                        type="email"
-                        className={`${
-                          emailisValid === false &&
-                          formdata.Email !== "" &&
-                          "emailvalidinput"
-                        }`}
-                      />
-                    </div>
-                  </div>
+<div className=" exceptionwidht">
+    <label style={{ visibility: "hidden" }} htmlFor="">hidden</label>
+    <input value={formdata.FirstName} name="FirstName" onChange={changeHandler} type="text" />
+</div>
 
-           
-                  <div className="lead_inp">
-                    <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Mobile
-                      </label>
-                      <input
-                        value={formdata.Mobile}
-                        name="Mobile"
-                        onChange={changeHandler}
-                        type="number"
-                      />
-                    </div>
+</div>
 
-                    <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Lead Type *
-                      </label>
-                      <select
-                        required
-                        value={formdata?.leadType}
-                        name="leadType"
-                        onChange={changeHandler}
-                        id=""
-                      >
-                        <option>Select LeadType</option>
-                        {/* <option value="Sound">Sound</option>
-                        <option value="LED">LED</option>
-                        <option value="Lighting">Lighting</option>
-                        <option value="All of the above">
-                          All of the above
-                        </option> */}
-                        {
-                            allLeadType?.map((val,index)=>{
-                                return <option key={index} value={val?.name}>{val?.name}</option>
-                            })
-                        }
-                      </select>
-                    </div>
-                  </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Last Name</label>
+                                            <input value={formdata.LastName} name="LastName" onChange={changeHandler} type="text" />
+                                        </div>
+                                    </div>
 
-                  <div className="lead_inp">
-                    <div className="lead_inp1">
-                      <label  htmlFor="">
-                        Date
-                      </label>
-                      <input
-                        value={formdata.date}
-                        name="date"
-                        onChange={changeHandler}
-                        type="date"
-                      />
-                    </div>
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Title</label>
+                                            <input value={formdata.Title} name="Title" onChange={changeHandler} type="text" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Email *</label>
+                                            <input required value={formdata.Email} name="Email"
+                                                onChange={(e) => {
+                                                    changeHandler(e);
+                                                    handleValidation(e.target.value);
+                                                }}
+                                                type="email" className={`${(emailisValid === false && formdata.Email !== "") && "emailvalidinput"}`} />
+                                        </div>
+                                    </div>
 
-                    <div className="lead_inp1">
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Phone *</label>
+                                            {/* <input required value={formdata.Phone} name="Phone" onChange={changeHandler} type="number" /> */}
+                                            <PhoneInput
+                                            
+                                            inputClass="hjj"
+                                            country={'in'}
+                                            id="Phone"
+                                            value={formdata?.Phone}
+                                            name="Phone"
+                                            placeholder="Enter your phone"
+
+                                            onChange={Phone => changeHandler({ target: { value: Phone, name: 'Phone' } })}
+
+                                            inputProps={{
+                                                required: true,
+                                            }}
+                                            countryCodeEditable={false}
+                                        />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Fax</label>
+                                            <input value={formdata.Fax} name="Fax" onChange={changeHandler} type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Mobile</label>
+                                            <input value={formdata.Mobile} name="Mobile" onChange={changeHandler} type="number" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Website</label>
+                                            <input value={formdata.Website} name="Website" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange(e.target.value);
+                                            }} type="text" className={`${(isUrlValid === false && formdata.Website !== "") && "emailvalidinput"}`} />
+                                        </div>
+                                    </div>
+
+                     
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="Industry">Industry</label>
+                                            <select value={formdata?.Industry} name="Industry" onChange={changeHandler} id="Industry">
+                                                <option disabled>Select Industry</option>
+                                                <option value="Other">Other</option>
+                                                {
+                                                    allLeadStatus?.map((item, index) => (
+                                                        <option key={index} value={item?.name}>{item?.name}</option>
+                                                    ))
+                                                }
+
+                                            </select>
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Lead Status *</label>
+                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
+                                                <option >Select Status</option>
+                                                {
+                                                    allleadStat?.map((val, index) => {
+                                                        return (
+                                                            <option key={index} value={val?.name}>{val?.name}</option>
+                                                        )
+                                                    })
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Annual Revenue </label>
+                                            <input value={formdata.AnnualRevenue} name="AnnualRevenue" onChange={changeHandler} placeholder="$" type="number" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Rating</label>
+                                            <select name="Rating" onChange={changeHandler} id="">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1 lead_inp111">
+                                            <label className="jpo" htmlFor="">Email Opt Out</label>
+                                            <input value={formdata.EmailOptOut} name="EmailOptOut" onChange={changeHandler} className="seng" type="checkbox" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">LinkedIn URL</label>
+                                            <input className={`${(isUrlValid1 === false && formdata.SkypeID !== "") && "emailvalidinput"}`} value={formdata?.SkypeID} name="SkypeID" type="text" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange1(e.target.value);
+                                            }} />
+                                        </div>
+                                    </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Secondary Email</label>
+                                            <input className={`${(emailisValid1 === false && formdata.SecondaryEmail !== "") && "emailvalidinput"}`} value={formdata.SecondaryEmail} name="SecondaryEmail" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleValidation1(e.target.value);
+                                            }} type="email" />
+                                        </div>
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Twitter</label>
+                                            <input className={`${(isUrlValid2 === false && formdata.Twitter !== "") && "emailvalidinput"}`} value={formdata.Twitter} name="Twitter" onChange={(e) => {
+                                                changeHandler(e);
+                                                handleInputUrlChange2(e.target.value);
+                                            }} type="text" />
+                                        </div>
+
+                                    </div>
+
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Date</label>
+                                            <input value={formdata.date} name="date" onChange={changeHandler} type="date" />
+                                        </div>
+                                        <div className="lead_inp1">
                                             <label htmlFor="">Lead Source</label>
-                                            <select name="LeadSource" value={formdata.LeadSource} onChange={changeHandler} id="">
+                                            <select name="LeadSource" onChange={changeHandler} id="">
                                                 <option>Select lead source</option>
                                                 {
                                                     allLeadSource?.map((item, index) => (
@@ -425,36 +536,17 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                                 }
                                             </select>
                                         </div>
-                  
-                  </div>
 
-                
-                  <div className="lead_inp">
-                  <div className="lead_inp1">
-                                            <label htmlFor="">Lead Status *</label>
-                                            <select required value={formdata?.LeadStatus} name="LeadStatus" onChange={changeHandler} id="">
-                                                <option >Select Status</option>
-                                                {
-                                                    allleadStat?.map((val, index) => {
-                                                        return <option key={index} value={val?.name}>{val?.name}</option>
-                                                    })
-                                                }
-                                              
-                                            </select>
-                                        </div>
-
-                 
-                  </div>
+                                    </div>
 
 
-                </div>
 
+                                </div>
 
-              </div>
+                            </div>
 
-              <div className="lead_information mt-6">
+                            <div className="lead_information mt-6">
                                 <h2>Address Information</h2>
-
                                 <div className="lead_input mt-5">
 
                                     <div className="lead_inp">
@@ -473,7 +565,6 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">State</label>
                                             <input value={formdata.State} name="State" onChange={changeHandler} type="text" />
                                         </div>
-                                       
                                         <div className="lead_inp1">
                                             <label htmlFor="">Zip Code</label>
                                             <input value={formdata.ZipCode} name="ZipCode" onChange={changeHandler} type="Number" />
@@ -485,14 +576,29 @@ const CreateLead2 = ({ setAlert, pop, setPop }) => {
                                             <label htmlFor="">Country</label>
                                             <input value={formdata.Country} name="Country" onChange={changeHandler} type="text" />
                                         </div>
-                                     
+                                        <div style={{ visibility: "hidden" }} className="lead_inp1">
+                                            <label htmlFor="">Zip Code</label>
+                                            <input value={formdata.ZipCode} name="ZipCode" onChange={changeHandler} type="Number" />
+                                        </div>
                                     </div>
 
                                 </div>
 
                             </div>
 
-                     
+                            <div className="lead_information mt-6">
+                                <h2>Description Information</h2>
+                                <div className="lead_input mt-5">
+                                    <div className="lead_inp">
+                                        <div className="lead_inp1">
+                                            <label htmlFor="">Description</label>
+                                            <input value={formdata.DescriptionInfo} name="DescriptionInfo" onChange={changeHandler} type="text" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
 
 
                         </form>

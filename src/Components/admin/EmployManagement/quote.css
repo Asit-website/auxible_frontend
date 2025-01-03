@@ -6,11 +6,12 @@
 }
 
 .qutaLeft {
-    max-width: 100%;
+    max-width: calc(100vw - 330px);
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+
 }
 
 .allempid {
@@ -24,11 +25,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
     background-color: white;
     border-radius: 12px;
     padding: 20px;
-    margin-top: 100px;
+    /* max-width: 500px; */
+    /* margin-top: 100px; */
 }
 
 .qutaRight {
@@ -37,15 +39,105 @@
     height: fit-content;
     padding-bottom: 30px;
     background-color: white;
-}
-.prev_quotarioncont {
-    max-width: 900px;
-    width: 100%;
-    height: fit-content;
-    padding-bottom: 30px;
-    background-color: white;
+    margin-top: 900px;
 }
 
+.techstackwrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.techstackwrap h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+
+}
+
+.allrows2wrao{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.costestimate h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+
+}
+
+.techsstack{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+.allstack{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.snglstack{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.snglstack p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    text-align: left;
+    color: #101820;
+    
+}
+.snglstack span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: left;
+    color: #101820;
+    
+}
+
+.userAppdds h2, h1,p,strong,span{
+    font-family: Inter !important;
+    color: #101820;
+}
+.techsstack h2{
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+    color: #101820;
+}
+.makeitflexri{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.givfulwidt{
+    width: 300px;
+}
+.givfulwidt input{
+    width:300px !important;
+}
+.givfulwidt2{
+    width: 500px;
+}
+.givfulwidt2 input{
+    width:500px !important;
+}
 .sinproid {
     display: flex;
     align-items: center;
@@ -73,7 +165,42 @@
     background-color: white;
     z-index: 1;
 }
+.expensepop{
+    height: 600px !important;
+    overflow-y: scroll !important;
+}
+.allInputFileds label input, select{
+    width: 100% !important;
+}
+.openform{
+    max-width: 630px !important;
+    width: 100% !important;
+    position: sticky !important;
+    top: 0;
+}
 
+
+.lableawaiwrap{
+    gap: 20px !important;
+}
+.lableawaiwrap label{
+    margin-bottom: 15px !important;
+}
+.lableawaiwrap label p{
+    font-size: 14px !important;
+}
+.lableawaiwrap label select {
+    font-family: inter !important;
+    font-size: 14px !important;
+}
+.lableawaiwrap label input{
+    font-size: 14px !important;
+}
+.labwrapp{
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 60px !important;
+}
 .qutolobutons {
     display: flex;
     align-items: center;
@@ -140,39 +267,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
     overflow-y: scroll;
 }
-.previ_wrap {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 100vh;
-    height: fit-content;
-    display: flex;
-    padding-top: 100px;
-    align-items: center;
-    justify-content: center;
-    overflow-y: scroll;
-    z-index: 1000;
-}
-.previ_wrap2 {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 150vh;
-    height: fit-content;
-    display: flex;
-    padding-top: 100px;
-    align-items: center;
-    justify-content: center;
-    overflow-y: scroll;
-    z-index: 1000;
+
+.previwwraps::-webkit-scrollbar{
+    display: none;
 }
 
 .qtoform {
@@ -191,109 +291,6 @@
 
 }
 
-.quota2_ref{
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    align-items: flex-end;
-}
-.quota2_ref p{
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-}
-.qut1_to{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.qut1_to p{
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-}
-.quot2_dear{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.quot2_dear p{
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-}
-.quot2_dear h4{
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-}
-.aubdisolpara{
-    background-color: orange;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Inter;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    transform: translateY(22px);
-}
-.aubdisolpara2{
-    background-color: #c00000;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Inter;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    transform: translateY(22px);
-}
-.aubdisolpara3{
-    background-color: black;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Inter;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    transform: translateY(22px);
-}
-
-.quo1_termandcond{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.quo1_termandcond h4{
-    font-family: Inter;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
-    margin-bottom: 10px;
-}
-.quo1_termandcond p{
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0.0015em;
-}
-.quo1_extrapra{
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0.0015em;
-}
 .qtoform label p {
     font-family: Inter;
     font-size: 16px;
@@ -399,27 +396,6 @@
     width: 100%;
 }
 
-.quotabl_wrap{
-    overflow-x: scroll;
-}
-.quotablle3 {
-    max-width: 100%;
-    width: 100%;
-}
-
-.quotabl_wrap::-webkit-scrollbar {
-    width: 0.5em !important;
-  }
-  
-  .quotabl_wrap::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 4px #cccccc !important;
-  }
-  
-  .quotabl_wrap::-webkit-scrollbar-thumb {
-    border-radius: 10px !important;
-    background: #cccccc !important;
-  }
-
 .quotablle2 {
     width: 100%;
 }
@@ -443,14 +419,6 @@
 
 }
 
-.quuo2_table_head {
-   border: 1px solid black;
-}
-.quuo2_table_head2 {
-   border: 1px solid black;
-}
-
-
 .theadqu2 th {
     background: #0B56E3 !important;
     font-family: Inter;
@@ -459,49 +427,6 @@
     line-height: 32px;
     color: white !important;
 
-}
-
-.quuo2_table_head th {
-    background: rgb(64 ,  64 , 64);
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 500;
-    min-width: 50px;
-    line-height: 22px;
-    color: white !important;
-    border: 1px solid black !important;
-
-}
-.quuo2_table_head2 th {
-    background: gray;
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 500;
-    min-width: 50px;
-    line-height: 22px;
-    color: white !important;
-    border: 1px solid black !important;
-
-}
-
-.prewid1{
-    width: 10px;
-}
-.prewid2{
-    width: 80px;
-
-}
-.prewid3{
-    width: 50px;
-
-}
-.prewid4{
-    width: 60px;
-
-}
-
-.prewid5{
-    width: 40px;
 }
 
 .tabletr input {
@@ -526,19 +451,7 @@
     text-align: left;
     color: #101820;
 }
-.quotabletr2 td {
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 22px;
-    text-align: left;
-    color: #101820;
-    border: 1px solid black !important;
-}
 
-.hard_para{
-    font-weight: 600 !important;
-}
 .tabletr .inpu11 {
     width: 340px;
     height: 34px;
@@ -546,24 +459,6 @@
     border: 1px solid #6A6A6A;
 }
 
-.eachprepara{
-    border-bottom: 1px solid black;
-    padding: 5px 5px;
-}
-
-
-.appinput2{
-    width: 150px !important;
-    height: 34px;
-    border-radius: 5px;
-    border: 1px solid #6A6A6A;
-    
-}
-
-.addwidth{
-    width: 300px !important;
-
-}
 
 .qutaRightcont {
     display: flex;
@@ -1105,8 +1000,8 @@
     height: 100%;
     padding: 20px 0px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .addClieCont {
@@ -1677,62 +1572,161 @@
     font-size: 16px;
 }
 
-.totalCI_charges{
+.logokushelquot{
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.proprsaltitle{
+font-family: Inter;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: center;
+margin-top: 50px;
+margin-bottom:30px;
+
+}
+
+.procesforwar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.procesforwar h2{
+font-family: Inter;
+font-size: 24px;
+font-weight: 600;
+line-height: 32px;
+text-align: left;
+color: #101820;
+
+}
+
+.procesforwar ul{
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-.totalCI_charges label{
-   display: grid;
-   grid-template-columns: repeat(2 , 0.2fr);
-   gap: 10px;
-   
-}
-.totalCI_charges label p{
+.procesforwar ul li{
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
-    letter-spacing: 0.005em;
-    color: black;
-}
-.totalCI_charges label input{
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.005em;
-    color: black;
-    border-radius: 10px;
-    width: 180px;
-    height: 34px;
-    border-radius: 5px;
-    border: 1px solid #6A6A6A;
-    padding: 0px 10px;
-   
-
+    letter-spacing: 0.0025em;
+    text-align: left;
+  color: #2B2B2B;
+    
 }
 
-.totalcai_cont{
+.wehoemesg{
+font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 26px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+}
+
+.thaksmessge{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    width: 100%;
-    border: 1px solid black;
+    gap: 5px;
 }
 
-.totalcai_cont p{
-    border: 1px solid black;
-    padding: 8px 5px;
-    text-align: right;
+.thaksmessge h4{
+font-family: Inter;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.0015em;
+text-align: left;
+color: #1B2533;
+
+}
+
+.frommesage{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.frommesage p,.frommesage span{
     font-family: Inter;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: 22px;
-    letter-spacing: 0.005em;
-    color: black;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: left;
+    color: #1B2533;
+    
 }
 
-.addsomethin1{
-    padding: 0px !important;
+.frommesage span{
+    color: #0B56E3;
 }
+
+.preparequtotion{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.preparequtotion .presec{
+    display: flex;
+    flex-direction: column;
+}
+.preparequtotion .presec p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: 0.0015em;
+    text-align: right;
+    color: #1B2533;
+}
+.preparequtotion .presec span{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: 0.0015em;
+    text-align: right;
+    color:#0B56E4;
+}
+
+.quot_contentt{
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.qoformfooter{
+width: 100%;
+display: flex;
+flex-direction: column;
+gap: 5px;
+align-items: center;
+padding: 30px 0px;
+}
+
+.qoformfooter p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.0015em;
+    text-align: right;
+    color:black;
+}
+
+.qoformfooter span{
+    color: #0B56E3;
+}
+

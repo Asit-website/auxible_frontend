@@ -3,8 +3,8 @@ import MainContext from './MainContext';
 import { deleteReq, get, post, put, postDocuments } from '../Api/api'
 import { useState } from 'react';
 
-// const baseUrl = "http://localhost:5000";
-
+const baseUrl = "http://localhost:5000";
+// 
 // const baseUrl = "https://hrms-backend-code.onrender.com"
 
 // const baseUrl = "http://localhost:5000";
@@ -12,7 +12,7 @@ import { useState } from 'react';
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
 
 // this is production baseurl 
-const baseUrl = "https://hrbackend.auxibleindia.com/";
+// const baseUrl = "https://hmsbackend.kusheldigi.com";
 
 // const baseUrl = "https://hrms-backend-g3wt.onrender.com";
 
@@ -163,27 +163,7 @@ const MainState = (props) => {
       return data;
    };
 
-   const getLeadType = async () => {
-      const data = await get(`${baseUrl}/system/getLeadType`, true);
-      return data;
-   };
-
-   const postLeadType = async ({ name }) => {
-      const data = await post(`${baseUrl}/system/postLeadType`, { name }, true);
-      return data;
-   };
-
-   const updateLeadType = async ({ id, name }) => {
-      const data = await put(`${baseUrl}/system/updateLeadType/${id}`, { name }, true);
-      return data;
-   };
-
-   const deleteLeadType = async (id) => {
-      const data = await deleteReq(`${baseUrl}/system/deleteLeadType/${id}`, true);
-      return data;
-   };
-
-   const createEmployee1 = async ({ fullName ,  password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType ,PermissionRole }) => {
+   const createEmployee1 = async ({ fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, formData, employeeType ,PermissionRole }) => {
 
 
       const data = await post(`${baseUrl}/admin/createUser1`, { fullName, password, department, employeeId, gmail, reportingManager, designation, joiningDate, email, email1, mobile, gender, dob, pan, adhar, father, currentAddress, currentState, currentCity, currentPin, residence, perState, perCity, perPin, Martial, nationality, Mother, employeeCode, qualification, specialization, qualificationType, yearPass, university, college, percentage, previousCompany, previousDesignation, toDate, fromDate, numberOfMonth, Jobdescription, SalaryPay, SalaryBankName, BeneficiaryName, BankIfsc, AccountNumber, confirmAccount, Branch, adharCard, employeeType , PermissionRole }, true);
@@ -308,6 +288,11 @@ const MainState = (props) => {
 
    const getUserLeaves = async () => {
       const data = await get(`${baseUrl}/leave/getUserLeaves`, true);
+      return data;
+   };
+   const FetchMyLeave = async () => {
+      let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
+      const data = await get(`${baseUrl}/leave/fetchUserLeaves/${hrms_user?._id}`, true);
       return data;
    };
    const getUserHalfDay = async () => {
@@ -502,9 +487,9 @@ const MainState = (props) => {
          AccountNumber,
          confirmAccount,
          Branch,
-         image,
+         profileImage,
          _id,
-         dob,
+         dob , 
          updatePassword
 
 
@@ -554,17 +539,16 @@ const MainState = (props) => {
          AccountNumber,
          confirmAccount,
          Branch,
-         image , 
-         dob,
+         profileImage , 
+         dob , 
          updatePassword
       }, true);
 
-      if (image) {
-         const formdata = new FormData();
-         formdata.append("image", image);
-         const resp = await postDocuments(`${baseUrl}/user/updateProfile/${_id}`, formdata);
+      // if (image) {
+      //    const formdata = new FormData();
+      //    const resp = await postDocuments(`${baseUrl}/user/updateProfile/${_id}`, formdata);
 
-      }
+      // }
 
       return data;
 
@@ -846,6 +830,7 @@ const MainState = (props) => {
          description
       }, true);
 
+      console.log("resp ", data);
       return data;
    }
 
@@ -1427,22 +1412,34 @@ const MainState = (props) => {
 
    const createLead = async (
       {
-      
-         image,
          LeadOwner,
-         leadType,
-         budget,
-         name,
-         Mobile,
+         Company,
+         FirstName,
+         LastName,
+         Title,
          Email,
-         date,
-         Street ,
-         City ,
-          State, 
-          ZipCode ,
-           Country ,
-           LeadSource ,
-           LeadStatus
+         Phone,
+         Fax,
+         Mobile,
+         Website,
+         LeadSource,
+         NoOfEmployee,
+         Industry,
+         LeadStatus,
+         AnnualRevenue,
+         Rating,
+         EmailOptOut,
+         SkypeID,
+         SecondaryEmail,
+         Twitter,
+         Street,
+         City,
+         State,
+         ZipCode,
+         Country,
+         DescriptionInfo,
+         image , 
+         date
       }) => {
 
       let data;
@@ -1456,41 +1453,67 @@ const MainState = (props) => {
 
 
          data = await post(`${baseUrl}/lead/createLead`, {
-        
-            image: imageUrl?.data,
             LeadOwner,
-            leadType,
-            budget,
-            name,
-            Mobile,
+            Company,
+            FirstName,
+            LastName,
+            Title,
             Email,
-            date,
-            Street ,
-            City ,
-             State, 
-             ZipCode ,
-              Country ,
-              LeadSource,
-              LeadStatus
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+            image: imageUrl?.data , 
+            date
          }, true);
 
       }
       else {
          data = await post(`${baseUrl}/lead/createLead`, {
             LeadOwner,
-            leadType,
-            budget,
-            name,
-            Mobile,
+            Company,
+            FirstName,
+            LastName,
+            Title,
             Email,
-            date,
-            Street ,
-            City ,
-             State, 
-             ZipCode ,
-              Country ,
-              LeadSource,
-              LeadStatus
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+            date
+
          }, true);
       }
 
@@ -1499,32 +1522,28 @@ const MainState = (props) => {
 
 
    const createExcelLead = async ({
-      LeadOwner,  Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate  , LeadStatus , Mobile
+      LeadOwner,
+      CompanyName,
+      Email,
+      Website , 
+      LeadStatus , 
+      FirstName,
+      LastName , 
    }) => {
 
       let data;
 
       data = await post(`${baseUrl}/lead/createLead`, {
          LeadOwner,
-         Email , 
-         date: LeadDate ,
-         name: Name , 
-         leadType: LeadType , 
-         budget: Budget , 
-         LeadSource: LeadSource , 
-         LeadStatus , Mobile
+         Company: CompanyName,
+         Email,
+         Website , 
+         LeadStatus , 
+         FirstName , 
+         LastName , 
+
 
       }, true);
-
-
-      return data;
-   }
-
-   const shareLeadApi = async ({leadId , shareEmp}) => {
-
-      let data;
-
-      data = await post(`${baseUrl}/lead/shareLead`, {  leadId , shareEmp}, true);
 
 
       return data;
@@ -1541,23 +1560,33 @@ const MainState = (props) => {
 
    const updateLead = async (
       {
-       
-         image,
-         LeadOwner,
-         leadType,
-         budget,
-         name,
-         Mobile,
+          LeadOwner,
+         Company,
+         FirstName,
+         LastName,
+         Title,
          Email,
-         date,
-         Street ,
-         City ,
-          State, 
-          ZipCode ,
-           Country ,
-           LeadSource ,
-           id,
-           LeadStatus
+         Phone,
+         Fax,
+         Mobile,
+         Website,
+         LeadSource,
+         NoOfEmployee,
+         Industry,
+         LeadStatus,
+         AnnualRevenue,
+         Rating,
+         EmailOptOut,
+         SkypeID,
+         SecondaryEmail,
+         Twitter,
+         Street,
+         City,
+         State,
+         ZipCode,
+         Country,
+         DescriptionInfo, id , image , 
+         date
       
       }
 
@@ -1572,23 +1601,34 @@ const MainState = (props) => {
 
         data = await post(`${baseUrl}/lead/editLead/${id}`,
          {
-          
+            LeadOwner,
+            Company,
+            FirstName,
+            LastName,
             image:imageUrl , 
-         LeadOwner,
-         leadType,
-         budget,
-         name,
-         Mobile,
-         Email,
-         date,
-         Street ,
-         City ,
-          State, 
-          ZipCode ,
-           Country ,
-           LeadSource,
-           LeadStatus
-      
+            Title,
+            Email,
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+            date
 
          }, true);
 
@@ -1597,21 +1637,33 @@ const MainState = (props) => {
 
       data = await post(`${baseUrl}/lead/editLead/${id}`,
          {
-         LeadOwner,
-         leadType,
-         budget,
-         name,
-         Mobile,
-         Email,
-         date,
-         Street ,
-         City,
-          State, 
-          ZipCode ,
-           Country ,
-           LeadSource,
-           LeadStatus
-      
+            LeadOwner,
+            Company,
+            FirstName,
+            LastName,
+            Title,
+            Email,
+            Phone,
+            Fax,
+            Mobile,
+            Website,
+            LeadSource,
+            NoOfEmployee,
+            Industry,
+            LeadStatus,
+            AnnualRevenue,
+            Rating,
+            EmailOptOut,
+            SkypeID,
+            SecondaryEmail,
+            Twitter,
+            Street,
+            City,
+            State,
+            ZipCode,
+            Country,
+            DescriptionInfo,
+            date
 
          }, true);
 
@@ -2120,14 +2172,27 @@ const MainState = (props) => {
       const data = await post(`${baseUrl}/payslip/setUserTotalLeave`, {  }, true);
       return data;
    };
-   const postQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId}) => {
-      const data = await post(`${baseUrl}/lead/postQuotationForm`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   const postQuotationFormApi = async ({  customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId , leadId , isSave}) => {
+      const data = await post(`${baseUrl}/lead/postQuotationForm`, { customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline , technology, userId , leadId , isSave  }, true);
       return data;
    };
-   const updateQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId , id}) => {
-      const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   const getSaveTempalte = async (leadId) => {
+      const data = await get(`${baseUrl}/lead/getSaveTempalte/${leadId}`, true);
       return data;
    };
+   // const postQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId}) => {
+   //    const data = await post(`${baseUrl}/lead/postQuotationForm`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   //    return data;
+   // };
+   // const updateQuotationFormApi = async ({  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,   companyGSTIN,companyWebsite , content , items, userId , leadId , id}) => {
+   //    const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {  quotationNum, customerName, customerReq,mobileNum,  quotationDate, validUntil, customerId,companyName,companyAddress,content ,   items,  companyGSTIN,companyWebsite , userId , leadId  }, true);
+   //    return data;
+   // };
+   const updateQuotationFormApi = async ({  customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId  ,  id}) => {
+      const data = await post(`${baseUrl}/lead/updateQuotationForm/${id}`, {   customerName, customerReq,  quotationDate, introduction , additional , costhead ,timeline, technology, userId    }, true);
+      return data;
+   };
+
    const postProposalFormApi = async ({  proposalFor ,preparedFor , createdBy , Date, content , userId , leadId}) => {
       const data = await post(`${baseUrl}/lead/postProposalForm`, {  proposalFor ,preparedFor , createdBy , Date,content , userId , leadId  }, true);
       return data;
@@ -2205,6 +2270,10 @@ const MainState = (props) => {
    }
    const saveDocs = async({id , content})=>{
       const data = await post(`${baseUrl}/lead/postSaveOfERdOCS`, { userId:id , content}, true);
+      return data;
+   }
+   const freelencerOfferApi = async({id , content7})=>{
+      const data = await post(`${baseUrl}/lead/freelencerOfferApi`, { userId:id , content7}, true);
       return data;
    }
    const saveRelivingLetterapi = async({id , content})=>{
@@ -2351,6 +2420,7 @@ const MainState = (props) => {
          deleteNotification,
          changeExperienceLetterPer , 
          saveDocs , 
+         freelencerOfferApi,
          createAllowance,
          postNotifyLeavereq,
          getMyOfferLetter , 
@@ -2413,11 +2483,7 @@ const MainState = (props) => {
          deleteQuotation1 , 
          uploadSingleImage , 
          getAllProjectUserApi , 
-         getLeadType,
-         postLeadType,
-         updateLeadType,
-         deleteLeadType,
-         savenoteatt ,AllRolesapi ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2 ,shareLeadApi
+         savenoteatt ,AllRolesapi , FetchMyLeave ,  closeLead , deleteQproapi , createExpenseApi , changeStatusBreak , deleteProjectTaskapi22 , EditProjectTask , postHalfDay , closeLeadApiFetch2 , closeLeadApiFetch , postNotification2 , getUserHalfDay , rejectHalfDay , acceptHalf , acceptassetsapi , getTodayLead , getTodayLead2 , getSaveTempalte
       }}> 
          {props.children}
       </MainContext.Provider>

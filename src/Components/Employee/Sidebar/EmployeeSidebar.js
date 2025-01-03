@@ -255,7 +255,7 @@ const EmployeeSidebar = () => {
                   <div
                     className={`${
                       window.location.pathname === "/employeeDash" ? "hh" : ""
-                    } side-dash-box2 silom`}
+                    } side-dash-box silom`}
                   >
                     <div className="dash-wrap">
                       <img
@@ -292,7 +292,7 @@ const EmployeeSidebar = () => {
                   setOpenLead((prev) => !prev);
                   sessionStorage.setItem("leadManagmentAdmin", !openLead);
                 }}
-                className="side-dash-box2 silom"
+                className="side-dash-box silom"
               >
                 <div className="dash-wrap">
                   <img
@@ -530,7 +530,7 @@ const EmployeeSidebar = () => {
                   setOpenHr2((prev) => !prev);
                   sessionStorage.setItem("adminHrManagement", !openHr2);
                 }}
-                className="side-dash-box2 silom"
+                className="side-dash-box silom"
               >
                 <div className="dash-wrap">
                   <img
@@ -688,11 +688,11 @@ const EmployeeSidebar = () => {
                     <>
                       <div
                         onClick={() => setOpenLeaveMan((prev) => !prev)}
-                        className="side-dash-box2 sidemargin adpading"
+                        className="side-dash-box sidemargin adpading"
                       >
                         <div className="dash-wrap">
                           <img src={reading} alt="dasg" />
-                          <p className="lessfontweight2">Leave Management Setup</p>
+                          <p className="lessfontparas">Leave Management Setup</p>
                         </div>
 
                         <img src={vect} alt="vect" />
@@ -752,11 +752,11 @@ const EmployeeSidebar = () => {
                     
                       <div
                         onClick={() => setOpenPayroll((prev) => !prev)}
-                        className="side-dash-box2 sidemargin adpading"
+                        className="side-dash-box sidemargin adpading"
                       >
                         <div className="dash-wrap">
                           <img src={anal} alt="dasg" />
-                          <p className="lessfontweight2">Payroll Management</p>
+                          <p className="lessfontparas">Payroll Management</p>
                         </div>
 
                         <img src={vect} alt="" />
@@ -847,11 +847,11 @@ const EmployeeSidebar = () => {
                     <>
                       <div
                         onClick={() => setOpenPerform((prev) => !prev)}
-                        className="side-dash-box2 sidemargin adpading"
+                        className="side-dash-box sidemargin adpading"
                       >
                         <div className="dash-wrap">
                           <img src={reading} alt="dasg" />
-                          <p className="lessfontweight2">Performance Setup</p>
+                          <p className="lessfontparas">Performance Setup</p>
                         </div>
 
                         <img src={vect} alt="vect" />
@@ -957,7 +957,7 @@ const EmployeeSidebar = () => {
                     setOpenHr((prev) => !prev);
                     sessionStorage.setItem("adminHRSetup" , !openHr)
                   }}
-                  className="side-dash-box2 sidemargin adpading"
+                  className="side-dash-box sidemargin adpading"
                 >
                   <div className="dash-wrap">
                     <img src={reading} alt="dasg" />
@@ -1024,7 +1024,7 @@ const EmployeeSidebar = () => {
                 setOpenPayroll2((prev) => !prev)
                 sessionStorage.setItem("adminTaskManagement" , !openPayroll2);
               }}
-              className="side-dash-box2 sidemargin adpading"
+              className="side-dash-box sidemargin adpading"
             >
               <div className="dash-wrap">
               
@@ -1110,6 +1110,15 @@ const EmployeeSidebar = () => {
                 <img src={shop} alt="" />
                 <a href="#" className=" ">
                   <span className="">My Self</span>
+                </a>
+              </li>
+            </NavLink>
+            
+            <NavLink to="/employeeDash/employeeLeave">
+              <li className="indefy adpading">
+                <img src={shop} alt="" />
+                <a href="#" className=" ">
+                  <span className="">My Leaves</span>
                 </a>
               </li>
             </NavLink>
@@ -1210,7 +1219,7 @@ export default EmployeeSidebar;
                {/* {(leadPermission || leadSystemPermission) && (
               <div
                 onClick={() => setOpenLead((prev) => !prev)}
-                className="side-dash-box2 sidemargin"
+                className="side-dash-box sidemargin"
               >
                 <div className="dash-wrap">
                   <img

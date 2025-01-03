@@ -16,6 +16,7 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
 
     const [selectedFiles , setSelectedFiles] = useState("");
 
+
     const [users, setUsers] = useState([]);
   
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
@@ -90,11 +91,26 @@ const LeadFile2 = ({ setAlert, pop, setPop }) => {
   
         for (let i = 0; i < data?.length; i++) {
 
-          const { Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate , LeadStatus , Mobile } = data[i];
+          const {
+            CompanyName,
+            Email,
+            LeadStatus , 
+            FirstName,
+            LastName ,
+            Website
+          } = data[i];
+  
       
         const ans = await createExcelLead({
-          LeadOwner: hrms_user?._id, Email, LeadType , Name  , Budget ,   LeadSource ,  LeadDate  , LeadStatus , Mobile
-            }); 
+          LeadOwner: hrms_user?._id,
+          CompanyName,
+          Email,
+          Website , 
+          LeadStatus , 
+          FirstName,
+          LastName ,
+            });
+  
           }
         
   

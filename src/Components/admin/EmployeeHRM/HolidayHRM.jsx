@@ -138,7 +138,7 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
             <div className="flex-col">
               <div className="admin-main adminmain">
 
-                <div className="plusSection">
+                {/* <div className="plusSection">
                   <div className="adminFirt">
                     <h2 className="hrmShed">Manage Holiday</h2>
 
@@ -158,7 +158,28 @@ const HolidayHRM = ({ setAlert, pop, setPop }) => {
                     src={plusIcon}
                     alt=""
                   />
-                </div>
+                </div> */}
+                <div className="plusSection">
+  <div className="adminFirt">
+    <h2 className="hrmShed">Manage Holiday</h2>
+
+    <div className="hrmDoHe">
+      <p>Dashboard</p>
+      <img src={chevron} alt="" />
+      <span>Holiday</span>
+    </div>
+  </div>
+
+  <button
+    onClick={() => {
+      setPopup1(true);
+    }}
+    className="adminsetupBtn"
+  >
+   Create Holiday
+  </button>
+</div>
+
 
                 <div className="relative overflow-x-auto w-full">
                   <table className="w-full table1 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

@@ -266,7 +266,6 @@ color: #293240;
     
 }
 
-
 .openform4{
     display: flex;
     flex-direction: column;
@@ -278,7 +277,6 @@ color: #293240;
     padding: 15px 30px;
     border-radius: 20px;
     gap: 15px;
-  
 }
 .openform4 nav{
    display: flex;
@@ -347,6 +345,8 @@ text-align: left;
 }
 
 
+
+
 .allInputFileds{
     display: flex;
     flex-wrap: wrap;
@@ -370,6 +370,21 @@ text-align: left;
     
 
 }
+
+.labwrapp{
+     display: flex;
+     gap: 130px;
+}
+.allInputFileds label input , select{
+    width: 354px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid #293240;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D0D4DC;
+}
+
 
 .allInputFileds4{
 
@@ -395,20 +410,6 @@ text-align: left;
     
 
 }
-
-.labwrapp{
-     display: flex;
-     gap: 130px;
-}
-.allInputFileds label input ,.allInputFileds label input select{
-    width: 354px;
-    height: 44px;
-    border-radius: 3px;
-    border: 1px solid #293240;
-    padding: 10px;
-    background: #FFFFFF;
-    border: 1px solid #D0D4DC;
-}
 .allInputFileds4 label input , .allInputFileds4 label select{
     width: 100%;
     height: 44px;
@@ -419,12 +420,6 @@ text-align: left;
     border: 1px solid #D0D4DC;
 }
 
-
-.anDesWrap.makefdufsld {
-    grid-column: 1 / -1; 
-    width: 100%; 
-  }
-  
 .anDesWrap{
     display: flex;
     flex-direction: column;

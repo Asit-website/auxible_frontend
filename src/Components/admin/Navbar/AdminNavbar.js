@@ -9,19 +9,19 @@ import notifyy from "../../images/notifyy.png"
 import redcancel from "../../images/redcancel.png"
 
 
-const AdminNavbar = ({ setAlert}) => {
-  
-  const { fetchUserNotifyHR  } = useMain();
+const AdminNavbar = ({ setAlert }) => {
+
+  const { fetchUserNotifyHR } = useMain();
 
   // let user = JSON?.parse(localStorage.getItem("hrms_user"));
 
-   const [user , setUser] = useState({});
+  const [user, setUser] = useState({});
 
-  const [allNotication , setAllNotification] = useState([]);
-  const [currLoad , setCurrLoad] = useState(1);
-  const [actNotify , setActNotify] = useState([]);
+  const [allNotication, setAllNotification] = useState([]);
+  const [currLoad, setCurrLoad] = useState(1);
+  const [actNotify, setActNotify] = useState([]);
 
-  const [shownotify , setShownotify] = useState(false);
+  const [shownotify, setShownotify] = useState(false);
 
   const updateUser = () => {
     document.getElementById("ty").classList.toggle("tys");
@@ -41,16 +41,16 @@ const AdminNavbar = ({ setAlert}) => {
     localStorage.removeItem("clock-in-date");
     localStorage.removeItem("break-seconds");
     localStorage.removeItem("break-time");
-   
+
 
     window.location.href = "/login";
     setAlert("success", "logout successfully");
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
-     setUser(hrms_user);
-  },[])
+    setUser(hrms_user);
+  }, [])
 
   // ===============logic for good morning, good afternoon and evening accorroding to time====
   let myDate = new Date();
@@ -62,31 +62,31 @@ const AdminNavbar = ({ setAlert}) => {
   else if (hours >= 17 && hours <= 24) greet = "Evening";
 
 
-  const fetchNotification  = async()=>{
+  const fetchNotification = async () => {
     const ans = await fetchUserNotifyHR();
 
-     if(ans?.status){
-        let notifications = ans?.notifications;
-        let reversedNotifications = notifications?.slice()?.reverse(); 
-  
-        setAllNotification(reversedNotifications);  
-     }
-}
+    if (ans?.status) {
+      let notifications = ans?.notifications;
+      let reversedNotifications = notifications?.slice()?.reverse();
 
-useEffect(()=>{
-  fetchNotification();
-  setCurrLoad(1);
-},[])
+      setAllNotification(reversedNotifications);
+    }
+  }
+
+  useEffect(() => {
+    fetchNotification();
+    setCurrLoad(1);
+  }, [])
 
 
 
-useEffect(()=>{
+  useEffect(() => {
 
-  let num = currLoad*10;
- const nNotify = allNotication.slice(0 , num);
- setActNotify(nNotify);
+    let num = currLoad * 10;
+    const nNotify = allNotication.slice(0, num);
+    setActNotify(nNotify);
 
-},[allNotication , currLoad])
+  }, [allNotication, currLoad])
 
 
   return (
@@ -95,7 +95,7 @@ useEffect(()=>{
       <div className="Employee-nav w-full">
 
 
-        <div className="logo-namewrap">
+        {/* <div className="logo-namewrap">
 
           <div className="logo ">
             <img src={kushel1} alt="" />
@@ -108,14 +108,27 @@ useEffect(()=>{
 
           </NavLink>
 
+        </div> */}
+        <div className="logo-namewrap">
+          <NavLink to="/adminDash/HRM">
+            <div className="logo">
+              <img src={kushel1} alt="" />
+            </div>
+          </NavLink>
+
+          <NavLink to="/adminDash/HRM">
+            <div className="second-logo flex items-center">
+            </div>
+          </NavLink>
         </div>
+
 
 
         <div className="navProfiIcons">
 
           <img onClick={
             () => {
-               setShownotify(true);
+              setShownotify(true);
             }
 
           } src={notification} alt="" />
@@ -139,7 +152,7 @@ useEffect(()=>{
               <NavLink to="/adminDash/mySelf"><p className=" text-center">
                 My Profile
               </p></NavLink>
-       
+
             </div>
 
           </div>
@@ -152,76 +165,76 @@ useEffect(()=>{
       </div>
 
 
-         {/* this is notification sidebar  */}
+      {/* this is notification sidebar  */}
 
- {
-  shownotify && 
-  <div className="notifySidwrap">
+      {
+        shownotify &&
+        <div className="notifySidwrap">
 
-  <div className="notifcont">
+          <div className="notifcont">
 
-    <nav>
-     <h2>Notifications</h2>
-     <img onClick={()=>{
-      setShownotify(false);
-     }}  src={redcancel} alt="" />
-    </nav>
+            <nav>
+              <h2>Notifications</h2>
+              <img onClick={() => {
+                setShownotify(false);
+              }} src={redcancel} alt="" />
+            </nav>
 
-    <hr />
+            <hr />
 
-     <div className="allnotiftcont">
+            <div className="allnotiftcont">
 
-         {
+              {
 
-          allNotication.length > 0 ?
-
-
-          <div className="allnotiftwrap">
-
-{
+                allNotication.length > 0 ?
 
 
-          actNotify?.map((item , index)=>(
+                  <div className="allnotiftwrap">
 
-             <>
-             <div key={index} className="singlnotify">
-               <h2>{item?.title}</h2>
-
-              <p>{item?.description}</p>
-
-              <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
+                    {
 
 
-             </div>
+                      actNotify?.map((item, index) => (
 
-              <hr />
-             </>
+                        <>
+                          <div key={index} className="singlnotify">
+                            <h2>{item?.title}</h2>
 
-           ))
+                            <p>{item?.description}</p>
 
-          }
-
-           
-          <button  onClick={() => setCurrLoad(currLoad + 1)}
-          className="lodmorebtns"><span>Load More...</span></button>
-         
-                    </div>
+                            <p>Date : {new Date(parseInt(item?.date)).toLocaleDateString()}</p>
 
 
-           
-           :
-           <div className="nonotify">
-             <img src={notifyy} alt="" />
-           </div>
-         }
+                          </div>
 
-     </div>
+                          <hr />
+                        </>
 
-  </div>
+                      ))
 
-</div>
- }
-          
+                    }
+
+
+                    <button onClick={() => setCurrLoad(currLoad + 1)}
+                      className="lodmorebtns"><span>Load More...</span></button>
+
+                  </div>
+
+
+
+                  :
+                  <div className="nonotify">
+                    <img src={notifyy} alt="" />
+                  </div>
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+      }
+
 
     </>
   );
